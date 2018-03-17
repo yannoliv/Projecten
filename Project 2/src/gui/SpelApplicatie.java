@@ -1,27 +1,136 @@
 package gui;
 
 
-import domein.Speler;
 import java.util.Scanner;
 import domein.DomeinController;
+import domein.Speler;
+import domein.SpelerRepository;
+import java.util.List;
 
-public class SpelApplicatie
+public final class SpelApplicatie
 {
+    Scanner input = new Scanner(System.in);
+    DomeinController dc;
+    SpelerRepository spelerRepository;
+    private int aantalSpelers = -1;
     
-    DomeinController dc = new DomeinController();
+    
+    public SpelApplicatie(DomeinController dc) 
+    {
+        setDc(dc);
+        
+        while (getAantalSpelers() < 2 || getAantalSpelers() > 4)
+        {
+            maakSpel(); //geeft aantal terug
+        }
+        System.out.printf("%n<spel gestart voor %d spelers>%n%n", aantalSpelers);
+        dc.maakRepository(getAantalSpelers(), dc);
+    }
+    
+    public int maakSpel()
+    {
+        //aantal spelers bepalen
+        String resultaat;
+        try{
+            System.out.printf("%nAantal spelers:(2-4): ");
+            resultaat = input.nextLine();
+            
+            setAantalSpelers(Integer.parseInt(resultaat));
+            if (getAantalSpelers() < 2 || getAantalSpelers() > 4)
+                System.out.printf("Ongeldige keuze.%n");
+            
+            return aantalSpelers;
+        }catch(NumberFormatException e) 
+        {
+            System.out.printf("Ongeldige keuze.%n");
+            return aantalSpelers;
+        }
+    }
+
+    public Speler maakSpelerAan(List<Speler> spelers) //wordt aangeroepen door domeincontroller
+    {
+        int nummer = spelers.size();
+        Speler speler = new Speler(nummer);
+        
+        System.out.printf("Naam speler %d: ", nummer);
+        String naam = input.next();
+        
+        switch(nummer)
+        {
+            case -1: System.out.println("probleem"); break;//ZZZ, gwn troubleshooten
+            case 0: 
+                dc.setSpelerNaam(naam, speler);
+                return speler;
+            case 1: 
+                while(naam.equals(spelers.get(0).getNaam()))
+                {
+                    System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
+                    System.out.printf("naam speler %d: ", nummer + 1);
+                    naam = input.next();
+                }
+                dc.setSpelerNaam(naam, speler);
+                return speler;
+            case 2: 
+                while(naam.equals(spelers.get(0).getNaam()) || naam.equals(spelers.get(1).getNaam()))
+                {
+                    System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
+                    System.out.printf("naam speler %d: ", nummer + 1);
+                    naam = input.next();
+                }
+                dc.setSpelerNaam(naam, speler);
+                return speler;
+            case 3: 
+                while(naam.equals(spelers.get(0).getNaam()) || naam.equals(spelers.get(1).getNaam()) || naam.equals(spelers.get(2).getNaam()))
+                {
+                    System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
+                    System.out.printf("naam speler %d: ", nummer + 1);
+                    naam = input.next();
+                }
+                dc.setSpelerNaam(naam, speler);
+                return speler;
+        }
+        return speler;
+    }
+  
+    public DomeinController getDc() {
+        return dc;
+    }
+
+    public void setDc(DomeinController dc) {
+        this.dc = dc;
+    }  
+    
+    
+    public int getAantalSpelers() {
+        return aantalSpelers;
+    }
+
+    public void setAantalSpelers(int aantalSpelers) {
+        this.aantalSpelers = aantalSpelers;
+    }
+    
+    
+    
+    
+    
+    
+    /*
     public int aantalSpelers;
     Speler spelers[];
     Scanner input = new Scanner(System.in);
     static SpelApplicatie spel = new SpelApplicatie();
     boolean c = false;
     boolean loop = true;
+    */
     
+    
+    /*
     //Startup methode zodat we startupklasse kunnen gebruiken
     public  void start() throws InterruptedException
     {
         spel.spelStarten();
         
-        spel.maakSpelersAan();
+        
         System.out.println("");
         spel.toonSpelers();
         
@@ -52,6 +161,7 @@ public class SpelApplicatie
             
             setAantalSpelers(aantal);
             System.out.printf("%n<spel gestart voor %d spelers>%n%n", aantalSpelers);
+            spelerRepository = new SpelerRepository(aantalSpelers);
         }catch(NumberFormatException e) 
         {
             System.out.printf("Ongeldige keuze.%n");
@@ -65,66 +175,19 @@ public class SpelApplicatie
         System.out.printf("%n%n%n");
         System.out.printf("Scoreboard:%n");
         //spelers informatie tonen
-        for (Speler loper : spelers) 
+        for (int i = 0; i < spelerRepository.getSpelers().size(); i) 
         {
-            System.out.println(toString(loper));
+            toString(spelerRepository.getSpelers().get(i));
         }
+        
     }
 
-   //spelers aanmaken
-   public Speler maakSpelerAan(int nummer) //in orde
-    {
-        
-        System.out.printf("naam speler %d: ", nummer +1);
-        String naam = input.next(); //geen spatie
-        Speler spelernaam = new Speler(nummer);
-        
-        
-        switch(nummer)
-        {
-            case 0: 
-                spelernaam.setNaam(naam);
-                return spelernaam;
-            case 1: 
-                while(naam.equals(spelers[0].getNaam()))
-                {
-                    System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
-                    System.out.printf("naam speler %d: ", nummer +1);
-                    naam = input.next();
-                }
-                spelernaam.setNaam(naam);
-                return spelernaam;
-            case 2: 
-                while(naam.equals(spelers[0].getNaam()) || naam.equals(spelers[1].getNaam()))
-                {
-                    System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
-                    System.out.printf("naam speler %d: ", nummer +1);
-                    naam = input.next();
-                }
-                spelernaam.setNaam(naam);
-                return spelernaam;
-            case 3: 
-                while(naam.equals(spelers[0].getNaam()) || naam.equals(spelers[1].getNaam()) || naam.equals(spelers[2].getNaam()))
-                {
-                    System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
-                    System.out.printf("naam speler %d: ", nummer +1);
-                    naam = input.next();
-                }
-                spelernaam.setNaam(naam);
-                return spelernaam;
-        }
-        return spelernaam;
-    }
+    //maakspelers aan
     
-    //Spelers in de array steken
-    private void maakSpelersAan()
-    {
-        //spelers aanmaken
-        spelers = new Speler[aantalSpelers];
-        for (int i = 0; i < aantalSpelers; i++) {
-            spelers[i] = maakSpelerAan(i);
-        }
-    }
+    
+    //maak speler aan
+    
+    
     
     //Bedieningspaneel
     public void bediening(Speler speler)
@@ -135,7 +198,7 @@ public class SpelApplicatie
             int temp;
             do
             {
-                System.out.printf("%n%n-Speler %s is aan de beurt.%n" + "--------------------------------------------------------------------------------------------------------------------------------------------------------------%n", speler.getNaam());
+                System.out.printf("%n%n-Speler %s is aan de beurt.%n"  "--------------------------------------------------------------------------------------------------------------------------------------------------------------%n", speler.getNaam());
                 System.out.printf("- • 0: Stop spel • 1: toonSpelers • 2: Bos • 3: Leemgroeve • 4: Steengroeve • 5: Goud rivier • 6: Yachtgebied • 7: Hut • 8: Tool makelaar • 9: Akkerbouw     -%n");
                 System.out.printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
                 System.out.printf("Keuze: ");
@@ -190,7 +253,7 @@ public class SpelApplicatie
         
         //per ronde per speler een apart bedieningspaneel
         
-        for (int i = 0; i < aantalSpelers; i++)         
+        for (int i = 0; i < aantalSpelers; i)         
         {
             if(spelers[i].getMaxStamleden()<spelers[i].getStamlid())
             {
@@ -200,7 +263,7 @@ public class SpelApplicatie
             while(spelers[i].getStamlid() != 0)
             // extend de for eigenlijk, blijft gaan tot de speler geen stamleden heeft
             {
-                for (int j = 0; j < aantalSpelers; j++) 
+                for (int j = 0; j < aantalSpelers; j) 
                 {
                     if (spelers[j].getStamlid() > 0)    
                     {
@@ -224,7 +287,7 @@ public class SpelApplicatie
         System.out.printf("%n               -----------------------------------------------");
         
          //per ronde stamleden terug geven
-        for (int i = 0; i < aantalSpelers; i++) 
+        for (int i = 0; i < aantalSpelers; i) 
         {
             //per ronde resources geven
             spel.krijgVoedsel(spelers[i]);
@@ -234,7 +297,7 @@ public class SpelApplicatie
             spel.krijgSteen(spelers[i]);
             spel.krijgGoud(spelers[i]);
             //per ronde voedsel aftrekken
-            spelers[i].setVoedsel(spelers[i].getVoedsel() - spelers[i].getMaxStamleden()+ spelers[i].getAkkerbouw());
+            spelers[i].setVoedsel(spelers[i].getVoedsel() - spelers[i].getMaxStamleden() spelers[i].getAkkerbouw());
         }
         
         spel.toonSpelers();
@@ -299,10 +362,10 @@ public class SpelApplicatie
         if (speler.getGebruikteHout() == true)
         {
             speler.setHout(speler.getAantalStamleden());
-            speler.setStamlid(speler.getStamlid() + speler.getAantalStamleden());
+            speler.setStamlid(speler.getStamlid()  speler.getAantalStamleden());
             System.out.printf("%n%n%s bij het bos:",speler.getNaam());
             System.out.printf("%n       Het gerolde getal van %s is %d", speler.getNaam(),speler.getGeroldGetal());
-            System.out.printf("%n       Speler %d krijgt %d hout", speler.getSpelerNummer() + 1, speler.getHout());
+            System.out.printf("%n       Speler %d krijgt %d hout", speler.getSpelerNummer()  1, speler.getHout());
             
         }
         else
@@ -356,10 +419,10 @@ public class SpelApplicatie
         if (speler.getGebruikteLeem() == true)
         {
             speler.setLeem(speler.getAantalStamleden());
-            speler.setStamlid(speler.getStamlid() + speler.getAantalStamleden());
+            speler.setStamlid(speler.getStamlid()  speler.getAantalStamleden());
             System.out.printf("%n%n%s bij de leemgroeve:", speler.getNaam());
             System.out.printf("%n       Het gerolde getal van %s is %d", speler.getNaam(),speler.getGeroldGetal());
-            System.out.printf("%n       Speler %d krijgt %d leem", speler.getSpelerNummer() + 1, speler.getLeem());
+            System.out.printf("%n       Speler %d krijgt %d leem", speler.getSpelerNummer()  1, speler.getLeem());
         }
         else
         {
@@ -412,10 +475,10 @@ public class SpelApplicatie
        if (speler.getGebruikteSteen() == true)
         {
             speler.setSteen(speler.getAantalStamleden());
-            speler.setStamlid(speler.getStamlid() + speler.getAantalStamleden());
+            speler.setStamlid(speler.getStamlid()  speler.getAantalStamleden());
             System.out.printf("%n%n%s bij de steengroeve:",speler.getNaam());
             System.out.printf("%n       Het gerolde getal van %s is %d", speler.getNaam(),speler.getGeroldGetal());
-            System.out.printf("%n       Speler %d krijgt %d steen", speler.getSpelerNummer() + 1, speler.getSteen());
+            System.out.printf("%n       Speler %d krijgt %d steen", speler.getSpelerNummer()  1, speler.getSteen());
         }
         else
         {
@@ -468,10 +531,10 @@ public class SpelApplicatie
         if (speler.getGebruikteGoud() == true)
         {
             speler.setGoud(speler.getAantalStamleden());
-            speler.setStamlid(speler.getStamlid() + speler.getAantalStamleden());
+            speler.setStamlid(speler.getStamlid()  speler.getAantalStamleden());
             System.out.printf("%n%n%s bij de goud rivier:", speler.getNaam());
             System.out.printf("%n       Het gerolde getal van %s is %d", speler.getNaam(),speler.getGeroldGetal());
-            System.out.printf("%n       Speler %d krijgt %d goud", speler.getSpelerNummer() + 1, speler.getGoud());
+            System.out.printf("%n       Speler %d krijgt %d goud", speler.getSpelerNummer()  1, speler.getGoud());
         }
         else
         {
@@ -525,10 +588,10 @@ public class SpelApplicatie
         if (speler.getGebruikteVoedsel() == true)
         {
             speler.harvestVoedsel(speler.getAantalStamleden());
-            speler.setStamlid(speler.getStamlid() + speler.getAantalStamleden());
+            speler.setStamlid(speler.getStamlid()  speler.getAantalStamleden());
             System.out.printf("%n%n%s bij het jacht gebied:", speler.getNaam());
             System.out.printf("%n       Het gerolde getal van %s is %d", speler.getNaam(),speler.getGeroldGetal());
-            System.out.printf("%n       Speler %d krijgt %d voedsel", speler.getSpelerNummer() + 1, speler.getVoedsel()-12);
+            System.out.printf("%n       Speler %d krijgt %d voedsel", speler.getSpelerNummer()  1, speler.getVoedsel()-12);
         }
         else
         {
@@ -581,7 +644,7 @@ public class SpelApplicatie
     {
         if (speler.getGebruikteHut() == true)
         {
-            speler.setStamlid(speler.getStamlid() + speler.getAantalStamleden());
+            speler.setStamlid(speler.getStamlid()  speler.getAantalStamleden());
             System.out.printf("%n%s kreeg een extra stamlid", speler.getNaam());
         }
         else
@@ -651,26 +714,26 @@ public class SpelApplicatie
         String resultaat = "";
         if (speler.getSpelerNummer() == 0) 
         {
-            for (int i = 0; i <= 177; i++) 
+            for (int i = 0; i <= 177; i) 
             {
-                resultaat += String.format("-");            
+                resultaat = String.format("-");            
             }
-            resultaat += String.format("%n");
+            resultaat = String.format("%n");
         }
-        resultaat += String.format("| Naam: " + speler.getNaam() + "\t\t\t");
-        resultaat += String.format("Kleur: " + speler.getKleur() + "\t");
-        resultaat += String.format("Hout: " + speler.getHout() + "     ");
-        resultaat += String.format("Leem: " + speler.getLeem() + "     ");
-        resultaat += String.format("Steen: " + speler.getSteen() + "     ");
-        resultaat += String.format("Goud: " + speler.getGoud() + "\t");
-        resultaat += String.format("Akkerbouw: " + speler.getAkkerbouw() + "     ");
-        resultaat += String.format("Gereedschap: " + speler.getGereedschap() + "     ");
-        resultaat += String.format("Voedsel: " + speler.getVoedsel() + "     ");
-        resultaat += String.format("Stamleden: " + speler.getStamlid() + "     ");
-        resultaat += String.format("Punten:  " + speler.getPunten()) + "  |";
-        resultaat += String.format("%n");
-        for (int i = 0; i <= 177; i++) {
-            resultaat += String.format("-");            
+        resultaat = String.format("| Naam: "  speler.getNaam()  "\t\t\t");
+        resultaat = String.format("Kleur: "  speler.getKleur()  "\t");
+        resultaat = String.format("Hout: "  speler.getHout()  "     ");
+        resultaat = String.format("Leem: "  speler.getLeem()  "     ");
+        resultaat = String.format("Steen: "  speler.getSteen()  "     ");
+        resultaat = String.format("Goud: "  speler.getGoud()  "\t");
+        resultaat = String.format("Akkerbouw: "  speler.getAkkerbouw()  "     ");
+        resultaat = String.format("Gereedschap: "  speler.getGereedschap()  "     ");
+        resultaat = String.format("Voedsel: "  speler.getVoedsel()  "     ");
+        resultaat = String.format("Stamleden: "  speler.getStamlid()  "     ");
+        resultaat = String.format("Punten:  "  speler.getPunten())  "  |";
+        resultaat = String.format("%n");
+        for (int i = 0; i <= 177; i) {
+            resultaat = String.format("-");            
         }
         return resultaat;
     }
@@ -691,5 +754,8 @@ public class SpelApplicatie
     public void setSpelers(Speler[] spelers) {
         this.spelers = spelers;
     }
-       
+       */
+
+    
+
 }
