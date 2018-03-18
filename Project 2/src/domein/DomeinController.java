@@ -22,41 +22,31 @@ public class DomeinController
     public void maakSpelersAan(int aantal, DomeinController dc)
     {
         spelerRepository = new SpelerRepository(aantal, dc);
-        System.out.printf("%nNieuw spel is gestart...%n"); 
+        System.out.printf("%nNieuw spel is gestart...%n");
     }
-    
     
     public String toonSpelers()
     {
-        return spelerRepository.getSpelerLijst().toString();
+        String resultaat = "";
+        for (int i = 0; i < spelerRepository.getSpelerLijst().size(); i++) 
+        {
+            resultaat += spelerRepository.getSpeler(i).toString(spelerRepository.getSpeler(i));
+        }
+        return resultaat;
     }
     
-    public void geefSpelersNamen(String naam, Speler speler)
+    public Speler getSpeler(int index)
     {
-        spelerRepository.setSpelerNaam(naam, speler);
+        return spelerRepository.getSpeler(index);
     }
     
-    public SpelerRepository getSpelerRepository() {
-        return spelerRepository;
-    }
-
-    public void setSpelerRepository(SpelerRepository spelerRepository) {
-        this.spelerRepository = spelerRepository;
-    }
-
-    public SpelApplicatie getSpel() {
-        return spel;
-    }
-
-    public void setSpel(SpelApplicatie spel) {
-        this.spel = spel;
+    public List<Speler> getSpelerLijst()
+    {
+        return spelerRepository.getSpelerLijst();
     }
     
-    
-    
-    
-    
-    
-    
-    
+    public void geefSpelersNamen(String naam, int aantal)
+    {
+        spelerRepository.geefSpelerNaam(naam, aantal);
+    }
 }
