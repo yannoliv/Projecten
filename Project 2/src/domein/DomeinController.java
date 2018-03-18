@@ -1,7 +1,6 @@
 package domein;
 
 import gui.SpelApplicatie;
-import java.util.ArrayList;
 import java.util.List;
 import persistentie.SpelMapper;
 
@@ -16,36 +15,26 @@ public class DomeinController
     
     public DomeinController()
     {
+        spel = new SpelApplicatie(this);   //hier komt de methode da alles start
         
-        spelerRepository = new SpelerRepository();
     }
     
-    public void maakRepository(int aantal, DomeinController dc)
+    public void maakSpelersAan(int aantal, DomeinController dc)
     {
         spelerRepository = new SpelerRepository(aantal, dc);
+        System.out.printf("%nNieuw spel is gestart...%n"); 
     }
     
-    public List<Speler> geefSpelers()
+    
+    public String toonSpelers()
     {
-        return spelerRepository.getSpelers();
+        return spelerRepository.getSpelerLijst().toString();
     }
     
-    
-    
-    public void setSpelerNaam(String naam, Speler speler) // kan zijn dat dit ergens anders moet
+    public void geefSpelersNamen(String naam, Speler speler)
     {
-        speler.setNaam(naam);
+        spelerRepository.setSpelerNaam(naam, speler);
     }
-    
-    public Speler maakSpelerAan(List<Speler> spelers)//wordt aangeroepen door spelmapper
-    {
-        Speler speler;
-        speler = spel.maakSpelerAan(spelers);
-        return speler;
-    }
-
-    
-    
     
     public SpelerRepository getSpelerRepository() {
         return spelerRepository;

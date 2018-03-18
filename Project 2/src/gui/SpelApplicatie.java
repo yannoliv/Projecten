@@ -18,36 +18,34 @@ public final class SpelApplicatie
     public SpelApplicatie(DomeinController dc) 
     {
         setDc(dc);
+        BepaalAantalSpelers(); //geeft aantal terug
+        dc.maakSpelersAan(aantalSpelers, dc);     
+        dc.toonSpelers();
         
-        while (getAantalSpelers() < 2 || getAantalSpelers() > 4)
-        {
-            maakSpel(); //geeft aantal terug
-        }
-        System.out.printf("%n<spel gestart voor %d spelers>%n%n", aantalSpelers);
-        dc.maakRepository(getAantalSpelers(), dc);
+        //toon speler scoreboard
     }
     
-    public int maakSpel()
+    public void BepaalAantalSpelers()
     {
         //aantal spelers bepalen
-        String resultaat;
-        try{
-            System.out.printf("%nAantal spelers:(2-4): ");
-            resultaat = input.nextLine();
-            
-            setAantalSpelers(Integer.parseInt(resultaat));
-            if (getAantalSpelers() < 2 || getAantalSpelers() > 4)
-                System.out.printf("Ongeldige keuze.%n");
-            
-            return aantalSpelers;
-        }catch(NumberFormatException e) 
+        while (getAantalSpelers() < 2 || getAantalSpelers() > 4)
         {
-            System.out.printf("Ongeldige keuze.%n");
-            return aantalSpelers;
+            String resultaat;
+            try{
+                System.out.printf("%nAantal spelers:(2-4): ");
+                resultaat = input.nextLine();
+                int aantal = Integer.parseInt(resultaat);
+                setAantalSpelers(aantal);
+                if (getAantalSpelers() < 2 || getAantalSpelers() > 4)
+                    System.out.printf("Ongeldige keuze.%n");
+            }catch(NumberFormatException e) 
+            {
+                System.out.printf("Ongeldige keuze.%n");
+            }
         }
     }
 
-    public Speler maakSpelerAan(List<Speler> spelers) //wordt aangeroepen door domeincontroller
+    public Speler geefSpelersNamen(List<Speler> spelers) //wordt aangeroepen door domeincontroller
     {
         int nummer = spelers.size();
         Speler speler = new Speler(nummer);
@@ -59,7 +57,7 @@ public final class SpelApplicatie
         {
             case -1: System.out.println("probleem"); break;//ZZZ, gwn troubleshooten
             case 0: 
-                dc.setSpelerNaam(naam, speler);
+                dc.geefSpelersNamen(naam, speler);
                 return speler;
             case 1: 
                 while(naam.equals(spelers.get(0).getNaam()))
@@ -68,7 +66,7 @@ public final class SpelApplicatie
                     System.out.printf("naam speler %d: ", nummer + 1);
                     naam = input.next();
                 }
-                dc.setSpelerNaam(naam, speler);
+                dc.geefSpelersNamen(naam, speler);
                 return speler;
             case 2: 
                 while(naam.equals(spelers.get(0).getNaam()) || naam.equals(spelers.get(1).getNaam()))
@@ -77,7 +75,7 @@ public final class SpelApplicatie
                     System.out.printf("naam speler %d: ", nummer + 1);
                     naam = input.next();
                 }
-                dc.setSpelerNaam(naam, speler);
+                dc.geefSpelersNamen(naam, speler);
                 return speler;
             case 3: 
                 while(naam.equals(spelers.get(0).getNaam()) || naam.equals(spelers.get(1).getNaam()) || naam.equals(spelers.get(2).getNaam()))
@@ -86,7 +84,7 @@ public final class SpelApplicatie
                     System.out.printf("naam speler %d: ", nummer + 1);
                     naam = input.next();
                 }
-                dc.setSpelerNaam(naam, speler);
+                dc.geefSpelersNamen(naam, speler);
                 return speler;
         }
         return speler;

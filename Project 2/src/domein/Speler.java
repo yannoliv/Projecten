@@ -29,15 +29,6 @@ public class Speler
     boolean gebruikteHut = false;
     boolean heeftGereedschap = false;
 
-    public boolean getHeeftGereedschap() {
-        return heeftGereedschap;
-    }
-
-    public void setHeeftGereedschap(boolean heeftGereedschap) {
-        this.heeftGereedschap = heeftGereedschap;
-    }
-  
-
    
     SecureRandom random = new SecureRandom();
     
@@ -58,9 +49,25 @@ public class Speler
         setKleur(kleurLijst[spelerNummer]); // speler 1 -1 wordt 0 dus rood
         setAantalStamleden(0);
     }
-
-   
-   
+    
+    
+   public String toString(Speler speler)
+   {
+       String resultaat = "";
+       resultaat += String.format("Naam: " + speler.getNaam() + "\t\t\t");
+       resultaat += String.format("Hout: " + speler.getHout() +  "     ");
+       resultaat += String.format("Leem: " + speler.getLeem() + "     ");
+       resultaat += String.format("Steen: " + speler.getSteen() + "     ");
+       resultaat += String.format("Kleur: " + speler.getKleur() + "\t");
+       resultaat += String.format("Goud: " + speler.getGoud() + "\t");
+       resultaat += String.format("Akkerbouw: " + speler.getAkkerbouw() + "     ");
+       resultaat += String.format("Gereedschap: " + speler.getGereedschap() + "     ");
+       resultaat += String.format("Voedsel: " + speler.getVoedsel() + "     ");
+       resultaat += String.format("Stamleden: " + speler.getStamlid() +  "     ");
+       resultaat += String.format("Punten:  " + speler.getPunten());
+       resultaat += String.format("%n");
+       return resultaat;
+   }
     
     //getters en setters
     
@@ -284,6 +291,14 @@ public class Speler
         }
         return geroldGetal;
      }
+     
+     public boolean getHeeftGereedschap() {
+        return heeftGereedschap;
+    }
+
+    public void setHeeftGereedschap(boolean heeftGereedschap) {
+        this.heeftGereedschap = heeftGereedschap;
+    }
 }
 
 //

@@ -8,29 +8,27 @@ import persistentie.SpelMapper;
 public class SpelerRepository 
 {
     
-    private SpelMapper spelMapper;
-    private List<Speler> spelers;
-    
-    public SpelerRepository()
-    {
-        spelMapper = new SpelMapper();
-    }
-    
-    public SpelerRepository(int aantalSpelers, DomeinController dc)// wordt aangeroepen door domeincontroller
-    {
-        spelMapper = new SpelMapper();
-        spelers = spelMapper.maakSpelersAan(aantalSpelers, spelers, dc);
-    }
-    
-    public List<Speler> getSpelers()
-    {
-        return spelers;
-    }
-
-    public SpelMapper getSpelMapper() {
-        return spelMapper;
-    }
+    SpelMapper spelMapper;
+    private final List<Speler> spelerLijst;
 
     
+    public SpelerRepository(int aantal, DomeinController dc)// wordt aangeroepen door domeincontroller
+    {
+        spelMapper = new SpelMapper();
+        spelerLijst = spelMapper.vulSpelerLijst(aantal);
+    }
     
+    public Speler neemSpeler(int index)
+    {
+        return spelerLijst.get(index);
+    }
+    
+    public List<Speler> getSpelerLijst() {
+        return spelerLijst;
+    }
+    
+    public void setSpelerNaam(String naam, Speler speler)
+    {
+        speler.setNaam(naam);
+    }
 }

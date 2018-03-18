@@ -1,19 +1,17 @@
 package persistentie;
-
-import domein.DomeinController;
-import domein.Speler;
-import java.util.List;
+import domein.*;
+import java.util.*;
 
 public class SpelMapper
 {
-    //wordt aangeroepen door repository
-    public List<Speler> maakSpelersAan(int aantalSpelers, List<Speler> spelers, DomeinController dc)
-    {
-        for (int i = 0; i < aantalSpelers; i++) {
-            spelers.add(dc.maakSpelerAan(spelers));
-        }
-        return spelers;
-    }
+   public List<Speler> vulSpelerLijst(int aantal)
+   {
+       List<Speler> spelers = new ArrayList<>();
+       for (int i = 0; i < aantal; i++) {
+           spelers.add(new Speler(i));
+       }
+       return spelers;
+   }
 }
     
     
