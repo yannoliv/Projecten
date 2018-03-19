@@ -1,16 +1,12 @@
 package domein;
 
 import gui.SpelApplicatie;
-import java.util.List;
-import persistentie.SpelMapper;
-
-
+import java.util.*;
 
 public class DomeinController
 {
     
     SpelerRepository spelerRepository;
-    SpelMapper spelMapper;
     SpelApplicatie spel;
     
     public DomeinController()
@@ -28,7 +24,17 @@ public class DomeinController
     
     public String toonSpelers()
     {
-        return spelerRepository.getSpelerLijst().toString();
+        String resultaat = "";
+        for (int i = 0; i < spelerRepository.getSpelerLijst().size(); i++) 
+        {
+            resultaat += spelerRepository.neemSpeler(i).toString(spelerRepository.neemSpeler(i));
+        }
+        return resultaat;   
+    }
+    
+    public List<Speler> getSpelerLijst()
+    {
+        return spelerRepository.getSpelerLijst();
     }
     
     public void geefSpelersNamen(String naam, Speler speler)
@@ -43,19 +49,6 @@ public class DomeinController
     public void setSpelerRepository(SpelerRepository spelerRepository) {
         this.spelerRepository = spelerRepository;
     }
-
-    public SpelApplicatie getSpel() {
-        return spel;
-    }
-
-    public void setSpel(SpelApplicatie spel) {
-        this.spel = spel;
-    }
-    
-    
-    
-    
-    
     
     
     
