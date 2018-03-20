@@ -28,14 +28,15 @@ public class Spel
     public List<Resource> vulResourceLijst()
     {
         resourceLijst = new ArrayList<>();
-        resourceLijst.add(new Resource("hout", 0));
-        resourceLijst.add(new Resource("leem", 0));
-        resourceLijst.add(new Resource("steen", 0));
-        resourceLijst.add(new Resource("goud", 0));
-        resourceLijst.add(new Resource("akkerbouw", 0));
-        resourceLijst.add(new Resource("gereedschap", 0));
-        resourceLijst.add(new Resource("voedsel", 12));
-        resourceLijst.add(new Resource("stamleden", 5));
+        //                              naam        aantal
+        resourceLijst.add(new Resource("hout",          0));
+        resourceLijst.add(new Resource("leem",          0));
+        resourceLijst.add(new Resource("steen",         0));
+        resourceLijst.add(new Resource("goud",          0));
+        resourceLijst.add(new Resource("akkerbouw",     0));
+        resourceLijst.add(new Resource("gereedschap",   0));
+        resourceLijst.add(new Resource("voedsel",       12));
+        resourceLijst.add(new Resource("stamleden",     5));
         return resourceLijst;
     }
     //---------------------------------------------------------------------------
@@ -43,14 +44,15 @@ public class Spel
     public List<Plaats> vulPlaatsLijst()
     {
         plaatsLijst = new ArrayList<>();
-        plaatsLijst.add(new Plaats("Bos", getResourceLijst().get(0), 3, 7));
-        plaatsLijst.add(new Plaats("Leemgroeve", getResourceLijst().get(1), 4, 7));
-        plaatsLijst.add(new Plaats("Steengroeve", getResourceLijst().get(2), 5, 7));
-        plaatsLijst.add(new Plaats("Goudmijn", getResourceLijst().get(3), 6, 7));
-        plaatsLijst.add(new Plaats("Akkerbouw", getResourceLijst().get(4), 1));
-        plaatsLijst.add(new Plaats("Smith", getResourceLijst().get(5), 1));
-        plaatsLijst.add(new Plaats("Jachtgebied", getResourceLijst().get(6), 2, 40));
-        plaatsLijst.add(new Plaats("Hut", getResourceLijst().get(7), 2));
+        //                         naam             resource                 deler  beschikbare plaatsen
+        plaatsLijst.add(new Plaats("Bos",           getResourceLijst().get(0), 3,        7));
+        plaatsLijst.add(new Plaats("Leemgroeve",    getResourceLijst().get(1), 4,        7));
+        plaatsLijst.add(new Plaats("Steengroeve",   getResourceLijst().get(2), 5,        7));
+        plaatsLijst.add(new Plaats("Goudmijn",      getResourceLijst().get(3), 6,        7));
+        plaatsLijst.add(new Plaats("Akkerbouw",     getResourceLijst().get(4),           1));
+        plaatsLijst.add(new Plaats("Smith",         getResourceLijst().get(5),           1));
+        plaatsLijst.add(new Plaats("Jachtgebied",   getResourceLijst().get(6), 2,        40));
+        plaatsLijst.add(new Plaats("Hut",           getResourceLijst().get(7),           2));
         return plaatsLijst;
     }
     //---------------------------------------------------------------------------

@@ -21,9 +21,7 @@ public class DomeinController
         spel.setSpelerResources();
         System.out.println(toonSpelers());
         for (int index = 0; index < getAantalSpelers(); index++) {
-            while (spel.getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() != 0) {
-                spelApp.bediening(index);
-            }
+            spelApp.bediening(index);
         }
         System.out.println(toonSpelers());
         
@@ -84,14 +82,14 @@ public class DomeinController
         bedieningsPaneel += String.format("Speler %d is nu aan de beurt.%n", getSpelerLijst().get(spelerNr).getSpelerNummer() + 1);
         bedieningsPaneel += String.format("• 0: Stop spel    ");
         bedieningsPaneel += String.format("• 1: Toon spelers    ");
-        bedieningsPaneel += String.format("• 2: %s", getPlaatsenLijst().get(0).getNaam() + "    ");//Crashed hier
-        bedieningsPaneel += String.format("• 3: %s", getPlaatsenLijst().get(1).getNaam() + "    ");
-        bedieningsPaneel += String.format("• 4: %s", getPlaatsenLijst().get(2).getNaam() + "    ");
-        bedieningsPaneel += String.format("• 5: %s", getPlaatsenLijst().get(3).getNaam() + "    ");
-        bedieningsPaneel += String.format("• 6: %s", getPlaatsenLijst().get(6).getNaam() + "    ");
-        bedieningsPaneel += String.format("• 7: %s", getPlaatsenLijst().get(7).getNaam() + "    ");
-        bedieningsPaneel += String.format("• 8: %s", getPlaatsenLijst().get(5).getNaam() + "    ");
-        bedieningsPaneel += String.format("• 9: %s", getPlaatsenLijst().get(4).getNaam() + "    ");
+        bedieningsPaneel += String.format("• 2: %s     ", getPlaatsenLijst().get(0).getNaam());//Crashed hier
+        bedieningsPaneel += String.format("• 3: %s     ", getPlaatsenLijst().get(1).getNaam());
+        bedieningsPaneel += String.format("• 4: %s     ", getPlaatsenLijst().get(2).getNaam());
+        bedieningsPaneel += String.format("• 5: %s     ", getPlaatsenLijst().get(3).getNaam());
+        bedieningsPaneel += String.format("• 6: %s     ", getPlaatsenLijst().get(6).getNaam());
+        bedieningsPaneel += String.format("• 7: %s     ", getPlaatsenLijst().get(7).getNaam());
+        bedieningsPaneel += String.format("• 8: %s     ", getPlaatsenLijst().get(5).getNaam());
+        bedieningsPaneel += String.format("• 9: %s     ", getPlaatsenLijst().get(4).getNaam());
         bedieningsPaneel += String.format("%n");
         return bedieningsPaneel;
     }
