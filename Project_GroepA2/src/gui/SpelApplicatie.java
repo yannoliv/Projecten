@@ -86,7 +86,7 @@ public class SpelApplicatie
             int temp;
             do
             {
-                System.out.printf("%n%n-Speler %d is aan de beurt.%n" + "--------------------------------------------------------------------------------------------------------------------------------------------------------------%n", dc.getSpelerLijst().get(spelerNr).getSpelerNummer());
+                System.out.printf("%n%n-Speler %d is aan de beurt.%n" + "--------------------------------------------------------------------------------------------------------------------------------------------------------------%n", dc.getSpelerLijst().get(spelerNr).getSpelerNummer() + 1);
                 System.out.printf("- • 0: Stop spel • 1: toonSpelers • 2: Bos • 3: Leemgroeve • 4: Steengroeve • 5: Goudmijn • 6: Jachtgebied • 7: Hut • 8: Smith • 9: Akkerbouw     -%n");
                 System.out.printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
                 System.out.printf("Keuze: ");
@@ -128,7 +128,6 @@ public class SpelApplicatie
             System.out.printf("%n                   ----------------------------");
             System.out.printf("%n                   -!!!Keuze moet 0-9 zijn.!!!-");
             System.out.printf("%n                   ----------------------------%n");
-            bediening(spelerNr);
         }
         
         System.out.printf("%n<Volgende speler>%n%n");
@@ -149,25 +148,20 @@ public class SpelApplicatie
     
     private int bepaalStamleden(int spelerNr)
     {
-        int temp = 11;
+        int temp = 0;
         try
         {
             do {
                 System.out.printf("Hoeveel stamleden wilt u plaatsen: ");
                 String antwoord = input.next();
-                temp = Integer.parseInt(antwoord);
-                
-                while (temp > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal())
-                {
-                    bepaalStamleden(spelerNr);
-                }
-                
+                temp += Integer.parseInt(antwoord);
                 return temp;
-            } while (true);
+            } while (temp > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal());
         }catch(NumberFormatException e)
         {
             bepaalStamleden(spelerNr);
         }
+        
         return temp;
     }
     

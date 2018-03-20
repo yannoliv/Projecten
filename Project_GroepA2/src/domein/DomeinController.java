@@ -20,6 +20,12 @@ public class DomeinController
         spelApp.setSpelersNamen();
         spel.setSpelerResources();
         System.out.println(toonSpelers());
+        for (int index = 0; index < getAantalSpelers(); index++) {
+            while (spel.getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() != 0) {
+                spelApp.bediening(index);
+            }
+        }
+        System.out.println(toonSpelers());
         
     }
     //---------------------------------------------------------------------------
@@ -111,14 +117,12 @@ public class DomeinController
     //Gerold getal bepalen
     public int dobbelStenen(int aantalStamleden)
     {
-        int getal;
-        int dobbelSteen = 0;
+        int getal= 0;
         SecureRandom random = new SecureRandom();
         for (int i = 0; i < aantalStamleden; i++) {
-            dobbelSteen += random.nextInt(6) + 1;
+            int dobbelSteen = random.nextInt(6) + 1;
+            getal += (dobbelSteen * aantalStamleden);
         }
-        
-        getal = dobbelSteen * aantalStamleden;
         return getal;
     }
     //---------------------------------------------------------------------------
