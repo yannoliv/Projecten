@@ -129,8 +129,6 @@ public class SpelApplicatie
             System.out.printf("%n                   -!!!Keuze moet 0-9 zijn.!!!-");
             System.out.printf("%n                   ----------------------------%n");
         }
-        
-        System.out.printf("%n<Volgende speler>%n%n");
     }
     
    //Einde ronde
@@ -146,24 +144,25 @@ public class SpelApplicatie
         System.out.printf("%n%n<Nieuwe ronde is gestart>%n%n");
     }
     
-    private int bepaalStamleden(int spelerNr)
+    public int bepaalStamleden(int spelerNr)
     {
-        int temp = 0;
-        try
-        {
-            do {
-                System.out.printf("Hoeveel stamleden wilt u plaatsen: ");
-                String antwoord = input.next();
-                temp += Integer.parseInt(antwoord);
-                return temp;
-            } while (temp > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal());
-        }catch(NumberFormatException e)
-        {
-            bepaalStamleden(spelerNr);
+        int aantal = 0;
+        System.out.printf("<Huidig aantal stamleden: %d >%n", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal());
+            try
+            {
+                do
+                {
+                    System.out.printf("Hoeveel wilt u er plaatsen: ");
+                    String antw = input.next();
+                    aantal = Integer.parseInt(antw);
+                    return aantal;
+                } while(aantal == 0);
+            }catch(NumberFormatException e)
+            {
+                bepaalStamleden(spelerNr);
+            }
+            return aantal;
         }
-        
-        return temp;
-    }
     
     public DomeinController getDc() {
         return dc;

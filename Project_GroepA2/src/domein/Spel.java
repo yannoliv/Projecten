@@ -1,5 +1,6 @@
 package domein;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 
@@ -112,6 +113,17 @@ public class Spel
         this.aantalSpelers = aantalSpelers;
     }
     //---------------------------------------------------------------------------
+    //Gerold getal bepalen
+    public int dobbelStenen(int aantalStamleden)
+    {
+        int getal= 0;
+        SecureRandom random = new SecureRandom();
+        for (int i = 0; i < aantalStamleden; i++) {
+            int dobbelSteen = random.nextInt(6) + 1;
+            getal += (dobbelSteen * aantalStamleden);
+        }
+        return getal;
+    }
     
     
 }
