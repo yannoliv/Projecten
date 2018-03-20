@@ -2,7 +2,6 @@ package domein;
 
 import gui.SpelApplicatie;
 import java.util.List;
-import domein.*;
 import java.security.SecureRandom;
 
 
@@ -21,6 +20,7 @@ public class DomeinController
         spelApp.setSpelersNamen();
         spel.setSpelerResources();
         System.out.println(toonSpelers());
+        
     }
     //---------------------------------------------------------------------------
     //spelers aanmaken
@@ -102,13 +102,49 @@ public class DomeinController
             getSpelerLijst().get(i).getResourceLijst().get(0);
         }
     }
+    //Gerold getal bepalen
+    public int dobbelStenen(int aantalStamleden)
+    {
+        int getal;
+        int dobbelSteen = 0;
+        SecureRandom random = new SecureRandom();
+        for (int i = 0; i < aantalStamleden; i++) {
+            dobbelSteen += random.nextInt(6) + 1;
+        }
+        
+        getal = dobbelSteen * aantalStamleden;
+        return getal;
+    }
     //---------------------------------------------------------------------------
     //speler plaatsen op bos
-    public void plaatsBos(int spelerNr, int aantalStamleden)
+    public void plaatsOpPlek(int spelerNr, int keuzeNr, int aantalStamleden)
     {
-//        SecureRandom random = new SecureRandom();
-//        int dobbelSteen = random.nextInt(6) + 1;
-//        int getal = dobbelSteen * aantalStamleden;
-        getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(aantalStamleden);
+        switch (keuzeNr) {
+            case 2:
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(dobbelStenen(aantalStamleden));
+                break;
+            case 3:
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(dobbelStenen(aantalStamleden));
+                break;
+            case 4:
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(dobbelStenen(aantalStamleden));
+                break;
+            case 5:
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(dobbelStenen(aantalStamleden));
+                break;
+            case 6:
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(dobbelStenen(aantalStamleden));
+                break;
+            case 7:
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(dobbelStenen(aantalStamleden));
+                break;
+            case 8:
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(5).setAantal(dobbelStenen(aantalStamleden));
+                break;
+            case 9:
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(4).setAantal(dobbelStenen(aantalStamleden));
+                break;
+        }
+        
     }
 }

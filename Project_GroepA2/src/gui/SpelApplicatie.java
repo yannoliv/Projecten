@@ -14,7 +14,7 @@ public class SpelApplicatie
         setDc(dc);
     }
     
-    private void BepaalAantalSpelers()
+    public void BepaalAantalSpelers()
     {
         //aantal spelers bepalen
         
@@ -34,7 +34,7 @@ public class SpelApplicatie
             }
         } //deze return dienen voor geen rode lijntjes :p
     }
-    private void setSpelersNamen() 
+    public void setSpelersNamen() 
     {
         for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
         {
@@ -78,7 +78,7 @@ public class SpelApplicatie
     }
     
     //Bedieningspaneel
-    public void bediening(int nr)
+    public void bediening(int spelerNr)
     {
         
         try
@@ -86,8 +86,8 @@ public class SpelApplicatie
             int temp;
             do
             {
-                System.out.printf("%n%n-Speler %d is aan de beurt.%n" + "--------------------------------------------------------------------------------------------------------------------------------------------------------------%n", dc.getSpelerLijst().get(nr).getSpelerNummer());
-                System.out.printf("- • 0: Stop spel • 1: toonSpelers • 2: Bos • 3: Leemgroeve • 4: Steengroeve • 5: Goud rivier • 6: Yachtgebied • 7: Hut • 8: Tool makelaar • 9: Akkerbouw     -%n");
+                System.out.printf("%n%n-Speler %d is aan de beurt.%n" + "--------------------------------------------------------------------------------------------------------------------------------------------------------------%n", dc.getSpelerLijst().get(spelerNr).getSpelerNummer());
+                System.out.printf("- • 0: Stop spel • 1: toonSpelers • 2: Bos • 3: Leemgroeve • 4: Steengroeve • 5: Goudmijn • 6: Jachtgebied • 7: Hut • 8: Smith • 9: Akkerbouw     -%n");
                 System.out.printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
                 System.out.printf("Keuze: ");
                 String resultaat = input.next();
@@ -100,25 +100,25 @@ public class SpelApplicatie
                         break;
                     case 1: dc.toonSpelers();
                     break;
-                    case 2: dc.plaatsBos(nr, plaatsOpPlek(nr));
+                    case 2: dc.plaatsOpPlek(spelerNr, 2, bepaalStamleden(spelerNr));
                     break;
-                    case 3: plaatsLeem(speler);
+                    case 3: dc.plaatsOpPlek(spelerNr, 3, bepaalStamleden(spelerNr));
                     break;
-                    case 4: plaatsSteen(speler);
+                    case 4: dc.plaatsOpPlek(spelerNr, 4, bepaalStamleden(spelerNr));
                     break;
-                    case 5: plaatsGoud(speler);
+                    case 5: dc.plaatsOpPlek(spelerNr, 5, bepaalStamleden(spelerNr));
                     break;
-                    case 6: plaatsJachtveld(speler);
+                    case 6: dc.plaatsOpPlek(spelerNr, 6, bepaalStamleden(spelerNr));
                     break;
-                    case 7: plaatsHut(speler);
+                    case 7: dc.plaatsOpPlek(spelerNr, 7, bepaalStamleden(spelerNr));
                     break;
-                    case 8: plaatsGereedschap(speler);
+                    case 8: dc.plaatsOpPlek(spelerNr, 8, bepaalStamleden(spelerNr));
                     break;
-                    case 9: plaatsAkkerbouw(speler);
+                    case 9: dc.plaatsOpPlek(spelerNr, 9, bepaalStamleden(spelerNr));
                     break;
                     default: 
                         System.out.printf("%nOngeldige keuze.");
-                        bediening(nr);
+                        bediening(spelerNr);
                         break;
                 }
 
@@ -128,7 +128,7 @@ public class SpelApplicatie
             System.out.printf("%n                   ----------------------------");
             System.out.printf("%n                   -!!!Keuze moet 0-9 zijn.!!!-");
             System.out.printf("%n                   ----------------------------%n");
-            bediening(nr);
+            bediening(spelerNr);
         }
         
         System.out.printf("%n<Volgende speler>%n%n");
@@ -147,7 +147,7 @@ public class SpelApplicatie
         System.out.printf("%n%n<Nieuwe ronde is gestart>%n%n");
     }
     
-    private int plaatsOpPlek(int nr)
+    private int bepaalStamleden(int spelerNr)
     {
         int temp = 11;
         try
@@ -157,16 +157,16 @@ public class SpelApplicatie
                 String antwoord = input.next();
                 temp = Integer.parseInt(antwoord);
                 
-                while (temp > dc.getSpelerLijst().get(nr).getResourceLijst().get(7).getAantal())
+                while (temp > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal())
                 {
-                    plaatsOpPlek(nr);
+                    bepaalStamleden(spelerNr);
                 }
                 
                 return temp;
             } while (true);
         }catch(NumberFormatException e)
         {
-            plaatsOpPlek(nr);
+            bepaalStamleden(spelerNr);
         }
         return temp;
     }
