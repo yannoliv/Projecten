@@ -2,61 +2,65 @@ package domein;
 
 import gui.SpelApplicatie;
 import java.util.List;
-import persistentie.SpelMapper;
+import domein.*;
 
 
-
-public class DomeinController
+public class DomeinController 
 {
-    
-    SpelerRepository spelerRepository;
-    SpelMapper spelMapper;
-    SpelApplicatie spel;
+
+    private SpelApplicatie spelApp;
+    private Spel spel;
     
     public DomeinController()
     {
-        spel = new SpelApplicatie(this);   //hier komt de methode da alles start
-        
+        spelApp = new SpelApplicatie(this); //setDc
+        spel = new Spel(); //geen constructor
+        spelApp.BepaalAantalSpelers(); //bepaald aantal spelers en set
+        spel.setSpelers();
+        spelApp.setSpelersNamen();
+        spel.setSpelerResources();
+        System.out.println(toonSpelers());
     }
-    
-    public void maakSpelersAan(int aantal, DomeinController dc)
+    //---------------------------------------------------------------------------
+    //spelers aanmaken
+    public void maakSpelersAan(int aantal)
     {
-        spelerRepository = new SpelerRepository(aantal, dc);
-        System.out.printf("%nNieuw spel is gestart...%n"); 
+        spel.maakAantalSpelers(aantal);
     }
-    
-    
-    public String toonSpelers()
-    {
-        return spelerRepository.getSpelerLijst().toString();
-    }
-    
+    //---------------------------------------------------------------------------
+    //spelers namen geven
     public void geefSpelersNamen(String naam, Speler speler)
     {
-        spelerRepository.setSpelerNaam(naam, speler);
+        spel.setSpelerNaam(naam, speler);
     }
-    
-    public SpelerRepository getSpelerRepository() {
-        return spelerRepository;
+    //---------------------------------------------------------------------------
+    //aantal speler ophalen
+    public int getAantalSpelers()
+    {
+        return spel.getAantalSpelers();
     }
-
-    public void setSpelerRepository(SpelerRepository spelerRepository) {
-        this.spelerRepository = spelerRepository;
+    //---------------------------------------------------------------------------
+    //aantal speler opslaan
+    public void setAantalSpelers(int aantal)
+    {
+        spel.setAantalSpelers(aantal);
     }
-
-    public SpelApplicatie getSpel() {
-        return spel;
+    //---------------------------------------------------------------------------
+    //spelerlijst ophalen
+    public List<Speler> getSpelerLijst()
+    {
+        return spel.getSpelerLijst();
     }
-
-    public void setSpel(SpelApplicatie spel) {
-        this.spel = spel;
+    //---------------------------------------------------------------------------
+    //per speler zijn scoreboard ophalen
+    public String toonSpelers()
+    {
+        String resultaat = "";
+        for (int i = 0; i < getSpelerLijst().size(); i++) 
+        {
+            resultaat += getSpelerLijst().get(i).toString(getSpelerLijst().get(i));
+        }
+        return resultaat;
     }
-    
-    
-    
-    
-    
-    
-    
     
 }
