@@ -153,15 +153,16 @@ public class DomeinController
                 break;
             case 7:
                 //stamleden
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(7).getDeler());
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() + 1);
                 break;
             case 8:
                 //gereedschap
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(5).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(5).getDeler());
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(5).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(5).getAantal() + 1);
                 break;
             case 9:
                 //akkerbouw
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(4).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(4).getDeler());
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(4).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(4).getAantal() + 1);
+                ;
                 break;
         }
         
