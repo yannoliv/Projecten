@@ -27,7 +27,7 @@ public class Speler
    public String toString(Speler speler)
    {
        String resultaat = "";
-       resultaat += String.format("Speler %d  ", speler.spelerNummer + 1);
+       resultaat += String.format("Speler %d |  ", speler.spelerNummer + 1);
        resultaat += String.format("Naam: %s    ", speler.getNaam());
        resultaat += String.format("Kleur: %s    ", speler.getKleur());
           for (int index = 0; index < getResourcesLijst().size(); index++) {
