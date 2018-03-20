@@ -10,6 +10,7 @@ public class Spel
     private int aantalSpelers = 0;
     private List<Speler> spelerLijst;
     private List<Resource> resourceLijst;
+    private List<Plaats> plaatsLijst;
     
     //---------------------------------------------------------------------------
     //speler lijst vullen
@@ -35,6 +36,21 @@ public class Spel
         resourceLijst.add(new Resource("voedsel", 12));
         resourceLijst.add(new Resource("stamleden", 5));
         return resourceLijst;
+    }
+    //---------------------------------------------------------------------------
+    //plaatsen lijst vullen
+    public List<Plaats> vulPlaatsLijst()
+    {
+        plaatsLijst = new ArrayList<>();
+        plaatsLijst.add(new Plaats("Bos", getResourceLijst().get(0), 3, 7));
+        plaatsLijst.add(new Plaats("Leemgroeve", getResourceLijst().get(1), 4, 7));
+        plaatsLijst.add(new Plaats("Steengroeve", getResourceLijst().get(2), 5, 7));
+        plaatsLijst.add(new Plaats("Goudmijn", getResourceLijst().get(3), 6, 7));
+        plaatsLijst.add(new Plaats("Akkerbouw", getResourceLijst().get(4), 1));
+        plaatsLijst.add(new Plaats("Smith", getResourceLijst().get(5), 1));
+        plaatsLijst.add(new Plaats("Jachtgebied", getResourceLijst().get(6), 2, 40));
+        plaatsLijst.add(new Plaats("Hut", getResourceLijst().get(7), 2));
+        return plaatsLijst;
     }
     //---------------------------------------------------------------------------
     //elke speler resources geven
@@ -64,7 +80,12 @@ public class Spel
     public List<Speler> getSpelerLijst() {
         return spelerLijst;
     }
-    
+    //---------------------------------------------------------------------------
+    //resource lijst ophalen
+    public List<Resource> getResourceLijst()
+    {
+        return resourceLijst;
+    }
     //---------------------------------------------------------------------------
     //speler lijst aanmaken & vullen
     public void setSpelers() {
