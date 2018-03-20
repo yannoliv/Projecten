@@ -30,14 +30,14 @@ public class Speler
        resultaat += String.format("Speler %d \t", speler.spelerNummer);
        resultaat += String.format("Naam: %s \t\t", speler.getNaam());
        resultaat += String.format("Kleur: %s \t\t", speler.getKleur());
-       resultaat += String.format("Hout: %d \t", speler.getResourcesLijst().get(0));
-       resultaat += String.format("Leem: %d \t", speler.getResourcesLijst().get(1));
-       resultaat += String.format("Steen: %d \t", speler.getResourcesLijst().get(2));
-       resultaat += String.format("Goud: %d \t", speler.getResourcesLijst().get(3));
-       resultaat += String.format("Akkerbouw: %d \t", speler.getResourcesLijst().get(4));
-       resultaat += String.format("Gereedschap: %d \t", speler.getResourcesLijst().get(5));
-       resultaat += String.format("Voedsel: %d \t", speler.getResourcesLijst().get(6));
-       resultaat += String.format("Stamleden: %d \t", speler.getResourcesLijst().get(7));
+       resultaat += String.format("Hout: " + speler.getResourcesLijst().get(0).getAantal() + "\t");
+       resultaat += String.format("Leem: " + speler.getResourcesLijst().get(1).getAantal() + "\t");
+       resultaat += String.format("Steen: " + speler.getResourcesLijst().get(2).getAantal() + "\t");
+       resultaat += String.format("Goud: " + speler.getResourcesLijst().get(3).getAantal() + "\t");
+       resultaat += String.format("Akkerbouw: " + speler.getResourcesLijst().get(4).getAantal() + "\t");
+       resultaat += String.format("Gereedschap: " + speler.getResourcesLijst().get(5).getAantal() + "\t");
+       resultaat += String.format("Voedsel: " + speler.getResourcesLijst().get(6).getAantal() + "\t");
+       resultaat += String.format("Stamleden: " + speler.getResourcesLijst().get(7).getAantal() + "%n");
        return resultaat;
    }
     

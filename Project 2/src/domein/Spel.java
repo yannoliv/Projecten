@@ -7,7 +7,7 @@ import java.util.*;
 public class Spel 
 {
 
-    private int aantalSpelers = -1;
+    private int aantalSpelers = 0;
     private List<Speler> spelerLijst;
     private List<Resource> resourceLijst;
     
@@ -37,18 +37,27 @@ public class Spel
         return resourceLijst;
     }
     //---------------------------------------------------------------------------
+    //elke speler resources geven
+    public void setSpelersResourceLijst()
+    {
+        for (int index = 0; index < getAantalSpelers(); index++) {
+            spelerLijst.get(index).setResourcesLijst(resourceLijst);
+        }
+    }
+    //---------------------------------------------------------------------------
     //Spelers namen geven
     public void setSpelerNaam(String naam, Speler speler)
     {
         speler.setNaam(naam);
     }
     //---------------------------------------------------------------------------
-    //Spelers resources geven
+    //Resourcelijst laten opvullen
     public void setSpelerResources()
     {
-        for (int index = 0; index < getAantalSpelers(); index++) {
-            spelerLijst.get(index).setResourcesLijst(resourceLijst);
+        for (int i = 0; i < getAantalSpelers(); i++) {
+            spelerLijst.get(i).setResourcesLijst(vulResourceLijst());
         }
+        
     }
     //---------------------------------------------------------------------------
     //spelers lijst ophalen
