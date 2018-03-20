@@ -10,7 +10,7 @@ public class Speler
     private final String[] kleurLijst = {"rood","blauw","geel","groen"};
     private String kleur;
     public int spelerNummer = 0;
-    private List<Resource> resourcesLijst;
+    private List<Resource> resourceLijst;
 
     
     SecureRandom random = new SecureRandom();
@@ -30,8 +30,8 @@ public class Speler
        resultaat += String.format("Speler %d |  ", speler.spelerNummer + 1);
        resultaat += String.format("Naam: %s    ", speler.getNaam());
        resultaat += String.format("Kleur: %s    ", speler.getKleur());
-          for (int index = 0; index < getResourcesLijst().size(); index++) {
-           resultaat += String.format(speler.getResourcesLijst().get(index).getNaam() + ": " + speler.getResourcesLijst().get(index).getAantal() + "     ");
+          for (int index = 0; index < getResourceLijst().size(); index++) {
+           resultaat += String.format(speler.getResourceLijst().get(index).getNaam() + ": " + speler.getResourceLijst().get(index).getAantal() + "     ");
         } 
        return resultaat;
    }
@@ -67,12 +67,12 @@ public class Speler
     }
     //---------------------------------------------------------------------------
     //Resourcelijst
-    public List<Resource> getResourcesLijst() {
-        return resourcesLijst;
+    public List<Resource> getResourceLijst() {
+        return resourceLijst;
     }
 
-    public void setResourcesLijst(List<Resource> resourcesLijst) {
-        this.resourcesLijst = resourcesLijst;
+    public void setResourceLijst(List<Resource> resourceLijst) {
+        this.resourceLijst = resourceLijst;
     }
     
 }

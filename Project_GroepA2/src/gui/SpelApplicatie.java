@@ -14,7 +14,7 @@ public class SpelApplicatie
         setDc(dc);
     }
     
-    public void BepaalAantalSpelers()
+    private void BepaalAantalSpelers()
     {
         //aantal spelers bepalen
         
@@ -34,7 +34,7 @@ public class SpelApplicatie
             }
         } //deze return dienen voor geen rode lijntjes :p
     }
-    public void setSpelersNamen() 
+    private void setSpelersNamen() 
     {
         for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
         {
@@ -77,6 +77,99 @@ public class SpelApplicatie
         }
     }
     
+    //Bedieningspaneel
+    public void bediening(int nr)
+    {
+        
+        try
+        {
+            int temp;
+            do
+            {
+                System.out.printf("%n%n-Speler %d is aan de beurt.%n" + "--------------------------------------------------------------------------------------------------------------------------------------------------------------%n", dc.getSpelerLijst().get(nr).getSpelerNummer());
+                System.out.printf("- • 0: Stop spel • 1: toonSpelers • 2: Bos • 3: Leemgroeve • 4: Steengroeve • 5: Goud rivier • 6: Yachtgebied • 7: Hut • 8: Tool makelaar • 9: Akkerbouw     -%n");
+                System.out.printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+                System.out.printf("Keuze: ");
+                String resultaat = input.next();
+                temp = Integer.parseInt(resultaat);
+
+                switch(temp)
+                {
+                    case 0:
+                        System.exit(0);
+                        break;
+                    case 1: dc.toonSpelers();
+                    break;
+                    case 2: dc.plaatsBos(nr, plaatsOpPlek(nr));
+                    break;
+                    case 3: plaatsLeem(speler);
+                    break;
+                    case 4: plaatsSteen(speler);
+                    break;
+                    case 5: plaatsGoud(speler);
+                    break;
+                    case 6: plaatsJachtveld(speler);
+                    break;
+                    case 7: plaatsHut(speler);
+                    break;
+                    case 8: plaatsGereedschap(speler);
+                    break;
+                    case 9: plaatsAkkerbouw(speler);
+                    break;
+                    default: 
+                        System.out.printf("%nOngeldige keuze.");
+                        bediening(nr);
+                        break;
+                }
+
+            }while(temp == 1);
+        }catch(NumberFormatException e) 
+        {
+            System.out.printf("%n                   ----------------------------");
+            System.out.printf("%n                   -!!!Keuze moet 0-9 zijn.!!!-");
+            System.out.printf("%n                   ----------------------------%n");
+            bediening(nr);
+        }
+        
+        System.out.printf("%n<Volgende speler>%n%n");
+    }
+    
+   //Einde ronde
+    private void eindeRonde()
+    {
+        System.out.printf("%n               -----------------------------------------------");
+        System.out.printf("%n               -                Ronde is klaar!              -");
+        System.out.printf("%n               -           De uiteindelijke score is         -");
+        System.out.printf("%n               -----------------------------------------------");
+        dc.eindeRonde();
+        dc.toonSpelers();
+        System.out.printf("%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n");
+        System.out.printf("%n%n<Nieuwe ronde is gestart>%n%n");
+    }
+    
+    private int plaatsOpPlek(int nr)
+    {
+        int temp = 11;
+        try
+        {
+            do {
+                System.out.printf("Hoeveel stamleden wilt u plaatsen: ");
+                String antwoord = input.next();
+                temp = Integer.parseInt(antwoord);
+                
+                while (temp > dc.getSpelerLijst().get(nr).getResourceLijst().get(7).getAantal())
+                {
+                    plaatsOpPlek(nr);
+                }
+                
+                return temp;
+            } while (true);
+        }catch(NumberFormatException e)
+        {
+            plaatsOpPlek(nr);
+        }
+        return temp;
+    }
     
     public DomeinController getDc() {
         return dc;

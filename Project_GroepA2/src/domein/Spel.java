@@ -57,7 +57,7 @@ public class Spel
     public void setSpelersResourceLijst()
     {
         for (int index = 0; index < getAantalSpelers(); index++) {
-            spelerLijst.get(index).setResourcesLijst(resourceLijst);
+            spelerLijst.get(index).setResourceLijst(resourceLijst);
         }
     }
     //---------------------------------------------------------------------------
@@ -71,7 +71,7 @@ public class Spel
     public void setSpelerResources()
     {
         for (int i = 0; i < getAantalSpelers(); i++) {
-            spelerLijst.get(i).setResourcesLijst(vulResourceLijst());
+            spelerLijst.get(i).setResourceLijst(vulResourceLijst());
         }
         
     }
