@@ -27,17 +27,12 @@ public class Speler
    public String toString(Speler speler)
    {
        String resultaat = "";
-       resultaat += String.format("Speler %d \t", speler.spelerNummer);
-       resultaat += String.format("Naam: %s \t\t", speler.getNaam());
-       resultaat += String.format("Kleur: %s \t\t", speler.getKleur());
-       resultaat += String.format("Hout: " + speler.getResourcesLijst().get(0).getAantal() + "\t");
-       resultaat += String.format("Leem: " + speler.getResourcesLijst().get(1).getAantal() + "\t");
-       resultaat += String.format("Steen: " + speler.getResourcesLijst().get(2).getAantal() + "\t");
-       resultaat += String.format("Goud: " + speler.getResourcesLijst().get(3).getAantal() + "\t");
-       resultaat += String.format("Akkerbouw: " + speler.getResourcesLijst().get(4).getAantal() + "\t");
-       resultaat += String.format("Gereedschap: " + speler.getResourcesLijst().get(5).getAantal() + "\t");
-       resultaat += String.format("Voedsel: " + speler.getResourcesLijst().get(6).getAantal() + "\t");
-       resultaat += String.format("Stamleden: " + speler.getResourcesLijst().get(7).getAantal() + "%n");
+       resultaat += String.format("Speler %d  ", speler.spelerNummer + 1);
+       resultaat += String.format("Naam: %s    ", speler.getNaam());
+       resultaat += String.format("Kleur: %s    ", speler.getKleur());
+          for (int index = 0; index < getResourcesLijst().size(); index++) {
+           resultaat += String.format(speler.getResourcesLijst().get(index).getNaam() + ": " + speler.getResourcesLijst().get(index).getAantal() + "     ");
+        } 
        return resultaat;
    }
     

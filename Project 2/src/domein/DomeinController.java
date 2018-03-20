@@ -59,6 +59,7 @@ public class DomeinController
         for (int i = 0; i < getSpelerLijst().size(); i++) 
         {
             resultaat += getSpelerLijst().get(i).toString(getSpelerLijst().get(i));
+            resultaat += String.format("%n");
         }
         return resultaat;
     }
