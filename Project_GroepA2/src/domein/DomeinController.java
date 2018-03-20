@@ -119,27 +119,45 @@ public class DomeinController
     //speler plaatsen op bos
     public void plaatsOpPlek(int spelerNr, int keuzeNr, int aantalStamleden)
     {
+        double geroldGetal;
+        double deler;
+        double uitkomst;
         switch (keuzeNr) {
             case 2:
                 //hout
+                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
+                deler = (double) getPlaatsenLijst().get(0).getDeler();
+                uitkomst = geroldGetal / deler;
                 //haalspelerlijst op, neem de speler met spelerNr uit de spelerlijst, haal van die speler de resourceLijst op, neem van de 0de resource (hout), zet de resource hout zijn aantal = het totale dobbeslenen getal gedeeld door de deler van de plaats bos
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(spel.dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(0).getDeler());
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal((int) Math.floor(uitkomst));
                 break;
             case 3:
                 //leem
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(spel.dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(1).getDeler());
+                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
+                deler = (double) getPlaatsenLijst().get(1).getDeler();
+                uitkomst = geroldGetal / deler;
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal((int) Math.floor(uitkomst));
                 break;
             case 4:
-                //steen
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(spel.dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(2).getDeler());
+                //steengerold
+                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
+                deler = (double) getPlaatsenLijst().get(2).getDeler();
+                uitkomst = geroldGetal / deler;
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal((int) Math.floor(uitkomst));
                 break;
             case 5:
                 //goud
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(spel.dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(3).getDeler());
+                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
+                deler = (double) getPlaatsenLijst().get(3).getDeler();
+                uitkomst = geroldGetal / deler;
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal((int) Math.floor(uitkomst));
                 break;
             case 6:
                 //voedsel
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(spel.dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(6).getDeler());
+                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
+                deler = (double) getPlaatsenLijst().get(6).getDeler();
+                uitkomst = geroldGetal / deler;
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal((int) Math.floor(uitkomst));
                 break;
             case 7:
                 //stamleden

@@ -98,7 +98,7 @@ public class SpelApplicatie
                     case 0:
                         System.exit(0);
                         break;
-                    case 1: dc.toonSpelers();
+                    case 1: System.out.printf(dc.toonSpelers());
                     break;
                     case 2: dc.plaatsOpPlek(spelerNr, 2, bepaalStamleden(spelerNr));
                     break;
@@ -155,7 +155,7 @@ public class SpelApplicatie
                     System.out.printf("Hoeveel wilt u er plaatsen: ");
                     String antw = input.next();
                     aantal = Integer.parseInt(antw);
-                    while (aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal()) {
+                    while (aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal <= 0) {
                         System.out.printf("Ongeldig probeer opnieuw!%n");
                         System.out.printf("Hoeveel wilt u er plaatsen: ");
                         antw = input.next();

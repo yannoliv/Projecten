@@ -116,11 +116,11 @@ public class Spel
     //Gerold getal bepalen
     public int dobbelStenen(int aantalStamleden)
     {
-        int getal= 0;
+        int getal = 0;
         SecureRandom random = new SecureRandom();
         for (int i = 0; i < aantalStamleden; i++) {
             int dobbelSteen = random.nextInt(6) + 1;
-            getal += (dobbelSteen * aantalStamleden);
+            getal += dobbelSteen;
         }
         return getal;
     }
