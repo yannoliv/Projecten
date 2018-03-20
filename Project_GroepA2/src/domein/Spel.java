@@ -81,6 +81,12 @@ public class Spel
         return spelerLijst;
     }
     //---------------------------------------------------------------------------
+    //plaatsen lijst ophalen
+    public List<Plaats> getPlaatsenLijst()
+    {
+        return plaatsLijst;
+    }
+    //---------------------------------------------------------------------------
     //resource lijst ophalen
     public List<Resource> getResourceLijst()
     {

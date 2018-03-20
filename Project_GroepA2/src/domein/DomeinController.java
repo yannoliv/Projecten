@@ -53,6 +53,12 @@ public class DomeinController
         return spel.getSpelerLijst();
     }
     //---------------------------------------------------------------------------
+    //plaatsenlijst ophalen
+    public List<Plaats> getPlaatsenLijst()
+    {
+        return spel.getPlaatsenLijst();
+    }
+    //---------------------------------------------------------------------------
     //per speler zijn scoreboard ophalen
     public String toonSpelers()
     {
@@ -121,28 +127,37 @@ public class DomeinController
     {
         switch (keuzeNr) {
             case 2:
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(dobbelStenen(aantalStamleden));
+                //hout
+                //haalspelerlijst op, neem de speler met spelerNr uit de spelerlijst, haal van die speler de resourceLijst op, neem van de 0de resource (hout), zet de resource hout zijn aantal = het totale dobbeslenen getal gedeeld door de deler van de plaats bos
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(0).getDeler());
                 break;
             case 3:
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(dobbelStenen(aantalStamleden));
+                //leem
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(1).getDeler());
                 break;
             case 4:
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(dobbelStenen(aantalStamleden));
+                //steen
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(2).getDeler());
                 break;
             case 5:
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(dobbelStenen(aantalStamleden));
+                //goud
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(3).getDeler());
                 break;
             case 6:
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(dobbelStenen(aantalStamleden));
+                //voedsel
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(6).getDeler());
                 break;
             case 7:
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(dobbelStenen(aantalStamleden));
+                //stamleden
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(7).getDeler());
                 break;
             case 8:
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(5).setAantal(dobbelStenen(aantalStamleden));
+                //gereedschap
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(5).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(5).getDeler());
                 break;
             case 9:
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(4).setAantal(dobbelStenen(aantalStamleden));
+                //akkerbouw
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(4).setAantal(dobbelStenen(aantalStamleden)/getPlaatsenLijst().get(4).getDeler());
                 break;
         }
         
