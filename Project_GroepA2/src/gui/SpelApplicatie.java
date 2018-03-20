@@ -86,10 +86,8 @@ public class SpelApplicatie
             int temp;
             do
             {
-                System.out.printf("%n%n-Speler %d is aan de beurt.%n" + "--------------------------------------------------------------------------------------------------------------------------------------------------------------%n", dc.getSpelerLijst().get(spelerNr).getSpelerNummer() + 1);
-                System.out.printf("- • 0: Stop spel • 1: toonSpelers • 2: Bos • 3: Leemgroeve • 4: Steengroeve • 5: Goudmijn • 6: Jachtgebied • 7: Hut • 8: Smith • 9: Akkerbouw     -%n");
-                System.out.printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
-                System.out.printf("Keuze: ");
+                dc.BedieningsPaneel(spelerNr);
+                System.out.printf("Keuze:%n");
                 String resultaat = input.next();
                 temp = Integer.parseInt(resultaat);
 

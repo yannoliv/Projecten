@@ -1,5 +1,7 @@
 package domein;
 
+import java.util.*;
+
 public class Plaats
 {
    private String naam;
@@ -54,5 +56,4 @@ public class Plaats
     public void setAantalSpots(int aantalSpots) {
         this.aantalSpots = aantalSpots;
     }
-   
 }

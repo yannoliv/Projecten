@@ -77,6 +77,25 @@ public class DomeinController
         return resultaat;
     }
     //---------------------------------------------------------------------------
+    //Bedieningspaneel afprinten
+    public String BedieningsPaneel(int spelerNr)
+    {
+        String bedieningsPaneel = "";
+        bedieningsPaneel += String.format("Speler %d is nu aan de beurt.%n", getSpelerLijst().get(spelerNr).getSpelerNummer() + 1);
+        bedieningsPaneel += String.format("• 0: Stop spel    ");
+        bedieningsPaneel += String.format("• 1: Toon spelers    ");
+        bedieningsPaneel += String.format("• 2: %s", getPlaatsenLijst().get(0).getNaam() + "    ");//Crashed hier
+        bedieningsPaneel += String.format("• 3: %s", getPlaatsenLijst().get(1).getNaam() + "    ");
+        bedieningsPaneel += String.format("• 4: %s", getPlaatsenLijst().get(2).getNaam() + "    ");
+        bedieningsPaneel += String.format("• 5: %s", getPlaatsenLijst().get(3).getNaam() + "    ");
+        bedieningsPaneel += String.format("• 6: %s", getPlaatsenLijst().get(6).getNaam() + "    ");
+        bedieningsPaneel += String.format("• 7: %s", getPlaatsenLijst().get(7).getNaam() + "    ");
+        bedieningsPaneel += String.format("• 8: %s", getPlaatsenLijst().get(5).getNaam() + "    ");
+        bedieningsPaneel += String.format("• 9: %s", getPlaatsenLijst().get(4).getNaam() + "    ");
+        bedieningsPaneel += String.format("%n");
+        return bedieningsPaneel;
+    }
+    //---------------------------------------------------------------------------
     //Elke speler om de beurt laten spelen
     public void omDeBeurt()
     {
@@ -139,7 +158,7 @@ public class DomeinController
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal((int) Math.floor(uitkomst));
                 break;
             case 4:
-                //steengerold
+                //steen
                 geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
                 deler = (double) getPlaatsenLijst().get(2).getDeler();
                 uitkomst = geroldGetal / deler;
@@ -170,7 +189,6 @@ public class DomeinController
             case 9:
                 //akkerbouw
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(4).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(4).getAantal() + 1);
-                ;
                 break;
         }
         
