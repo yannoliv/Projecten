@@ -1,28 +1,28 @@
 package gui;
 
+
 import java.util.Scanner;
 import domein.DomeinController;
+import domein.Speler;
+import domein.SpelerRepository;
+import java.util.List;
 
 public final class SpelApplicatie
 {
     Scanner input = new Scanner(System.in);
     DomeinController dc;
-    private int aantalSpelers = 0;
+    SpelerRepository spelerRepository;
+    private int aantalSpelers = -1;
     
     
     public SpelApplicatie(DomeinController dc) 
     {
-        //geef de domeincontroller mee
         setDc(dc);
-        //bepaalt aantal spelers
-        BepaalAantalSpelers();
-        //maak speler lijst aan
-        dc.maakSpelersAan(aantalSpelers, dc);
-        //geef elke speler een naam
-        geefSpelersNamen(); //!!!!Veroorzaak error 
-        //toon speler scorebord
-        System.out.printf("%s",dc.toonSpelers());
+        BepaalAantalSpelers(); //geeft aantal terug
+        dc.maakSpelersAan(aantalSpelers, dc);     
+        dc.toonSpelers();
         
+        //toon speler scoreboard
     }
     
     public void BepaalAantalSpelers()
@@ -45,46 +45,49 @@ public final class SpelApplicatie
         }
     }
 
-    public String geefSpelersNamen() //moet nog worden aangepast
+    public Speler geefSpelersNamen(List<Speler> spelers) //wordt aangeroepen door domeincontroller
     {
-        String naam = "";
-        for (int spelerIndex = 0; spelerIndex < dc.getSpelerLijst().size(); spelerIndex++) 
+        int nummer = spelers.size();
+        Speler speler = new Speler(nummer);
+        
+        System.out.printf("Naam speler %d: ", nummer);
+        String naam = input.next();
+        
+        switch(nummer)
         {
-            //vraag de naam van de eerste speler
-            System.out.printf("Naam speler %d: ", spelerIndex + 1);
-            naam = input.nextLine();
-            
-            switch(spelerIndex)
-            {
-                case 0: 
-                    dc.geefSpelersNamen(naam, spelerIndex);
-                case 1: 
-                    while(naam.equals(dc.getSpeler(0).getNaam()))
-                    {
-                        System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
-                        System.out.printf("naam speler %d: ", spelerIndex + 1);
-                        naam = input.next();
-                    }
-                    dc.geefSpelersNamen(naam, spelerIndex);
-                case 2: 
-                    while(naam.equals(dc.getSpeler(0).getNaam()) || naam.equals(dc.getSpeler(1).getNaam()))
-                    {
-                        System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
-                        System.out.printf("naam speler %d: ", spelerIndex + 1);
-                        naam = input.next();
-                    }
-                    dc.geefSpelersNamen(naam, spelerIndex);
-                case 3: 
-                    while(naam.equals(dc.getSpeler(0).getNaam()) || naam.equals(dc.getSpeler(1).getNaam()) || naam.equals(dc.getSpeler(2).getNaam()))
-                    {
-                        System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
-                        System.out.printf("naam speler %d: ", spelerIndex + 1);
-                        naam = input.next();
-                    }
-                    dc.geefSpelersNamen(naam, spelerIndex);
-            }
+            case -1: System.out.println("probleem"); break;//ZZZ, gwn troubleshooten
+            case 0: 
+                dc.geefSpelersNamen(naam, speler);
+                return speler;
+            case 1: 
+                while(naam.equals(spelers.get(0).getNaam()))
+                {
+                    System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
+                    System.out.printf("naam speler %d: ", nummer + 1);
+                    naam = input.next();
+                }
+                dc.geefSpelersNamen(naam, speler);
+                return speler;
+            case 2: 
+                while(naam.equals(spelers.get(0).getNaam()) || naam.equals(spelers.get(1).getNaam()))
+                {
+                    System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
+                    System.out.printf("naam speler %d: ", nummer + 1);
+                    naam = input.next();
+                }
+                dc.geefSpelersNamen(naam, speler);
+                return speler;
+            case 3: 
+                while(naam.equals(spelers.get(0).getNaam()) || naam.equals(spelers.get(1).getNaam()) || naam.equals(spelers.get(2).getNaam()))
+                {
+                    System.out.printf("Kan niet dezelfde naam als andere spelers zijn!%n");
+                    System.out.printf("naam speler %d: ", nummer + 1);
+                    naam = input.next();
+                }
+                dc.geefSpelersNamen(naam, speler);
+                return speler;
         }
-        return naam;
+        return speler;
     }
   
     public DomeinController getDc() {

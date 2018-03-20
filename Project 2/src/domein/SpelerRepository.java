@@ -18,18 +18,17 @@ public class SpelerRepository
         spelerLijst = spelMapper.vulSpelerLijst(aantal);
     }
     
-    public Speler getSpeler(int index)
+    public Speler neemSpeler(int index)
     {
         return spelerLijst.get(index);
-    }
-    
-    public void geefSpelerNaam(String naam, int index)
-    {
-        getSpeler(index).setNaam(naam);
     }
     
     public List<Speler> getSpelerLijst() {
         return spelerLijst;
     }
     
+    public void setSpelerNaam(String naam, Speler speler)
+    {
+        speler.setNaam(naam);
+    }
 }
