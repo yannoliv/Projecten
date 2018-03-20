@@ -155,10 +155,17 @@ public class SpelApplicatie
                     System.out.printf("Hoeveel wilt u er plaatsen: ");
                     String antw = input.next();
                     aantal = Integer.parseInt(antw);
+                    while (aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal()) {
+                        System.out.printf("Ongeldig probeer opnieuw!%n");
+                        System.out.printf("Hoeveel wilt u er plaatsen: ");
+                        antw = input.next();
+                        aantal = Integer.parseInt(antw);
+                    }
                     return aantal;
                 } while(aantal == 0);
             }catch(NumberFormatException e)
             {
+                System.out.printf("Ongeldig probeer opnieuw!%n");
                 bepaalStamleden(spelerNr);
             }
             return aantal;
