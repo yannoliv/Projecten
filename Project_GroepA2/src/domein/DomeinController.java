@@ -19,12 +19,8 @@ public class DomeinController
         spel.setSpelers();
         spelApp.setSpelersNamen();
         spel.setSpelerResources();
-        System.out.println(toonSpelers());
-        for (int index = 0; index < getAantalSpelers(); index++) {
-            spelApp.bediening(index);
-        }
-        System.out.println(toonSpelers());
-        
+        spel.vulPlaatsLijst();
+        beginSpel();
     }
     //---------------------------------------------------------------------------
     //spelers aanmaken
@@ -79,7 +75,7 @@ public class DomeinController
     public String BedieningsPaneel(int spelerNr)
     {
         String bedieningsPaneel = "";
-        bedieningsPaneel += String.format("Speler %d is nu aan de beurt.%n", getSpelerLijst().get(spelerNr).getSpelerNummer() + 1);
+        bedieningsPaneel += String.format("%n%nSpeler %d is nu aan de beurt.%n", getSpelerLijst().get(spelerNr).getSpelerNummer() + 1);
         bedieningsPaneel += String.format("• 0: Stop spel    ");
         bedieningsPaneel += String.format("• 1: Toon spelers    ");
         bedieningsPaneel += String.format("• 2: %s     ", getPlaatsenLijst().get(0).getNaam());//Crashed hier
@@ -92,6 +88,16 @@ public class DomeinController
         bedieningsPaneel += String.format("• 9: %s     ", getPlaatsenLijst().get(4).getNaam());
         bedieningsPaneel += String.format("%n");
         return bedieningsPaneel;
+    }
+    //---------------------------------------------------------------------------
+    //Begint het spel zelf
+    public void beginSpel()
+    {
+        boolean eindeSpel = true; //dit moet zijn wanneer het einde van het spel bereikt is
+        while(eindeSpel)
+        {
+            omDeBeurt();
+        }
     }
     //---------------------------------------------------------------------------
     //Elke speler om de beurt laten spelen
@@ -111,71 +117,50 @@ public class DomeinController
                     }
                 }
             }
-            
-            eindeRonde();
+            spelApp.eindeRonde();
+            //eindeRonde();
         }
     }
     //---------------------------------------------------------------------------
     // einde van de ronde, resources geven
     public void eindeRonde()
     {
-        //per ronde stamleden terug geven
-        for (int i = 0; i < getSpelerLijst().size(); i++) 
-        {
-            //per ronde resources geven
-            getSpelerLijst().get(i).getResourceLijst().get(0);
-            getSpelerLijst().get(i).getResourceLijst().get(0);
-            getSpelerLijst().get(i).getResourceLijst().get(0);
-            getSpelerLijst().get(i).getResourceLijst().get(0);
-            getSpelerLijst().get(i).getResourceLijst().get(0);
-            getSpelerLijst().get(i).getResourceLijst().get(0);
-        }
+//        //per ronde stamleden terug geven
+//        for (int i = 0; i < getSpelerLijst().size(); i++) 
+//        {
+//            //per ronde resources geven
+//            getSpelerLijst().get(i).getResourceLijst().get(0);
+//            getSpelerLijst().get(i).getResourceLijst().get(0);
+//            getSpelerLijst().get(i).getResourceLijst().get(0);
+//            getSpelerLijst().get(i).getResourceLijst().get(0);
+//            getSpelerLijst().get(i).getResourceLijst().get(0);
+//            getSpelerLijst().get(i).getResourceLijst().get(0);
+//        }
+
     }
     
     //---------------------------------------------------------------------------
     //speler plaatsen op bos
     public void plaatsOpPlek(int spelerNr, int keuzeNr, int aantalStamleden)
     {
-        double geroldGetal;
-        double deler;
-        double uitkomst;
         switch (keuzeNr) {
             case 2:
                 //hout
-                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
-                deler = (double) getPlaatsenLijst().get(0).getDeler();
-                uitkomst = geroldGetal / deler;
                 //haalspelerlijst op, neem de speler met spelerNr uit de spelerlijst, haal van die speler de resourceLijst op, neem van de 0de resource (hout), zet de resource hout zijn aantal = het totale dobbeslenen getal gedeeld door de deler van de plaats bos
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal((int) Math.floor(uitkomst));
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal((int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(0).getDeler()));
                 break;
             case 3:
                 //leem
-                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
-                deler = (double) getPlaatsenLijst().get(1).getDeler();
-                uitkomst = geroldGetal / deler;
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal((int) Math.floor(uitkomst));
-                break;
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal((int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(1).getDeler()));break;
             case 4:
                 //steen
-                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
-                deler = (double) getPlaatsenLijst().get(2).getDeler();
-                uitkomst = geroldGetal / deler;
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal((int) Math.floor(uitkomst));
-                break;
+                 getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal((int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(2).getDeler()));break;
             case 5:
                 //goud
-                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
-                deler = (double) getPlaatsenLijst().get(3).getDeler();
-                uitkomst = geroldGetal / deler;
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal((int) Math.floor(uitkomst));
-                break;
+                 getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal((int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(3).getDeler()));break;
             case 6:
                 //voedsel
-                geroldGetal = (double) spel.dobbelStenen(aantalStamleden);
-                deler = (double) getPlaatsenLijst().get(6).getDeler();
-                uitkomst = geroldGetal / deler;
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal((int) Math.floor(uitkomst));
-                break;
+                 getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal((int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(6).getDeler()));break;
             case 7:
                 //stamleden
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() + 1);

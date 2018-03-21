@@ -34,6 +34,7 @@ public class SpelApplicatie
             }
         } //deze return dienen voor geen rode lijntjes :p
     }
+    
     public void setSpelersNamen() 
     {
         for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
@@ -86,7 +87,7 @@ public class SpelApplicatie
             int temp;
             do
             {
-                dc.BedieningsPaneel(spelerNr);
+                System.out.println(dc.BedieningsPaneel(spelerNr));
                 System.out.printf("Keuze:%n");
                 String resultaat = input.next();
                 temp = Integer.parseInt(resultaat);
@@ -130,7 +131,7 @@ public class SpelApplicatie
     }
     
    //Einde ronde
-    private void eindeRonde()
+    public void eindeRonde()
     {
         System.out.printf("%n               -----------------------------------------------");
         System.out.printf("%n               -                Ronde is klaar!              -");
