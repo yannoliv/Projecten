@@ -158,7 +158,7 @@ public class Spel
     {
         String bedieningsPaneel = "";
         bedieningsPaneel += String.format("%n%nSpeler %d is nu aan de beurt.%n", getSpelerLijst().get(spelerNr).getSpelerNummer() + 1);
-        bedieningsPaneel += String.format("• 0: Stop spel    ");
+        bedieningsPaneel += String.format("• 0: terug    ");
         bedieningsPaneel += String.format("• 1: Toon spelers    ");
         bedieningsPaneel += String.format("• 2: %s     ", getPlaatsenLijst().get(0).getNaam()); //bos
         bedieningsPaneel += String.format("• 3: %s     ", getPlaatsenLijst().get(1).getNaam()); //leemgroeve
@@ -168,15 +168,16 @@ public class Spel
         bedieningsPaneel += String.format("• 7: %s     ", getPlaatsenLijst().get(7).getNaam()); //hut
         bedieningsPaneel += String.format("• 8: %s     ", getPlaatsenLijst().get(5).getNaam()); //smith
         bedieningsPaneel += String.format("• 9: %s     ", getPlaatsenLijst().get(4).getNaam()); //akkerbouw
+        bedieningsPaneel += String.format("• 10: Stop spel");
         bedieningsPaneel += String.format("%n");
-        bedieningsPaneel += String.format("• vrije plaatsen: %28d", getPlaatsenLijst().get(0).getAantalSpots());
-        bedieningsPaneel += String.format("%17d", getPlaatsenLijst().get(1).getAantalSpots());
-        bedieningsPaneel += String.format("%18d", getPlaatsenLijst().get(2).getAantalSpots());
-        bedieningsPaneel += String.format("%18d", getPlaatsenLijst().get(3).getAantalSpots());
-        bedieningsPaneel += String.format("%23d", getPlaatsenLijst().get(6).getAantalSpots());
-        bedieningsPaneel += String.format("%17d", getPlaatsenLijst().get(7).getAantalSpots());
-        bedieningsPaneel += String.format("%13d", getPlaatsenLijst().get(5).getAantalSpots());
-        bedieningsPaneel += String.format("%18d", getPlaatsenLijst().get(4).getAantalSpots());
+        bedieningsPaneel += String.format("• vrije plaatsen: %24d", getPlaatsenLijst().get(0).getAantalSpots());
+        bedieningsPaneel += String.format("%16d", getPlaatsenLijst().get(1).getAantalSpots());
+        bedieningsPaneel += String.format("%21d", getPlaatsenLijst().get(2).getAantalSpots());
+        bedieningsPaneel += String.format("%19d", getPlaatsenLijst().get(3).getAantalSpots());
+        bedieningsPaneel += String.format("%19d", getPlaatsenLijst().get(6).getAantalSpots());
+        bedieningsPaneel += String.format("%18d", getPlaatsenLijst().get(7).getAantalSpots());
+        bedieningsPaneel += String.format("%14d", getPlaatsenLijst().get(5).getAantalSpots());
+        bedieningsPaneel += String.format("%17d", getPlaatsenLijst().get(4).getAantalSpots());
         return bedieningsPaneel;
     }
     

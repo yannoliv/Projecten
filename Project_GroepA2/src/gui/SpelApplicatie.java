@@ -81,7 +81,6 @@ public class SpelApplicatie
     //Bedieningspaneel
     public void bedieningsPaneel(int spelerNr)
     {
-        
         try
         {
             int temp;
@@ -96,7 +95,7 @@ public class SpelApplicatie
                 {
                     //stop spel
                     case 0:
-                        System.exit(0);
+                        bedieningsPaneel(spelerNr);
                         break;
                     //toon spelers
                     case 1: System.out.printf("%n%n" + dc.toonSpelers());
@@ -125,6 +124,9 @@ public class SpelApplicatie
                     //akkerbouw
                     case 9: dc.plaatsOpPlek(spelerNr, 9, bevestiging(spelerNr, temp));
                     break;
+                    case 10:
+                        System.exit(0);
+                        break;
                     default: 
                         System.out.printf("%nOngeldige keuze.");
                         bedieningsPaneel(spelerNr);
@@ -158,19 +160,21 @@ public class SpelApplicatie
         System.out.printf("<Huidig aantal stamleden: %d >%n", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal());
         try
         {
-            do
+            System.out.printf("Hoeveel wilt u er plaatsen (0: terug): ");
+            String antw = input.next();
+            aantal = Integer.parseInt(antw);
+            if (aantal == 0) {
+                bedieningsPaneel(spelerNr);
+            }
+            while (aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal <= 0 || //aantal > beschikbare stamleden || aantal <=0
+                    dc.getPlaatsenLijst().get(0).getAantalSpots() <  aantal) //aantal spots besch > aantal stamleden
             {
+                System.out.printf("Ongeldig probeer opnieuw!%n");
                 System.out.printf("Hoeveel wilt u er plaatsen: ");
-                String antw = input.next();
+                antw = input.next();
                 aantal = Integer.parseInt(antw);
-                while (aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal <= 0) {
-                    System.out.printf("Ongeldig probeer opnieuw!%n");
-                    System.out.printf("Hoeveel wilt u er plaatsen: ");
-                    antw = input.next();
-                    aantal = Integer.parseInt(antw);
-                }
-                return aantal;
-            } while(aantal == 0);
+            }
+            return aantal;
         }catch(NumberFormatException e)
         {
             System.out.printf("Ongeldig probeer opnieuw!%n");
@@ -182,30 +186,23 @@ public class SpelApplicatie
     public int bevestiging(int spelerNr, int keuzeNr)
     {
         int bevestiging = 0;
-        switch (keuzeNr) {
+        switch (keuzeNr) 
+        {
             case 7:
                 {
                     System.out.printf("<Hut neemt vast 2 stamleden>%nHier plaatsen (ja/nee):");
-                    String antwoord = input.next();
-                    antwoord.toLowerCase();
-                    while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
+                    String antwoord = input.next().toLowerCase();
+                    while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) 
+                    {
                         System.out.printf("Ongeldig antwoord!%nja of nee: ");
                         antwoord = input.next();
-                    }
-                    if ("ja".equals(antwoord))
-                    {
-                        bevestiging = 2;
-                    }
-                    else
-                    {
-                        bedieningsPaneel(spelerNr);
-                    }       break;
+                    }       
                 }
+                break;
             case 8:
                 {
                     System.out.printf("<Smith neemt vast 1 stamlid>%nHier plaatsen (ja/nee): ");
-                    String antwoord = input.next();
-                    antwoord.toLowerCase();
+                    String antwoord = input.next().toLowerCase();
                     while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
                         System.out.printf("Ongeldig antwoord!%nja of nee: ");
                         antwoord = input.next();
@@ -215,14 +212,13 @@ public class SpelApplicatie
                     }
                     else
                     {
-                        dc.getBedieningsPaneel(spelerNr);
+                        bedieningsPaneel(spelerNr);
                     }       break;
                 }
             case 9:
                 {
                     System.out.printf("<Akkerbouw neemt vast 1 stamlid>%nHier plaatsen (ja/nee): ");
-                    String antwoord = input.next();
-                    antwoord.toLowerCase();
+                    String antwoord = input.next().toLowerCase();
                     while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
                         System.out.printf("Ongeldig antwoord!%nja of nee: ");
                         antwoord = input.next();
@@ -233,7 +229,7 @@ public class SpelApplicatie
                     }
                     else
                     {
-                        dc.getBedieningsPaneel(spelerNr);
+                        bedieningsPaneel(spelerNr);
                     }       break;
                 }
             default:
