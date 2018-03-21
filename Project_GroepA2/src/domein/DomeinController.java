@@ -135,13 +135,15 @@ public class DomeinController
     // einde van de ronde, resources geven
     public void eindeRonde()
     {
+        //elke plaats weer vrijmaken
+        spel.resetPlaatsenLijst();
         for (int index = 0; index < spel.getAantalSpelers(); index++) {
             //geeft stamleden terug
             getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getGebruikteStamleden());
+            //voedsel aftrekken per speler
+            getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - getSpelerLijst().get(index).getGebruikteStamleden());
             //zet gebruikte stamleden terug op 0
             getSpelerLijst().get(index).setGebruikteStamleden(0);
-            //elke plaats weer vrijmakenµ
-            spel.resetPlaatsenLijst();
         }
     }
     
