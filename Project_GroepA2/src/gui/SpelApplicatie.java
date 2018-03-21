@@ -102,7 +102,7 @@ public class SpelApplicatie
                     break;
                     //bos
                     case 2:
-                        if (dc.getPlaatsenLijst().get(0).getAantalSpots() == 0)
+                        if (dc.getPlaatsenLijst().get(0).getAantalSpots() < 1)
                         {
                             System.out.printf("Het bos is bezet.");
                             bedieningsPaneel(spelerNr);
@@ -114,7 +114,7 @@ public class SpelApplicatie
                     break;
                     //leemgroeve
                     case 3:
-                        if (dc.getPlaatsenLijst().get(1).getAantalSpots() == 0)
+                        if (dc.getPlaatsenLijst().get(1).getAantalSpots() < 1)
                         {
                             System.out.printf("De leemgroeve is bezet.");
                             bedieningsPaneel(spelerNr);
@@ -126,7 +126,7 @@ public class SpelApplicatie
                     break;
                     //steengroeve
                     case 4: 
-                        if (dc.getPlaatsenLijst().get(2).getAantalSpots() == 0)
+                        if (dc.getPlaatsenLijst().get(2).getAantalSpots() < 1)
                         {
                             System.out.printf("De steengroeve is bezet.");
                             bedieningsPaneel(spelerNr);
@@ -138,7 +138,7 @@ public class SpelApplicatie
                     break;
                     //goudmijn
                     case 5: 
-                        if (dc.getPlaatsenLijst().get(3).getAantalSpots() == 0)
+                        if (dc.getPlaatsenLijst().get(3).getAantalSpots() < 1)
                         {
                             System.out.printf("De goudmijn is bezet.");
                             bedieningsPaneel(spelerNr);
@@ -150,7 +150,7 @@ public class SpelApplicatie
                     break;
                     //jachtgebied
                     case 6: 
-                        if (dc.getPlaatsenLijst().get(6).getAantalSpots() == 0)
+                        if (dc.getPlaatsenLijst().get(6).getAantalSpots() < 1)
                         {
                             System.out.printf("Het jachtgebied is volzet.");
                             bedieningsPaneel(spelerNr);
@@ -162,7 +162,7 @@ public class SpelApplicatie
                     break;
                     //hut
                     case 7:
-                        if (dc.getPlaatsenLijst().get(7).getAantalSpots() == 0)
+                        if (dc.getPlaatsenLijst().get(7).getAantalSpots() < 1)
                         {
                             System.out.printf("De hut is bezet.");
                             bedieningsPaneel(spelerNr);
@@ -244,34 +244,36 @@ public class SpelApplicatie
     public int bepaalStamleden(int spelerNr, int keuzeNr)
     {
         int aantal = 0;
+        boolean OK = true;
         System.out.printf("<Huidig aantal stamleden: %d >%n", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal());
-        try
+        while(OK)
         {
-            System.out.printf("Hoeveel wilt u er plaatsen (0: terug): ");
-            String antw = input.next();
-            aantal = Integer.parseInt(antw);
-            if (aantal == 0) 
+            try
             {
-                bedieningsPaneel(spelerNr);
-            }
-            else if (aantal > dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
-            {
-                System.out.printf("Te weinig plaats voor %d %s%n", aantal, aantal > 1 ? "stamleden":"stamlid");
-                bepaalStamleden(spelerNr, keuzeNr);
-            }
-            else
-            {
-                while (aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal < 0)
+                System.out.printf("Hoeveel wilt u er plaatsen (0: terug): ");
+                String antw = input.next();
+                aantal = Integer.parseInt(antw);
+                if (aantal == 0) 
+                {
+                    bedieningsPaneel(spelerNr);
+                }
+                if (aantal > dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
+                {
+                    System.out.printf("Te weinig plaats voor %d %s%n", aantal, aantal > 1 ? "stamleden":"stamlid");
+                }
+                if(aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal < 0)
                 {
                     System.out.printf("Ongeldig probeer opnieuw!%n");
-                    bepaalStamleden(spelerNr, keuzeNr);
                 }
+                if( aantal <= dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots() && aantal > 0)
+                {
+                    System.out.println("Stamleden worden geplaatst...");
+                    OK= false;
+                }
+            }catch(NumberFormatException e)
+            {
+                System.out.printf("Ongeldig probeer opnieuw!%n");
             }
-            return aantal;
-        }catch(NumberFormatException e)
-        {
-            System.out.printf("Ongeldig probeer opnieuw!%n");
-            bepaalStamleden(spelerNr, keuzeNr);
         }
         return aantal;
     }

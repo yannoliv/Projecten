@@ -129,11 +129,15 @@ public class DomeinController
                 //verhoogt gebruikte stamleden
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 //verlaagt de speler zijn stamleden met de gebruikte stamleden
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() //setStamlid( huidig - gebruikt)
+                        - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
                 //verhoogt het aantal hout van de speler door zijn voorig aantal op te halen en te verhogen met het gekregen hout
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(0).getDeler()));
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() 
+                        + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(0).getDeler()));
                 //verlaag de aantal mogelijke posities bij bos
-                getPlaatsenLijst().get(0).setAantalSpots(getPlaatsenLijst().get(0).getAantalSpots() - aantalStamleden);                
+                getPlaatsenLijst().get(0).setAantalSpots(getPlaatsenLijst().get(0).getAantalSpots() 
+                        - aantalStamleden);    
+                
                 break;
             case 3:
                 //leem
