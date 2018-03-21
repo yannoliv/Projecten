@@ -18,9 +18,24 @@ public class Spel
     public List<Plaats> vulHuttenLijst()
     {
         SecureRandom random = new SecureRandom();
+        int punten;
+        int willekeur1;
+        int willekeur2;
+        String resource1;
+        String resource2;
+        String resource3;
+        int aantalResource1;
+        int aantalResource2;
+        int aantalResource3;
+        
         huttenLijst = new ArrayList<>();
         for (int i = 0; i < 28; i++) {
-            huttenLijst.add(new Plaats());
+            punten = random.nextInt(18) + 12;
+            willekeur1 = random.nextInt(7);
+            willekeur2 = random.nextInt(5) + 1;
+            
+            resource1 = getPlaatsenLijst().get(i+willekeur1).getNaam();
+            aantalResource1 = getPlaatsenLijst().get(i+willekeur1).getAantalResource1();
         }
         return huttenLijst;
     }

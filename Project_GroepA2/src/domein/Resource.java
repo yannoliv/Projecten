@@ -10,6 +10,7 @@ public class Resource
        setNaam(naam);
        setAantal(aantal);
    }
+   
    public String getNaam() {
         return naam;
     }
