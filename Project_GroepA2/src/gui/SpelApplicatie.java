@@ -81,19 +81,20 @@ public class SpelApplicatie
     //Bedieningspaneel
     public void bedieningsPaneel(int spelerNr)
     {
+        String resultaat;
+        int temp;
         try
         {
-            int temp;
             do
             {
                 System.out.println(dc.getBedieningsPaneel(spelerNr));
                 System.out.printf("Keuze:%n");
-                String resultaat = input.next();
+                resultaat = input.next();
                 temp = Integer.parseInt(resultaat);
 
                 switch(temp)
                 {
-                    //stop spel
+                    //terug keren
                     case 0:
                         bedieningsPaneel(spelerNr);
                         break;
@@ -101,29 +102,83 @@ public class SpelApplicatie
                     case 1: System.out.printf("%n%n" + dc.toonSpelers());
                     break;
                     //bos
-                    case 2: dc.plaatsOpPlek(spelerNr, 2, bepaalStamleden(spelerNr));
+                    case 2:
+                        if (dc.getPlaatsenLijst().get(0).getAantalSpots() == 0)
+                        {
+                            System.out.printf("Het bos is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        dc.plaatsOpPlek(spelerNr, 2, bepaalStamleden(spelerNr));
                     break;
                     //leemgroeve
-                    case 3: dc.plaatsOpPlek(spelerNr, 3, bepaalStamleden(spelerNr));
+                    case 3:
+                        if (dc.getPlaatsenLijst().get(1).getAantalSpots() == 0)
+                        {
+                            System.out.printf("De leemgroeve is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        dc.plaatsOpPlek(spelerNr, 3, bepaalStamleden(spelerNr));
                     break;
                     //steengroeve
-                    case 4: dc.plaatsOpPlek(spelerNr, 4, bepaalStamleden(spelerNr));
+                    case 4: 
+                        if (dc.getPlaatsenLijst().get(2).getAantalSpots() == 0)
+                        {
+                            System.out.printf("De steengroeve is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        dc.plaatsOpPlek(spelerNr, 4, bepaalStamleden(spelerNr));
                     break;
                     //goudmijn
-                    case 5: dc.plaatsOpPlek(spelerNr, 5, bepaalStamleden(spelerNr));
+                    case 5: 
+                        if (dc.getPlaatsenLijst().get(3).getAantalSpots() == 0)
+                        {
+                            System.out.printf("De goudmijn is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        dc.plaatsOpPlek(spelerNr, 5, bepaalStamleden(spelerNr));
                     break;
                     //jachtgebied
-                    case 6: dc.plaatsOpPlek(spelerNr, 6, bepaalStamleden(spelerNr));
+                    case 6: 
+                        if (dc.getPlaatsenLijst().get(6).getAantalSpots() == 0)
+                        {
+                            System.out.printf("Het jachtgebied is volzet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        dc.plaatsOpPlek(spelerNr, 6, bepaalStamleden(spelerNr));
                     break;
                     //hut
-                    case 7: dc.plaatsOpPlek(spelerNr, 7, bevestiging(spelerNr, temp));
+                    case 7:
+                        if (dc.getPlaatsenLijst().get(7).getAantalSpots() == 0)
+                        {
+                            System.out.printf("De hut is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        else if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() <= 1)
+                        {
+                            System.out.printf("Onvoldoende stamleden.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        dc.plaatsOpPlek(spelerNr, 7, bevestiging(spelerNr, temp));
                     break;
                     //smith
-                    case 8: dc.plaatsOpPlek(spelerNr, 8, bevestiging(spelerNr, temp));
+                    case 8: 
+                        if (dc.getPlaatsenLijst().get(5).getAantalSpots() == 0)
+                        {
+                            System.out.printf("De smith is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        dc.plaatsOpPlek(spelerNr, 8, bevestiging(spelerNr, temp));
                     break;
                     //akkerbouw
-                    case 9: dc.plaatsOpPlek(spelerNr, 9, bevestiging(spelerNr, temp));
+                    case 9: 
+                        if (dc.getPlaatsenLijst().get(4).getAantalSpots() == 0)
+                        {
+                            System.out.printf("De akkerbouw is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        dc.plaatsOpPlek(spelerNr, 9, bevestiging(spelerNr, temp));
                     break;
+                    //stop spel
                     case 10:
                         System.exit(0);
                         break;
@@ -137,6 +192,8 @@ public class SpelApplicatie
         }catch(NumberFormatException e) 
         {
             System.out.printf("%nOngeldige keuze.");
+            resultaat = null;
+            temp = 0;
             bedieningsPaneel(spelerNr);
         }
     }
@@ -170,9 +227,13 @@ public class SpelApplicatie
                     dc.getPlaatsenLijst().get(0).getAantalSpots() <  aantal) //aantal spots besch > aantal stamleden
             {
                 System.out.printf("Ongeldig probeer opnieuw!%n");
-                System.out.printf("Hoeveel wilt u er plaatsen: ");
+                System.out.printf("Hoeveel wilt u er plaatsen  (0: terug): ");
                 antw = input.next();
                 aantal = Integer.parseInt(antw);
+                if (aantal == 0)
+                {
+                    bedieningsPaneel(spelerNr);
+                }
             }
             return aantal;
         }catch(NumberFormatException e)
@@ -196,7 +257,15 @@ public class SpelApplicatie
                     {
                         System.out.printf("Ongeldig antwoord!%nja of nee: ");
                         antwoord = input.next();
-                    }       
+                    }      
+                    if ("nee".equals(antwoord))
+                    {
+                        bedieningsPaneel(spelerNr);
+                    }
+                    else
+                    {
+                        bevestiging = 2;
+                    }
                 }
                 break;
             case 8:
