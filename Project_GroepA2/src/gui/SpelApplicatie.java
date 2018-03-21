@@ -94,26 +94,36 @@ public class SpelApplicatie
 
                 switch(temp)
                 {
+                    //stop spel
                     case 0:
                         System.exit(0);
                         break;
+                    //toon spelers
                     case 1: System.out.printf("%n%n" + dc.toonSpelers());
                     break;
+                    //bos
                     case 2: dc.plaatsOpPlek(spelerNr, 2, bepaalStamleden(spelerNr));
                     break;
+                    //leemgroeve
                     case 3: dc.plaatsOpPlek(spelerNr, 3, bepaalStamleden(spelerNr));
                     break;
+                    //steengroeve
                     case 4: dc.plaatsOpPlek(spelerNr, 4, bepaalStamleden(spelerNr));
                     break;
+                    //goudmijn
                     case 5: dc.plaatsOpPlek(spelerNr, 5, bepaalStamleden(spelerNr));
                     break;
+                    //jachtgebied
                     case 6: dc.plaatsOpPlek(spelerNr, 6, bepaalStamleden(spelerNr));
                     break;
-                    case 7: dc.plaatsOpPlek(spelerNr, 7, bepaalStamleden(spelerNr));
+                    //hut
+                    case 7: dc.plaatsOpPlek(spelerNr, 7, bevestiging(spelerNr, temp));
                     break;
-                    case 8: dc.plaatsOpPlek(spelerNr, 8, bepaalStamleden(spelerNr));
+                    //smith
+                    case 8: dc.plaatsOpPlek(spelerNr, 8, bevestiging(spelerNr, temp));
                     break;
-                    case 9: dc.plaatsOpPlek(spelerNr, 9, bepaalStamleden(spelerNr));
+                    //akkerbouw
+                    case 9: dc.plaatsOpPlek(spelerNr, 9, bevestiging(spelerNr, temp));
                     break;
                     default: 
                         System.out.printf("%nOngeldige keuze.");
@@ -166,6 +176,68 @@ public class SpelApplicatie
             bepaalStamleden(spelerNr);
         }
         return aantal;
+    }
+    
+    public int bevestiging(int spelerNr, int keuzeNr)
+    {
+        int bevestiging = 0;
+        switch (keuzeNr) {
+            case 7:
+                {
+                    System.out.printf("<Hut neemt vast 2 stamleden>%nHier plaatsen (ja/nee):");
+                    String antwoord = input.next();
+                    antwoord.toLowerCase();
+                    while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
+                        System.out.printf("Ongeldig antwoord!%nja of nee: ");
+                        antwoord = input.next();
+                    }       if ("ja".equals(antwoord))
+                    {
+                        bevestiging = 2;
+                    }
+                    else
+                    {
+                        dc.BedieningsPaneel(spelerNr);
+                    }       break;
+                }
+            case 8:
+                {
+                    System.out.printf("<Smith neemt vast 1 stamlid>%nHier plaatsen (ja/nee): ");
+                    String antwoord = input.next();
+                    antwoord.toLowerCase();
+                    while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
+                        System.out.printf("Ongeldig antwoord!%nja of nee: ");
+                        antwoord = input.next();
+                    }       if ("ja".equals(antwoord))
+                    {
+                        bevestiging = 1;
+                    }
+                    else
+                    {
+                        dc.BedieningsPaneel(spelerNr);
+                    }       break;
+                }
+            case 9:
+                {
+                    System.out.printf("<Akkerbouw neemt vast 1 stamlid>%nHier plaatsen (ja/nee): ");
+                    String antwoord = input.next();
+                    antwoord.toLowerCase();
+                    while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
+                        System.out.printf("Ongeldig antwoord!%nja of nee: ");
+                        antwoord = input.next();
+                    }
+                    if ("ja".equals(antwoord))
+                    {
+                        bevestiging = 1;
+                    }
+                    else
+                    {
+                        dc.BedieningsPaneel(spelerNr);
+                    }       break;
+                }
+            default:
+                break;
+        }
+        return bevestiging;
     }
     
     public void toonScoreBord()
