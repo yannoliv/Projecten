@@ -11,8 +11,8 @@ public class Speler
     private String kleur;
     public int spelerNummer = 0;
     private List<Resource> resourceLijst;
+    private int gebruikteStamleden;
 
-    
     SecureRandom random = new SecureRandom();
     
     //constructor
@@ -20,6 +20,7 @@ public class Speler
     {
         setSpelerNummer(spelerNummer);    
         setKleur(kleurLijst[spelerNummer]); // speler 1 -1 wordt 0 dus rood
+        setGebruikteStamleden(gebruikteStamleden);
     }
     
     //---------------------------------------------------------------------------
@@ -74,6 +75,16 @@ public class Speler
     public void setResourceLijst(List<Resource> resourceLijst) {
         this.resourceLijst = resourceLijst;
     }
+    
+    
+    public int getGebruikteStamleden() {
+        return gebruikteStamleden;
+    }
+
+    public void setGebruikteStamleden(int gebruikteStamleden) {
+        this.gebruikteStamleden = gebruikteStamleden;
+    }
+
     
 }
 

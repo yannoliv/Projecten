@@ -97,7 +97,7 @@ public class SpelApplicatie
                     case 0:
                         System.exit(0);
                         break;
-                    case 1: System.out.printf(dc.toonSpelers());
+                    case 1: System.out.printf("%n%n" + dc.toonSpelers());
                     break;
                     case 2: dc.plaatsOpPlek(spelerNr, 2, bepaalStamleden(spelerNr));
                     break;
@@ -124,51 +124,54 @@ public class SpelApplicatie
             }while(temp == 1);
         }catch(NumberFormatException e) 
         {
-            System.out.printf("%n                   ----------------------------");
-            System.out.printf("%n                   -!!!Keuze moet 0-9 zijn.!!!-");
-            System.out.printf("%n                   ----------------------------%n");
+            System.out.printf("%nOngeldige keuze.");
         }
     }
     
    //Einde ronde
     public void eindeRonde()
     {
-        System.out.printf("%n               -----------------------------------------------");
-        System.out.printf("%n               -                Ronde is klaar!              -");
-        System.out.printf("%n               -           De uiteindelijke score is         -");
-        System.out.printf("%n               -----------------------------------------------");
+        String output = "";
+        output += String.format("%n%n");
+        output += String.format("%n               -----------------------------------------------");
+        output += String.format("%n               -                Ronde is klaar!              -");
+        output += String.format("%n               -           De uiteindelijke score is         -");
+        output += String.format("%n               -----------------------------------------------%n%n%n%n");
         dc.eindeRonde();
-        dc.toonSpelers();
-        System.out.printf("%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n");
-        System.out.printf("%n%n<Nieuwe ronde is gestart>%n%n");
+        System.out.printf(output + dc.toonSpelers() + "%n%n%n%n" + "<scroll naar boven voor eind resultaat van vorige ronde>%n" +"%n%n<Nieuwe ronde is gestart>%n%n");
     }
     
     public int bepaalStamleden(int spelerNr)
     {
         int aantal = 0;
         System.out.printf("<Huidig aantal stamleden: %d >%n", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal());
-            try
+        try
+        {
+            do
             {
-                do
-                {
+                System.out.printf("Hoeveel wilt u er plaatsen: ");
+                String antw = input.next();
+                aantal = Integer.parseInt(antw);
+                while (aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal <= 0) {
+                    System.out.printf("Ongeldig probeer opnieuw!%n");
                     System.out.printf("Hoeveel wilt u er plaatsen: ");
-                    String antw = input.next();
+                    antw = input.next();
                     aantal = Integer.parseInt(antw);
-                    while (aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal <= 0) {
-                        System.out.printf("Ongeldig probeer opnieuw!%n");
-                        System.out.printf("Hoeveel wilt u er plaatsen: ");
-                        antw = input.next();
-                        aantal = Integer.parseInt(antw);
-                    }
-                    return aantal;
-                } while(aantal == 0);
-            }catch(NumberFormatException e)
-            {
-                System.out.printf("Ongeldig probeer opnieuw!%n");
-                bepaalStamleden(spelerNr);
-            }
-            return aantal;
+                }
+                return aantal;
+            } while(aantal == 0);
+        }catch(NumberFormatException e)
+        {
+            System.out.printf("Ongeldig probeer opnieuw!%n");
+            bepaalStamleden(spelerNr);
         }
+        return aantal;
+    }
+    
+    public void toonScoreBord()
+    {
+        System.out.printf("%n" + dc.toonSpelers());
+    }
     
     public DomeinController getDc() {
         return dc;

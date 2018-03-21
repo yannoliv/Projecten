@@ -56,6 +56,15 @@ public class Spel
         return plaatsLijst;
     }
     //---------------------------------------------------------------------------
+    //plaatsenlijst resetten
+    public void resetPlaatsenLijst()
+    {
+        for (int index = 0; index < plaatsLijst.size(); index++) {
+            plaatsLijst.remove(index);
+        }
+        vulPlaatsLijst();
+    }
+    //---------------------------------------------------------------------------
     //elke speler resources geven
     public void setSpelersResourceLijst()
     {
