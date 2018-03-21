@@ -13,30 +13,35 @@ public class Spel
     private List<Resource> resourceLijst;
     private List<Plaats> plaatsLijst;
     private List<Plaats> huttenLijst;
+    SecureRandom random = new SecureRandom();
+    
     //---------------------------------------------------------------------------
     //hutten lijst vullen
     public List<Plaats> vulHuttenLijst()
     {
-        SecureRandom random = new SecureRandom();
-        int punten;
-        int willekeur1;
-        int willekeur2;
-        String resource1;
-        String resource2;
-        String resource3;
-        int aantalResource1;
-        int aantalResource2;
-        int aantalResource3;
-        
         huttenLijst = new ArrayList<>();
         for (int i = 0; i < 28; i++) {
-            punten = random.nextInt(18) + 12;
-            willekeur1 = random.nextInt(7);
-            willekeur2 = random.nextInt(5) + 1;
-            
-            resource1 = getPlaatsenLijst().get(i+willekeur1).getNaam();
-            aantalResource1 = getPlaatsenLijst().get(i+willekeur1).getAantalResource1();
+                                        //punten hut    (van 12 tot 18)
+           huttenLijst.add(new Plaats(random.nextInt(6) + 12,
+                                        //resource naam 1 hut
+                                        getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam(),
+                                        //resource hoeveelheid 1 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 2 hut
+                                        getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam(),
+                                        //resource hoeveelheid 2 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 3 hut
+                                        getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam(),
+                                        //resource hoeveelheid hut
+                                        random.nextInt(4) + 1));
         }
+        return huttenLijst;
+    }
+    //---------------------------------------------------------------------------
+    //hutten lijst ophalen
+    public List<Plaats> getHuttenLijst()
+    {
         return huttenLijst;
     }
     //---------------------------------------------------------------------------
@@ -80,12 +85,6 @@ public class Spel
         plaatsLijst.add(new Plaats("Jachtgebied",   getResourceLijst().get(6), 2,        40));
         plaatsLijst.add(new Plaats("Hut",           getResourceLijst().get(7),           2));
         return plaatsLijst;
-    }
-    //---------------------------------------------------------------------------
-    //huttenlijst ophalen
-    public List<Plaats> getHuttenLijst()
-    {
-        return huttenLijst;
     }
     //---------------------------------------------------------------------------
     //plaatsenlijst resetten

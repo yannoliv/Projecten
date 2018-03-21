@@ -73,7 +73,10 @@ public class DomeinController
     public void beginSpel()
     {
         spel.vulPlaatsLijst();
+        spel.vulHuttenLijst();
         spelApp.toonScoreBord();
+        System.out.printf("%n" + spel.getHuttenLijst().get(0).getResource1() + " " + spel.getHuttenLijst().get(0).getResource2() + " " + spel.getHuttenLijst().get(0).getResource3() + "%n" 
+        + spel.getHuttenLijst().get(0).getAantalResource1() + " " + spel.getHuttenLijst().get(0).getAantalResource2() + " " + spel.getHuttenLijst().get(0).getAantalResource3());
         boolean eindeSpel = true;
         while(eindeSpel)
         {
