@@ -115,7 +115,6 @@ public class DomeinController
     public void omDeBeurt()
     {
         //per ronde per speler een apart bedieningspaneel
-        
         for (int i = 0; i < getSpelerLijst().size(); i++)         
         {
             while(getSpelerLijst().get(i).getResourceLijst().get(7).getAantal() != 0)
@@ -128,8 +127,8 @@ public class DomeinController
                     }
                 }
             }
-            spelApp.eindeRonde();
         }
+        spelApp.eindeRonde();
     }
     //---------------------------------------------------------------------------
     // einde van de ronde, resources geven
@@ -172,8 +171,8 @@ public class DomeinController
                 break;
             case 4:
                 //steen
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(2).getDeler()));
                 getPlaatsenLijst().get(2).setAantalSpots(getPlaatsenLijst().get(2).getAantalSpots() - aantalStamleden);
                 break;
@@ -188,7 +187,7 @@ public class DomeinController
                 //voedsel
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(4).getAantal() + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(6).getDeler()));
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(6).getAantal() + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(6).getDeler()));
                 getPlaatsenLijst().get(6).setAantalSpots(getPlaatsenLijst().get(6).getAantalSpots() - aantalStamleden);
                 break;
             case 7:
