@@ -87,7 +87,7 @@ public class SpelApplicatie
             int temp;
             do
             {
-                System.out.println(dc.BedieningsPaneel(spelerNr));
+                System.out.println(dc.getBedieningsPaneel(spelerNr));
                 System.out.printf("Keuze:%n");
                 String resultaat = input.next();
                 temp = Integer.parseInt(resultaat);
@@ -135,6 +135,7 @@ public class SpelApplicatie
         }catch(NumberFormatException e) 
         {
             System.out.printf("%nOngeldige keuze.");
+            bediening(spelerNr);
         }
     }
     
@@ -196,7 +197,7 @@ public class SpelApplicatie
                     }
                     else
                     {
-                        dc.BedieningsPaneel(spelerNr);
+                        dc.getBedieningsPaneel(spelerNr);
                     }       break;
                 }
             case 8:
@@ -213,7 +214,7 @@ public class SpelApplicatie
                     }
                     else
                     {
-                        dc.BedieningsPaneel(spelerNr);
+                        dc.getBedieningsPaneel(spelerNr);
                     }       break;
                 }
             case 9:
@@ -231,7 +232,7 @@ public class SpelApplicatie
                     }
                     else
                     {
-                        dc.BedieningsPaneel(spelerNr);
+                        dc.getBedieningsPaneel(spelerNr);
                     }       break;
                 }
             default:
