@@ -181,4 +181,14 @@ public class Spel
         return bedieningsPaneel;
     }
     
+   public void spelerFix(int ronde)
+   {
+       for (int index = 0; index < getAantalSpelers(); index++) {
+           if (spelerLijst.get(index).getResourceLijst().get(7).getAantal() < 0) 
+           {
+               spelerLijst.get(index).getResourceLijst().get(7).setAantal(0);
+               spelerLijst.get(index).getResourceLijst().get(6).setAantal(12);
+           }
+       }
+   }
 }

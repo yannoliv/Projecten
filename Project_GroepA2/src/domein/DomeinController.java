@@ -94,6 +94,7 @@ public class DomeinController
                     if (getSpelerLijst().get(j).getResourceLijst().get(7).getAantal() > 0)    
                     {
                         spelApp.bedieningsPaneel(j);
+                        spel.spelerFix(j);
                     }
                 }
             }
@@ -111,9 +112,8 @@ public class DomeinController
             //geeft stamleden terug
             getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getGebruikteStamleden());
             //voedsel aftrekken per speler
-            getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - getSpelerLijst().get(index).getGebruikteStamleden());
+            getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - (getSpelerLijst().get(index).getGebruikteStamleden() - getSpelerLijst().get(index).getResourceLijst().get(4).getAantal()));
             //verhoog voedsel met akkerbouw van de speler
-            getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() + getSpelerLijst().get(index).getResourceLijst().get(4).getAantal());
             //zet gebruikte stamleden terug op 0
             getSpelerLijst().get(index).setGebruikteStamleden(0);
         }
@@ -167,7 +167,7 @@ public class DomeinController
                 //stamleden
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() + 1);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() + 2);
                 getPlaatsenLijst().get(7).setAantalSpots(getPlaatsenLijst().get(7).getAantalSpots() - aantalStamleden);
                 break;
             case 8:
