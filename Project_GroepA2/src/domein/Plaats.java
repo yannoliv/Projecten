@@ -1,13 +1,12 @@
 package domein;
 
-import java.util.*;
-
 public class Plaats
 {
    private String naam;
    private Resource typeResource;
    private int deler;
    private int aantalSpots;
+   private int punten;
 
    
    public Plaats(String naam, Resource resourceType, int deler, int aantalSpots)
@@ -23,6 +22,11 @@ public class Plaats
        setNaam(naam);
        setTypeResource(resourceType);
        setAantalSpots(aantalSpots);
+   }
+   
+   public Plaats()
+   {
+       setPunten(punten);
    }
    
     public String getNaam() {
@@ -56,4 +60,13 @@ public class Plaats
     public void setAantalSpots(int aantalSpots) {
         this.aantalSpots = aantalSpots;
     }
+    
+     public int getPunten() {
+        return punten;
+    }
+
+    public void setPunten(int punten) {
+        this.punten = punten;
+    }
+   
 }

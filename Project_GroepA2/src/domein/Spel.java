@@ -12,7 +12,18 @@ public class Spel
     private List<Speler> spelerLijst;
     private List<Resource> resourceLijst;
     private List<Plaats> plaatsLijst;
-    
+    private List<Plaats> huttenLijst;
+    //---------------------------------------------------------------------------
+    //hutten lijst vullen
+    public List<Plaats> vulHuttenLijst()
+    {
+        SecureRandom random = new SecureRandom();
+        huttenLijst = new ArrayList<>();
+        for (int i = 0; i < 28; i++) {
+            huttenLijst.add(new Plaats());
+        }
+        return huttenLijst;
+    }
     //---------------------------------------------------------------------------
     //speler lijst vullen
     public List<Speler> vulSpelerLijst(int aantal)
@@ -54,6 +65,12 @@ public class Spel
         plaatsLijst.add(new Plaats("Jachtgebied",   getResourceLijst().get(6), 2,        40));
         plaatsLijst.add(new Plaats("Hut",           getResourceLijst().get(7),           2));
         return plaatsLijst;
+    }
+    //---------------------------------------------------------------------------
+    //huttenlijst ophalen
+    public List<Plaats> getHuttenLijst()
+    {
+        return huttenLijst;
     }
     //---------------------------------------------------------------------------
     //plaatsenlijst resetten

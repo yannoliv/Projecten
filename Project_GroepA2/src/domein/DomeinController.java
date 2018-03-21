@@ -93,7 +93,7 @@ public class DomeinController
                 {
                     if (getSpelerLijst().get(j).getResourceLijst().get(7).getAantal() > 0)    
                     {
-                        spelApp.bediening(j);
+                        spelApp.bedieningsPaneel(j);
                     }
                 }
             }

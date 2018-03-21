@@ -79,7 +79,7 @@ public class SpelApplicatie
     }
     
     //Bedieningspaneel
-    public void bediening(int spelerNr)
+    public void bedieningsPaneel(int spelerNr)
     {
         
         try
@@ -127,7 +127,7 @@ public class SpelApplicatie
                     break;
                     default: 
                         System.out.printf("%nOngeldige keuze.");
-                        bediening(spelerNr);
+                        bedieningsPaneel(spelerNr);
                         break;
                 }
 
@@ -135,7 +135,7 @@ public class SpelApplicatie
         }catch(NumberFormatException e) 
         {
             System.out.printf("%nOngeldige keuze.");
-            bediening(spelerNr);
+            bedieningsPaneel(spelerNr);
         }
     }
     
@@ -191,13 +191,14 @@ public class SpelApplicatie
                     while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
                         System.out.printf("Ongeldig antwoord!%nja of nee: ");
                         antwoord = input.next();
-                    }       if ("ja".equals(antwoord))
+                    }
+                    if ("ja".equals(antwoord))
                     {
                         bevestiging = 2;
                     }
                     else
                     {
-                        dc.getBedieningsPaneel(spelerNr);
+                        bedieningsPaneel(spelerNr);
                     }       break;
                 }
             case 8:
