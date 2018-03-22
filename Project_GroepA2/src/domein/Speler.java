@@ -29,11 +29,8 @@ public class Speler
     private boolean plaatsOpHut = false;
     private int aantalHut = 0;
     private boolean plaatsOpHutkaart1 = false;
-    private int aantalHutkaart1 = 0;
     private boolean plaatsOpHutkaart2 = false;
-    private int aantalHutkaart2 = 0;
     private boolean plaatsOpHutkaart3 = false;
-    private int aantalHutkaart3 = 0;
     
     //constructor
     public Speler(int spelerNummer)
@@ -257,29 +254,7 @@ public class Speler
         this.aantalHut = aantalHut;
     }
 
-    public int getAantalHutkaart1() {
-        return aantalHutkaart1;
-    }
-
-    public void setAantalHutkaart1(int aantalHutkaart1) {
-        this.aantalHutkaart1 = aantalHutkaart1;
-    }
-
-    public int getAantalHutkaart2() {
-        return aantalHutkaart2;
-    }
-
-    public void setAantalHutkaart2(int aantalHutkaart2) {
-        this.aantalHutkaart2 = aantalHutkaart2;
-    }
-
-    public int getAantalHutkaart3() {
-        return aantalHutkaart3;
-    }
-
-    public void setAantalHutkaart3(int aantalHutkaart3) {
-        this.aantalHutkaart3 = aantalHutkaart3;
-    }
+    
     
     
 }

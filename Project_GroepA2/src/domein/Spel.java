@@ -85,6 +85,7 @@ public class Spel
         resourceLijst.add(new Resource("gereedschap",   0));
         resourceLijst.add(new Resource("voedsel",       12));
         resourceLijst.add(new Resource("stamleden",     5));
+        resourceLijst.add(new Resource("punten",     0));
         return resourceLijst;
     }
     //---------------------------------------------------------------------------

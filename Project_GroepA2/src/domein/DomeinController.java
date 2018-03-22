@@ -59,6 +59,14 @@ public class DomeinController
         return spel.getPlaatsenLijst();
     }
     //---------------------------------------------------------------------------
+    //huttenlijst ophalen
+    public List<Plaats> getHuttenLijst()
+    {
+        return spel.getHuttenLijst();
+    }
+    
+    
+    //---------------------------------------------------------------------------
     //per speler zijn scoreboard ophalen
     public String toonSpelers()
     {
@@ -143,6 +151,9 @@ public class DomeinController
             if (getSpelerLijst().get(index).isPlaatsOpHut()== true) {
                 getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + getSpelerLijst().get(index).getAantalHut());
             }
+            if (getSpelerLijst().get(index).isPlaatsOpHutkaart1() == true){
+                getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(0).getPunten());
+            }
            //zet gebruikte stamleden terug op 0
             getSpelerLijst().get(index).setGebruikteStamleden(0);
             if (getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0) {
@@ -225,6 +236,12 @@ public class DomeinController
                 getSpelerLijst().get(spelerNr).setPlaatsOpAkkerbouw(true);
                 getSpelerLijst().get(spelerNr).setAantalAkkerbouw(aantalStamleden);
                 getPlaatsenLijst().get(4).setAantalSpots(getPlaatsenLijst().get(4).getAantalSpots() - aantalStamleden);
+                break;
+            case 11:
+                //hut1
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + 1);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - 1);
+                getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart1(true);
                 break;
         }
     }

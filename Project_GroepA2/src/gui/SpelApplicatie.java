@@ -107,6 +107,11 @@ public class SpelApplicatie
                             System.out.printf("Het bos is bezet.");
                             bedieningsPaneel(spelerNr);
                         }
+                        else if(dc.getSpelerLijst().get(spelerNr).isPlaatsOpBos())
+                        {
+                            System.out.printf("Je hebt al spelers gezet op deze plaats.");
+                            bedieningsPaneel(spelerNr);
+                        }
                         else
                         {
                             dc.plaatsOpPlek(spelerNr, 2, bepaalStamleden(spelerNr, temp));
@@ -117,6 +122,11 @@ public class SpelApplicatie
                         if (dc.getPlaatsenLijst().get(1).getAantalSpots() < 1)
                         {
                             System.out.printf("De leemgroeve is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        else if(dc.getSpelerLijst().get(spelerNr).isPlaatsOpLeemgroeve())
+                        {
+                            System.out.printf("Je hebt al spelers gezet op deze plaats.");
                             bedieningsPaneel(spelerNr);
                         }
                         else
@@ -131,6 +141,11 @@ public class SpelApplicatie
                             System.out.printf("De steengroeve is bezet.");
                             bedieningsPaneel(spelerNr);
                         }
+                        else if(dc.getSpelerLijst().get(spelerNr).isPlaatsOpSteengroeve())
+                        {
+                            System.out.printf("Je hebt al spelers gezet op deze plaats.");
+                            bedieningsPaneel(spelerNr);
+                        }
                         else
                         {
                             dc.plaatsOpPlek(spelerNr, 4, bepaalStamleden(spelerNr, temp));
@@ -143,6 +158,11 @@ public class SpelApplicatie
                             System.out.printf("De goudmijn is bezet.");
                             bedieningsPaneel(spelerNr);
                         }
+                        else if(dc.getSpelerLijst().get(spelerNr).isPlaatsOpGoudmijn())
+                        {
+                            System.out.printf("Je hebt al spelers gezet op deze plaats.");
+                            bedieningsPaneel(spelerNr);
+                        }
                         else
                         {
                             dc.plaatsOpPlek(spelerNr, 5, bepaalStamleden(spelerNr, temp));
@@ -153,6 +173,11 @@ public class SpelApplicatie
                         if (dc.getPlaatsenLijst().get(6).getAantalSpots() < 1)
                         {
                             System.out.printf("Het jachtgebied is volzet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                        else if(dc.getSpelerLijst().get(spelerNr).isPlaatsOpJachtgebied())
+                        {
+                            System.out.printf("Je hebt al spelers gezet op deze plaats.");
                             bedieningsPaneel(spelerNr);
                         }
                         else
@@ -211,6 +236,27 @@ public class SpelApplicatie
                     //stop spel
                     case 10:
                         System.exit(0);
+                        break;
+                    case 11:
+                        boolean isOpGezet = false;
+                        for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
+                        {
+                            if (dc.getSpelerLijst().get(i).isPlaatsOpHutkaart1())
+                            {
+                                isOpGezet = true;
+                            }
+                        }
+                            if (isOpGezet == false)// 
+                            {
+                                dc.plaatsOpPlek(spelerNr, 11, 1);
+                                
+                            }
+                            else
+                            {
+                                System.out.printf("Hut 1 is bezet.");
+                                bedieningsPaneel(spelerNr);
+                            }
+                        
                         break;
                     default: 
                         System.out.printf("%nOngeldige keuze.");
