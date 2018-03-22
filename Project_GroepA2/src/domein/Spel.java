@@ -262,4 +262,16 @@ public class Spel
            }
        }
    }
+   
+   public String voedselMelding(int spelerNr)
+   {
+       String voedsel = "";
+       voedsel += String.format("U heeft geen voedsel om uw dorp te voeden.%n");
+       voedsel += String.format("Kies een resource om uw dorp te voeden:%n");
+       for (int i = 0; i < (getResourceLijst().size() - 4); i++) {
+           voedsel += String.format("%s: %d | ", getResourceLijst().get(i).getNaam(), getSpelerLijst().get(spelerNr).getResourceLijst().get(i).getAantal());
+       }
+       voedsel += String.format("%n");
+       return voedsel;
+   }
 }

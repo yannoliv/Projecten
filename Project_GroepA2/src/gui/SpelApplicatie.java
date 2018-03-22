@@ -256,19 +256,20 @@ public class SpelApplicatie
                 if (aantal == 0) 
                 {
                     bedieningsPaneel(spelerNr);
+                    OK = false;
                 }
-                if (aantal > dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
+                else if (aantal > dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
                 {
                     System.out.printf("Te weinig plaats voor %d %s%n", aantal, aantal > 1 ? "stamleden":"stamlid");
                 }
-                if(aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal < 0)
+                else if(aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal < 0)
                 {
                     System.out.printf("Ongeldig probeer opnieuw!%n");
                 }
-                if( aantal <= dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots() && aantal > 0)
+                else if( aantal <= dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots() && aantal > 0)
                 {
                     System.out.println("Stamleden worden geplaatst...");
-                    OK= false;
+                    OK = false;
                 }
             }catch(NumberFormatException e)
             {
@@ -340,12 +341,6 @@ public class SpelApplicatie
         }
         return bevestiging;
     }
-    
-    public void geenVoedselMelding()
-    {
-        System.out.printf("U heeft geen voedsel om uw dorp te voeden.%n");
-    }
-    
     public void toonScoreBord()
     {
         System.out.printf("%n" + dc.toonSpelers());

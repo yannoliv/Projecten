@@ -146,7 +146,7 @@ public class DomeinController
            //zet gebruikte stamleden terug op 0
             getSpelerLijst().get(index).setGebruikteStamleden(0);
             if (getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0) {
-                spelApp.geenVoedselMelding();
+                spel.voedselMelding(index);
             }
         }
         spel.resetSpelerZet();
@@ -234,6 +234,7 @@ public class DomeinController
         {
             return spel.bedieningsPaneel(spelerNr);
         }
+        
 }
 
 
