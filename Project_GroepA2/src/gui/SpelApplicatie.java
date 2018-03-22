@@ -323,7 +323,7 @@ public class SpelApplicatie
     
     public int bepaalStamleden(int spelerNr, int keuzeNr)
     {
-        int aantal = 0;
+        int ingegevenAantalStamleden = 0;
         boolean OK = true;
         System.out.printf("<Huidig aantal stamleden: %d >%n", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal());
         while(OK)
@@ -332,21 +332,21 @@ public class SpelApplicatie
             {
                 System.out.printf("Hoeveel wilt u er plaatsen (0: terug): ");
                 String antw = input.next();
-                aantal = Integer.parseInt(antw);
-                if (aantal == 0) 
+                ingegevenAantalStamleden = Integer.parseInt(antw);
+                if (ingegevenAantalStamleden == 0) 
                 {
                     bedieningsPaneel(spelerNr);
                     OK = false;
                 }
-                else if (aantal > dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
-                {
-                    System.out.printf("Te weinig plaats voor %d %s%n", aantal, aantal > 1 ? "stamleden":"stamlid");
-                }
-                else if(aantal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || aantal < 0)
+                if(ingegevenAantalStamleden > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || ingegevenAantalStamleden < 0)
                 {
                     System.out.printf("Ongeldig probeer opnieuw!%n");
                 }
-                else if( aantal <= dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots() && aantal > 0)
+                else if (ingegevenAantalStamleden > dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
+                {
+                    System.out.printf("Te weinig plaats voor %d %s%n", ingegevenAantalStamleden, ingegevenAantalStamleden > 1 ? "stamleden":"stamlid");
+                }
+                else if( ingegevenAantalStamleden <= dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
                 {
                     System.out.println("Stamleden worden geplaatst...");
                     OK = false;
@@ -356,7 +356,7 @@ public class SpelApplicatie
                 System.out.printf("Ongeldig probeer opnieuw!%n");
             }
         }
-        return aantal;
+        return ingegevenAantalStamleden;
     }
     
     public int bevestiging(int spelerNr, int keuzeNr)
