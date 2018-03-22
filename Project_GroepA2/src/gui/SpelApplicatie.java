@@ -87,6 +87,7 @@ public class SpelApplicatie
         {
             do
             {
+                boolean isOpGezet = false;
                 System.out.println(dc.getBedieningsPaneel(spelerNr));
                 System.out.printf("Keuze:%n");
                 resultaat = input.next();
@@ -238,7 +239,6 @@ public class SpelApplicatie
                         System.exit(0);
                         break;
                     case 11:
-                        boolean isOpGezet = false;
                         for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
                         {
                             if (dc.getSpelerLijst().get(i).isPlaatsOpHutkaart1())
@@ -246,18 +246,52 @@ public class SpelApplicatie
                                 isOpGezet = true;
                             }
                         }
-                            if (isOpGezet == false)// 
-                            {
-                                dc.plaatsOpPlek(spelerNr, 11, 1);
-                                
-                            }
-                            else
-                            {
-                                System.out.printf("Hut 1 is bezet.");
-                                bedieningsPaneel(spelerNr);
-                            }
-                        
+                        if (isOpGezet == false)// 
+                        {
+                            dc.plaatsOpPlek(spelerNr, 11, bevestiging(spelerNr, temp));
+                        }
+                        else
+                        {
+                            System.out.printf("Hut 1 is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
                         break;
+                    case 12:
+                        for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
+                        {
+                            if (dc.getSpelerLijst().get(i).isPlaatsOpHutkaart2())
+                            {
+                                isOpGezet = true;
+                            }
+                        }
+                        if (isOpGezet == false)// 
+                        {
+                            dc.plaatsOpPlek(spelerNr, 12, bevestiging(spelerNr, temp));
+                        }
+                        else
+                        {
+                            System.out.printf("Hut 2 is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                    break;
+                    case 13:
+                        for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
+                        {
+                            if (dc.getSpelerLijst().get(i).isPlaatsOpHutkaart3())
+                            {
+                                isOpGezet = true;
+                            }
+                        }
+                        if (isOpGezet == false)// 
+                        {
+                            dc.plaatsOpPlek(spelerNr, 13, bevestiging(spelerNr, temp));
+                        }
+                        else
+                        {
+                            System.out.printf("Hut 3 is bezet.");
+                            bedieningsPaneel(spelerNr);
+                        }
+                    break;
                     default: 
                         System.out.printf("%nOngeldige keuze.");
                         bedieningsPaneel(spelerNr);
@@ -382,6 +416,61 @@ public class SpelApplicatie
                         bedieningsPaneel(spelerNr);
                     }       break;
                 }
+            case 11:
+            {
+                System.out.printf("<Hut kaart 1 neemt vast 1 stamlid>%nHier plaatsen (ja/nee): ");
+                String antwoord = input.next().toLowerCase();
+                while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
+                    System.out.printf("Ongeldig antwoord!%nja of nee: ");
+                    antwoord = input.next();
+                }
+                if ("ja".equals(antwoord))
+                {
+                    bevestiging = 1;
+                }
+                else
+                {
+                    antwoord = "";
+                    bedieningsPaneel(spelerNr);
+                }  break;
+            }
+            case 12:
+            {
+                System.out.printf("<Hut kaart 2 neemt vast 1 stamlid>%nHier plaatsen (ja/nee): ");
+                String antwoord = input.next().toLowerCase();
+                while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
+                    System.out.printf("Ongeldig antwoord!%nja of nee: ");
+                    antwoord = input.next();
+                }
+                if ("ja".equals(antwoord))
+                {
+                    bevestiging = 1;
+                }
+                else
+                {
+                    antwoord = "";
+                    bedieningsPaneel(spelerNr);
+                }  break;
+            }
+            case 13:
+            {
+                System.out.printf("<Hut kaart 3 neemt vast 1 stamlid>%nHier plaatsen (ja/nee): ");
+                String antwoord = input.next().toLowerCase();
+                while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
+                    System.out.printf("Ongeldig antwoord!%nja of nee: ");
+                    antwoord = input.next();
+                }
+                if ("ja".equals(antwoord))
+                {
+                    bevestiging = 1;
+                }
+                else
+                {
+                    antwoord = "";
+                    bedieningsPaneel(spelerNr);
+                }  break;
+            }
+            
             default:
                 break;
         }
