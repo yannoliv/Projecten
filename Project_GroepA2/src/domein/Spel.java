@@ -258,7 +258,6 @@ public class Spel
            if (spelerLijst.get(index).getResourceLijst().get(7).getAantal() < 0) 
            {
                spelerLijst.get(index).getResourceLijst().get(7).setAantal(0);
-               spelerLijst.get(index).getResourceLijst().get(6).setAantal(12 - spelerLijst.get(index).getGebruikteStamleden());
            }
        }
    }
