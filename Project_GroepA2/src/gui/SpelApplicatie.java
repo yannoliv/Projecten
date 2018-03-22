@@ -341,6 +341,11 @@ public class SpelApplicatie
         return bevestiging;
     }
     
+    public void geenVoedselMelding()
+    {
+        System.out.printf("U heeft geen voedsel om uw dorp te voeden.%n");
+    }
+    
     public void toonScoreBord()
     {
         System.out.printf("%n" + dc.toonSpelers());

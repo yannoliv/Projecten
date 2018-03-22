@@ -115,7 +115,9 @@ public class DomeinController
             //geeft stamleden terug
             getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getGebruikteStamleden());
             //voedsel aftrekken per speler met akkerbouw ingerekend
-            getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - (getSpelerLijst().get(index).getGebruikteStamleden() - getSpelerLijst().get(index).getResourceLijst().get(4).getAantal()));
+            int voedselVermindering = getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - getSpelerLijst().get(index).getGebruikteStamleden();
+            voedselVermindering += getSpelerLijst().get(index).getResourceLijst().get(4).getAantal();
+            getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(voedselVermindering);
             //elke speler zijn resource die hij tijdens de ronde gegrind heeft geven
             if (getSpelerLijst().get(index).isPlaatsOpBos() == true){
                 getSpelerLijst().get(index).getResourceLijst().get(0).setAantal(getSpelerLijst().get(index).getResourceLijst().get(0).getAantal() + getSpelerLijst().get(index).getAantalBos());
@@ -141,8 +143,11 @@ public class DomeinController
             if (getSpelerLijst().get(index).isPlaatsOpHut()== true) {
                 getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + getSpelerLijst().get(index).getAantalHut());
             }
-            //zet gebruikte stamleden terug op 0
+           //zet gebruikte stamleden terug op 0
             getSpelerLijst().get(index).setGebruikteStamleden(0);
+            if (getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0) {
+                spelApp.geenVoedselMelding();
+            }
         }
         spel.resetSpelerZet();
     }
