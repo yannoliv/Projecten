@@ -20,19 +20,34 @@ public class Spel
     public List<Plaats> vulHuttenLijst()
     {
         huttenLijst = new ArrayList<>();
-        for (int i = 0; i < 28; i++) {
+           
+        for (int i = 0; i < 28; i++) 
+        {
+            //resources bepalen
+            String naam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String naam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String naam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            //nieuwe resource bepalen voor naam2 als naam1 = naam2
+            while (naam1.equals(naam2)) {
+                naam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
+            //nieuwe resource bepalen voor naam3 als naam1 = naam3 of als naam2 = naam3
+            while (naam1.equals(naam3) || naam2.equals(naam3))
+            {
+                naam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
                                         //punten hut    (van 12 tot 18)
            huttenLijst.add(new Plaats(random.nextInt(6) + 12,
                                         //resource naam 1 hut
-                                        getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam(),
+                                        naam1,
                                         //resource hoeveelheid 1 hut
                                         random.nextInt(4) + 1,
                                         //resource naam 2 hut
-                                        getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam(),
+                                        naam2,
                                         //resource hoeveelheid 2 hut
                                         random.nextInt(4) + 1,
                                         //resource naam 3 hut
-                                        getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam(),
+                                        naam3,
                                         //resource hoeveelheid hut
                                         random.nextInt(4) + 1));
         }
