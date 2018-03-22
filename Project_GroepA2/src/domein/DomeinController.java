@@ -1,7 +1,9 @@
 package domein;
 
 import gui.SpelApplicatie;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class DomeinController 
@@ -75,8 +77,6 @@ public class DomeinController
         spel.vulPlaatsLijst();
         spel.vulHuttenLijst();
         spelApp.toonScoreBord();
-        System.out.printf("%n" + spel.getHuttenLijst().get(0).getResource1() + " " + spel.getHuttenLijst().get(0).getResource2() + " " + spel.getHuttenLijst().get(0).getResource3() + "%n" 
-        + spel.getHuttenLijst().get(0).getAantalResource1() + " " + spel.getHuttenLijst().get(0).getAantalResource2() + " " + spel.getHuttenLijst().get(0).getAantalResource3());
         boolean eindeSpel = true;
         while(eindeSpel)
         {
@@ -114,12 +114,37 @@ public class DomeinController
         for (int index = 0; index < spel.getAantalSpelers(); index++) {
             //geeft stamleden terug
             getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getGebruikteStamleden());
-            //voedsel aftrekken per speler
+            //voedsel aftrekken per speler met akkerbouw ingerekend
             getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - (getSpelerLijst().get(index).getGebruikteStamleden() - getSpelerLijst().get(index).getResourceLijst().get(4).getAantal()));
-            //verhoog voedsel met akkerbouw van de speler
+            //elke speler zijn resource die hij tijdens de ronde gegrind heeft geven
+            if (getSpelerLijst().get(index).isPlaatsOpBos() == true){
+                getSpelerLijst().get(index).getResourceLijst().get(0).setAantal(getSpelerLijst().get(index).getResourceLijst().get(0).getAantal() + getSpelerLijst().get(index).getAantalBos());
+            }
+            if (getSpelerLijst().get(index).isPlaatsOpLeemgroeve()== true) {
+                getSpelerLijst().get(index).getResourceLijst().get(1).setAantal(getSpelerLijst().get(index).getResourceLijst().get(1).getAantal() + getSpelerLijst().get(index).getAantalLeemgroeve());
+            }
+            if (getSpelerLijst().get(index).isPlaatsOpSteengroeve()== true) {
+                getSpelerLijst().get(index).getResourceLijst().get(2).setAantal(getSpelerLijst().get(index).getResourceLijst().get(2).getAantal() + getSpelerLijst().get(index).getAantalSteengroeve());
+            }
+            if (getSpelerLijst().get(index).isPlaatsOpGoudmijn()== true) {
+                getSpelerLijst().get(index).getResourceLijst().get(3).setAantal(getSpelerLijst().get(index).getResourceLijst().get(3).getAantal() + getSpelerLijst().get(index).getAantalGoudmijn());
+            }
+            if (getSpelerLijst().get(index).isPlaatsOpJachtgebied() == true) {
+                getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() + getSpelerLijst().get(index).getAantalJachtgebied());
+            }
+            if (getSpelerLijst().get(index).isPlaatsOpAkkerbouw()== true) {
+                getSpelerLijst().get(index).getResourceLijst().get(4).setAantal(getSpelerLijst().get(index).getResourceLijst().get(4).getAantal() + getSpelerLijst().get(index).getAantalAkkerbouw());
+            }
+            if (getSpelerLijst().get(index).isPlaatsOpSmith()== true) {
+                getSpelerLijst().get(index).getResourceLijst().get(5).setAantal(getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() + getSpelerLijst().get(index).getAantalSmith());
+            }
+            if (getSpelerLijst().get(index).isPlaatsOpHut()== true) {
+                getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + getSpelerLijst().get(index).getAantalHut());
+            }
             //zet gebruikte stamleden terug op 0
             getSpelerLijst().get(index).setGebruikteStamleden(0);
         }
+        spel.resetSpelerZet();
     }
     
     //---------------------------------------------------------------------------
@@ -132,63 +157,68 @@ public class DomeinController
                 //verhoogt gebruikte stamleden
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 //verlaagt de speler zijn stamleden met de gebruikte stamleden
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() //setStamlid( huidig - gebruikt)
-                        - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                //verhoogt het aantal hout van de speler door zijn voorig aantal op te halen en te verhogen met het gekregen hout
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() 
-                        + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(0).getDeler()));
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden()); //setStamlid( huidig - gebruikt)
+                //zet de boolean bos voor de speler op true
+                getSpelerLijst().get(spelerNr).setPlaatsOpBos(true);
+                //verhoogt het aantal dat speler op bos heeft geplaatst
+                getSpelerLijst().get(spelerNr).setAantalBos(aantalStamleden);
                 //verlaag de aantal mogelijke posities bij bos
-                getPlaatsenLijst().get(0).setAantalSpots(getPlaatsenLijst().get(0).getAantalSpots() 
-                        - aantalStamleden);    
-                
+                getPlaatsenLijst().get(0).setAantalSpots(getPlaatsenLijst().get(0).getAantalSpots() - aantalStamleden);
                 break;
             case 3:
                 //leem
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(1).getDeler()));
+                getSpelerLijst().get(spelerNr).setPlaatsOpLeemgroeve(true);
+                getSpelerLijst().get(spelerNr).setAantalLeemgroeve(aantalStamleden);
                 getPlaatsenLijst().get(1).setAantalSpots(getPlaatsenLijst().get(1).getAantalSpots() - aantalStamleden);
                 break;
             case 4:
                 //steen
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(2).getDeler()));
+                getSpelerLijst().get(spelerNr).setPlaatsOpSteengroeve(true);
+                getSpelerLijst().get(spelerNr).setAantalSteengroeve(aantalStamleden);
                 getPlaatsenLijst().get(2).setAantalSpots(getPlaatsenLijst().get(2).getAantalSpots() - aantalStamleden);
                 break;
             case 5:
                 //goud
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(3).getDeler()));
+                getSpelerLijst().get(spelerNr).setPlaatsOpGoudmijn(true);
+                getSpelerLijst().get(spelerNr).setAantalGoudmijn(aantalStamleden);
                 getPlaatsenLijst().get(3).setAantalSpots(getPlaatsenLijst().get(3).getAantalSpots() - aantalStamleden);
                 break;
             case 6:
                 //voedsel
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(6).getAantal() + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(6).getDeler()));
+                getSpelerLijst().get(spelerNr).setPlaatsOpJachtgebied(true);
+                getSpelerLijst().get(spelerNr).setAantalJachtgebied(aantalStamleden);
                 getPlaatsenLijst().get(6).setAantalSpots(getPlaatsenLijst().get(6).getAantalSpots() - aantalStamleden);
                 break;
             case 7:
                 //stamleden
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() + 2);
+                getSpelerLijst().get(spelerNr).setPlaatsOpHut(true);
+                getSpelerLijst().get(spelerNr).setAantalHut(aantalStamleden);
                 getPlaatsenLijst().get(7).setAantalSpots(getPlaatsenLijst().get(7).getAantalSpots() - aantalStamleden);
                 break;
             case 8:
                 //gereedschap
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(5).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(5).getAantal() + 1);
+                getSpelerLijst().get(spelerNr).setPlaatsOpSmith(true);
+                getSpelerLijst().get(spelerNr).setAantalSmith(aantalStamleden);
                 getPlaatsenLijst().get(5).setAantalSpots(getPlaatsenLijst().get(5).getAantalSpots() - aantalStamleden);
                 break;
             case 9:
                 //akkerbouw
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
-                getSpelerLijst().get(spelerNr).getResourceLijst().get(4).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(4).getAantal() + 1);
+                getSpelerLijst().get(spelerNr).setPlaatsOpAkkerbouw(true);
+                getSpelerLijst().get(spelerNr).setAantalAkkerbouw(aantalStamleden);
                 getPlaatsenLijst().get(4).setAantalSpots(getPlaatsenLijst().get(4).getAantalSpots() - aantalStamleden);
                 break;
         }
@@ -200,3 +230,9 @@ public class DomeinController
             return spel.bedieningsPaneel(spelerNr);
         }
 }
+
+
+//recyclage later
+//verhoogt het aantal hout van de speler door zijn voorig aantal op te halen en te verhogen met het gekregen hout
+//                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() 
+//                        + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(0).getDeler()));

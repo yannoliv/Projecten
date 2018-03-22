@@ -7,7 +7,7 @@ public class Plaats
    private int deler;
    private int aantalSpots;
    private int punten;
-   
+   private int hutNummer;
    private String resource1;
    private String resource2;
    private String resource3;
@@ -31,8 +31,9 @@ public class Plaats
        setAantalSpots(aantalSpots);
    }
    
-   public Plaats(int punten, String resourceNaam1, int aantalResource1, String resourceNaam2, int aantalResource2, String resourceNaam3, int aantalResource3)
+   public Plaats(int hutNummer,int punten, String resourceNaam1, int aantalResource1, String resourceNaam2, int aantalResource2, String resourceNaam3, int aantalResource3)
    {
+       setHutNummer(hutNummer);
        setPunten(punten);
        setResource1(resourceNaam1);
        setResource2(resourceNaam2);
@@ -129,4 +130,13 @@ public class Plaats
     public void setAantalResource3(int aantalResource3) {
         this.aantalResource3 = aantalResource3;
     }
+
+    public int getHutNummer() {
+        return hutNummer;
+    }
+
+    public void setHutNummer(int hutNummer) {
+        this.hutNummer = hutNummer;
+    }
+    
 }

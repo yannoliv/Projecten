@@ -36,8 +36,10 @@ public class Spel
             {
                 naam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
             }
+                                      //hut nummer
+           huttenLijst.add(new Plaats(  i,
                                         //punten hut    (van 12 tot 18)
-           huttenLijst.add(new Plaats(random.nextInt(6) + 12,
+                                        random.nextInt(6) + 12,
                                         //resource naam 1 hut
                                         naam1,
                                         //resource hoeveelheid 1 hut
@@ -109,6 +111,28 @@ public class Spel
             plaatsLijst.remove(index);
         }
         vulPlaatsLijst();
+    }
+    //---------------------------------------------------------------------------
+    //ronde spelerzetten resetten
+    public void resetSpelerZet()
+    {
+        for (int index = 0; index < getAantalSpelers(); index++) {
+            getSpelerLijst().get(index).setPlaatsOpBos(false);
+            getSpelerLijst().get(index).setPlaatsOpLeemgroeve(false);
+            getSpelerLijst().get(index).setPlaatsOpSteengroeve(false);
+            getSpelerLijst().get(index).setPlaatsOpGoudmijn(false);
+            getSpelerLijst().get(index).setPlaatsOpAkkerbouw(false);
+            getSpelerLijst().get(index).setPlaatsOpSmith(false);
+            getSpelerLijst().get(index).setPlaatsOpHut(false);
+            
+            getSpelerLijst().get(index).setAantalBos(0);
+            getSpelerLijst().get(index).setAantalLeemgroeve(0);
+            getSpelerLijst().get(index).setAantalSteengroeve(0);
+            getSpelerLijst().get(index).setAantalGoudmijn(0);
+            getSpelerLijst().get(index).setAantalAkkerbouw(0);
+            getSpelerLijst().get(index).setAantalSmith(0);
+            getSpelerLijst().get(index).setAantalHut(0);
+        }
     }
     //---------------------------------------------------------------------------
     //elke speler resources geven
@@ -185,6 +209,7 @@ public class Spel
     //Bedieningspaneel afprinten
     public String bedieningsPaneel(int spelerNr)
     {
+        int hutNummer = 0;
         String bedieningsPaneel = "";
         bedieningsPaneel += String.format("%n%nSpeler %d is nu aan de beurt.%n", getSpelerLijst().get(spelerNr).getSpelerNummer() + 1);
         bedieningsPaneel += String.format("• 0: terug    ");
@@ -206,7 +231,24 @@ public class Spel
         bedieningsPaneel += String.format("%19d", getPlaatsenLijst().get(6).getAantalSpots());
         bedieningsPaneel += String.format("%18d", getPlaatsenLijst().get(7).getAantalSpots());
         bedieningsPaneel += String.format("%14d", getPlaatsenLijst().get(5).getAantalSpots());
-        bedieningsPaneel += String.format("%17d", getPlaatsenLijst().get(4).getAantalSpots());
+        bedieningsPaneel += String.format("%17d%n", getPlaatsenLijst().get(4).getAantalSpots());
+        
+        bedieningsPaneel += String.format("• hut kaarten: %n");
+        bedieningsPaneel += String.format("• 11: hut %d geeft %d punten. ", getHuttenLijst().get(hutNummer).getHutNummer() + 1, getHuttenLijst().get(hutNummer).getPunten());
+        bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst().get(hutNummer).getResource1(), getHuttenLijst().get(hutNummer).getAantalResource1());
+        bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst().get(hutNummer).getResource2(), getHuttenLijst().get(hutNummer).getAantalResource2());
+        bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst().get(hutNummer).getResource3(), getHuttenLijst().get(hutNummer).getAantalResource3());
+        
+        bedieningsPaneel += String.format("• 12: hut %d geeft %d punten. ", getHuttenLijst().get(hutNummer + 1).getHutNummer() + 1, getHuttenLijst().get(hutNummer + 1).getPunten());
+        bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst().get(hutNummer + 1).getResource1(), getHuttenLijst().get(hutNummer + 1).getAantalResource1());
+        bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst().get(hutNummer + 1).getResource2(), getHuttenLijst().get(hutNummer + 1).getAantalResource2());
+        bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst().get(hutNummer + 1).getResource3(), getHuttenLijst().get(hutNummer + 1).getAantalResource3());
+        
+        bedieningsPaneel += String.format("• 13: hut %d geeft %d punten. ", getHuttenLijst().get(hutNummer + 2).getHutNummer() + 1, getHuttenLijst().get(hutNummer + 2).getPunten());
+        bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst().get(hutNummer + 2).getResource1(), getHuttenLijst().get(hutNummer + 2).getAantalResource1());
+        bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst().get(hutNummer + 2).getResource2(), getHuttenLijst().get(hutNummer + 2).getAantalResource2());
+        bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst().get(hutNummer + 2).getResource3(), getHuttenLijst().get(hutNummer + 2).getAantalResource3());
+        hutNummer++;
         return bedieningsPaneel;
     }
     

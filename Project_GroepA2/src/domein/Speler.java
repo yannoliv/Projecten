@@ -1,6 +1,5 @@
 package domein;
 
-import java.security.SecureRandom;
 import java.util.*;
 
 public class Speler 
@@ -12,8 +11,29 @@ public class Speler
     public int spelerNummer = 0;
     private List<Resource> resourceLijst;
     private int gebruikteStamleden;
-
-    SecureRandom random = new SecureRandom();
+    
+    private boolean plaatsOpBos = false;
+    private int aantalBos = 0;
+    private boolean plaatsOpLeemgroeve = false;
+    private int aantalLeemgroeve = 0;
+    private boolean plaatsOpSteengroeve = false;
+    private int aantalSteengroeve = 0;
+    private boolean plaatsOpGoudmijn = false;
+    private int aantalGoudmijn = 0;
+    private boolean plaatsOpJachtgebied = false;
+    private int aantalJachtgebied = 0;
+    private boolean plaatsOpAkkerbouw = false;
+    private int aantalAkkerbouw = 0;
+    private boolean plaatsOpSmith = false;
+    private int aantalSmith = 0;
+    private boolean plaatsOpHut = false;
+    private int aantalHut = 0;
+    private boolean plaatsOpHutkaart1 = false;
+    private int aantalHutkaart1 = 0;
+    private boolean plaatsOpHutkaart2 = false;
+    private int aantalHutkaart2 = 0;
+    private boolean plaatsOpHutkaart3 = false;
+    private int aantalHutkaart3 = 0;
     
     //constructor
     public Speler(int spelerNummer)
@@ -85,6 +105,182 @@ public class Speler
         this.gebruikteStamleden = gebruikteStamleden;
     }
 
+    public boolean isPlaatsOpBos() {
+        return plaatsOpBos;
+    }
+
+    public void setPlaatsOpBos(boolean plaatsOpBos) {
+        this.plaatsOpBos = plaatsOpBos;
+    }
+
+    public boolean isPlaatsOpLeemgroeve() {
+        return plaatsOpLeemgroeve;
+    }
+
+    public void setPlaatsOpLeemgroeve(boolean plaatsOpLeemgroeve) {
+        this.plaatsOpLeemgroeve = plaatsOpLeemgroeve;
+    }
+
+    public boolean isPlaatsOpSteengroeve() {
+        return plaatsOpSteengroeve;
+    }
+
+    public void setPlaatsOpSteengroeve(boolean plaatsOpSteengroeve) {
+        this.plaatsOpSteengroeve = plaatsOpSteengroeve;
+    }
+
+    public boolean isPlaatsOpGoudmijn() {
+        return plaatsOpGoudmijn;
+    }
+
+    public void setPlaatsOpGoudmijn(boolean plaatsOpGoudmijn) {
+        this.plaatsOpGoudmijn = plaatsOpGoudmijn;
+    }
+
+    public boolean isPlaatsOpJachtgebied() {
+        return plaatsOpJachtgebied;
+    }
+
+    public void setPlaatsOpJachtgebied(boolean plaatsOpJachtgebied) {
+        this.plaatsOpJachtgebied = plaatsOpJachtgebied;
+    }
+
+    public boolean isPlaatsOpAkkerbouw() {
+        return plaatsOpAkkerbouw;
+    }
+
+    public void setPlaatsOpAkkerbouw(boolean plaatsOpAkkerbouw) {
+        this.plaatsOpAkkerbouw = plaatsOpAkkerbouw;
+    }
+
+    public boolean isPlaatsOpSmith() {
+        return plaatsOpSmith;
+    }
+
+    public void setPlaatsOpSmith(boolean plaatsOpSmith) {
+        this.plaatsOpSmith = plaatsOpSmith;
+    }
+
+    public boolean isPlaatsOpHut() {
+        return plaatsOpHut;
+    }
+
+    public void setPlaatsOpHut(boolean plaatsOpHut) {
+        this.plaatsOpHut = plaatsOpHut;
+    }
+
+    public boolean isPlaatsOpHutkaart1() {
+        return plaatsOpHutkaart1;
+    }
+
+    public void setPlaatsOpHutkaart1(boolean plaatsOpHutkaart1) {
+        this.plaatsOpHutkaart1 = plaatsOpHutkaart1;
+    }
+
+    public boolean isPlaatsOpHutkaart2() {
+        return plaatsOpHutkaart2;
+    }
+
+    public void setPlaatsOpHutkaart2(boolean plaatsOpHutkaart2) {
+        this.plaatsOpHutkaart2 = plaatsOpHutkaart2;
+    }
+
+    public boolean isPlaatsOpHutkaart3() {
+        return plaatsOpHutkaart3;
+    }
+
+    public void setPlaatsOpHutkaart3(boolean plaatsOpHutkaart3) {
+        this.plaatsOpHutkaart3 = plaatsOpHutkaart3;
+    }
+
+    public int getAantalBos() {
+        return aantalBos;
+    }
+
+    public void setAantalBos(int aantalBos) {
+        this.aantalBos = aantalBos;
+    }
+
+    public int getAantalLeemgroeve() {
+        return aantalLeemgroeve;
+    }
+
+    public void setAantalLeemgroeve(int aantalLeemgroeve) {
+        this.aantalLeemgroeve = aantalLeemgroeve;
+    }
+
+    public int getAantalSteengroeve() {
+        return aantalSteengroeve;
+    }
+
+    public void setAantalSteengroeve(int aantalSteengroeve) {
+        this.aantalSteengroeve = aantalSteengroeve;
+    }
+
+    public int getAantalGoudmijn() {
+        return aantalGoudmijn;
+    }
+
+    public void setAantalGoudmijn(int aantalGoudmijn) {
+        this.aantalGoudmijn = aantalGoudmijn;
+    }
+
+    public int getAantalJachtgebied() {
+        return aantalJachtgebied;
+    }
+
+    public void setAantalJachtgebied(int aantalJachtgebied) {
+        this.aantalJachtgebied = aantalJachtgebied;
+    }
+
+    public int getAantalAkkerbouw() {
+        return aantalAkkerbouw;
+    }
+
+    public void setAantalAkkerbouw(int aantalAkkerbouw) {
+        this.aantalAkkerbouw = aantalAkkerbouw;
+    }
+
+    public int getAantalSmith() {
+        return aantalSmith;
+    }
+
+    public void setAantalSmith(int aantalSmith) {
+        this.aantalSmith = aantalSmith;
+    }
+
+    public int getAantalHut() {
+        return aantalHut;
+    }
+
+    public void setAantalHut(int aantalHut) {
+        this.aantalHut = aantalHut;
+    }
+
+    public int getAantalHutkaart1() {
+        return aantalHutkaart1;
+    }
+
+    public void setAantalHutkaart1(int aantalHutkaart1) {
+        this.aantalHutkaart1 = aantalHutkaart1;
+    }
+
+    public int getAantalHutkaart2() {
+        return aantalHutkaart2;
+    }
+
+    public void setAantalHutkaart2(int aantalHutkaart2) {
+        this.aantalHutkaart2 = aantalHutkaart2;
+    }
+
+    public int getAantalHutkaart3() {
+        return aantalHutkaart3;
+    }
+
+    public void setAantalHutkaart3(int aantalHutkaart3) {
+        this.aantalHutkaart3 = aantalHutkaart3;
+    }
+    
     
 }
 
