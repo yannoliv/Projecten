@@ -85,7 +85,7 @@ public class Spel
         resourceLijst.add(new Resource("gereedschap",   0));
         resourceLijst.add(new Resource("voedsel",       12));
         resourceLijst.add(new Resource("stamleden",     5));
-        resourceLijst.add(new Resource("punten",     0));
+        resourceLijst.add(new Resource("punten",        0));
         return resourceLijst;
     }
     //---------------------------------------------------------------------------
@@ -293,7 +293,7 @@ public class Spel
        String voedsel = "";
        voedsel += String.format("U heeft geen voedsel om uw dorp te voeden.%n");
        voedsel += String.format("Kies een resource om uw dorp te voeden:%n");
-       for (int i = 0; i < (getResourceLijst().size() - 4); i++) {
+       for (int i = 0; i < 4; i++) {
            voedsel += String.format("%s: %d | ", getResourceLijst().get(i).getNaam(), getSpelerLijst().get(spelerNr).getResourceLijst().get(i).getAantal());
        }
        voedsel += String.format("%n");

@@ -121,7 +121,7 @@ public class DomeinController
         spel.resetPlaatsenLijst();
         for (int index = 0; index < spel.getAantalSpelers(); index++) {
             //geeft stamleden terug
-            getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getGebruikteStamleden());
+            getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + getSpelerLijst().get(index).getGebruikteStamleden());
             //voedsel aftrekken per speler met akkerbouw ingerekend
             int voedselVermindering = getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - getSpelerLijst().get(index).getGebruikteStamleden();
             voedselVermindering += getSpelerLijst().get(index).getResourceLijst().get(4).getAantal();
@@ -152,16 +152,36 @@ public class DomeinController
                 getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + getSpelerLijst().get(index).getAantalHut());
             }
             if (getSpelerLijst().get(index).isPlaatsOpHutkaart1() == true){
-                getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(0).getPunten());
-                spel.getHuttenLijst().remove(0);
+                if (checkResources(index,1)) //controleer ofdat de speler de nodige resources heeft voor hutnummer 1
+                {   
+                    //resources aftrekken
+                    trekResourcesAf(index);
+                    //speler.setPunten(punten);
+                    getSpelerLijst().get(index).getResourceLijst().get(spelerResourcesControleren(0,index)).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(0).getPunten());
+                    //hut verwijderen
+                    spel.getHuttenLijst().remove(0);
+                }
             }
             else if (getSpelerLijst().get(index).isPlaatsOpHutkaart2() == true){
-                getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(1).getPunten());
-                spel.getHuttenLijst().remove(1);
+                 if (checkResources(index,2)) //controleer ofdat de speler de nodige resources heeft voor hutnummer 2
+                {
+                    //resources aftrekken
+                    trekResourcesAf(index);
+                    //speler.setPunten(punten);
+                    getSpelerLijst().get(index).getResourceLijst().get(spelerResourcesControleren(0,index)).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(0).getPunten());
+                    spel.getHuttenLijst().remove(1);
+                 }
             }
             else if (getSpelerLijst().get(index).isPlaatsOpHutkaart3() == true){
-                getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(2).getPunten());
-                spel.getHuttenLijst().remove(2);
+                 if (checkResources(index,3)) //controleer ofdat de speler de nodige resources heeft voor hutnummer 3
+                {
+                    //resources aftrekken
+                    trekResourcesAf(index);
+                    //speler.setPunten(punten);
+                    getSpelerLijst().get(index).getResourceLijst().get(spelerResourcesControleren(0,index)).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(0).getPunten());
+                    spel.getHuttenLijst().remove(2);
+                 }
+                 
             }
             
             
@@ -173,7 +193,48 @@ public class DomeinController
         }
         spel.resetSpelerZet();
     }
-    
+    //---------------------------------------------------------------------------
+    //resources controleren
+    public boolean checkResources(int spelerNr, int hutNummer)
+    {
+        boolean a = false;
+        if (getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(spelerNr,hutNummer)).getAantal() >= spel.getHuttenLijst().get(hutNummer).getAantalResource1() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(spelerNr,hutNummer)).getAantal() >= spel.getHuttenLijst().get(hutNummer).getAantalResource2() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(spelerNr,hutNummer)).getAantal() >= spel.getHuttenLijst().get(hutNummer).getAantalResource3()) {
+            a = true;
+        }
+        return a;
+    }
+    //---------------------------------------------------------------------------
+    //resource omzetting
+    public int spelerResourcesControleren(int spelerNr, int hutNummer)
+    {
+        int getal;
+        for (int index = 0; index < spel.getResourceLijst().size(); index++) {
+            String spelerResources = getSpelerLijst().get(spelerNr).getResourceLijst().get(index).getNaam();
+            if (spel.getHuttenLijst().get(hutNummer).getResource1().equals(spelerResources)) {
+                return index;
+            }
+        }
+        return getal = 0;
+    }
+    //---------------------------------------------------------------------------
+    //resource verminderen door aankoop
+    public void trekResourcesAf(int spelerNr)
+    {
+        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(0,spelerNr)).getAantal() >= spel.getHuttenLijst().get(0).getAantalResource1())
+        {
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(0,spelerNr)).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(0,spelerNr)).getAantal() - spel.getHuttenLijst().get(0).getAantalResource1());
+        }
+        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(0,spelerNr)).getAantal() >= spel.getHuttenLijst().get(0).getAantalResource1())
+        {
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(1,spelerNr)).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(1,spelerNr)).getAantal() - spel.getHuttenLijst().get(0).getAantalResource2());
+        }
+        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(0,spelerNr)).getAantal() >= spel.getHuttenLijst().get(0).getAantalResource1())
+        {
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(2,spelerNr)).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(spelerResourcesControleren(2,spelerNr)).getAantal() - spel.getHuttenLijst().get(0).getAantalResource3());
+        }
+    }
     //---------------------------------------------------------------------------
     //speler plaatsen op bos
     public void plaatsOpPlek(int spelerNr, int keuzeNr, int aantalStamleden)
@@ -202,7 +263,9 @@ public class DomeinController
                 break;
             case 4:
                 //steen
+                int test = getSpelerLijst().get(spelerNr).getGebruikteStamleden();
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                test = getSpelerLijst().get(spelerNr).getGebruikteStamleden();;
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
                 getSpelerLijst().get(spelerNr).setPlaatsOpSteengroeve(true);
                 getSpelerLijst().get(spelerNr).setAantalSteengroeve(getSpelerLijst().get(spelerNr).getAantalSteengroeve()+ aantalStamleden);
@@ -246,7 +309,7 @@ public class DomeinController
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - getSpelerLijst().get(spelerNr).getGebruikteStamleden());
                 getSpelerLijst().get(spelerNr).setPlaatsOpAkkerbouw(true);
                 getSpelerLijst().get(spelerNr).setAantalAkkerbouw(getSpelerLijst().get(spelerNr).getAantalAkkerbouw()+ aantalStamleden);
-                getPlaatsenLijst().get(4).setAantalSpots(getPlaatsenLijst().get(4).getAantalSpots() - aantalStamleden);
+                getPlaatsenLijst().get(4).setAantalSpots(getPlaatsenLijst().get(4).getAantalSpots() -aantalStamleden);
                 break;
             case 11:
                 //hut kaart 1
