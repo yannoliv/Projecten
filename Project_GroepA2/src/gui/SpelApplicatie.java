@@ -37,11 +37,11 @@ public class SpelApplicatie
     
     public void setSpelersNamen() 
     {
+        
         for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
         {
             System.out.printf("Naam speler %d: ", i +1);
             dc.geefSpelersNamen(input.nextLine(), dc.getSpelerLijst().get(i)); // naam,lijst(index)
-
             switch(i)
             {
                 case 1: 
