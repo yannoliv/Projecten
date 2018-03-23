@@ -137,8 +137,7 @@ public class DomeinController
             if (getSpelerLijst().get(index).isPlaatsOpBos() == true){
                 int geroldGetal;
                 int aantalGereedschap;
-                spelApp.toonGeroldGetal(0, getSpelerLijst().get(index).getAantalBos(), index);
-                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalBos());
+                geroldGetal = spelApp.toonGeroldGetal(0, getSpelerLijst().get(index).getAantalBos(), index);
                 if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
                 {
                     if (spelApp.gereedschapBoodschap(index)) { 
@@ -155,8 +154,7 @@ public class DomeinController
             if (getSpelerLijst().get(index).isPlaatsOpLeemgroeve()== true) {
                 int geroldGetal;
                 int aantalGereedschap;
-                spelApp.toonGeroldGetal(1, getSpelerLijst().get(index).getAantalLeemgroeve(), index);
-                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalLeemgroeve());
+                geroldGetal = spelApp.toonGeroldGetal(1, getSpelerLijst().get(index).getAantalLeemgroeve(), index);
                 if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
                 {
                     if (spelApp.gereedschapBoodschap(index)) { 
@@ -173,8 +171,7 @@ public class DomeinController
             if (getSpelerLijst().get(index).isPlaatsOpSteengroeve()== true) {
                 int geroldGetal;
                 int aantalGereedschap;
-                spelApp.toonGeroldGetal(2, getSpelerLijst().get(index).getAantalSteengroeve(), index);
-                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalSteengroeve());
+                geroldGetal = spelApp.toonGeroldGetal(2, getSpelerLijst().get(index).getAantalSteengroeve(), index);
                 if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
                 {
                     if (spelApp.gereedschapBoodschap(index)) { 
@@ -191,8 +188,7 @@ public class DomeinController
             if (getSpelerLijst().get(index).isPlaatsOpGoudmijn()== true) {
                 int geroldGetal;
                 int aantalGereedschap;
-                spelApp.toonGeroldGetal(3, getSpelerLijst().get(index).getAantalGoudmijn(), index);
-                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalGoudmijn());
+                geroldGetal = spelApp.toonGeroldGetal(3, getSpelerLijst().get(index).getAantalGoudmijn(), index);
                 if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
                 {
                     aantalGereedschap = spelApp.aantalGebruikGereedschap(index);
@@ -208,8 +204,7 @@ public class DomeinController
             if (getSpelerLijst().get(index).isPlaatsOpJachtgebied() == true) {
                 int geroldGetal;
                 int aantalGereedschap;
-                spelApp.toonGeroldGetal(4, getSpelerLijst().get(index).getAantalJachtgebied(), index);
-                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalJachtgebied());
+                geroldGetal = spelApp.toonGeroldGetal(4, getSpelerLijst().get(index).getAantalJachtgebied(), index);
                 if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
                 {
                     if (spelApp.gereedschapBoodschap(index)) {

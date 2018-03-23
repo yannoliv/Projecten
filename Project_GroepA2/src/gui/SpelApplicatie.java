@@ -532,9 +532,11 @@ public class SpelApplicatie
         return getal;
     }
     //toon gerold getal plaats resource
-    public void toonGeroldGetal(int plaatsNr, int aantalStamleden, int spelerNr)
+    public int toonGeroldGetal(int plaatsNr, int aantalStamleden, int spelerNr)
     {
-        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d%n",dc.getSpelerLijst().get(spelerNr).getNaam(), dc.getPlaatsenLijst().get(plaatsNr).getNaam(), dc.getGeroldGetal(aantalStamleden));
+        int geroldGetal = dc.getGeroldGetal(aantalStamleden);
+        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d%n",dc.getSpelerLijst().get(spelerNr).getNaam(), dc.getPlaatsenLijst().get(plaatsNr).getNaam(), geroldGetal);
+        return geroldGetal;
     }
     
     public void toonScoreBord()
