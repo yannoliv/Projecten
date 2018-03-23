@@ -226,29 +226,34 @@ public class DomeinController
             if (getSpelerLijst().get(index).isPlaatsOpHut()== true) {
                 getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + getSpelerLijst().get(index).getAantalHut());
             }
-            if (getSpelerLijst().get(index).isPlaatsOpHutkaart1() == true && checkResources(index,0)){
-                //resources aftrekken
-                trekResourcesAf(index);
-                //speler.setPunten(punten);
-                getSpelerLijst().get(index).getResourceLijst().get(resourceNummerOphalen(index, 0)).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(0).getPunten());
-                //hut verwijderen
-                spel.getHuttenLijst().remove(0);
-                
+            if (getSpelerLijst().get(index).isPlaatsOpHutkaart1() == true){
+                if (checkResources(index,0)) {
+                    //resources aftrekken
+                    trekResourcesAf(index, 0);
+                    //speler.setPunten(punten);
+                    getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(0).getPunten());
+                    //hut verwijderen
+                    spel.getHuttenLijst().remove(0);
+                }                
             }
-            if (getSpelerLijst().get(index).isPlaatsOpHutkaart2() == true && checkResources(index,1)){
-                //resources aftrekken
-                trekResourcesAf(index);
-                //speler.setPunten(punten);
-                getSpelerLijst().get(index).getResourceLijst().get(resourceNummerOphalen(index, 1)).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(2).getPunten());
-                spel.getHuttenLijst().remove(1);
-                 
+            if (getSpelerLijst().get(index).isPlaatsOpHutkaart2() == true){
+                if (checkResources(index, 1)) 
+                {
+                     //resources aftrekken
+                    trekResourcesAf(index, 1);
+                    //speler.setPunten(punten);
+                    getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(1).getPunten());
+                    spel.getHuttenLijst().remove(1);
+                }
             }
-            if (getSpelerLijst().get(index).isPlaatsOpHutkaart3() == true && checkResources(index,2)){
-                //resources aftrekken
-                trekResourcesAf(index);
-                //speler.setPunten(punten);
-                getSpelerLijst().get(index).getResourceLijst().get(resourceNummerOphalen(index, 2)).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(3).getPunten());
-                spel.getHuttenLijst().remove(2);
+            if (getSpelerLijst().get(index).isPlaatsOpHutkaart3() == true){
+                if (checkResources(index,2)) {
+                    //resources aftrekken
+                    trekResourcesAf(index, 2);
+                    //speler.setPunten(punten);
+                    getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + spel.getHuttenLijst().get(2).getPunten());
+                    spel.getHuttenLijst().remove(2);
+                }
             }
             
            //zet gebruikte stamleden terug op 0
@@ -276,9 +281,9 @@ public class DomeinController
     public int resourceNummerOphalen(int spelerNr, int hutNummer)
     {
         int getal;
-        for (int resourceNummer = 0; resourceNummer < spel.getResourceLijst().size(); resourceNummer++) {
+        for (int resourceNummer = 0; resourceNummer < 4; resourceNummer++) {
             String resourceNamen = getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummer).getNaam();
-            if (spel.getHuttenLijst().get(hutNummer).getResource1().equals(resourceNamen)) {
+            if (spel.getHuttenLijst().get(hutNummer).getResource1().toLowerCase().equals(resourceNamen)) {
                 return resourceNummer;
             }
         }
@@ -286,19 +291,22 @@ public class DomeinController
     }
     //---------------------------------------------------------------------------
     //resource verminderen door aankoop
-    public void trekResourcesAf(int spelerNr)
+    public void trekResourcesAf(int spelerNr, int hutNummer)
     {
-        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,0)).getAantal() >= spel.getHuttenLijst().get(0).getAantalResource1())
+        int resourceNr1 = resourceNummerOphalen(spelerNr, 0);
+        int resourceNr2 = resourceNummerOphalen(spelerNr, 1);
+        int resourceNr3 = resourceNummerOphalen(spelerNr, 2);
+        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() >= spel.getHuttenLijst().get(hutNummer).getAantalResource1())
         {
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,0)).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr, 0)).getAantal() - spel.getHuttenLijst().get(0).getAantalResource1());
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() - spel.getHuttenLijst().get(hutNummer).getAantalResource1());
         }
-        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,1)).getAantal() >= spel.getHuttenLijst().get(0).getAantalResource2())
+        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() >= spel.getHuttenLijst().get(hutNummer).getAantalResource2())
         {
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,1)).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr, 1)).getAantal() - spel.getHuttenLijst().get(0).getAantalResource2());
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() - spel.getHuttenLijst().get(hutNummer).getAantalResource2());
         }
-        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,2)).getAantal() >= spel.getHuttenLijst().get(0).getAantalResource3())
+        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() >= spel.getHuttenLijst().get(hutNummer).getAantalResource3())
         {
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,2)).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr, 2)).getAantal() - spel.getHuttenLijst().get(0).getAantalResource3());
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() - spel.getHuttenLijst().get(hutNummer).getAantalResource3());
         }
     }
     //---------------------------------------------------------------------------
