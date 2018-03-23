@@ -171,7 +171,7 @@ public class SpelApplicatie
                     break;
                     //jachtgebied
                     case 6: 
-                        if (dc.getPlaatsenLijst().get(6).getAantalSpots() < 1)
+                        if (dc.getPlaatsenLijst().get(4).getAantalSpots() < 1)
                         {
                             System.out.printf("Het jachtgebied is volzet.");
                             bedieningsPaneel(spelerNr);
@@ -210,7 +210,7 @@ public class SpelApplicatie
                     break;
                     //smith
                     case 8: 
-                        if (dc.getPlaatsenLijst().get(5).getAantalSpots() == 0)
+                        if (dc.getPlaatsenLijst().get(6).getAantalSpots() == 0)
                         {
                             System.out.printf("De smith is bezet.");
                             temp = 0;
@@ -223,7 +223,7 @@ public class SpelApplicatie
                     break;
                     //akkerbouw
                     case 9: 
-                        if (dc.getPlaatsenLijst().get(4).getAantalSpots() == 0)
+                        if (dc.getPlaatsenLijst().get(5).getAantalSpots() == 0)
                         {
                             System.out.printf("De akkerbouw is bezet.");
                             temp = 0;
@@ -335,18 +335,19 @@ public class SpelApplicatie
                 ingegevenAantalStamleden = Integer.parseInt(antw);
                 if (ingegevenAantalStamleden == 0) 
                 {
-                    bedieningsPaneel(spelerNr);
                     OK = false;
+                    bedieningsPaneel(spelerNr);
                 }
                 if(ingegevenAantalStamleden > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() || ingegevenAantalStamleden < 0)
                 {
                     System.out.printf("Ongeldig probeer opnieuw!%n");
+                    bepaalStamleden(spelerNr, keuzeNr);
                 }
-                else if (ingegevenAantalStamleden > dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
+                if (ingegevenAantalStamleden > dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
                 {
                     System.out.printf("Te weinig plaats voor %d %s%n", ingegevenAantalStamleden, ingegevenAantalStamleden > 1 ? "stamleden":"stamlid");
                 }
-                else if( ingegevenAantalStamleden <= dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
+                else if(ingegevenAantalStamleden <= dc.getPlaatsenLijst().get(keuzeNr - 2).getAantalSpots())
                 {
                     System.out.println("Stamleden worden geplaatst...");
                     OK = false;
@@ -371,7 +372,7 @@ public class SpelApplicatie
                     while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) 
                     {
                         System.out.printf("Ongeldig antwoord!%nja of nee: ");
-                        antwoord = input.next();
+                        antwoord = input.next().toLowerCase();
                     }      
                     if ("nee".equals(antwoord))
                     {
@@ -389,7 +390,7 @@ public class SpelApplicatie
                     String antwoord = input.next().toLowerCase();
                     while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
                         System.out.printf("Ongeldig antwoord!%nja of nee: ");
-                        antwoord = input.next();
+                        antwoord = input.next().toLowerCase();
                     }       if ("ja".equals(antwoord))
                     {
                         bevestiging = 1;
@@ -405,7 +406,7 @@ public class SpelApplicatie
                     String antwoord = input.next().toLowerCase();
                     while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
                         System.out.printf("Ongeldig antwoord!%nja of nee: ");
-                        antwoord = input.next();
+                        antwoord = input.next().toLowerCase();
                     }
                     if ("ja".equals(antwoord))
                     {
@@ -422,7 +423,7 @@ public class SpelApplicatie
                 String antwoord = input.next().toLowerCase();
                 while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
                     System.out.printf("Ongeldig antwoord!%nja of nee: ");
-                    antwoord = input.next();
+                    antwoord = input.next().toLowerCase();
                 }
                 if ("ja".equals(antwoord))
                 {
@@ -440,7 +441,7 @@ public class SpelApplicatie
                 String antwoord = input.next().toLowerCase();
                 while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
                     System.out.printf("Ongeldig antwoord!%nja of nee: ");
-                    antwoord = input.next();
+                    antwoord = input.next().toLowerCase();
                 }
                 if ("ja".equals(antwoord))
                 {
@@ -458,7 +459,7 @@ public class SpelApplicatie
                 String antwoord = input.next().toLowerCase();
                 while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
                     System.out.printf("Ongeldig antwoord!%nja of nee: ");
-                    antwoord = input.next();
+                    antwoord = input.next().toLowerCase();
                 }
                 if ("ja".equals(antwoord))
                 {
@@ -476,6 +477,66 @@ public class SpelApplicatie
         }
         return bevestiging;
     }
+    
+    public boolean gereedschapBoodschap(int spelerNr)
+    {
+        boolean a = false;
+        System.out.printf("%n%s u heeft %d gereedschap.%n wilt u dit gebruiken (ja/nee):", dc.getSpelerLijst().get(spelerNr).getNaam(), dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(5).getAantal());
+        String antwoord = input.next().toLowerCase();
+        while (!"ja".equals(antwoord) && !"nee".equals(antwoord)) {
+            System.out.printf("Ongeldig antwoord!%nja of nee: ");
+            antwoord = input.next().toLowerCase();
+        }
+        if ("ja".equals(antwoord))
+        {
+            a = true;
+        }
+        return a;
+    }
+    
+    public int aantalGebruikGereedschap(int spelerNr)
+    {
+        int getal = 0;
+        String antwoord;
+        try
+        {
+            System.out.printf("Hoeveel ervan wilt u gebruiken (0: geen): ");
+            antwoord = input.next();
+            getal = Integer.parseInt(antwoord);
+            if (getal > dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(5).getAantal())
+            {
+                System.out.printf("Te weinig gereedschap daarvoor...%n");
+                antwoord = null;
+                getal = 0;
+                aantalGebruikGereedschap(spelerNr);
+            }
+            if (getal < 0) 
+            {
+                System.out.printf("%nOngeldig aantal.%n");
+                antwoord = null;
+                getal = 0;
+                aantalGebruikGereedschap(spelerNr);
+            }
+            if (getal <= dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(5).getAantal())
+            {
+                return getal;
+            }            
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.printf("%nOngeldig aantal.%n");
+            antwoord = null;
+            getal = 0;
+            aantalGebruikGereedschap(spelerNr);
+        }
+        return getal;
+    }
+    //toon gerold getal plaats resource
+    public void toonGeroldGetal(int plaatsNr, int aantalStamleden, int spelerNr)
+    {
+        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d%n",dc.getSpelerLijst().get(spelerNr).getNaam(), dc.getPlaatsenLijst().get(plaatsNr).getNaam(), dc.getGeroldGetal(aantalStamleden));
+    }
+    
     public void toonScoreBord()
     {
         System.out.printf("%n" + dc.toonSpelers());

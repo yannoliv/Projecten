@@ -114,6 +114,12 @@ public class DomeinController
         spelApp.eindeRonde();
     }
     //---------------------------------------------------------------------------
+    //get gerold getal
+    public int getGeroldGetal(int aantalStamleden)
+    {
+        return spel.dobbelStenen(aantalStamleden);
+    }
+    //---------------------------------------------------------------------------
     // einde van de ronde, resources geven
     public void eindeRonde()
     {
@@ -127,20 +133,94 @@ public class DomeinController
             voedselVermindering += getSpelerLijst().get(index).getResourceLijst().get(4).getAantal();
             getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(voedselVermindering);
             //elke speler zijn resource die hij tijdens de ronde gegrind heeft geven
+            //op het bos
             if (getSpelerLijst().get(index).isPlaatsOpBos() == true){
-                getSpelerLijst().get(index).getResourceLijst().get(0).setAantal(getSpelerLijst().get(index).getResourceLijst().get(0).getAantal() + getSpelerLijst().get(index).getAantalBos());
+                int geroldGetal;
+                int aantalGereedschap;
+                spelApp.toonGeroldGetal(0, getSpelerLijst().get(index).getAantalBos(), index);
+                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalBos());
+                if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
+                {
+                    if (spelApp.gereedschapBoodschap(index)) { 
+                      aantalGereedschap = spelApp.aantalGebruikGereedschap(index);
+                        getSpelerLijst().get(index).getResourceLijst().get(0).setAantal(getSpelerLijst().get(index).getResourceLijst().get(0).getAantal() + (int) Math.floor((geroldGetal + aantalGereedschap) / getPlaatsenLijst().get(0).getDeler()));
+                    }
+                }
+                else
+                {
+                    getSpelerLijst().get(index).getResourceLijst().get(0).setAantal(getSpelerLijst().get(index).getResourceLijst().get(0).getAantal() + (int) Math.floor(geroldGetal / getPlaatsenLijst().get(0).getDeler()));
+                }
             }
+            //op de leemgroeve
             if (getSpelerLijst().get(index).isPlaatsOpLeemgroeve()== true) {
-                getSpelerLijst().get(index).getResourceLijst().get(1).setAantal(getSpelerLijst().get(index).getResourceLijst().get(1).getAantal() + getSpelerLijst().get(index).getAantalLeemgroeve());
+                int geroldGetal;
+                int aantalGereedschap;
+                spelApp.toonGeroldGetal(1, getSpelerLijst().get(index).getAantalLeemgroeve(), index);
+                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalLeemgroeve());
+                if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
+                {
+                    if (spelApp.gereedschapBoodschap(index)) { 
+                    aantalGereedschap = spelApp.aantalGebruikGereedschap(index);
+                        getSpelerLijst().get(index).getResourceLijst().get(1).setAantal(getSpelerLijst().get(index).getResourceLijst().get(1).getAantal() + (int) Math.floor((geroldGetal + aantalGereedschap) / getPlaatsenLijst().get(1).getDeler()));
+                    }
+                }
+                else
+                {
+                    getSpelerLijst().get(index).getResourceLijst().get(1).setAantal(getSpelerLijst().get(index).getResourceLijst().get(1).getAantal() + (int) Math.floor(geroldGetal / getPlaatsenLijst().get(1).getDeler()));
+                }
             }
+            //op de steengroeve
             if (getSpelerLijst().get(index).isPlaatsOpSteengroeve()== true) {
-                getSpelerLijst().get(index).getResourceLijst().get(2).setAantal(getSpelerLijst().get(index).getResourceLijst().get(2).getAantal() + getSpelerLijst().get(index).getAantalSteengroeve());
+                int geroldGetal;
+                int aantalGereedschap;
+                spelApp.toonGeroldGetal(2, getSpelerLijst().get(index).getAantalSteengroeve(), index);
+                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalSteengroeve());
+                if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
+                {
+                    if (spelApp.gereedschapBoodschap(index)) { 
+                        aantalGereedschap = spelApp.aantalGebruikGereedschap(index);
+                        getSpelerLijst().get(index).getResourceLijst().get(2).setAantal(getSpelerLijst().get(index).getResourceLijst().get(2).getAantal() + (int) Math.floor((geroldGetal + aantalGereedschap) / getPlaatsenLijst().get(2).getDeler()));
+                    }
+                }
+                else
+                {
+                    getSpelerLijst().get(index).getResourceLijst().get(2).setAantal(getSpelerLijst().get(index).getResourceLijst().get(2).getAantal() + (int) Math.floor(geroldGetal / getPlaatsenLijst().get(2).getDeler()));
+                }
             }
+            //op de goudmijn
             if (getSpelerLijst().get(index).isPlaatsOpGoudmijn()== true) {
-                getSpelerLijst().get(index).getResourceLijst().get(3).setAantal(getSpelerLijst().get(index).getResourceLijst().get(3).getAantal() + getSpelerLijst().get(index).getAantalGoudmijn());
+                int geroldGetal;
+                int aantalGereedschap;
+                spelApp.toonGeroldGetal(3, getSpelerLijst().get(index).getAantalGoudmijn(), index);
+                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalGoudmijn());
+                if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
+                {
+                    aantalGereedschap = spelApp.aantalGebruikGereedschap(index);
+                    if (spelApp.gereedschapBoodschap(index)) { 
+                        getSpelerLijst().get(index).getResourceLijst().get(3).setAantal(getSpelerLijst().get(index).getResourceLijst().get(3).getAantal() + (int) Math.floor((geroldGetal + aantalGereedschap) / getPlaatsenLijst().get(3).getDeler()));
+                    }
+                }
+                else
+                {
+                    getSpelerLijst().get(index).getResourceLijst().get(3).setAantal(getSpelerLijst().get(index).getResourceLijst().get(3).getAantal() + (int) Math.floor(geroldGetal / getPlaatsenLijst().get(3).getDeler()));
+                }
             }
             if (getSpelerLijst().get(index).isPlaatsOpJachtgebied() == true) {
-                getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() + getSpelerLijst().get(index).getAantalJachtgebied());
+                int geroldGetal;
+                int aantalGereedschap;
+                spelApp.toonGeroldGetal(4, getSpelerLijst().get(index).getAantalJachtgebied(), index);
+                geroldGetal = spel.dobbelStenen(getSpelerLijst().get(index).getAantalJachtgebied());
+                if (getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() >= 1) 
+                {
+                    if (spelApp.gereedschapBoodschap(index)) {
+                        aantalGereedschap = spelApp.aantalGebruikGereedschap(index);
+                        getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() + (int) Math.floor((geroldGetal + aantalGereedschap) / getPlaatsenLijst().get(4).getDeler()));
+                    }
+                }
+                else
+                {
+                    getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() + (int) Math.floor(geroldGetal / getPlaatsenLijst().get(4).getDeler()));
+                }
             }
             if (getSpelerLijst().get(index).isPlaatsOpAkkerbouw()== true) {
                 getSpelerLijst().get(index).getResourceLijst().get(4).setAantal(getSpelerLijst().get(index).getResourceLijst().get(4).getAantal() + getSpelerLijst().get(index).getAantalAkkerbouw());
@@ -274,7 +354,7 @@ public class DomeinController
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
                 getSpelerLijst().get(spelerNr).setPlaatsOpJachtgebied(true);
                 getSpelerLijst().get(spelerNr).setAantalJachtgebied(getSpelerLijst().get(spelerNr).getAantalJachtgebied()+ aantalStamleden);
-                getPlaatsenLijst().get(6).setAantalSpots(getPlaatsenLijst().get(6).getAantalSpots() - aantalStamleden);
+                getPlaatsenLijst().get(4).setAantalSpots(getPlaatsenLijst().get(4).getAantalSpots() - aantalStamleden);
                 break;
             case 7:
                 //stamleden
@@ -290,7 +370,7 @@ public class DomeinController
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
                 getSpelerLijst().get(spelerNr).setPlaatsOpSmith(true);
                 getSpelerLijst().get(spelerNr).setAantalSmith(getSpelerLijst().get(spelerNr).getAantalSmith()+ aantalStamleden);
-                getPlaatsenLijst().get(5).setAantalSpots(getPlaatsenLijst().get(5).getAantalSpots() - aantalStamleden);
+                getPlaatsenLijst().get(6).setAantalSpots(getPlaatsenLijst().get(6).getAantalSpots() - aantalStamleden);
                 break;
             case 9:
                 //akkerbouw

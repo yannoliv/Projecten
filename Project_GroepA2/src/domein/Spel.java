@@ -98,9 +98,9 @@ public class Spel
         plaatsLijst.add(new Plaats("Leemgroeve",    getResourceLijst().get(1), 4,        7));
         plaatsLijst.add(new Plaats("Steengroeve",   getResourceLijst().get(2), 5,        7));
         plaatsLijst.add(new Plaats("Goudmijn",      getResourceLijst().get(3), 6,        7));
+        plaatsLijst.add(new Plaats("Jachtgebied",   getResourceLijst().get(6), 2,        40));
         plaatsLijst.add(new Plaats("Akkerbouw",     getResourceLijst().get(4),           1));
         plaatsLijst.add(new Plaats("Smith",         getResourceLijst().get(5),           1));
-        plaatsLijst.add(new Plaats("Jachtgebied",   getResourceLijst().get(6), 2,        40));
         plaatsLijst.add(new Plaats("Hut",           getResourceLijst().get(7),           2));
         return plaatsLijst;
     }
@@ -219,20 +219,20 @@ public class Spel
         bedieningsPaneel += String.format("• 3: %s     ", getPlaatsenLijst().get(1).getNaam()); //leemgroeve
         bedieningsPaneel += String.format("• 4: %s     ", getPlaatsenLijst().get(2).getNaam()); //steengroeve
         bedieningsPaneel += String.format("• 5: %s     ", getPlaatsenLijst().get(3).getNaam()); //goudmijn
-        bedieningsPaneel += String.format("• 6: %s     ", getPlaatsenLijst().get(6).getNaam()); //Jachtgebied
+        bedieningsPaneel += String.format("• 6: %s     ", getPlaatsenLijst().get(4).getNaam()); //Jachtgebied
         bedieningsPaneel += String.format("• 7: %s     ", getPlaatsenLijst().get(7).getNaam()); //hut
-        bedieningsPaneel += String.format("• 8: %s     ", getPlaatsenLijst().get(5).getNaam()); //smith
-        bedieningsPaneel += String.format("• 9: %s     ", getPlaatsenLijst().get(4).getNaam()); //akkerbouw
+        bedieningsPaneel += String.format("• 8: %s     ", getPlaatsenLijst().get(6).getNaam()); //smith
+        bedieningsPaneel += String.format("• 9: %s     ", getPlaatsenLijst().get(5).getNaam()); //akkerbouw
         bedieningsPaneel += String.format("• 10: Stop spel");
         bedieningsPaneel += String.format("%n");
-        bedieningsPaneel += String.format("• vrije plaatsen: %24d", getPlaatsenLijst().get(0).getAantalSpots());
-        bedieningsPaneel += String.format("%16d", getPlaatsenLijst().get(1).getAantalSpots());
+        bedieningsPaneel += String.format("• vrije plaatsen: %24d", getPlaatsenLijst().get(0).getAantalSpots());//bos
+        bedieningsPaneel += String.format("%16d", getPlaatsenLijst().get(1).getAantalSpots());//leemgroeve
         bedieningsPaneel += String.format("%21d", getPlaatsenLijst().get(2).getAantalSpots());
         bedieningsPaneel += String.format("%19d", getPlaatsenLijst().get(3).getAantalSpots());
-        bedieningsPaneel += String.format("%19d", getPlaatsenLijst().get(6).getAantalSpots());
+        bedieningsPaneel += String.format("%19d", getPlaatsenLijst().get(4).getAantalSpots());
         bedieningsPaneel += String.format("%18d", getPlaatsenLijst().get(7).getAantalSpots());
-        bedieningsPaneel += String.format("%14d", getPlaatsenLijst().get(5).getAantalSpots());
-        bedieningsPaneel += String.format("%17d%n", getPlaatsenLijst().get(4).getAantalSpots());
+        bedieningsPaneel += String.format("%14d", getPlaatsenLijst().get(6).getAantalSpots());
+        bedieningsPaneel += String.format("%17d%n", getPlaatsenLijst().get(5).getAantalSpots());
         if (getHuttenLijst().size() >= 3) 
         {
             bedieningsPaneel += String.format("• hut kaarten: %n");
