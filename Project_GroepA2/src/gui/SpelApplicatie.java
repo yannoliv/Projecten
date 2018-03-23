@@ -343,19 +343,65 @@ public class SpelApplicatie
             bedieningsPaneel(spelerNr);
         }
     }
-    
-   //Einde ronde
-    public void eindeRonde()
+        
+    public void voedselStraf(int spelerNr, int check)
     {
-        String output = "";
-        output += String.format("%n%n");
-        output += String.format("%n               -----------------------------------------------");
-        output += String.format("%n               -                Ronde is klaar!              -");
-        output += String.format("%n               -           De uiteindelijke score is         -");
-        output += String.format("%n               -----------------------------------------------%n%n%n%n");
-        dc.eindeRonde();
-        System.out.printf(output + dc.toonSpelers() + "%n%n%n%n" + "<scroll naar boven voor eind resultaat van vorige ronde>%n" +"%n%n<Nieuwe ronde is gestart>%n%n");
+        if (check == 0) {
+            System.out.printf("U heeft geen voedsel om uw dorp te voeden.%n");
+        }
+        if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() <= 0
+            && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() <= 0
+            && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() <= 0 
+            && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 0) {
+            System.out.printf("U krijgt 10 strafpunten omdat uw dorp honger moet leiden...");
+            dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).getAantal() - 10);
+        }
+        else
+        {
+            System.out.printf("Kies een resource om uw dorp te voeden (type naam van de resource):%n");
+            for (int i = 0; i < 4; i++) {
+                System.out.printf("%s: %d | ", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(i).getNaam(), dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(i).getAantal());
+            }
+            System.out.printf("%n");
+            String antwoord = input.next().toLowerCase();
+            switch (antwoord)
+            {
+                case "hout":
+                    if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() <= 0) {
+                        System.out.printf("U heeft geen hout om af te geven...%n");
+                        voedselStraf(spelerNr, 1);
+                    }
+                    else
+                    {
+                        dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(0);
+                    }
+                    break;
+                case "leem":
+                     if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() <= 0) {
+                        System.out.printf("U heeft geen leem om af te geven...%n");
+                        voedselStraf(spelerNr, 1);
+                    }
+                    break;
+                case "steen":
+                     if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() <= 0) {
+                        System.out.printf("U heeft geen steen om af te geven...%n");
+                        voedselStraf(spelerNr, 1);
+                    }
+                    break;
+                case "goud":
+                     if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 0) {
+                        System.out.printf("U heeft geen goud om af te geven...%n");
+                        voedselStraf(spelerNr, 1);
+                    }
+                    break;
+                default:
+                    System.out.printf("Gelieve een resource te kiezen...%n");
+                    voedselStraf(spelerNr, 1);
+                    break;
+            }
+        }
     }
+    
     
     public int bepaalStamleden(int spelerNr, int keuzeNr)
     {
@@ -530,6 +576,11 @@ public class SpelApplicatie
         return a;
     }
     
+    public void toonEindeRondeBericht(String bericht)
+    {
+        System.out.printf(bericht);
+    }
+    
     public int aantalGebruikGereedschap(int spelerNr)
     {
         int getal = 0;
@@ -571,13 +622,20 @@ public class SpelApplicatie
     public int toonGeroldGetal(int plaatsNr, int aantalStamleden, int spelerNr)
     {
         int geroldGetal = dc.getGeroldGetal(aantalStamleden);
-        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d%n",dc.getSpelerLijst().get(spelerNr).getNaam(), dc.getPlaatsenLijst().get(plaatsNr).getNaam(), geroldGetal);
+        
+        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d delen door %d geeft you %d %s.%n",
+                dc.getSpelerLijst().get(spelerNr).getNaam(),
+                dc.getPlaatsenLijst().get(plaatsNr).getNaam(),
+                geroldGetal,
+                dc.getPlaatsenLijst().get(plaatsNr).getDeler(),
+                ((int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler())),
+                dc.getPlaatsenLijst().get(plaatsNr).getTypeResource().getNaam());  
         return geroldGetal;
     }
     
     public void toonScoreBord()
     {
-        System.out.printf("%n" + dc.toonSpelers());
+        System.out.printf("%n%n%n%n" + dc.toonSpelers() + "%n%n");
     }
     
     public DomeinController getDc() {

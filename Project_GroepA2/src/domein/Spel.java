@@ -287,16 +287,16 @@ public class Spel
            }
        }
    }
-   
-   public String voedselMelding(int spelerNr)
-   {
-       String voedsel = "";
-       voedsel += String.format("U heeft geen voedsel om uw dorp te voeden.%n");
-       voedsel += String.format("Kies een resource om uw dorp te voeden:%n");
-       for (int i = 0; i < 4; i++) {
-           voedsel += String.format("%s: %d | ", getResourceLijst().get(i).getNaam(), getSpelerLijst().get(spelerNr).getResourceLijst().get(i).getAantal());
-       }
-       voedsel += String.format("%n");
-       return voedsel;
-   }
+   //Einde ronde
+    public String eindeRondeBericht()
+    {
+        String output = "";
+        output += String.format("%n%n");
+        output += String.format("%n               -----------------------------------------------");
+        output += String.format("%n               -                Ronde is klaar!              -");
+        output += String.format("%n               -           De uiteindelijke score is         -");
+        output += String.format("%n               -----------------------------------------------%n%n%n%n");
+        output += String.format("%n%n%n%n<scroll naar boven voor eind resultaat van vorige ronde>%n" +"%n%n<Nieuwe ronde is gestart>%n%n");
+        return output;
+    }
 }

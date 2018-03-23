@@ -1,9 +1,7 @@
 package domein;
 
 import gui.SpelApplicatie;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class DomeinController 
@@ -111,7 +109,9 @@ public class DomeinController
             }
         }
         //tonen dat de ronde gedaan is
-        spelApp.eindeRonde();
+        spelApp.toonEindeRondeBericht(spel.eindeRondeBericht());
+        eindeRonde();
+        spelApp.toonScoreBord();
     }
     //---------------------------------------------------------------------------
     //get gerold getal
@@ -259,7 +259,8 @@ public class DomeinController
            //zet gebruikte stamleden terug op 0
             getSpelerLijst().get(index).setGebruikteStamleden(0);
             if (getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0) {
-                spel.voedselMelding(index);
+                getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(0);
+                spelApp.voedselStraf(index, 0);
             }
         }
         spel.resetSpelerZet();
