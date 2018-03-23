@@ -213,7 +213,7 @@ public class Spel
         int hutNummer = 0;
         String bedieningsPaneel = "";
         bedieningsPaneel += String.format("%n%nSpeler %d is nu aan de beurt.%n", getSpelerLijst().get(spelerNr).getSpelerNummer() + 1);
-        bedieningsPaneel += String.format("• 0: terug    ");
+        bedieningsPaneel += String.format("• 0: niets doen    ");
         bedieningsPaneel += String.format("• 1: Toon spelers    ");
         bedieningsPaneel += String.format("• 2: %s     ", getPlaatsenLijst().get(0).getNaam()); //bos
         bedieningsPaneel += String.format("• 3: %s     ", getPlaatsenLijst().get(1).getNaam()); //leemgroeve

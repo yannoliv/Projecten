@@ -95,8 +95,7 @@ public class SpelApplicatie
                 switch(temp)
                 {
                     //terug keren
-                    case 0:
-                        bedieningsPaneel(spelerNr);
+                    case 0:                        
                         break;
                     //toon spelers
                     case 1: System.out.printf("%n%n" + dc.toonSpelers());
