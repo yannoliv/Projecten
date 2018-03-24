@@ -1,4 +1,4 @@
-package gui;
+package cui;
 
 import domein.DomeinController;
 import java.util.Scanner;
@@ -14,25 +14,10 @@ public class SpelApplicatie
         setDc(dc);
     }
     
-    public void BepaalAantalSpelers()
+    public String BepaalAantalSpelers()
     {
-        //aantal spelers bepalen
-        
-        while (dc.getAantalSpelers() < 2 || dc.getAantalSpelers() > 4)
-        {
-            String resultaat;
-            try{
-                System.out.printf("%nAantal spelers:(2-4): ");
-                resultaat = input.nextLine();
-                int aantal = Integer.parseInt(resultaat);
-                if (aantal < 2 || aantal > 4)
-                    System.out.printf("Ongeldige keuze.%n");
-                dc.setAantalSpelers(aantal);
-            }catch(NumberFormatException e) 
-            {
-                System.out.printf("Ongeldige keuze.%n");
-            }
-        } //deze return dienen voor geen rode lijntjes :p
+        System.out.printf("%nAantal spelers (2-4): ");
+        return input.next();
     }
     
     public String vraagSpelerNamen(int spelerNr)

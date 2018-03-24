@@ -1,6 +1,6 @@
 package domein;
 
-import gui.SpelApplicatie;
+import cui.SpelApplicatie;
 import java.util.List;
 
 
@@ -12,49 +12,12 @@ public class DomeinController
     
     public DomeinController()
     {
+        //maak een nieuwe cui aan
         spelApp = new SpelApplicatie(this); //setDc
+        //maak een nieuw spel aan
         spel = new Spel(); //geen constructor
-        spelApp.BepaalAantalSpelers(); //bepaald aantal spelers en set
-        spel.setSpelers();
-        //voor elke speler
-        for (int index = 0; index < getSpelerLijst().size(); index++) {
-            //maak while boolean aan en zet die op true
-            boolean a = true;
-            //voer while uit met boolean a die true is
-            while (a) {
-                //vraag de naamcontrole op van spelerNr, ingegeven naam, als die true returned stop je de while
-                if (spel.naamControle(index, spelApp.vraagSpelerNamen(index)) == true) {
-                    a = false;
-                }
-            }
-        }
-//        spelApp.setSpelersNamen();
-        spel.setSpelerResources();
+        //spel beginnen
         beginSpel();
-    }
-    //---------------------------------------------------------------------------
-    //spelers aanmaken
-    public void maakSpelersAan(int aantal)
-    {
-        spel.maakAantalSpelers(aantal);
-    }
-    //---------------------------------------------------------------------------
-    //spelers namen geven
-    public void geefSpelersNamen(String naam, Speler speler)
-    {
-        spel.setSpelerNaam(naam, speler);
-    }
-    //---------------------------------------------------------------------------
-    //aantal speler ophalen
-    public int getAantalSpelers()
-    {
-        return spel.getAantalSpelers();
-    }
-    //---------------------------------------------------------------------------
-    //aantal speler opslaan
-    public void setAantalSpelers(int aantal)
-    {
-        spel.setAantalSpelers(aantal);
     }
     //---------------------------------------------------------------------------
     //spelerlijst ophalen
@@ -92,6 +55,29 @@ public class DomeinController
     //Begint het spel zelf
     public void beginSpel()
     {
+        ////////////////////////////////////////////////////////////////////////////
+        //vraag naar het aantal spelers en vult de spelerLijst
+        boolean checkAantalSpelers = true;
+        while(checkAantalSpelers)
+        {
+            if (spel.aantalSpelersControler(spelApp.BepaalAantalSpelers()) == true)
+            {
+                checkAantalSpelers = false;
+            }
+        }
+        //voor elke speler
+        for (int index = 0; index < getSpelerLijst().size(); index++) {
+            //maak while boolean aan en zet die op true
+            boolean a = true;
+            //voer while uit met boolean a die true is
+            while (a) {
+                //vraag de naamcontrole op van spelerNr, ingegeven naam, als die true returned stop je de while
+                if (spel.naamControle(index, spelApp.vraagSpelerNamen(index)) == true) {
+                    a = false;
+                }
+            }
+        }
+        spel.geefSpelersResources();
         spel.vulPlaatsLijst();
         spel.vulHuttenLijst();
         spelApp.toonScoreBord();

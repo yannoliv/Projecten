@@ -16,6 +16,83 @@ public class Spel
     SecureRandom random = new SecureRandom();
     
     //---------------------------------------------------------------------------
+    //aantal spelers controleren
+    public boolean aantalSpelersControler(String aantal)
+    {
+        boolean a = false;
+        try
+        {
+            int aantalSpelers = Integer.parseInt(aantal);
+            if (aantalSpelers >= 2 && aantalSpelers <= 4) {
+                //zet het aantal spelers
+                setAantalSpelers(aantalSpelers);
+                //roept de spelerLijst op om te vullen
+                this.spelerLijst = vulSpelerLijst(aantalSpelers);
+                a = true;
+            }
+        }catch(NumberFormatException e)
+        {
+            
+        }
+       return a;
+    }
+    //---------------------------------------------------------------------------
+    //speler lijst aanmaken + getter en setter aantal spelers
+    
+    public int getAantalSpelers() {
+        return aantalSpelers;
+    }
+
+    public void setAantalSpelers(int aantalSpelers) {
+        this.aantalSpelers = aantalSpelers;
+    }
+    
+    //---------------------------------------------------------------------------
+    //speler lijst vullen
+    public List<Speler> vulSpelerLijst(int aantal)
+    {
+       spelerLijst = new ArrayList<>();
+       for (int i = 0; i < aantal; i++) {
+           spelerLijst.add(new Speler(i));
+       }
+       return spelerLijst;
+    }
+    //---------------------------------------------------------------------------
+    //naam controle uitvoeren
+     public boolean naamControle(int spelerNr, String naam)
+    {
+        boolean a = false;
+        switch(spelerNr)
+        {
+            case 0:
+                getSpelerLijst().get(0).setNaam(naam);
+                a = true;
+                break;
+            case 1:
+                if (!naam.toLowerCase().equals(getSpelerLijst().get(0).getNaam().toLowerCase())) {
+                    getSpelerLijst().get(1).setNaam(naam);
+                    a = true;
+                }
+                break;
+            case 2:
+                if (!naam.toLowerCase().equals(getSpelerLijst().get(0).getNaam().toLowerCase()) &&
+                    !naam.toLowerCase().equals(getSpelerLijst().get(1).getNaam().toLowerCase())) {
+                    getSpelerLijst().get(2).setNaam(naam);
+                    a = true;
+                }
+                break;
+            case 3:
+                if (!naam.toLowerCase().equals(getSpelerLijst().get(0).getNaam().toLowerCase()) &&
+                    !naam.toLowerCase().equals(getSpelerLijst().get(1).getNaam().toLowerCase()) &&
+                    !naam.toLowerCase().equals(getSpelerLijst().get(2).getNaam().toLowerCase()))  {
+                    getSpelerLijst().get(3).setNaam(naam);
+                    a = true;
+                }
+                break;
+        }
+        return a;
+    }
+    //---------------------------------------------------------------------------
     //hutten lijst vullen
     public List<Plaats> vulHuttenLijst()
     {
@@ -60,16 +137,6 @@ public class Spel
     public List<Plaats> getHuttenLijst()
     {
         return huttenLijst;
-    }
-    //---------------------------------------------------------------------------
-    //speler lijst vullen
-    public List<Speler> vulSpelerLijst(int aantal)
-    {
-       spelerLijst = new ArrayList<>();
-       for (int i = 0; i < aantal; i++) {
-           spelerLijst.add(new Speler(i));
-       }
-       return spelerLijst;
     }
     //---------------------------------------------------------------------------
     //resource lijst vullen
@@ -144,14 +211,8 @@ public class Spel
         }
     }
     //---------------------------------------------------------------------------
-    //Spelers namen geven
-    public void setSpelerNaam(String naam, Speler speler)
-    {
-        speler.setNaam(naam);
-    }
-    //---------------------------------------------------------------------------
     //Resourcelijst laten opvullen
-    public void setSpelerResources()
+    public void geefSpelersResources()
     {
         for (int i = 0; i < getAantalSpelers(); i++) {
             spelerLijst.get(i).setResourceLijst(vulResourceLijst());
@@ -175,25 +236,7 @@ public class Spel
     {
         return resourceLijst;
     }
-    //---------------------------------------------------------------------------
-    //speler lijst aanmaken & vullen
-    public void setSpelers() {
-        this.spelerLijst = vulSpelerLijst(getAantalSpelers());
-    }    
-    //---------------------------------------------------------------------------
-    //Aantal spelers bepalen
-    public void maakAantalSpelers(int aantal)
-    {
-        setAantalSpelers(aantal);
-    }
     
-    public int getAantalSpelers() {
-        return aantalSpelers;
-    }
-
-    public void setAantalSpelers(int aantalSpelers) {
-        this.aantalSpelers = aantalSpelers;
-    }
     //---------------------------------------------------------------------------
     //Gerold getal bepalen
     public int dobbelStenen(int aantalStamleden)
@@ -300,37 +343,4 @@ public class Spel
         return output;
     }
     
-    public boolean naamControle(int spelerNr, String naam)
-    {
-        boolean a = false;
-        switch(spelerNr)
-        {
-            case 0:
-                getSpelerLijst().get(0).setNaam(naam);
-                a = true;
-                break;
-            case 1:
-                if (!naam.toLowerCase().equals(getSpelerLijst().get(0).getNaam().toLowerCase())) {
-                    getSpelerLijst().get(1).setNaam(naam);
-                    a = true;
-                }
-                break;
-            case 2:
-                if (!naam.toLowerCase().equals(getSpelerLijst().get(0).getNaam().toLowerCase()) &&
-                    !naam.toLowerCase().equals(getSpelerLijst().get(1).getNaam().toLowerCase())) {
-                    getSpelerLijst().get(2).setNaam(naam);
-                    a = true;
-                }
-                break;
-            case 3:
-                if (!naam.toLowerCase().equals(getSpelerLijst().get(0).getNaam().toLowerCase()) &&
-                    !naam.toLowerCase().equals(getSpelerLijst().get(1).getNaam().toLowerCase()) &&
-                    !naam.toLowerCase().equals(getSpelerLijst().get(2).getNaam().toLowerCase()))  {
-                    getSpelerLijst().get(3).setNaam(naam);
-                    a = true;
-                }
-                break;
-        }
-        return a;
-    }
 }
