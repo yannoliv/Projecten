@@ -16,7 +16,19 @@ public class DomeinController
         spel = new Spel(); //geen constructor
         spelApp.BepaalAantalSpelers(); //bepaald aantal spelers en set
         spel.setSpelers();
-        spelApp.setSpelersNamen();
+        //voor elke speler
+        for (int index = 0; index < getSpelerLijst().size(); index++) {
+            //maak while boolean aan en zet die op true
+            boolean a = true;
+            //voer while uit met boolean a die true is
+            while (a) {
+                //vraag de naamcontrole op van spelerNr, ingegeven naam, als die true returned stop je de while
+                if (spel.naamControle(index, spelApp.vraagSpelerNamen(index)) == true) {
+                    a = false;
+                }
+            }
+        }
+//        spelApp.setSpelersNamen();
         spel.setSpelerResources();
         beginSpel();
     }

@@ -35,48 +35,12 @@ public class SpelApplicatie
         } //deze return dienen voor geen rode lijntjes :p
     }
     
-    public void setSpelersNamen() 
+    public String vraagSpelerNamen(int spelerNr)
     {
-        
-        for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
-        {
-            System.out.printf("Naam speler %d: ", i +1);
-            dc.geefSpelersNamen(input.nextLine(), dc.getSpelerLijst().get(i)); // naam,lijst(index)
-            switch(i)
-            {
-                case 1: 
-                    while (
-                            dc.getSpelerLijst().get(0).getNaam().equals(dc.getSpelerLijst().get(1).getNaam())
-                            )
-                    {
-                        System.out.printf("Naam speler %d: ", i +1);
-                        dc.geefSpelersNamen(input.nextLine(), dc.getSpelerLijst().get(i));
-                    }
-                break;
-                case 2:
-                    while (
-                            dc.getSpelerLijst().get(0).getNaam().equals(dc.getSpelerLijst().get(2).getNaam()) ||
-                            dc.getSpelerLijst().get(1).getNaam().equals(dc.getSpelerLijst().get(2).getNaam())
-                            )
-                    {
-                        System.out.printf("Naam speler %d: ", i +1);
-                        dc.geefSpelersNamen(input.nextLine(), dc.getSpelerLijst().get(i));
-                    }
-                break;
-                case 3:
-                    while (
-                            dc.getSpelerLijst().get(0).getNaam().equals(dc.getSpelerLijst().get(3).getNaam()) ||
-                            dc.getSpelerLijst().get(1).getNaam().equals(dc.getSpelerLijst().get(3).getNaam()) ||
-                            dc.getSpelerLijst().get(2).getNaam().equals(dc.getSpelerLijst().get(3).getNaam())
-                            )
-                    {
-                        System.out.printf("Naam speler %d: ", i +1);
-                        dc.geefSpelersNamen(input.nextLine(), dc.getSpelerLijst().get(i));
-                    }
-                break;
-            }
-        }
+        System.out.printf("Naam speler %d: ", spelerNr + 1);
+        return input.next();
     }
+    
     
     //Bedieningspaneel
     public void bedieningsPaneel(int spelerNr)

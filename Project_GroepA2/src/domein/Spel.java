@@ -299,4 +299,38 @@ public class Spel
         output += String.format("%n%n%n%n<scroll naar boven voor eind resultaat van vorige ronde>%n" +"%n%n<Nieuwe ronde is gestart>%n%n");
         return output;
     }
+    
+    public boolean naamControle(int spelerNr, String naam)
+    {
+        boolean a = false;
+        switch(spelerNr)
+        {
+            case 0:
+                getSpelerLijst().get(0).setNaam(naam);
+                a = true;
+                break;
+            case 1:
+                if (!naam.toLowerCase().equals(getSpelerLijst().get(0).getNaam().toLowerCase())) {
+                    getSpelerLijst().get(1).setNaam(naam);
+                    a = true;
+                }
+                break;
+            case 2:
+                if (!naam.toLowerCase().equals(getSpelerLijst().get(0).getNaam().toLowerCase()) &&
+                    !naam.toLowerCase().equals(getSpelerLijst().get(1).getNaam().toLowerCase())) {
+                    getSpelerLijst().get(2).setNaam(naam);
+                    a = true;
+                }
+                break;
+            case 3:
+                if (!naam.toLowerCase().equals(getSpelerLijst().get(0).getNaam().toLowerCase()) &&
+                    !naam.toLowerCase().equals(getSpelerLijst().get(1).getNaam().toLowerCase()) &&
+                    !naam.toLowerCase().equals(getSpelerLijst().get(2).getNaam().toLowerCase()))  {
+                    getSpelerLijst().get(3).setNaam(naam);
+                    a = true;
+                }
+                break;
+        }
+        return a;
+    }
 }
