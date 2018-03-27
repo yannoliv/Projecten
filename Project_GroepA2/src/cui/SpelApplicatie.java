@@ -482,30 +482,6 @@ public class SpelApplicatie
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public String bepaalAantalSpelers()
     {
         System.out.printf("%nAantal spelers (2-4): ");
@@ -518,10 +494,6 @@ public class SpelApplicatie
         return input.next();
     }
     
-    
-    //Bedieningspaneel
-   
-        
     public void voedselStraf(int spelerNr, int check)
     {
         if (check == 0) {
@@ -579,7 +551,6 @@ public class SpelApplicatie
             }
         }
     }
-    
     
     public int bepaalStamleden(int spelerNr, int keuzeNr)
     {
