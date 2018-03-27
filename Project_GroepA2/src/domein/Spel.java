@@ -15,9 +15,7 @@ public class Spel
     private List<Plaats> huttenLijst;
     SecureRandom random = new SecureRandom();
     
-    //---------------------------------------------------------------------------
-    //aantal spelers controleren
-    public boolean aantalSpelersControler(String aantal)
+    public boolean aantalSpelersControle(String aantal)
     {
         boolean a = false;
         try
@@ -36,29 +34,7 @@ public class Spel
         }
        return a;
     }
-    //---------------------------------------------------------------------------
-    //speler lijst aanmaken + getter en setter aantal spelers
     
-    public int getAantalSpelers() {
-        return aantalSpelers;
-    }
-
-    public void setAantalSpelers(int aantalSpelers) {
-        this.aantalSpelers = aantalSpelers;
-    }
-    
-    //---------------------------------------------------------------------------
-    //speler lijst vullen
-    public List<Speler> vulSpelerLijst(int aantal)
-    {
-       spelerLijst = new ArrayList<>();
-       for (int i = 0; i < aantal; i++) {
-           spelerLijst.add(new Speler(i));
-       }
-       return spelerLijst;
-    }
-    //---------------------------------------------------------------------------
-    //naam controle uitvoeren
      public boolean naamControle(int spelerNr, String naam)
     {
         boolean a = false;
@@ -92,54 +68,16 @@ public class Spel
         }
         return a;
     }
-    //---------------------------------------------------------------------------
-    //hutten lijst vullen
-    public List<Plaats> vulHuttenLijst()
+    
+    public List<Speler> vulSpelerLijst(int aantal)
     {
-        huttenLijst = new ArrayList<>();
-           
-        for (int i = 0; i < 28; i++) 
-        {
-            //resources bepalen
-            String naam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
-            String naam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
-            String naam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
-            //nieuwe resource bepalen voor naam2 als naam1 = naam2
-            while (naam1.equals(naam2)) {
-                naam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
-            }
-            //nieuwe resource bepalen voor naam3 als naam1 = naam3 of als naam2 = naam3
-            while (naam1.equals(naam3) || naam2.equals(naam3))
-            {
-                naam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
-            }
-                                      //hut nummer
-           huttenLijst.add(new Plaats(  i,
-                                        //punten hut    (van 12 tot 18)
-                                        random.nextInt(6) + 12,
-                                        //resource naam 1 hut
-                                        naam1,
-                                        //resource hoeveelheid 1 hut
-                                        random.nextInt(4) + 1,
-                                        //resource naam 2 hut
-                                        naam2,
-                                        //resource hoeveelheid 2 hut
-                                        random.nextInt(4) + 1,
-                                        //resource naam 3 hut
-                                        naam3,
-                                        //resource hoeveelheid hut
-                                        random.nextInt(4) + 1));
-        }
-        return huttenLijst;
+       spelerLijst = new ArrayList<>();
+       for (int i = 0; i < aantal; i++) {
+           spelerLijst.add(new Speler(i));
+       }
+       return spelerLijst;
     }
-    //---------------------------------------------------------------------------
-    //hutten lijst ophalen
-    public List<Plaats> getHuttenLijst()
-    {
-        return huttenLijst;
-    }
-    //---------------------------------------------------------------------------
-    //resource lijst vullen
+    
     public List<Resource> vulResourceLijst()
     {
         resourceLijst = new ArrayList<>();
@@ -155,8 +93,7 @@ public class Spel
         resourceLijst.add(new Resource("punten",        0));
         return resourceLijst;
     }
-    //---------------------------------------------------------------------------
-    //plaatsen lijst vullen
+    
     public List<Plaats> vulPlaatsLijst()
     {
         plaatsLijst = new ArrayList<>();
@@ -171,47 +108,46 @@ public class Spel
         plaatsLijst.add(new Plaats("Hut",           getResourceLijst().get(7),           2));
         return plaatsLijst;
     }
-    //---------------------------------------------------------------------------
-    //plaatsenlijst resetten
-    public void resetPlaatsenLijst()
+    
+    public List<Plaats> vulHuttenLijst()
     {
-        for (int index = 0; index < plaatsLijst.size(); index++) {
-            plaatsLijst.remove(index);
+        huttenLijst = new ArrayList<>();
+           
+        for (int i = 0; i < 28; i++) 
+        {
+            //resources bepalen
+            String Rnaam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String Rnaam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String Rnaam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            //nieuwe resource bepalen voor naam2 als naam1 = naam2
+            while (Rnaam1.equals(Rnaam2)) {
+                Rnaam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
+            //nieuwe resource bepalen voor naam3 als naam1 = naam3 of als naam2 = naam3
+            while (Rnaam1.equals(Rnaam3) || Rnaam2.equals(Rnaam3))
+            {
+                Rnaam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
+                                      //hut nummer
+           huttenLijst.add(new Plaats(  i,
+                                        //punten hut    (van 12 tot 18)
+                                        random.nextInt(6) + 12,
+                                        //resource naam 1 hut
+                                        Rnaam1,
+                                        //resource hoeveelheid 1 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 2 hut
+                                        Rnaam2,
+                                        //resource hoeveelheid 2 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 3 hut
+                                        Rnaam3,
+                                        //resource hoeveelheid hut
+                                        random.nextInt(4) + 1));
         }
-        vulPlaatsLijst();
+        return huttenLijst;
     }
-    //---------------------------------------------------------------------------
-    //ronde spelerzetten resetten
-    public void resetSpelerZet()
-    {
-        for (int index = 0; index < getAantalSpelers(); index++) {
-            getSpelerLijst().get(index).setPlaatsOpBos(false);
-            getSpelerLijst().get(index).setPlaatsOpLeemgroeve(false);
-            getSpelerLijst().get(index).setPlaatsOpSteengroeve(false);
-            getSpelerLijst().get(index).setPlaatsOpGoudmijn(false);
-            getSpelerLijst().get(index).setPlaatsOpAkkerbouw(false);
-            getSpelerLijst().get(index).setPlaatsOpSmith(false);
-            getSpelerLijst().get(index).setPlaatsOpHut(false);
-            
-            getSpelerLijst().get(index).setAantalBos(0);
-            getSpelerLijst().get(index).setAantalLeemgroeve(0);
-            getSpelerLijst().get(index).setAantalSteengroeve(0);
-            getSpelerLijst().get(index).setAantalGoudmijn(0);
-            getSpelerLijst().get(index).setAantalAkkerbouw(0);
-            getSpelerLijst().get(index).setAantalSmith(0);
-            getSpelerLijst().get(index).setAantalHut(0);
-        }
-    }
-    //---------------------------------------------------------------------------
-    //elke speler resources geven
-    public void setSpelersResourceLijst()
-    {
-        for (int index = 0; index < getAantalSpelers(); index++) {
-            spelerLijst.get(index).setResourceLijst(resourceLijst);
-        }
-    }
-    //---------------------------------------------------------------------------
-    //Resourcelijst laten opvullen
+    
     public void geefSpelersResources()
     {
         for (int i = 0; i < getAantalSpelers(); i++) {
@@ -219,26 +155,7 @@ public class Spel
         }
         
     }
-    //---------------------------------------------------------------------------
-    //spelers lijst ophalen
-    public List<Speler> getSpelerLijst() {
-        return spelerLijst;
-    }
-    //---------------------------------------------------------------------------
-    //plaatsen lijst ophalen
-    public List<Plaats> getPlaatsenLijst()
-    {
-        return plaatsLijst;
-    }
-    //---------------------------------------------------------------------------
-    //resource lijst ophalen
-    public List<Resource> getResourceLijst()
-    {
-        return resourceLijst;
-    }
     
-    //---------------------------------------------------------------------------
-    //Gerold getal bepalen
     public int dobbelStenen(int aantalStamleden)
     {
         int getal = 0;
@@ -249,8 +166,7 @@ public class Spel
         }
         return getal;
     }
-    //---------------------------------------------------------------------------
-    //Bedieningspaneel afprinten
+    
     public String bedieningsPaneel(int spelerNr)
     {
         int hutNummer = 0;
@@ -320,9 +236,9 @@ public class Spel
         hutNummer++;
         return bedieningsPaneel;
     }
-    
-   public void spelerFix(int ronde)
-   {
+     
+    public void spelerFix(int ronde)
+    {
        for (int index = 0; index < getAantalSpelers(); index++) {
            if (spelerLijst.get(index).getResourceLijst().get(7).getAantal() < 0) 
            {
@@ -330,8 +246,8 @@ public class Spel
            }
        }
    }
-   //Einde ronde
-    public String eindeRondeBericht()
+    
+     public String eindeRondeBericht()
     {
         String output = "";
         output += String.format("%n%n");
@@ -341,6 +257,206 @@ public class Spel
         output += String.format("%n               -----------------------------------------------%n%n%n%n");
         output += String.format("%n%n%n%n<scroll naar boven voor eind resultaat van vorige ronde>%n" +"%n%n<Nieuwe ronde is gestart>%n%n");
         return output;
+    }
+    
+    public void trekResourcesAf(int spelerNr, int hutNummer)
+    {
+        int resourceNr1 = resourceNummerOphalen(spelerNr, 0);
+        int resourceNr2 = resourceNummerOphalen(spelerNr, 1);
+        int resourceNr3 = resourceNummerOphalen(spelerNr, 2);
+        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource1())
+        {
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() - getHuttenLijst().get(hutNummer).getAantalResource1());
+        }
+        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource2())
+        {
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() - getHuttenLijst().get(hutNummer).getAantalResource2());
+        }
+        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource3())
+        {
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() - getHuttenLijst().get(hutNummer).getAantalResource3());
+        }
+    }
+    
+    public boolean checkResources(int spelerNr, int hutNummer)
+    {
+        boolean a = false;
+        if (getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutNummer)).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource1() &&
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutNummer)).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource2() &&
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutNummer)).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource3()) {
+            a = true;
+        }
+        return a;
+    }
+    
+     public int resourceNummerOphalen(int spelerNr, int hutNummer)
+    {
+        int getal;
+        for (int resourceNummer = 0; resourceNummer < 4; resourceNummer++) {
+            String resourceNamen = getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummer).getNaam();
+            if (getHuttenLijst().get(hutNummer).getResource1().toLowerCase().equals(resourceNamen)) {
+                return resourceNummer;
+            }
+        }
+        return getal = 0;
+    }
+     
+     
+    public void plaatsOpPlek(int spelerNr, int keuzeNr, int aantalStamleden)
+    {        
+        switch (keuzeNr) {
+            case 2:
+                //hout
+                //verhoogt gebruikte stamleden
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                //verlaagt de speler zijn stamleden met de gebruikte stamleden
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden); //setStamlid( huidig - gebruikt)
+                //zet de boolean bos voor de speler op true
+                getSpelerLijst().get(spelerNr).setPlaatsOpBos(true);
+                //verhoogt het aantal dat speler op bos heeft geplaatst
+                getSpelerLijst().get(spelerNr).setAantalBos(getSpelerLijst().get(spelerNr).getAantalBos() + aantalStamleden);
+                //verlaag de aantal mogelijke posities bij bos
+                getPlaatsenLijst().get(0).setAantalSpots(getPlaatsenLijst().get(0).getAantalSpots() - aantalStamleden);
+                break;
+            case 3:
+                //leem
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpLeemgroeve(true);
+                getSpelerLijst().get(spelerNr).setAantalLeemgroeve(getSpelerLijst().get(spelerNr).getAantalLeemgroeve()+ aantalStamleden);
+                getPlaatsenLijst().get(1).setAantalSpots(getPlaatsenLijst().get(1).getAantalSpots() - aantalStamleden);
+                break;
+            case 4:
+                //steen
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpSteengroeve(true);
+                getSpelerLijst().get(spelerNr).setAantalSteengroeve(getSpelerLijst().get(spelerNr).getAantalSteengroeve()+ aantalStamleden);
+                getPlaatsenLijst().get(2).setAantalSpots(getPlaatsenLijst().get(2).getAantalSpots() - aantalStamleden);
+                break;
+            case 5:
+                //goud
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpGoudmijn(true);
+                getSpelerLijst().get(spelerNr).setAantalGoudmijn(getSpelerLijst().get(spelerNr).getAantalGoudmijn()+ aantalStamleden);
+                getPlaatsenLijst().get(3).setAantalSpots(getPlaatsenLijst().get(3).getAantalSpots() - aantalStamleden);
+                break;
+            case 6:
+                //voedsel
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpJachtgebied(true);
+                getSpelerLijst().get(spelerNr).setAantalJachtgebied(getSpelerLijst().get(spelerNr).getAantalJachtgebied()+ aantalStamleden);
+                getPlaatsenLijst().get(4).setAantalSpots(getPlaatsenLijst().get(4).getAantalSpots() - aantalStamleden);
+                break;
+            case 7:
+                //stamleden
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpHut(true);
+                getSpelerLijst().get(spelerNr).setAantalHut(getSpelerLijst().get(spelerNr).getAantalHut()+ aantalStamleden);
+                getPlaatsenLijst().get(7).setAantalSpots(getPlaatsenLijst().get(7).getAantalSpots() - aantalStamleden);
+                break;
+            case 8:
+                //gereedschap
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpSmith(true);
+                getSpelerLijst().get(spelerNr).setAantalSmith(getSpelerLijst().get(spelerNr).getAantalSmith()+ aantalStamleden);
+                getPlaatsenLijst().get(6).setAantalSpots(getPlaatsenLijst().get(6).getAantalSpots() - aantalStamleden);
+                break;
+            case 9:
+                //akkerbouw
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpAkkerbouw(true);
+                getSpelerLijst().get(spelerNr).setAantalAkkerbouw(getSpelerLijst().get(spelerNr).getAantalAkkerbouw()+ aantalStamleden);
+                getPlaatsenLijst().get(5).setAantalSpots(getPlaatsenLijst().get(5).getAantalSpots() -aantalStamleden);
+                break;
+            case 11:
+                //hut kaart 1
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart1(true);
+                break;
+            case 12:
+                //hut kaart 2
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart2(true);
+                break;
+            case 13:
+                //hut kaart 3
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart3(true);
+                break;
+        }
+    }
+    
+    public String toonSpelers()
+    {
+        String resultaat = "";
+            for (int i = 0; i < getSpelerLijst().size(); i++) 
+            {
+                resultaat += getSpelerLijst().get(i).toString(getSpelerLijst().get(i));
+                resultaat += String.format("%n");
+            }
+        return resultaat;
+    }
+    
+    public void resetSpelerZet()
+    {
+        for (int index = 0; index < getAantalSpelers(); index++) {
+            getSpelerLijst().get(index).setPlaatsOpBos(false);
+            getSpelerLijst().get(index).setPlaatsOpLeemgroeve(false);
+            getSpelerLijst().get(index).setPlaatsOpSteengroeve(false);
+            getSpelerLijst().get(index).setPlaatsOpGoudmijn(false);
+            getSpelerLijst().get(index).setPlaatsOpAkkerbouw(false);
+            getSpelerLijst().get(index).setPlaatsOpSmith(false);
+            getSpelerLijst().get(index).setPlaatsOpHut(false);
+            
+            getSpelerLijst().get(index).setAantalBos(0);
+            getSpelerLijst().get(index).setAantalLeemgroeve(0);
+            getSpelerLijst().get(index).setAantalSteengroeve(0);
+            getSpelerLijst().get(index).setAantalGoudmijn(0);
+            getSpelerLijst().get(index).setAantalAkkerbouw(0);
+            getSpelerLijst().get(index).setAantalSmith(0);
+            getSpelerLijst().get(index).setAantalHut(0);
+        }
+    }
+    
+    public void resetPlaatsenLijst()
+    {
+        for (int index = 0; index < plaatsLijst.size(); index++) {
+            plaatsLijst.remove(index);
+        }
+        vulPlaatsLijst();
+    }
+    
+    public int getAantalSpelers() {
+        return aantalSpelers;
+    }
+    public List<Speler> getSpelerLijst() {
+        return spelerLijst;
+    }
+    public List<Resource> getResourceLijst(){
+        return resourceLijst;
+    }
+    public List<Plaats> getPlaatsenLijst(){
+        return plaatsLijst;
+    }
+    public List<Plaats> getHuttenLijst(){
+        return huttenLijst;
+    }
+    public void setSpelersResourceLijst(){
+        for (int index = 0; index < getAantalSpelers(); index++) {
+            spelerLijst.get(index).setResourceLijst(resourceLijst);
+        }
+    }
+    public void setAantalSpelers(int aantalSpelers) {
+        this.aantalSpelers = aantalSpelers;
     }
     
 }
