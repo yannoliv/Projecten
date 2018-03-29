@@ -33,17 +33,15 @@ public class Speler
     private boolean plaatsOpHutkaart3 = false;
     
     //constructor
-    public Speler(int spelerNummer)
-    {
+    public Speler(int spelerNummer){
         setSpelerNummer(spelerNummer);    
-        setKleur(kleurLijst[spelerNummer]); // speler 1 -1 wordt 0 dus rood
+        setKleur(kleurLijst[spelerNummer]);
         setGebruikteStamleden(gebruikteStamleden);
     }
     
     //---------------------------------------------------------------------------
     //speler scoreboard afprinten
-   public String toString(Speler speler)
-   {
+   public String toString(Speler speler){
        String resultaat = "";
        resultaat += String.format("Speler %d |  ", speler.spelerNummer + 1);
        resultaat += String.format("Naam: %s    ", speler.getNaam());
@@ -53,7 +51,8 @@ public class Speler
         } 
        return resultaat;
    }
-    
+   
+   
     //getters en setters
     //---------------------------------------------------------------------------
     //Naam
@@ -254,9 +253,4 @@ public class Speler
         this.aantalHut = aantalHut;
     }
 
-    
-    
-    
 }
-
-//

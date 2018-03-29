@@ -96,9 +96,3 @@ public class DomeinController
         return spel.getPlaatsenLijst();
       }
 }
-
-
-//recyclage later
-//verhoogt het aantal hout van de speler door zijn voorig aantal op te halen en te verhogen met het gekregen hout
-//                getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() 
-//                        + (int) Math.floor(((double) spel.dobbelStenen(aantalStamleden))/(double) getPlaatsenLijst().get(0).getDeler()));
