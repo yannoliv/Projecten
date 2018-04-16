@@ -4,7 +4,7 @@ import cui.SpelApplicatie;
 import domein.DomeinController;
 
 
-public class StartUp 
+public class StartUpCui 
 {
     public static void main (String[] args) throws InterruptedException
     {

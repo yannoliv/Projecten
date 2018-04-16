@@ -12,43 +12,42 @@ public class DomeinController
     {
         spel = new Spel();
     }
-//------------------------------------------------------------------   
-//New
-        public boolean doeAantalSpelersControle(String aantal)
-        {
-            return spel.aantalSpelersControle(aantal);
-        }
-        
-        public boolean doeNaamControle(int spelerNr, String keuze)
-        {
-            return spel.naamControle(spelerNr, keuze);
-        }
-        
-        public void vulLijsten()
-        {
-            spel.geefSpelersResources();
-            spel.vulPlaatsLijst();
-            spel.vulHuttenLijst();
-        }
-        
-        public void doeSpelerFix(int ronde)
-        {
-            spel.spelerFix(ronde);
-        }
-        
-        public String getEindeRondeBericht()
-        {
-            return spel.eindeRondeBericht();
-        }
-        
-        public void doeResetPlaatsenLijst()
-        {
-            spel.resetPlaatsenLijst();
-        }
-        
-        public void doeTrekResourcesAf(int spelerNr, int hutNummer)
-       {
-        spel.trekResourcesAf(spelerNr, hutNummer);
+    
+    public boolean doeAantalSpelersControle(String aantal)
+    {
+        return spel.aantalSpelersControle(aantal);
+    }
+
+    public boolean doeNaamControle(int spelerNr, String keuze)
+    {
+        return spel.naamControle(spelerNr, keuze);
+    }
+
+    public void vulLijsten()
+    {
+        spel.geefSpelersResources();
+        spel.vulPlaatsLijst();
+        spel.vulHuttenLijst();
+    }
+
+    public void doeSpelerFix(int ronde)
+    {
+        spel.spelerFix(ronde);
+    }
+
+    public String getEindeRondeBericht()
+    {
+        return spel.eindeRondeBericht();
+    }
+
+    public void doeResetPlaatsenLijst()
+    {
+        spel.resetPlaatsenLijst();
+    }
+
+    public void doeTrekResourcesAf(int spelerNr, int hutNummer)
+   {
+    spel.trekResourcesAf(spelerNr, hutNummer);
     }
         
         public void doeResetSpelerZet()
