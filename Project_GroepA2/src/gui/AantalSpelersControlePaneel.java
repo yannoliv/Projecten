@@ -4,10 +4,13 @@ import domein.DomeinController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 public class AantalSpelersControlePaneel extends VBox {
@@ -32,7 +35,31 @@ public class AantalSpelersControlePaneel extends VBox {
         VBox.setMargin(lbl_foutMelding, new Insets(0,0,10,50));
         VBox.setMargin(btn_confirm, new Insets(0,0,0,75));
         btn_confirm.setOnAction(this::controleerNamenSpelers);
+        cbo_aantalSpelers.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    controleerNamenSpelers();
+                }
+            }
+        });
         getChildren().addAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm);
+    }
+    
+    private void controleerNamenSpelers()
+    {
+        if (cbo_aantalSpelers.getValue() == cbo_aantalSpelers.getItems().get(0)) {
+            lbl_foutMelding.setVisible(true);
+        }
+        else
+        {
+            dc.doeAantalSpelersControle((String) cbo_aantalSpelers.getValue());
+            dc.vulLijsten();
+            hoofdpaneel.toonControleNamenSpelers(dc.getSpelerLijst().size());
+        }
     }
     
     private void controleerNamenSpelers(ActionEvent event)

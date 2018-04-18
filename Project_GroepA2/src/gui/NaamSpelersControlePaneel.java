@@ -9,6 +9,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -41,7 +43,36 @@ public class NaamSpelersControlePaneel extends VBox {
         lbl_foutMelding.setVisible(false);
         VBox.setMargin(btn_confirm, new Insets(0,30,10,50));
         btn_confirm.setOnAction(this::confirmNaam);
+        txt_naamSpeler.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    confirmNaam();
+                }
+            }
+        });
         getChildren().addAll(lbl_spelerNummer, lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding, btn_confirm);
+    }
+    
+    private void confirmNaam()
+    {
+        if (txt_naamSpeler.getText().isEmpty()) {
+            lbl_foutMelding.setVisible(true);
+        }
+        else
+        {
+            if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText())) {
+                hoofdpaneel.naamConfirmed();
+            }
+            else
+            {
+                lbl_foutMelding.setText("naam is reeds genomen");
+                lbl_foutMelding.setVisible(true);
+            }            
+        }
     }
     
     private void confirmNaam(ActionEvent event)
@@ -56,10 +87,10 @@ public class NaamSpelersControlePaneel extends VBox {
             }
             else
             {
-                System.out.println("Naam ongeldig");
+                lbl_foutMelding.setText("naam is reeds genomen");
+                lbl_foutMelding.setVisible(true);
             }            
         }
     }
     
-   
 }
