@@ -43,6 +43,7 @@ public class AantalSpelersControlePaneel extends VBox {
         else
         {
             dc.doeAantalSpelersControle((String) cbo_aantalSpelers.getValue());
+            dc.vulLijsten();
             hoofdpaneel.toonControleNamenSpelers(dc.getSpelerLijst().size());
         }
     }

@@ -35,7 +35,7 @@ public class Spel
        return a;
     }
     
-     public boolean naamControle(int spelerNr, String naam)
+    public boolean naamControle(int spelerNr, String naam)
     {
         boolean a = false;
         switch(spelerNr)
