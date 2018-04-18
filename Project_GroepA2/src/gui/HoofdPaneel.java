@@ -11,8 +11,11 @@ public class HoofdPaneel extends VBox
 {
     private DomeinController dc;
     private int tempSpelerNr = 0;
+    
     private AantalSpelersControlePaneel aantalSpelers;
     private NaamSpelersControlePaneel naamSpeler;
+    private SpelApplicatiePaneel spelApplicatiePaneel;
+    
     
     public HoofdPaneel(DomeinController dc){
         this.dc = dc;
@@ -37,6 +40,8 @@ public class HoofdPaneel extends VBox
         else
         {
             System.out.println(dc.getToonSpelers());
+            spelApplicatiePaneel = new SpelApplicatiePaneel(this,dc);
+            getChildren().add(spelApplicatiePaneel);
         }
         
     }
