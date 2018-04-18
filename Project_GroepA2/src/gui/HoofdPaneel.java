@@ -1,24 +1,19 @@
 package gui;
 
-import domein.DomeinController;
 import javafx.scene.layout.VBox;
 
 
 public class HoofdPaneel extends VBox
 {
-    private DomeinController dc;
-    private AantalSpelersCreatiePaneel aantalSpelers;
+    private AantalSpelersControlePaneel aantalSpelers = new AantalSpelersControlePaneel(this);;
     
-    
-    public HoofdPaneel(DomeinController dc){
-        this.dc = dc;
+    public HoofdPaneel(){
         setSpacing(10);
-        aantalSpelers = new AantalSpelersCreatiePaneel(this, dc);
         getChildren().add(aantalSpelers);
     }
     
-    public void toonControleNamenSpelers(int aantal){
-        getChildren().remove(aantalSpelers);
+    public void toonControleNamenSpelers(){
+        
         
     }
 }
