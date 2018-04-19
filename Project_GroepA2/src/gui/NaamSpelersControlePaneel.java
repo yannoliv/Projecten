@@ -6,35 +6,41 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.*;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class NaamSpelersControlePaneel extends VBox {
-    private HoofdPaneel hoofdpaneel;
+public class NaamSpelersControlePaneel extends VBox 
+{
+    //private NaamSpelersControlePaneel naamSpeler;
+    private SpelApplicatiePaneel spelApplicatiePaneel;
+    private AantalSpelersControlePaneel aantalSpelerPaneel;
     private DomeinController dc;
-    private int spelerNr;
+    
+    private int spelerNr = 0;
+    
     private Label lbl_spelerNummer;
     private Label lbl_foutMelding = new Label("Voer een geldige naam in");
     private Label lbl_naamSpeler = new Label("Naam:");
     private TextField txt_naamSpeler;
     private Button btn_confirm = new Button("Confirm");
             
-    public NaamSpelersControlePaneel(HoofdPaneel hoofdpaneel, DomeinController dc, int spelerNr)
+    public NaamSpelersControlePaneel(DomeinController dc, int spelerNr, AantalSpelersControlePaneel aantalSpelerPaneel)
     {
-        this.hoofdpaneel = hoofdpaneel;
         this.dc = dc;
-        this.spelerNr = spelerNr;
-        setPrefSize(225,250);
+        this.aantalSpelerPaneel = aantalSpelerPaneel;
+        
+        setPrefSize(300,500);
         
         lbl_spelerNummer  = new Label("Naam speler " + String.format("%d", spelerNr));
         txt_naamSpeler = new TextField();
         txt_naamSpeler.setPromptText("voer hier uw naam in");
-        hoofdpaneel.standaardTextfieldClear(txt_naamSpeler);
+        this.standaardTextfieldClear(txt_naamSpeler);
         
         VBox.setMargin(lbl_spelerNummer, new Insets(25,75,10,30));
         VBox.setMargin(lbl_naamSpeler, new Insets(60,10,3,25));
@@ -42,7 +48,7 @@ public class NaamSpelersControlePaneel extends VBox {
         VBox.setMargin(lbl_foutMelding, new Insets(0,30,3,25));
         lbl_foutMelding.setVisible(false);
         VBox.setMargin(btn_confirm, new Insets(0,30,10,50));
-        btn_confirm.setOnAction(this::confirmNaam);
+        btn_confirm.setOnAction(this::buttonPushed);
         txt_naamSpeler.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
             @Override
@@ -50,13 +56,44 @@ public class NaamSpelersControlePaneel extends VBox {
             {
                 if (ke.getCode().equals(KeyCode.ENTER))
                 {
-                    confirmNaam();
+                    //buttonPushed();
                 }
             }
         });
         getChildren().addAll(lbl_spelerNummer, lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding, btn_confirm);
     }
+
+    private void buttonPushed(ActionEvent event) 
+    {
+        if (txt_naamSpeler.getText().isEmpty()) {
+            lbl_foutMelding.setVisible(true);
+        }
+        else
+        {
+            if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText())) {
+                aantalSpelerPaneel.naamConfirmed();
+            }
+            else
+            {
+                lbl_foutMelding.setText("naam is reeds genomen");
+                lbl_foutMelding.setVisible(true);
+            }            
+        }
+        
+    }
+    public void standaardTextfieldClear(TextField textfield)
+    {
+        final BooleanProperty firstTime = new SimpleBooleanProperty(true);
+        textfield.focusedProperty().addListener((observable,  oldValue,  newValue) -> {
+            if(newValue && firstTime.get()){
+                this.requestFocus(); // Delegate the focus to container
+                firstTime.setValue(false); // Variable value changed for future references
+            }
+        });
+    }
     
+}
+    /*
     private void confirmNaam()
     {
         if (txt_naamSpeler.getText().isEmpty()) {
@@ -65,7 +102,7 @@ public class NaamSpelersControlePaneel extends VBox {
         else
         {
             if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText())) {
-                hoofdpaneel.naamConfirmed();
+                this.naamConfirmed();
             }
             else
             {
@@ -83,7 +120,7 @@ public class NaamSpelersControlePaneel extends VBox {
         else
         {
             if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText())) {
-                hoofdpaneel.naamConfirmed();
+                this.naamConfirmed();
             }
             else
             {
@@ -92,5 +129,4 @@ public class NaamSpelersControlePaneel extends VBox {
             }            
         }
     }
-    
-}
+    */

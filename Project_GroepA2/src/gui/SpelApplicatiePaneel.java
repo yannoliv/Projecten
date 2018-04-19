@@ -1,30 +1,45 @@
 package gui;
 
 import domein.DomeinController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 
 
 public class SpelApplicatiePaneel extends GridPane 
 {
-    private HoofdPaneel hoofdpaneel;
+    //declaraties
     private DomeinController dc;
-    private Scorebord scorebord;
-    private MapSpel mapSpel = new MapSpel();
+    GridPane gridPane;
     
-    public SpelApplicatiePaneel(HoofdPaneel hoofdpaneel, DomeinController dc)
+    //panelen
+    private MapSpel mapSpel = new MapSpel();
+    private Scorebord scorebord = new Scorebord(this, dc);
+    
+    public SpelApplicatiePaneel(DomeinController dc)
     {
-        this.hoofdpaneel = hoofdpaneel;
         this.dc = dc;
         
-
-        GridPane gridPane = new GridPane();
+        gridPane = new GridPane();
         
+        buildGui();
+        
+    }
+    
+    private void buildGui() {
         this.add(mapSpel, 0, 0);
-        //this.add(spelerstats, 1, 0);
+        this.add(scorebord, 1, 0);
         //this.add(hutkaartscherm, 0, 1);
         //this.add(infoscherm, 1, 1)
         
@@ -41,7 +56,14 @@ public class SpelApplicatiePaneel extends GridPane
         gridPane.getRowConstraints().addAll(row1,row2);  
         
         setGridLinesVisible(true);
+        Region spring = new Region();
+        HBox.setHgrow(spring, Priority.ALWAYS);
+        this.getChildren().addAll(gridPane);
         
+    }
+    
+}
+
         //top pane
         //Pane top = new Pane();
         //top.setPrefSize(100,100);
@@ -64,7 +86,7 @@ public class SpelApplicatiePaneel extends GridPane
         
         
         //add borderpane
-        getChildren().addAll(gridPane);
+        //getChildren().addAll(gridPane);
         
         
         /*
@@ -82,6 +104,3 @@ public class SpelApplicatiePaneel extends GridPane
         getRowConstraints().addAll(row1,row2)    
         
         */
-    }
-    
-}
