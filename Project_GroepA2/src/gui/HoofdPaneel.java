@@ -22,6 +22,7 @@ public class HoofdPaneel extends VBox
         naamSpeler = new NaamSpelersControlePaneel(this, dc, tempSpelerNr);
         setSpacing(10);
         aantalSpelers = new AantalSpelersControlePaneel(this, dc);
+        this.setPrefSize(500, 500);
         getChildren().add(aantalSpelers);
     }
     
@@ -60,9 +61,3 @@ public class HoofdPaneel extends VBox
     
     
     
-    
-    
-    
-    
-    
- 

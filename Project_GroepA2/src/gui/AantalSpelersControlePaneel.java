@@ -1,3 +1,4 @@
+
 package gui;
 
 import domein.DomeinController;
@@ -26,7 +27,7 @@ public class AantalSpelersControlePaneel extends VBox {
     {
         this.hoofdpaneel = hoofdpaneel;
         this.dc = dc;
-        setPrefSize(225,250);
+        //this.setMaxSize(500, 500);
         ObservableList<String> options = FXCollections.observableArrayList("Aantal spelers","2","3","4");
         cbo_aantalSpelers.setItems(options);
         cbo_aantalSpelers.getSelectionModel().select(0);
@@ -76,4 +77,3 @@ public class AantalSpelersControlePaneel extends VBox {
     }
     
 }
-

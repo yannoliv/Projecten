@@ -1,12 +1,11 @@
-
 package gui;
 
 import domein.DomeinController;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.image.Image ;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.RowConstraints;
 
 
 public class SpelApplicatiePaneel extends GridPane 
@@ -14,61 +13,75 @@ public class SpelApplicatiePaneel extends GridPane
     private HoofdPaneel hoofdpaneel;
     private DomeinController dc;
     private Scorebord scorebord;
+    private MapSpel mapSpel = new MapSpel();
     
     public SpelApplicatiePaneel(HoofdPaneel hoofdpaneel, DomeinController dc)
     {
         this.hoofdpaneel = hoofdpaneel;
         this.dc = dc;
         
-//        GridPane.setMargin(this, new Insets(20,20,20,20));
-//        setPrefSize(225,250);
-//        
-//        //Scorebord
-//        scorebord = new Scorebord(this,dc);
-//        GridPane.setConstraints(scorebord, 2, 1);
 
-        BorderPane borderPane = new BorderPane();
+        GridPane gridPane = new GridPane();
         
-        this.setMinSize(500.0, 500.0);
-        setMinSize(800, 800);
-        setPrefSize(2000, 2000);
+        this.add(mapSpel, 0, 0);
+        //this.add(spelerstats, 1, 0);
+        //this.add(hutkaartscherm, 0, 1);
+        //this.add(infoscherm, 1, 1)
+        
+        ColumnConstraints column0 = new ColumnConstraints();
+        column0.setPercentWidth(65);
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setPercentWidth(35);
+        getColumnConstraints().addAll(column0,column1);
+        
+        RowConstraints row1 = new RowConstraints();
+        row1.setPercentHeight(75);
+        RowConstraints row2 = new RowConstraints();
+        row2.setPercentHeight(25);
+        gridPane.getRowConstraints().addAll(row1,row2);  
+        
+        setGridLinesVisible(true);
+        
+        //top pane
+        //Pane top = new Pane();
+        //top.setPrefSize(100,100);
+        //top.setStyle("-fx-background-color: rgb(255,0,0)");
+        //borderPane.setTop(top);
 
-        Pane top = new Pane();
-        top.setPrefHeight(100);
-        top.setStyle("-fx-background-color: rgb(255,0,0)");
-        borderPane.setTop(top);
+        //bottom pane
+        //Pane bottom = new Pane();
+        //bottom.setStyle("-fx-background-color: rgb(0,0,255)");
+        //borderPane.setBottom(bottom);
 
-        Pane bottom = new Pane();
-        bottom.setPrefHeight(100);
-        bottom.setStyle("-fx-background-color: rgb(0,0,255)");
-        borderPane.setBottom(bottom);
+        //center pane
+        //MapSpel achtergrond = new MapSpel();
+        //borderPane.setCenter(achtergrond);
 
+        //right pane
+        //Pane right = new Pane();
+        //right.setStyle("-fx-background-color: #00FF00");
+        //borderPane.setRight(right);
         
         
-        ImageView png_spelMap;
-        png_spelMap = new ImageView(new Image(getClass().getResourceAsStream("/images/mapSpel.png")));
-        png_spelMap.setFitWidth(1536/2);
-        png_spelMap.setFitHeight(1024/2);
-        
-        Pane center = new Pane();
-        center.setPrefSize(600, 400);
-        center.setStyle("-fx-background-color: #FFFF00");
-        borderPane.setCenter(png_spelMap);
-
-
+        //add borderpane
+        getChildren().addAll(gridPane);
         
         
+        /*
         
+        ColumnConstraints column0 = new ColumnConstraints();
+        column0.setPercentWidth(65);
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setPercentWidth(35);
+        getColumnConstraints().addAll(column0,column1);
         
+        RowConstraints row1 = new RowConstraints();
+        row1.setPercentHeight(75);
+        RowConstraints row2 = new RowConstraints();
+        row2.setPercentHeight(25);
+        getRowConstraints().addAll(row1,row2)    
         
-        
-        Pane right = new Pane();
-        right.setPrefWidth(200);
-        right.setStyle("-fx-background-color: #00FF00");
-        borderPane.setRight(right);
-
-        getChildren().addAll(borderPane);
-        
+        */
     }
     
 }

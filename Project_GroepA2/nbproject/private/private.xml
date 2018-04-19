@@ -10,8 +10,12 @@
         </group>
         <group name="Oefeningen les"/>
         <group name="Programmeren">
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/SpelApplicatiePaneel.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/AantalSpelersControlePaneel.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/NaamSpelersControlePaneel.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/HoofdPaneel.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/Scorebord.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/MapSpel.java</file>
         </group>
     </open-files>
 </project-private>
