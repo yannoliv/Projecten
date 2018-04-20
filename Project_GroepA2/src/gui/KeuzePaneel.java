@@ -84,7 +84,7 @@ public class KeuzePaneel extends VBox{
                 Scene scene = new Scene(spelAppPaneel);
                 Stage spelStage = new Stage();
                 spelStage.setScene(scene);
-                spelStage.setWidth(1000);
+                spelStage.setWidth(1250);
                 spelStage.setHeight(720);
                 spelStage.show();
             }
