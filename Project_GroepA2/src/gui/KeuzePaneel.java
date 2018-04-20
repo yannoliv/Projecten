@@ -57,6 +57,7 @@ public class KeuzePaneel extends VBox{
             char keuze = temp.charAt(0);
             String res = "" + keuze;
             dc.doeAantalSpelersControle(res);
+            dc.vulLijsten();
             getChildren().removeAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm);
             vraagNamenSpelers();
         }
@@ -64,7 +65,7 @@ public class KeuzePaneel extends VBox{
     
     public void confirmNaam(ActionEvent ae)
     {
-        if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText()) || txt_naamSpeler.getText().isEmpty()) {
+        if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText()) || txt_naamSpeler.getText() == null) {
             getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding,btn_confirm);
             spelerNr += 1;
             if (spelerNr < dc.getSpelerLijst().size())
