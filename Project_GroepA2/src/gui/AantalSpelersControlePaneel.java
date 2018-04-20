@@ -22,7 +22,6 @@ public class AantalSpelersControlePaneel extends VBox {
     private NaamSpelersControlePaneel naamSpeler;
     private DomeinController dc;
     
-    private int tempSpelerNr = 0;
     
     private final ComboBox cbo_aantalSpelers = new ComboBox();
     private Button btn_confirm = new Button("Confirm");
@@ -66,7 +65,7 @@ public class AantalSpelersControlePaneel extends VBox {
             dc.doeAantalSpelersControle((String) cbo_aantalSpelers.getValue());
             dc.vulLijsten();
             
-            NaamSpelersControlePaneel naamSpelerPaneel = new NaamSpelersControlePaneel(dc,tempSpelerNr,this);
+            NaamSpelersControlePaneel naamSpelerPaneel = new NaamSpelersControlePaneel(dc,0);
             Scene scene = new Scene(naamSpelerPaneel, 500, 500);
             Stage stage = (Stage) this.getScene().getWindow();
             stage.setScene(scene);
@@ -76,22 +75,6 @@ public class AantalSpelersControlePaneel extends VBox {
         }
     }
     
-        public void naamConfirmed()
-    {
-        tempSpelerNr += 1;
-        if (tempSpelerNr < dc.getSpelerLijst().size()) {
-            getChildren().add(naamSpeler = new NaamSpelersControlePaneel(dc, tempSpelerNr, this));
-        }
-        else
-        {
-            System.out.println(dc.getToonSpelers());
-            SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc);
-            Scene scene = new Scene(spelAppPaneel, 500, 500);
-            Stage stage = (Stage) this.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        }
-        
-    }
+    
     
 }

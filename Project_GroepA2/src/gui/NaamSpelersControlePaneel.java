@@ -19,10 +19,11 @@ public class NaamSpelersControlePaneel extends VBox
 {
     //private NaamSpelersControlePaneel naamSpeler;
     private SpelApplicatiePaneel spelApplicatiePaneel;
-    private AantalSpelersControlePaneel aantalSpelerPaneel;
+    //private AantalSpelersControlePaneel aantalSpelerPaneel;
+    private NaamSpelersControlePaneel naamSpelerPaneel;
     private DomeinController dc;
     
-    private int spelerNr = 0;
+    private int tempSpelerNr = 0;
     
     private Label lbl_spelerNummer;
     private Label lbl_foutMelding = new Label("Voer een geldige naam in");
@@ -30,10 +31,10 @@ public class NaamSpelersControlePaneel extends VBox
     private TextField txt_naamSpeler;
     private Button btn_confirm = new Button("Confirm");
             
-    public NaamSpelersControlePaneel(DomeinController dc, int spelerNr, AantalSpelersControlePaneel aantalSpelerPaneel)
+    public NaamSpelersControlePaneel(DomeinController dc, int spelerNr)
     {
         this.dc = dc;
-        this.aantalSpelerPaneel = aantalSpelerPaneel;
+        //this.aantalSpelerPaneel = aantalSpelerPaneel;
         
         setPrefSize(300,500);
         
@@ -70,8 +71,8 @@ public class NaamSpelersControlePaneel extends VBox
         }
         else
         {
-            if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText())) {
-                aantalSpelerPaneel.naamConfirmed();
+            if (dc.doeNaamControle(tempSpelerNr, txt_naamSpeler.getText())) {
+                this.naamConfirmed();
             }
             else
             {
@@ -92,7 +93,29 @@ public class NaamSpelersControlePaneel extends VBox
         });
     }
     
+    public void naamConfirmed()
+    {
+        tempSpelerNr += 1;
+        if (tempSpelerNr < dc.getSpelerLijst().size()) {
+            getChildren().remove(naamSpelerPaneel);
+            getChildren().add(naamSpelerPaneel = new NaamSpelersControlePaneel(dc, tempSpelerNr));
+            System.out.println("84");
+        }
+        else
+        {
+            System.out.println(dc.getToonSpelers());
+            System.out.println("89");
+            SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc);
+            Scene scene = new Scene(spelAppPaneel, 500, 500);
+            Stage stage = (Stage) this.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }
+        
+    }
+
 }
+
     /*
     private void confirmNaam()
     {
