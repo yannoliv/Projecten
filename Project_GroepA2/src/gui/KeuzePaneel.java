@@ -8,6 +8,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -18,7 +19,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class keuzeStage extends VBox{
+public class KeuzePaneel extends VBox{
     private DomeinController dc;
     private Stage stage;
     private ComboBox cbo_aantalSpelers = new ComboBox();
@@ -30,7 +31,7 @@ public class keuzeStage extends VBox{
     private Label lbl_naamSpeler = new Label();
     private TextField txt_naamSpeler = new TextField();
     
-    public keuzeStage(DomeinController dc, Stage stage) {
+    public KeuzePaneel(DomeinController dc, Stage stage) {
         this.dc = dc;
         this.stage = stage;
         vraagAantalSpelers();
@@ -63,7 +64,7 @@ public class keuzeStage extends VBox{
     
     public void confirmNaam(ActionEvent ae)
     {
-        if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText())) {
+        if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText()) || txt_naamSpeler.getText().isEmpty()) {
             getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding,btn_confirm);
             spelerNr += 1;
             if (spelerNr < dc.getSpelerLijst().size())
@@ -73,7 +74,18 @@ public class keuzeStage extends VBox{
             }
             else
             {
-                //ga verder
+                SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc);
+//                Scene scene = new Scene(spelAppPaneel, 500, 500);
+//                Stage spelstage = (Stage) this.getScene().getWindow();
+//                spelstage.setScene(scene);
+//                spelstage.show();
+                stage.hide();
+                Scene scene = new Scene(spelAppPaneel);
+                Stage spelStage = new Stage();
+                spelStage.setScene(scene);
+                spelStage.setWidth(1000);
+                spelStage.setHeight(720);
+                spelStage.show();
             }
         }
         else
@@ -86,6 +98,7 @@ public class keuzeStage extends VBox{
     
     public void vraagAantalSpelers()
     {
+        stage.setTitle("Keuze van het aantal spelers");
         ObservableList<String> options = FXCollections.observableArrayList("Aantal spelers", "2 spelers", "3 spelers", "4 spelers");
         cbo_aantalSpelers.setItems(options);
         cbo_aantalSpelers.getSelectionModel().selectFirst();
@@ -104,7 +117,7 @@ public class keuzeStage extends VBox{
     
     public void vraagNamenSpelers()
     {
-        stage.setTitle("Speler " + String.format("%d", spelerNr + 1));
+        stage.setTitle("Naamgeving van de spelers");
         lbl_naamSpeler.setText("Naam speler " + String.format("%d", spelerNr + 1));
         lbl_foutMelding.setText("ongeldige naam");
         btn_confirm.setText("Confirm");

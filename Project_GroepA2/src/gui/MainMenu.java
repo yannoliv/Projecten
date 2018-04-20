@@ -41,7 +41,7 @@ public class MainMenu extends VBox {
     private void startSpel(ActionEvent ae)
     {
         getChildren().removeAll(btn_start, btn_scorebord);
-        keuzeStage st = new keuzeStage(dc, stage);
+        KeuzePaneel st = new KeuzePaneel(dc, stage);
         getChildren().add(st);
     }
 }
