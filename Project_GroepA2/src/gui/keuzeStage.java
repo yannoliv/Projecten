@@ -23,7 +23,7 @@ public class keuzeStage extends VBox{
     private Stage stage;
     private ComboBox cbo_aantalSpelers = new ComboBox();
     private Label lbl_foutMelding = new Label();
-    
+    private int temp = 0;
     private Button btn_confirm = new Button();
     
     private int spelerNr = 0;
@@ -38,8 +38,17 @@ public class keuzeStage extends VBox{
 
     public void confirm(ActionEvent ae){
         if (cbo_aantalSpelers.getValue().equals(cbo_aantalSpelers.getItems().get(0))) {
-            getChildren().removeAll(cbo_aantalSpelers, btn_confirm);
-            getChildren().addAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm);
+            if (temp == 0) {
+                getChildren().removeAll(cbo_aantalSpelers, btn_confirm);
+                getChildren().addAll(cbo_aantalSpelers,lbl_foutMelding,btn_confirm);
+                temp += 1;
+            }
+            else
+            {
+                getChildren().removeAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm);
+                getChildren().addAll(cbo_aantalSpelers,lbl_foutMelding,btn_confirm);
+            }
+            
         }
         else
         {
