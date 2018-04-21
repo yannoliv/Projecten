@@ -36,8 +36,8 @@ public class SpelApplicatiePaneel extends GridPane
 //        this.add(menuBar, 0, 0);
         this.add(mapSpel, 0, 1);
         this.add(resourcePaneel, 1, 1);
-        //this.add(hutkaartscherm, 0, 2);
-        //this.add(infoscherm, 1, 2)
+//        this.add(hutkaartscherm, 0, 2);
+//        this.add(infoscherm, 1, 2)
         
        
         ColumnConstraints column0 = new ColumnConstraints();
@@ -49,7 +49,7 @@ public class SpelApplicatiePaneel extends GridPane
         //.setPadding(new Insets(10, 10, 10, 10));
 
         RowConstraints row0 = new RowConstraints();
-        row0.setPercentHeight(5);
+        row0.setPercentHeight(0);
         RowConstraints row1 = new RowConstraints();
         row1.setPercentHeight(75);
         RowConstraints row2 = new RowConstraints();

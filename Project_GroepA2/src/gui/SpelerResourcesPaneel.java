@@ -1,11 +1,22 @@
 package gui;
 
+import com.sun.prism.paint.Color;
+import com.sun.prism.paint.Paint;
 import domein.DomeinController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
@@ -17,7 +28,7 @@ public class SpelerResourcesPaneel extends VBox
 
     private Label lbl_spelerNaam;
      private String[] str_kleuren = {
-         "rgb(255,205,205)","rgb(205,255,205)", "rgb(205,205,255)", "rgb(255,255,205)"};
+         "rgba(255,205,205,0.5)","rgba(205,255,205,0.5)", "rgba(205,205,255,0.5)", "rgba(255,255,205,0.5)"};
     private String spelerKleur;
      private HBox hbox;
      
@@ -48,19 +59,29 @@ public class SpelerResourcesPaneel extends VBox
         this.dc = dc;
         this.spelApplicatiePaneel = spelApplicatiePaneel;
         
-        //Labels en gegevens
-        
 
         for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
         {
-            
+            switch (dc.getSpelerLijst().get(i).getKleur()) {
+                case "rood":
+                    spelerKleur = str_kleuren[0];
+                    break;
+                case "groen":
+                    spelerKleur = str_kleuren[1];
+                    break;
+                case "blauw":
+                    spelerKleur = str_kleuren[2];
+                    break;
+                case "geel":
+                    spelerKleur = str_kleuren[3];
+                    break;
+            }
             //hbox 1
             lbl_spelerNaam = new Label(String.format("%s: ", dc.getSpelerLijst().get(i).getNaam()));
-            
             hbox = new HBox(8);
             hbox.getChildren().add(lbl_spelerNaam);
+            hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
             this.getChildren().add(hbox);
-            hbox.setStyle(String.format("-fx-fill-color: %s;", "red"));
             hbox.setPadding(new Insets(10,10,10,10));
             
             //hbox 2
@@ -84,20 +105,7 @@ public class SpelerResourcesPaneel extends VBox
                     lbl_akkerbouw, lbl_akkerbouwAantal
             );
             this.getChildren().addAll(hbox);
-            switch (dc.getSpelerLijst().get(i).getKleur()) {
-                case "rood":
-                    spelerKleur = str_kleuren[0];
-                    break;
-                case "groen":
-                    spelerKleur = str_kleuren[1];
-                    break;
-                case "blauw":
-                    spelerKleur = str_kleuren[2];
-                    break;
-                case "geel":
-                    spelerKleur = str_kleuren[3];
-                    break;
-            }
+            
             hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
             hbox.setPadding(new Insets(10,10,10,10));
             
@@ -125,7 +133,12 @@ public class SpelerResourcesPaneel extends VBox
             hbox.setStyle(String.format("-fx-background-color: %s;", spelerKleur));
             System.out.println(dc.getSpelerLijst().get(i).getNaam() + "/n" + dc.getSpelerLijst().get(i).getKleur());
         }
-        
+        BackgroundSize bgs = new BackgroundSize( 1, 1, true, true, false, false);
+
+        BackgroundImage bgImg = new BackgroundImage(new Image("/images/stoneWall.png"), 
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER, bgs);
+        this.setBackground(new Background(bgImg));
         //opmaak vbox___________________
     }
     
