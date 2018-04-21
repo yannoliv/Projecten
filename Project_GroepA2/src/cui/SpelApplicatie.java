@@ -773,6 +773,4 @@ public class SpelApplicatie
                 dc.getPlaatsenLijst().get(plaatsNr).getTypeResource().getNaam());  
         return geroldGetal;
     }
-    
-    
 }

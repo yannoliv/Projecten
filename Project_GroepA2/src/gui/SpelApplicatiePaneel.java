@@ -16,7 +16,7 @@ public class SpelApplicatiePaneel extends GridPane
     private SpelerResourcesPaneel resourcePaneel;
     private Stage stage;
     //panelen
-    private MapSpel mapSpel = new MapSpel();
+    private MapSpel mapSpel;
     private MenuBar menuBar = new MenuBar();
     
 
@@ -28,6 +28,7 @@ public class SpelApplicatiePaneel extends GridPane
         stage.setHeight(787);
         stage.show();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
+        mapSpel = new MapSpel(dc);
         buildGui();
     }
 
