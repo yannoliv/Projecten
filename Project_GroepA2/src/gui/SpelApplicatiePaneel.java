@@ -6,6 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 
 
 public class SpelApplicatiePaneel extends GridPane 
@@ -13,21 +14,26 @@ public class SpelApplicatiePaneel extends GridPane
     //declaraties
     private DomeinController dc;
     private SpelerResourcesPaneel resourcePaneel;
+    private Stage stage;
     //panelen
     private MapSpel mapSpel = new MapSpel();
     private MenuBar menuBar = new MenuBar();
     
 
-    public SpelApplicatiePaneel(DomeinController dc)
+    public SpelApplicatiePaneel(DomeinController dc, Stage stage)
     {
         this.dc = dc;
+        this.stage = stage;
+        stage.setWidth(1245);
+        stage.setHeight(787);
+        stage.show();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
         buildGui();
     }
 
     private void buildGui() 
     {
-        this.add(menuBar, 0, 0);
+//        this.add(menuBar, 0, 0);
         this.add(mapSpel, 0, 1);
         this.add(resourcePaneel, 1, 1);
         //this.add(hutkaartscherm, 0, 2);

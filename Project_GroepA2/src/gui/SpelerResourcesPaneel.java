@@ -18,6 +18,7 @@ public class SpelerResourcesPaneel extends VBox
     private Label lbl_spelerNaam;
      private String[] str_kleuren = {
          "rgb(255,205,205)","rgb(205,255,205)", "rgb(205,205,255)", "rgb(255,255,205)"};
+    private String spelerKleur;
      private HBox hbox;
      
     private Label lbl_hout;
@@ -83,7 +84,21 @@ public class SpelerResourcesPaneel extends VBox
                     lbl_akkerbouw, lbl_akkerbouwAantal
             );
             this.getChildren().addAll(hbox);
-            hbox.setStyle(String.format("-fx-background-color: %s;",str_kleuren[i]));
+            switch (dc.getSpelerLijst().get(i).getKleur()) {
+                case "rood":
+                    spelerKleur = str_kleuren[0];
+                    break;
+                case "groen":
+                    spelerKleur = str_kleuren[1];
+                    break;
+                case "blauw":
+                    spelerKleur = str_kleuren[2];
+                    break;
+                case "geel":
+                    spelerKleur = str_kleuren[3];
+                    break;
+            }
+            hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
             hbox.setPadding(new Insets(10,10,10,10));
             
             
@@ -107,8 +122,8 @@ public class SpelerResourcesPaneel extends VBox
             
             this.getChildren().addAll(hbox);// hbox toevoegen bij vbox
             hbox.setPadding(new Insets(10,10,40,10));
-            hbox.setStyle(String.format("-fx-background-color: %s;",str_kleuren[i]));
-            
+            hbox.setStyle(String.format("-fx-background-color: %s;", spelerKleur));
+            System.out.println(dc.getSpelerLijst().get(i).getNaam() + "/n" + dc.getSpelerLijst().get(i).getKleur());
         }
         
         //opmaak vbox___________________

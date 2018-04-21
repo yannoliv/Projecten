@@ -1,6 +1,8 @@
 package gui;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -18,12 +20,10 @@ public class MenuBar extends HBox {
     public MenuBar()
     {    
        javafx.scene.control.MenuBar menuBar = new javafx.scene.control.MenuBar();
-        
         Menu spelMenu = new Menu("Spel");
         MenuItem overMenuItem = new MenuItem("Over");
         MenuItem afsluitenMenuItem = new MenuItem("Afsluiten");
         afsluitenMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+x"));
-
         overMenuItem.setOnAction(this::aboutClicked);
         afsluitenMenuItem.setOnAction(new EventHandler<ActionEvent>()
         {
@@ -36,7 +36,6 @@ public class MenuBar extends HBox {
 
         spelMenu.getItems().addAll(overMenuItem, new SeparatorMenuItem(), afsluitenMenuItem);
         menuBar.getMenus().add(spelMenu);
-     
     }
     public void aboutClicked (ActionEvent e) {
                 

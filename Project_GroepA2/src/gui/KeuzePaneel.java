@@ -75,18 +75,12 @@ public class KeuzePaneel extends VBox{
             }
             else
             {
-                SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc);
-//                Scene scene = new Scene(spelAppPaneel, 500, 500);
-//                Stage spelstage = (Stage) this.getScene().getWindow();
-//                spelstage.setScene(scene);
-//                spelstage.show();
+                Stage spelStage = new Stage();
+                SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
                 stage.hide();
                 Scene scene = new Scene(spelAppPaneel);
-                Stage spelStage = new Stage();
                 spelStage.setScene(scene);
-                spelStage.setWidth(1250);
-                spelStage.setHeight(720);
-                spelStage.show();
+                
             }
         }
         else
