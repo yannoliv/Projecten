@@ -2,6 +2,8 @@ package gui;
 
 import domein.DomeinController;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -75,6 +77,14 @@ public class MapSpel extends GridPane {
             stamledenAantal -= 1;
             plaatsAantal -= 1;
         }
+        else
+        {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
     }
     
     private void leemGroeveClicked(ActionEvent ae)
@@ -83,6 +93,14 @@ public class MapSpel extends GridPane {
         if (dc.getPlaatsenLijst().get(1).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
             aantalClicks += 1;
             System.out.println(aantalClicks);
+        }
+        else
+        {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
         }
     }
     
@@ -94,7 +112,11 @@ public class MapSpel extends GridPane {
         }
         else
         {
-            //toon melding dat steenGroeve vol is
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
         }
     }
     
@@ -106,7 +128,11 @@ public class MapSpel extends GridPane {
         }
         else
         {
-            //toon melding dat goudmijn vol is
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
         }
     }
     
@@ -118,7 +144,11 @@ public class MapSpel extends GridPane {
         }
         else
         {
-            //toon melding dat jachtgebied vol is
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
         }
     }
     
@@ -130,7 +160,11 @@ public class MapSpel extends GridPane {
         }
         else
         {
-            //toon melding dat hut vol is
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
         }
     }
     
@@ -142,7 +176,11 @@ public class MapSpel extends GridPane {
         }
         else
         {
-            //toon melding dat smith vol is
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
         }
     }
     
@@ -154,7 +192,11 @@ public class MapSpel extends GridPane {
         }
         else
         {
-            //toon melding dat akkerbouw vol is
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
         }
     }
     
