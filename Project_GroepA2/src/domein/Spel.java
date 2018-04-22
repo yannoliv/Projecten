@@ -7,12 +7,12 @@ import java.util.*;
 
 public class Spel 
 {
-
     private int aantalSpelers = 0;
     private List<Speler> spelerLijst;
     private List<Resource> resourceLijst;
     private List<Plaats> plaatsLijst;
     private List<Plaats> huttenLijst;
+    private int spelerBeurt;
     SecureRandom random = new SecureRandom();
     
     public boolean aantalSpelersControle(String aantal)
@@ -459,4 +459,13 @@ public class Spel
         this.aantalSpelers = aantalSpelers;
     }
     
+    public int getSpelerBeurt()
+    {
+        return spelerBeurt;
+    }
+    
+    public void setSpelerBeurt(int spelerBeurt)
+    {
+        this.spelerBeurt = spelerBeurt;
+    }
 }

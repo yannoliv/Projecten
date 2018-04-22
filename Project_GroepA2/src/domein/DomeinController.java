@@ -94,4 +94,14 @@ public class DomeinController
       {
         return spel.getPlaatsenLijst();
       }
+      
+      public int getSpelerBeurt()
+      {
+          return spel.getSpelerBeurt();
+      }
+      
+      public void setSpelerBeurt(int spelerBeurt)
+      {
+          spel.setSpelerBeurt(spelerBeurt);
+      }
 }

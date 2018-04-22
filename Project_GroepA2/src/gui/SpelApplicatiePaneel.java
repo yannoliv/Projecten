@@ -16,7 +16,7 @@ public class SpelApplicatiePaneel extends GridPane
     private SpelerResourcesPaneel resourcePaneel;
     private Stage stage;
     //panelen
-    private MapSpel mapSpel;
+    private MapSpel spelApplicatie;
     private MenuBar menuBar = new MenuBar();
     
 
@@ -28,14 +28,14 @@ public class SpelApplicatiePaneel extends GridPane
         stage.setHeight(787);
         stage.show();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
-        mapSpel = new MapSpel(dc);
+        spelApplicatie = new MapSpel(dc);
         buildGui();
     }
 
     private void buildGui() 
     {
 //        this.add(menuBar, 0, 0);
-        this.add(mapSpel, 0, 1);
+        this.add(spelApplicatie, 0, 1);
         this.add(resourcePaneel, 1, 1);
 //        this.add(hutkaartscherm, 0, 2);
 //        this.add(infoscherm, 1, 2)
