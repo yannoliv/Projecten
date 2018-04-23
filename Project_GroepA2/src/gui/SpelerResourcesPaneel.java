@@ -165,7 +165,6 @@ public class SpelerResourcesPaneel extends VBox
             if (dc.getSpelerBeurt() == dc.getSpelerLijst().get(i).getSpelerNummer()) {
                 hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
             }
-            System.out.println(dc.getSpelerLijst().get(i).getNaam() + "/n" + dc.getSpelerLijst().get(i).getKleur());
         }
         
         BackgroundSize bgs = new BackgroundSize( 1, 1, true, true, false, false);

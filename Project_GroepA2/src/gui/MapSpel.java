@@ -338,6 +338,7 @@ public class MapSpel extends GridPane
                 //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
                 dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
                 dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(7).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                this.updateButtons();
                 volgendeBeurt();
             }catch(NumberFormatException e)
             {
@@ -425,7 +426,6 @@ public class MapSpel extends GridPane
     
     private void formRefresh()
     {
-        System.out.println(dc.getSpelerBeurt());
         //hier moeten we de form refreshen
         spelAppPaneel.formRefresh();
         
