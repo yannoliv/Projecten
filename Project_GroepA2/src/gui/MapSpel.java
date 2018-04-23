@@ -21,6 +21,7 @@ import javafx.scene.layout.RowConstraints;
 public class MapSpel extends GridPane 
 {
     private DomeinController dc;
+    private SpelApplicatiePaneel spelAppPaneel;
     private int buttonNr;
     private int plaatsAantalStamleden;
     private String stamledenAantal;
@@ -43,9 +44,10 @@ public class MapSpel extends GridPane
     Button btn_confirm;
     
     
-    public MapSpel(DomeinController dc)
+    public MapSpel(DomeinController dc, SpelApplicatiePaneel spelAppPaneel)
     {
         this.dc = dc;
+        this.spelAppPaneel = spelAppPaneel;
         buildMap();
     }
     
@@ -236,6 +238,7 @@ public class MapSpel extends GridPane
     private void formRefresh()
     {
         //hier moeten we de form refreshen
+        spelAppPaneel.formRefresh();
     }
     
      public void voorgrondButtons()

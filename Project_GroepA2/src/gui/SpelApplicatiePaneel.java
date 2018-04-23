@@ -28,7 +28,7 @@ public class SpelApplicatiePaneel extends GridPane
         stage.setHeight(787);
         stage.show();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
-        spelApplicatie = new MapSpel(dc);
+        spelApplicatie = new MapSpel(dc, this);
         buildGui();
     }
 
@@ -60,4 +60,10 @@ public class SpelApplicatiePaneel extends GridPane
 
         setGridLinesVisible(true); 
     }
+    
+    public void formRefresh()
+    {
+        resourcePaneel = new SpelerResourcesPaneel(this, dc);
+        this.add(resourcePaneel, 1, 1);
     }
+}
