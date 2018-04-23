@@ -28,7 +28,7 @@ public class MapSpel extends GridPane
     private boolean a = false;
     private boolean OK = true;
     private int spelerAanBeurt = 0;
-    
+       
     //alert
     Alert alert = new Alert(AlertType.INFORMATION);
     

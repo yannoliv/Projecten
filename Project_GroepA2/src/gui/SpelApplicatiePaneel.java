@@ -24,11 +24,13 @@ public class SpelApplicatiePaneel extends GridPane
     {
         this.dc = dc;
         this.stage = stage;
-        stage.setWidth(1245);
-        stage.setHeight(787);
+        stage.setWidth(1280);
+        stage.setHeight(720);
         stage.show();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
         spelApplicatie = new MapSpel(dc, this);
+        stage.setMinWidth(1280);
+        stage.setMinHeight(720);
         buildGui();
     }
 
