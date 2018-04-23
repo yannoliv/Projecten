@@ -1,6 +1,7 @@
 package gui;
 
 import domein.DomeinController;
+import static java.lang.Integer.parseInt;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -17,12 +18,18 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
-public class MapSpel extends GridPane {
+public class MapSpel extends GridPane 
+{
     private DomeinController dc;
     private int buttonNr;
-    private int plaatsAantal;
+    private int plaatsAantalStamleden;
     private String stamledenAantal;
     private boolean a = false;
+    private boolean OK = true;
+    private int spelerAanBeurt = 0;
+    
+    //alert
+    Alert alert = new Alert(AlertType.INFORMATION);
     
     //buttons aanmaken
     Button btn_leemGroeve;
@@ -35,37 +42,18 @@ public class MapSpel extends GridPane {
     Button btn_smith;
     Button btn_confirm;
     
-    private int spelerBeurt = 0;
+    
     public MapSpel(DomeinController dc)
     {
         this.dc = dc;
-        beginSpel();
+        buildMap();
     }
     
     private void beginSpel()
     {
         buildMap();
-        dc.setSpelerBeurt(spelerBeurt);
-        omDeBeurt();
-        
-    }
-    
-    private void omDeBeurt()
-    {
-        dc.setSpelerBeurt(dc.getSpelerBeurt() + spelerBeurt);
-        if (dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-            
-        }
-        else
-        {
-            System.out.println("niet meer wachten");
-            spelerBeurt += 1;
-            omDeBeurt();
-        }
-    }
-    
-    private void plaatsOpPlek()
-    {
+        dc.setSpelerBeurt(spelerAanBeurt);
+        //omDeBeurt();
         
     }
     
@@ -83,20 +71,62 @@ public class MapSpel extends GridPane {
     
     private void bosClicked(ActionEvent ae)
     {
-        buttonNr = 2;
         toonKeuzeStamleden();
-        if (plaatsAantal > 0) {
-            
-        }
-        else
+        
+        if (dc.getPlaatsenLijst().get(0).getAantalSpots() < 1)
         {
-            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Deze plek staat vol");
+            alert.setHeaderText("Deze plek staat vol...");
             alert.setContentText("Kies een andere plek");
             alert.show();
         }
+        else if (dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpBos())
+        {
+            
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Je hebt reeds geplaatst op bos...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else
+        {
+            try
+            {
+                //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
+                dc.doePlaatsOpPlek(spelerAanBeurt, 2, parseInt(stamledenAantal));
+                
+                //dit eronder is enkel voor te testen
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(0).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                System.out.println("hout: "+dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(0).getAantal());
+                System.out.println("speler: " + (spelerAanBeurt ));
+
+                volgendeBeurt();
+            }catch(NumberFormatException e)
+            {
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Vul een cijfer in aub");
+                alert.show();
+            }
+        }
+        
+        
+        
     }
+    
+    private void volgendeBeurt()
+    {
+        if (spelerAanBeurt +1 < dc.getSpelerLijst().size())
+        {
+            this.spelerAanBeurt ++;
+        }
+        else
+        {
+            spelerAanBeurt = 0;
+        }
+        formRefresh();
+    }
+    
     
     private void leemGroeveClicked(ActionEvent ae)
     {
@@ -201,6 +231,11 @@ public class MapSpel extends GridPane {
             alert.setContentText("Kies een andere plek");
             alert.show();
         }
+    }
+    
+    private void formRefresh()
+    {
+        //hier moeten we de form refreshen
     }
     
      public void voorgrondButtons()
