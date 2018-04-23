@@ -3,6 +3,8 @@ package gui;
 import domein.DomeinController;
 import javafx.geometry.Insets;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -13,6 +15,7 @@ public class SpelApplicatiePaneel extends GridPane
 {
     //declaraties
     private DomeinController dc;
+    ScrollPane scroll_resourcePaneel;
     private SpelerResourcesPaneel resourcePaneel;
     private Stage stage;
     //panelen
@@ -29,6 +32,11 @@ public class SpelApplicatiePaneel extends GridPane
         stage.show();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
         spelApplicatie = new MapSpel(dc, this);
+        //zorgt ervoor da de resourcepaneel kan scrollen
+        scroll_resourcePaneel = new ScrollPane();
+        scroll_resourcePaneel.setHbarPolicy(ScrollBarPolicy.NEVER);
+        scroll_resourcePaneel.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        scroll_resourcePaneel.setContent(resourcePaneel);
         buildGui();
     }
 
@@ -36,7 +44,7 @@ public class SpelApplicatiePaneel extends GridPane
     {
 //        this.add(menuBar, 0, 0);
         this.add(spelApplicatie, 0, 1);
-        this.add(resourcePaneel, 1, 1);
+        this.add(scroll_resourcePaneel, 1, 1);
 //        this.add(hutkaartscherm, 0, 2);
 //        this.add(infoscherm, 1, 2)
         
@@ -57,7 +65,6 @@ public class SpelApplicatiePaneel extends GridPane
         row2.setPercentHeight(20);
         getRowConstraints().addAll(row0,row1,row2);
         
-
         setGridLinesVisible(true); 
     }
     
@@ -66,3 +73,4 @@ public class SpelApplicatiePaneel extends GridPane
         resourcePaneel.updateResourcePaneel();
     }
 }
+

@@ -171,7 +171,7 @@ public class SpelerResourcesPaneel extends VBox
         BackgroundSize bgs = new BackgroundSize( 1, 1, true, true, false, false);
 
         BackgroundImage bgImg = new BackgroundImage(new Image("/images/stoneWall.png"), 
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.CENTER, bgs);
         this.setBackground(new Background(bgImg));
     }
