@@ -141,7 +141,7 @@ public class SpelerResourcesPaneel extends VBox
             lbl_gereedschapAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(5).getAantal()));
             
             lbl_voedsel = new Label(":"); 
-            lbl_voedsel.setGraphic(new ImageView(new Image("/images/Food.png", 20, 20, false, true)));
+                lbl_voedsel.setGraphic(new ImageView(new Image("/images/Food.png", 20, 20, false, true)));
             lbl_voedselAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(6).getAantal())); 
             
             lbl_stamleden = new Label(":");
@@ -165,7 +165,6 @@ public class SpelerResourcesPaneel extends VBox
             if (dc.getSpelerBeurt() == dc.getSpelerLijst().get(i).getSpelerNummer()) {
                 hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
             }
-            System.out.println(dc.getSpelerLijst().get(i).getNaam() + "/n" + dc.getSpelerLijst().get(i).getKleur());
         }
         
         BackgroundSize bgs = new BackgroundSize( 1, 1, true, true, false, false);

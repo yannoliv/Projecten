@@ -31,8 +31,8 @@ public class MainMenu extends VBox {
         VBox.setMargin(btn_start, new Insets(100,0,25,0));
         getChildren().addAll(btn_start, btn_scorebord);
         stage.setTitle("Main menu");
-        stage.setWidth(720);
-        stage.setHeight(530);
+        stage.setWidth(1280);
+        stage.setHeight(720);
         stage.show();
         
         btn_start.setOnAction(this::startSpel);

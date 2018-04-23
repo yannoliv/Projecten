@@ -28,7 +28,7 @@ public class MapSpel extends GridPane
     private boolean a = false;
     private boolean OK = true;
     private int spelerAanBeurt = 0;
-    
+       
     //alert
     Alert alert = new Alert(AlertType.INFORMATION);
     
@@ -51,16 +51,53 @@ public class MapSpel extends GridPane
         buildMap();
     }
     
-    private void beginSpel()
+    private void updateButtons()
     {
-        buildMap();
-        dc.setSpelerBeurt(spelerAanBeurt);
-        //omDeBeurt();
-        
+        btn_bos.setText(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(0).getAantalSpots()));
+        btn_leemGroeve.setText(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(1).getAantalSpots()));
+        btn_steenGroeve.setText(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(2).getAantalSpots()));
+        btn_goudMijn.setText(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(3).getAantalSpots()));
+        btn_jachtGebied.setText(String.format("%d / 40", 40 - dc.getPlaatsenLijst().get(4).getAantalSpots()));
+        btn_akkerbouw.setText(String.format("%d / 1", 1 - dc.getPlaatsenLijst().get(5).getAantalSpots()));
+        btn_smith.setText(String.format("%d / 1", 1 - dc.getPlaatsenLijst().get(6).getAantalSpots()));
+        btn_hut.setText(String.format("%d / 2", 2 - dc.getPlaatsenLijst().get(7).getAantalSpots()));
     }
     
     private void toonKeuzeStamleden()
     {
+        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
+        inputAantalStamleden.setTitle("Kies het aantal stamleden");
+        inputAantalStamleden.setHeaderText(null);
+        inputAantalStamleden.setContentText(String.format("(0 - %d)",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() <= 7 ? dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal(): 7));
+        Optional<String> result = inputAantalStamleden.showAndWait();
+        if (result.isPresent()) {
+            stamledenAantal = result.get();
+        }
+    }
+    
+    private void toonKeuzeStamledenSpeciaalVoor1(){
+        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
+        inputAantalStamleden.setTitle("Kies het aantal stamleden");
+        inputAantalStamleden.setHeaderText(null);
+        inputAantalStamleden.setContentText("(0 - 1)");
+        Optional<String> result = inputAantalStamleden.showAndWait();
+        if (result.isPresent()) {
+            stamledenAantal = result.get();
+        }
+    }
+    
+     private void toonKeuzeStamledenSpeciaalVoor2(){
+        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
+        inputAantalStamleden.setTitle("Kies het aantal stamleden");
+        inputAantalStamleden.setHeaderText(null);
+        inputAantalStamleden.setContentText("(0 - 2)");
+        Optional<String> result = inputAantalStamleden.showAndWait();
+        if (result.isPresent()) {
+            stamledenAantal = result.get();
+        }
+    }
+    
+      private void toonKeuzeStamledenSpeciaalVoor40(){
         TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
         inputAantalStamleden.setTitle("Kies het aantal stamleden");
         inputAantalStamleden.setHeaderText(null);
@@ -70,7 +107,7 @@ public class MapSpel extends GridPane
             stamledenAantal = result.get();
         }
     }
-    
+     
     private void volgendeBeurt()
     {
         if (spelerAanBeurt + 1 < dc.getSpelerLijst().size())
@@ -113,7 +150,7 @@ public class MapSpel extends GridPane
                 
                 //dit eronder is enkel voor te testen
                 dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(0).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
-
+                this.updateButtons();
                 volgendeBeurt();
             }catch(NumberFormatException e)
             {
@@ -153,6 +190,7 @@ public class MapSpel extends GridPane
                 
                 //dit eronder is enkel voor te testen
                 dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(1).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                this.updateButtons();
                 volgendeBeurt();
             }catch(NumberFormatException e)
             {
@@ -188,7 +226,8 @@ public class MapSpel extends GridPane
             {
                 //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
                 dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
-                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(3).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(2).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                this.updateButtons();
                 volgendeBeurt();
             }catch(NumberFormatException e)
             {
@@ -224,7 +263,8 @@ public class MapSpel extends GridPane
             {
                 //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
                 dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
-                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(4).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(3).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                this.updateButtons();
                 volgendeBeurt();
             }catch(NumberFormatException e)
             {
@@ -239,7 +279,7 @@ public class MapSpel extends GridPane
     private void jachtGebiedcClicked(ActionEvent ae)
     {
          buttonNr = 6;
-         toonKeuzeStamleden();
+        toonKeuzeStamledenSpeciaalVoor40();
         if (dc.getPlaatsenLijst().get(4).getAantalSpots() < 1)
         {
             alert.setTitle("Er is een fout opgetreden");
@@ -261,6 +301,7 @@ public class MapSpel extends GridPane
                 //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
                 dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
                 dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(6).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                this.updateButtons();
                 volgendeBeurt();
             }catch(NumberFormatException e)
             {
@@ -275,7 +316,7 @@ public class MapSpel extends GridPane
     private void hutClicked(ActionEvent ae)
     {
         buttonNr = 7;
-        toonKeuzeStamleden();
+        this.toonKeuzeStamledenSpeciaalVoor2();
         if (dc.getPlaatsenLijst().get(7).getAantalSpots() < 1)
         {
             alert.setTitle("Er is een fout opgetreden");
@@ -297,6 +338,7 @@ public class MapSpel extends GridPane
                 //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
                 dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
                 dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(7).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                this.updateButtons();
                 volgendeBeurt();
             }catch(NumberFormatException e)
             {
@@ -311,7 +353,7 @@ public class MapSpel extends GridPane
     private void smithClicked(ActionEvent ae)
     {
            buttonNr = 8;
-         toonKeuzeStamleden();
+         this.toonKeuzeStamledenSpeciaalVoor1();
         if (dc.getPlaatsenLijst().get(6).getAantalSpots() < 1)
         {
             alert.setTitle("Er is een fout opgetreden");
@@ -333,6 +375,7 @@ public class MapSpel extends GridPane
                 //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
                 dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
                 dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(5).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                this.updateButtons();
                 volgendeBeurt();
             }catch(NumberFormatException e)
             {
@@ -347,7 +390,7 @@ public class MapSpel extends GridPane
     private void akkerbouwClicked(ActionEvent ae)
     {
             buttonNr = 9;
-         toonKeuzeStamleden();
+        this.toonKeuzeStamledenSpeciaalVoor1();
         if (dc.getPlaatsenLijst().get(5).getAantalSpots() < 1)
         {
             alert.setTitle("Er is een fout opgetreden");
@@ -369,6 +412,7 @@ public class MapSpel extends GridPane
                 //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
                 dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
                 dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(4).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                this.updateButtons();
                 volgendeBeurt();
             }catch(NumberFormatException e)
             {
@@ -382,7 +426,6 @@ public class MapSpel extends GridPane
     
     private void formRefresh()
     {
-        System.out.println(dc.getSpelerBeurt());
         //hier moeten we de form refreshen
         spelAppPaneel.formRefresh();
         
@@ -392,14 +435,14 @@ public class MapSpel extends GridPane
     {
         //de coordinaten zijn (aa) ipv (0,0), dus (1,3) is button (bd)
         //buttons
-        btn_bos = new Button(String.format("%d / 7", dc.getPlaatsenLijst().get(0).getAantalSpots() - dc.getPlaatsenLijst().get(0).getAantalSpots()));
-        btn_leemGroeve = new Button(String.format("%d / 7", dc.getPlaatsenLijst().get(1).getAantalSpots() - dc.getPlaatsenLijst().get(1).getAantalSpots()));
-        btn_steenGroeve = new Button(String.format("%d / 7", dc.getPlaatsenLijst().get(2).getAantalSpots() - dc.getPlaatsenLijst().get(2).getAantalSpots()));
-        btn_goudMijn = new Button(String.format("%d / 7", dc.getPlaatsenLijst().get(3).getAantalSpots() - dc.getPlaatsenLijst().get(3).getAantalSpots()));
-        btn_jachtGebied = new Button(String.format("%d / 40", dc.getPlaatsenLijst().get(4).getAantalSpots() - dc.getPlaatsenLijst().get(4).getAantalSpots()));
-        btn_akkerbouw = new Button(String.format("%d / 1", dc.getPlaatsenLijst().get(5).getAantalSpots() - dc.getPlaatsenLijst().get(5).getAantalSpots()));
-        btn_smith = new Button(String.format("%d / 1", dc.getPlaatsenLijst().get(6).getAantalSpots() - dc.getPlaatsenLijst().get(6).getAantalSpots()));
-        btn_hut = new Button(String.format("%d / 2", dc.getPlaatsenLijst().get(7).getAantalSpots() - dc.getPlaatsenLijst().get(7).getAantalSpots()));
+        btn_bos = new Button(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(0).getAantalSpots()));
+        btn_leemGroeve = new Button(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(1).getAantalSpots()));
+        btn_steenGroeve = new Button(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(2).getAantalSpots()));
+        btn_goudMijn = new Button(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(3).getAantalSpots()));
+        btn_jachtGebied = new Button(String.format("%d / 40", 40 - dc.getPlaatsenLijst().get(4).getAantalSpots()));
+        btn_akkerbouw = new Button(String.format("%d / 1", 1 - dc.getPlaatsenLijst().get(5).getAantalSpots()));
+        btn_smith = new Button(String.format("%d / 1", 1 - dc.getPlaatsenLijst().get(6).getAantalSpots()));
+        btn_hut = new Button(String.format("%d / 2", 2 - dc.getPlaatsenLijst().get(7).getAantalSpots()));
         
         btn_bos.setOnAction(this::bosClicked);
         btn_leemGroeve.setOnAction(this::leemGroeveClicked);

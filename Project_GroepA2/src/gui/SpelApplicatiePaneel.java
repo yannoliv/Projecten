@@ -27,16 +27,18 @@ public class SpelApplicatiePaneel extends GridPane
     {
         this.dc = dc;
         this.stage = stage;
-        stage.setWidth(1245);
-        stage.setHeight(787);
+        stage.setWidth(1280);
+        stage.setHeight(720);
         stage.show();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
         spelApplicatie = new MapSpel(dc, this);
+        
         //zorgt ervoor da de resourcepaneel kan scrollen
         scroll_resourcePaneel = new ScrollPane();
         scroll_resourcePaneel.setHbarPolicy(ScrollBarPolicy.NEVER);
         scroll_resourcePaneel.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         scroll_resourcePaneel.setContent(resourcePaneel);
+        
         buildGui();
     }
 
