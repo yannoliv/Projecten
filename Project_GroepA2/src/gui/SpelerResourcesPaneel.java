@@ -6,6 +6,7 @@ import domein.DomeinController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -85,16 +86,26 @@ public class SpelerResourcesPaneel extends VBox
             hbox.setPadding(new Insets(10,10,10,10));
             
             //hbox 2
-            lbl_hout = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(0).getNaam()));       
+            lbl_hout = new Label(":");
+            lbl_hout.setGraphic(new ImageView(new Image("/images/Hout.png", 20, 20, false, true)));
             lbl_houtAantal = new Label(String.format("%d",dc.getSpelerLijst().get(i).getResourceLijst().get(0).getAantal()));
-            lbl_leem = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(1).getNaam()));       
+            
+            lbl_leem = new Label(":");
+            lbl_leem.setGraphic(new ImageView(new Image("/images/Leem.png", 20, 20, false, true)));
             lbl_leemAantal = new Label(String.format("%d",dc.getSpelerLijst().get(i).getResourceLijst().get(1).getAantal()));
-            lbl_steen = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(2).getNaam()));       
+            
+            lbl_steen = new Label(":");
+            lbl_steen.setGraphic(new ImageView(new Image("/images/Steen.png", 20, 20, false, true)));
             lbl_steenAantal = new Label(String.format("%d",dc.getSpelerLijst().get(i).getResourceLijst().get(2).getAantal()));
-            lbl_goud = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(3).getNaam()));       
+            
+            lbl_goud = new Label(":");
+            lbl_goud.setGraphic(new ImageView(new Image("/images/Goud.png", 20, 20, false, true)));
             lbl_goudAantal = new Label(String.format("%d",dc.getSpelerLijst().get(i).getResourceLijst().get(3).getAantal()));
-            lbl_akkerbouw = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(4).getNaam()));       
-            lbl_akkerbouwAantal = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(4).getAantal()));    
+            
+            lbl_akkerbouw = new Label(":");
+            lbl_akkerbouw.setGraphic(new ImageView(new Image("/images/Graan.png", 20, 20, false, true)));
+            lbl_akkerbouwAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(4).getAantal()));
+  
             
             hbox = new HBox(8);
             hbox.getChildren().addAll(
@@ -111,14 +122,21 @@ public class SpelerResourcesPaneel extends VBox
             
             
             //hbox3
-            lbl_gereedschap = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(5).getNaam()));    
-            lbl_gereedschapAantal = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(5).getAantal()));    
-            lbl_voedsel = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(6).getNaam())); 
-            lbl_voedselAantal = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(6).getAantal())); 
-            lbl_stamleden = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(7).getNaam())); 
-            lbl_stamledenAantal = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(7).getAantal())); 
-            lbl_punten = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(8).getNaam())); 
-            lbl_puntenAantal = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(8).getAantal())); 
+            lbl_gereedschap = new Label(":");
+            lbl_gereedschap.setGraphic(new ImageView(new Image("/images/pickaxe_1.png", 20, 20, false, true)));
+            lbl_gereedschapAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(5).getAantal()));
+            
+            lbl_voedsel = new Label(":"); 
+            lbl_voedsel.setGraphic(new ImageView(new Image("/images/Food.png", 20, 20, false, true)));
+            lbl_voedselAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(6).getAantal())); 
+            
+            lbl_stamleden = new Label(":");
+            lbl_stamleden.setGraphic(new ImageView(new Image("/images/pickaxe_1.png", 20, 20, false, true)));
+            lbl_stamledenAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(7).getAantal()));
+            
+            lbl_punten = new Label(":");
+            lbl_punten.setGraphic(new ImageView(new Image("/images/points.gif", 20, 20, false, true)));
+            lbl_puntenAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(8).getAantal())); 
             
             hbox = new HBox(8);
             hbox.getChildren().addAll(
