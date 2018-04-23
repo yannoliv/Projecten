@@ -279,7 +279,7 @@ public class MapSpel extends GridPane
     private void jachtGebiedcClicked(ActionEvent ae)
     {
          buttonNr = 6;
-        this.toonKeuzeStamledenSpeciaalVoor40();
+        toonKeuzeStamledenSpeciaalVoor40();
         if (dc.getPlaatsenLijst().get(4).getAantalSpots() < 1)
         {
             alert.setTitle("Er is een fout opgetreden");
