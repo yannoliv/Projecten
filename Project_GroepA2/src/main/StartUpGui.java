@@ -1,7 +1,7 @@
 package main;
 
 import domein.DomeinController;
-import gui.MainMenu;
+import gui.*;
 import javafx.application.Application;
 import javafx.scene.*;
 import javafx.stage.Stage;
@@ -13,6 +13,8 @@ public class StartUpGui extends Application {
         MainMenu starten = new MainMenu(dc, primairyStage);
         Scene scene = new Scene(starten);
         primairyStage.setScene(scene);
+        String cssURL = this.getClass().getResource("/gui/Stylesheet.css").toExternalForm();
+        scene.getStylesheets().add(cssURL);
     }
 public static void main(String[] args)
     {
