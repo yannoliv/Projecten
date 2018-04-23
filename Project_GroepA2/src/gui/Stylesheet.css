@@ -52,6 +52,10 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
+.combo-box-base:pressed{
+    -fx-background-color: linear-gradient(#563706, #b27a20);
+}
+
 .combo-box .list-cell {
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
