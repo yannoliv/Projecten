@@ -1,10 +1,12 @@
 package gui;
 
 import domein.DomeinController;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -18,9 +20,8 @@ import javafx.scene.layout.RowConstraints;
 public class MapSpel extends GridPane {
     private DomeinController dc;
     private int buttonNr;
-    private int aantalClicks = 0;
     private int plaatsAantal;
-    private int stamledenAantal;
+    private String stamledenAantal;
     private boolean a = false;
     
     //buttons aanmaken
@@ -46,14 +47,14 @@ public class MapSpel extends GridPane {
         buildMap();
         dc.setSpelerBeurt(spelerBeurt);
         omDeBeurt();
+        
     }
     
     private void omDeBeurt()
     {
         dc.setSpelerBeurt(dc.getSpelerBeurt() + spelerBeurt);
-        System.out.println(dc.getSpelerBeurt()+ " is aan de beurt");
         if (dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-            System.out.println("wachten");
+            
         }
         else
         {
@@ -68,14 +69,24 @@ public class MapSpel extends GridPane {
         
     }
     
+    private void toonKeuzeStamleden()
+    {
+        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format("%s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
+        inputAantalStamleden.setTitle("U heeft " + dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format("%s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
+        inputAantalStamleden.setHeaderText("Kies het aantal stamleden");
+        inputAantalStamleden.setContentText(null);
+        Optional<String> result = inputAantalStamleden.showAndWait();
+        if (result.isPresent()) {
+            stamledenAantal = result.get();
+        }
+    }
+    
     private void bosClicked(ActionEvent ae)
     {
         buttonNr = 2;
-        plaatsAantal = dc.getPlaatsenLijst().get(0).getAantalSpots();
-        stamledenAantal = dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal();
-        if (plaatsAantal > 0 && stamledenAantal > 0) {
-            stamledenAantal -= 1;
-            plaatsAantal -= 1;
+        toonKeuzeStamleden();
+        if (plaatsAantal > 0) {
+            
         }
         else
         {
@@ -91,8 +102,6 @@ public class MapSpel extends GridPane {
     {
         buttonNr = 3;
         if (dc.getPlaatsenLijst().get(1).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-            aantalClicks += 1;
-            System.out.println(aantalClicks);
         }
         else
         {
@@ -108,7 +117,6 @@ public class MapSpel extends GridPane {
     {
         buttonNr = 4;
         if (dc.getPlaatsenLijst().get(2).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-            aantalClicks += 1;
         }
         else
         {
@@ -124,7 +132,6 @@ public class MapSpel extends GridPane {
     {
         buttonNr = 5;
         if (dc.getPlaatsenLijst().get(3).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-            aantalClicks += 1;
         }
         else
         {
@@ -140,7 +147,6 @@ public class MapSpel extends GridPane {
     {
         buttonNr = 6;
         if (dc.getPlaatsenLijst().get(4).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-            aantalClicks += 1;
         }
         else
         {
@@ -156,7 +162,6 @@ public class MapSpel extends GridPane {
     {
         buttonNr = 7;
         if (dc.getPlaatsenLijst().get(7).getAantalSpots() == 2 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() >= 2) {
-            aantalClicks = 2;
         }
         else
         {
@@ -172,7 +177,6 @@ public class MapSpel extends GridPane {
     {
         buttonNr = 8;
         if (dc.getPlaatsenLijst().get(6).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-            aantalClicks = 1;
         }
         else
         {
@@ -188,7 +192,6 @@ public class MapSpel extends GridPane {
     {
         buttonNr = 9;
         if (dc.getPlaatsenLijst().get(5).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-            aantalClicks = 1;
         }
         else
         {
@@ -212,7 +215,6 @@ public class MapSpel extends GridPane {
         btn_akkerbouw = new Button();
         btn_goudMijn = new Button();
         btn_smith = new Button();
-        btn_confirm = new Button("Confirm");
         
         btn_bos.setOnAction(this::bosClicked);
         btn_leemGroeve.setOnAction(this::leemGroeveClicked);
@@ -278,7 +280,6 @@ public class MapSpel extends GridPane {
         this.add(btn_akkerbouw,2,3);
         this.add(btn_goudMijn,5,0);
         this.add(btn_smith,5,3);
-        this.add(btn_confirm, 4,2);
         //zoda je de grid ziet, das temporary
         setGridLinesVisible(true);
     }
