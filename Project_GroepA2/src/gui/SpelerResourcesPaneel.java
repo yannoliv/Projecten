@@ -145,7 +145,7 @@ public class SpelerResourcesPaneel extends VBox
             lbl_voedselAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(6).getAantal())); 
             
             lbl_stamleden = new Label(":");
-            lbl_stamleden.setGraphic(new ImageView(new Image("/images/pickaxe_1.png", 20, 20, false, true)));
+            lbl_stamleden.setGraphic(new ImageView(new Image("/images/stamlid.png", 13, 20, false, true)));
             lbl_stamledenAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(7).getAantal()));
             
             lbl_punten = new Label(":");
