@@ -2,8 +2,7 @@
 .root{
     -fx-background-image: url("/images/waterval.gif");
     -fx-background-repeat: no-repeat;
-    -fx-background-size: auto;
-    -fx-background-size: 720px 530px;
+    -fx-background-size: cover;
 }
 
 .label {
@@ -24,6 +23,11 @@
     -fx-background-color: linear-gradient(#d6ae6f, #8e6729);
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
+
+.button:pressed{
+    -fx-background-color: linear-gradient(#563706, #b27a20);
+}
+
 .text-field{
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
