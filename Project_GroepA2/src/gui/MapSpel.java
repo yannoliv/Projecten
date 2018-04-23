@@ -61,20 +61,35 @@ public class MapSpel extends GridPane
     
     private void toonKeuzeStamleden()
     {
-        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format("%s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
-        inputAantalStamleden.setTitle("U heeft " + dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format("%s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
-        inputAantalStamleden.setHeaderText("Kies het aantal stamleden");
-        inputAantalStamleden.setContentText(null);
+        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
+        inputAantalStamleden.setTitle("Kies het aantal stamleden");
+        inputAantalStamleden.setHeaderText(null);
+        inputAantalStamleden.setContentText(String.format("(0 - %d)", dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal()));
         Optional<String> result = inputAantalStamleden.showAndWait();
         if (result.isPresent()) {
             stamledenAantal = result.get();
         }
     }
     
+    private void volgendeBeurt()
+    {
+        if (spelerAanBeurt + 1 < dc.getSpelerLijst().size())
+        {
+            spelerAanBeurt += 1;
+            dc.setSpelerBeurt(spelerAanBeurt);
+        }
+        else
+        {
+            spelerAanBeurt = 0;
+            dc.setSpelerBeurt(spelerAanBeurt);
+        }
+        formRefresh();
+    }
+    
     private void bosClicked(ActionEvent ae)
     {
+        buttonNr = 2;
         toonKeuzeStamleden();
-        
         if (dc.getPlaatsenLijst().get(0).getAantalSpots() < 1)
         {
             alert.setTitle("Er is een fout opgetreden");
@@ -84,23 +99,20 @@ public class MapSpel extends GridPane
         }
         else if (dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpBos())
         {
-            
             alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Je hebt reeds geplaatst op bos...");
+            alert.setHeaderText("Je hebt reeds geplaatst op het bos...");
             alert.setContentText("Kies een andere plek");
             alert.show();
         }
-        else
+        else if (dc.getPlaatsenLijst().get(0).getAantalSpots() >= parseInt(stamledenAantal))
         {
             try
             {
                 //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
-                dc.doePlaatsOpPlek(spelerAanBeurt, 2, parseInt(stamledenAantal));
+                dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
                 
                 //dit eronder is enkel voor te testen
                 dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(0).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
-                System.out.println("hout: "+dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(0).getAantal());
-                System.out.println("speler: " + (spelerAanBeurt ));
 
                 volgendeBeurt();
             }catch(NumberFormatException e)
@@ -111,148 +123,283 @@ public class MapSpel extends GridPane
                 alert.show();
             }
         }
-        
-        
-        
-    }
-    
-    private void volgendeBeurt()
-    {
-        if (spelerAanBeurt +1 < dc.getSpelerLijst().size())
-        {
-            this.spelerAanBeurt ++;
-        }
-        else
-        {
-            spelerAanBeurt = 0;
-        }
-        formRefresh();
     }
     
     
     private void leemGroeveClicked(ActionEvent ae)
     {
         buttonNr = 3;
-        if (dc.getPlaatsenLijst().get(1).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-        }
-        else
+        toonKeuzeStamleden();
+        if (dc.getPlaatsenLijst().get(1).getAantalSpots() < 1)
         {
-            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Deze plek staat vol");
+            alert.setHeaderText("Deze plek staat vol...");
             alert.setContentText("Kies een andere plek");
             alert.show();
+        }
+        else if (dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpLeemgroeve())
+        {
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Je hebt reeds geplaatst op de leemgroeve...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else if (dc.getPlaatsenLijst().get(1).getAantalSpots() >= parseInt(stamledenAantal))
+        {
+            try
+            {
+                //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
+                dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
+                
+                //dit eronder is enkel voor te testen
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(1).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                volgendeBeurt();
+            }catch(NumberFormatException e)
+            {
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Vul een cijfer in aub");
+                alert.show();
+            }
         }
     }
     
     private void steenGroeveClicked(ActionEvent ae)
     {
         buttonNr = 4;
-        if (dc.getPlaatsenLijst().get(2).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-        }
-        else
+         toonKeuzeStamleden();
+        if (dc.getPlaatsenLijst().get(1).getAantalSpots() < 1)
         {
-            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Deze plek staat vol");
+            alert.setHeaderText("Deze plek staat vol...");
             alert.setContentText("Kies een andere plek");
             alert.show();
+        }
+        else if (dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpSteengroeve())
+        {
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Je hebt reeds geplaatst op de steengroeve...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else if (dc.getPlaatsenLijst().get(3).getAantalSpots() >= parseInt(stamledenAantal))
+        {
+            try
+            {
+                //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
+                dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(3).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                volgendeBeurt();
+            }catch(NumberFormatException e)
+            {
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Vul een cijfer in aub");
+                alert.show();
+            }
         }
     }
     
     private void goudMijnClicked(ActionEvent ae)
     {
-        buttonNr = 5;
-        if (dc.getPlaatsenLijst().get(3).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-        }
-        else
+         buttonNr = 5;
+         toonKeuzeStamleden();
+        if (dc.getPlaatsenLijst().get(3).getAantalSpots() < 1)
         {
-            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Deze plek staat vol");
+            alert.setHeaderText("Deze plek staat vol...");
             alert.setContentText("Kies een andere plek");
             alert.show();
+        }
+        else if (dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpGoudmijn())
+        {
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Je hebt reeds geplaatst op de goudmijn...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else if (dc.getPlaatsenLijst().get(3).getAantalSpots() >= parseInt(stamledenAantal))
+        {
+            try
+            {
+                //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
+                dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(4).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                volgendeBeurt();
+            }catch(NumberFormatException e)
+            {
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Vul een cijfer in aub");
+                alert.show();
+            }
         }
     }
     
     private void jachtGebiedcClicked(ActionEvent ae)
     {
-        buttonNr = 6;
-        if (dc.getPlaatsenLijst().get(4).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-        }
-        else
+         buttonNr = 6;
+         toonKeuzeStamleden();
+        if (dc.getPlaatsenLijst().get(4).getAantalSpots() < 1)
         {
-            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Deze plek staat vol");
+            alert.setHeaderText("Deze plek staat vol...");
             alert.setContentText("Kies een andere plek");
             alert.show();
+        }
+        else if (dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpJachtgebied())
+        {
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Je hebt reeds geplaatst op het jachtgebied...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else if (dc.getPlaatsenLijst().get(4).getAantalSpots() >= parseInt(stamledenAantal))
+        {
+            try
+            {
+                //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
+                dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(6).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                volgendeBeurt();
+            }catch(NumberFormatException e)
+            {
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Vul een cijfer in aub");
+                alert.show();
+            }
         }
     }
     
     private void hutClicked(ActionEvent ae)
     {
         buttonNr = 7;
-        if (dc.getPlaatsenLijst().get(7).getAantalSpots() == 2 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() >= 2) {
-        }
-        else
+        toonKeuzeStamleden();
+        if (dc.getPlaatsenLijst().get(7).getAantalSpots() < 1)
         {
-            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Deze plek staat vol");
+            alert.setHeaderText("Deze plek staat vol...");
             alert.setContentText("Kies een andere plek");
             alert.show();
+        }
+        else if (dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpHut())
+        {
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Je hebt reeds geplaatst op de hut...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else if (dc.getPlaatsenLijst().get(7).getAantalSpots() >= parseInt(stamledenAantal))
+        {
+            try
+            {
+                //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
+                dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(7).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                volgendeBeurt();
+            }catch(NumberFormatException e)
+            {
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Vul een cijfer in aub");
+                alert.show();
+            }
         }
     }
     
     private void smithClicked(ActionEvent ae)
     {
-        buttonNr = 8;
-        if (dc.getPlaatsenLijst().get(6).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-        }
-        else
+           buttonNr = 8;
+         toonKeuzeStamleden();
+        if (dc.getPlaatsenLijst().get(6).getAantalSpots() < 1)
         {
-            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Deze plek staat vol");
+            alert.setHeaderText("Deze plek staat vol...");
             alert.setContentText("Kies een andere plek");
             alert.show();
+        }
+        else if (dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpSmith())
+        {
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Je hebt reeds geplaatst op de smith...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else if (dc.getPlaatsenLijst().get(6).getAantalSpots() >= parseInt(stamledenAantal))
+        {
+            try
+            {
+                //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
+                dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(5).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                volgendeBeurt();
+            }catch(NumberFormatException e)
+            {
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Vul een cijfer in aub");
+                alert.show();
+            }
         }
     }
     
     private void akkerbouwClicked(ActionEvent ae)
     {
-        buttonNr = 9;
-        if (dc.getPlaatsenLijst().get(5).getAantalSpots() > 0 && dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 0) {
-        }
-        else
+            buttonNr = 9;
+         toonKeuzeStamleden();
+        if (dc.getPlaatsenLijst().get(5).getAantalSpots() < 1)
         {
-            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Deze plek staat vol");
+            alert.setHeaderText("Deze plek staat vol...");
             alert.setContentText("Kies een andere plek");
             alert.show();
+        }
+        else if (dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpJachtgebied())
+        {
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Je hebt reeds geplaatst op de akkerbouw...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else if (dc.getPlaatsenLijst().get(5).getAantalSpots() >= parseInt(stamledenAantal))
+        {
+            try
+            {
+                //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
+                dc.doePlaatsOpPlek(spelerAanBeurt, buttonNr, parseInt(stamledenAantal));
+                dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(4).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
+                volgendeBeurt();
+            }catch(NumberFormatException e)
+            {
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Vul een cijfer in aub");
+                alert.show();
+            }
         }
     }
     
     private void formRefresh()
     {
+        System.out.println(dc.getSpelerBeurt());
         //hier moeten we de form refreshen
         spelAppPaneel.formRefresh();
+        
     }
     
      public void voorgrondButtons()
     {
         //de coordinaten zijn (aa) ipv (0,0), dus (1,3) is button (bd)
         //buttons
-        btn_leemGroeve = new Button();
-        btn_bos = new Button();
-        btn_steenGroeve = new Button();
-        btn_jachtGebied = new Button();
-        btn_hut = new Button();
-        btn_akkerbouw = new Button();
-        btn_goudMijn = new Button();
-        btn_smith = new Button();
+        btn_bos = new Button(String.format("%d / 7", dc.getPlaatsenLijst().get(0).getAantalSpots() - dc.getPlaatsenLijst().get(0).getAantalSpots()));
+        btn_leemGroeve = new Button(String.format("%d / 7", dc.getPlaatsenLijst().get(1).getAantalSpots() - dc.getPlaatsenLijst().get(1).getAantalSpots()));
+        btn_steenGroeve = new Button(String.format("%d / 7", dc.getPlaatsenLijst().get(2).getAantalSpots() - dc.getPlaatsenLijst().get(2).getAantalSpots()));
+        btn_goudMijn = new Button(String.format("%d / 7", dc.getPlaatsenLijst().get(3).getAantalSpots() - dc.getPlaatsenLijst().get(3).getAantalSpots()));
+        btn_jachtGebied = new Button(String.format("%d / 40", dc.getPlaatsenLijst().get(4).getAantalSpots() - dc.getPlaatsenLijst().get(4).getAantalSpots()));
+        btn_akkerbouw = new Button(String.format("%d / 1", dc.getPlaatsenLijst().get(5).getAantalSpots() - dc.getPlaatsenLijst().get(5).getAantalSpots()));
+        btn_smith = new Button(String.format("%d / 1", dc.getPlaatsenLijst().get(6).getAantalSpots() - dc.getPlaatsenLijst().get(6).getAantalSpots()));
+        btn_hut = new Button(String.format("%d / 2", dc.getPlaatsenLijst().get(7).getAantalSpots() - dc.getPlaatsenLijst().get(7).getAantalSpots()));
         
         btn_bos.setOnAction(this::bosClicked);
         btn_leemGroeve.setOnAction(this::leemGroeveClicked);
@@ -262,14 +409,14 @@ public class MapSpel extends GridPane
         btn_smith.setOnAction(this::smithClicked);
         btn_hut.setOnAction(this::hutClicked);
         
-        btn_leemGroeve.setStyle("-fx-background-color: rgba(255,255,255,0);");
-        btn_bos.setStyle("-fx-background-color: rgba(255,255,255,0);");
-        btn_steenGroeve.setStyle("-fx-background-color: rgba(255,255,255,0);");
-        btn_jachtGebied.setStyle("-fx-background-color: rgba(255,255,255,0);");
-        btn_hut.setStyle("-fx-background-color: rgba(255,255,255,0);");
-        btn_akkerbouw.setStyle("-fx-background-color: rgba(255,255,255,0);");
-        btn_goudMijn.setStyle("-fx-background-color: rgba(255,255,255,0);");
-        btn_smith.setStyle("-fx-background-color: rgba(255,255,255,0);");
+        btn_leemGroeve.setStyle("-fx-background-color: rgba(255,255,255,0);-fx-text-fill: white; -fx-font-size: 24;");
+        btn_bos.setStyle("-fx-background-color: rgba(255,255,255,0);-fx-text-fill: white; -fx-font-size: 24;");
+        btn_steenGroeve.setStyle("-fx-background-color: rgba(255,255,255,0);-fx-text-fill: black; -fx-font-size: 24;");
+        btn_jachtGebied.setStyle("-fx-background-color: rgba(255,255,255,0);-fx-text-fill: black; -fx-font-size: 24;-fx-alignment: BOTTOM-CENTER;");
+        btn_hut.setStyle("-fx-background-color: rgba(255,255,255,0);-fx-text-fill: black; -fx-font-size: 24;-fx-alignment: BOTTOM-CENTER;");
+        btn_akkerbouw.setStyle("-fx-background-color: rgba(255,255,255,0);-fx-text-fill: black; -fx-font-size: 24;-fx-alignment: BOTTOM-CENTER;");
+        btn_goudMijn.setStyle("-fx-background-color: rgba(255,255,255,0);-fx-text-fill: white; -fx-font-size: 24;");
+        btn_smith.setStyle("-fx-background-color: rgba(255,255,255,0);-fx-text-fill: black; -fx-font-size: 24;-fx-alignment: BOTTOM-CENTER;");
         
         //Kollommen, we hebben er 5 nodig
         ColumnConstraints column0 = new ColumnConstraints();
@@ -318,8 +465,6 @@ public class MapSpel extends GridPane
         this.add(btn_akkerbouw,2,3);
         this.add(btn_goudMijn,5,0);
         this.add(btn_smith,5,3);
-        //zoda je de grid ziet, das temporary
-        setGridLinesVisible(true);
     }
      
    private void buildMap()

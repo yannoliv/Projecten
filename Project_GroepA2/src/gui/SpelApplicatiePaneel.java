@@ -63,7 +63,6 @@ public class SpelApplicatiePaneel extends GridPane
     
     public void formRefresh()
     {
-        resourcePaneel = new SpelerResourcesPaneel(this, dc);
-        this.add(resourcePaneel, 1, 1);
+        resourcePaneel.updateResourcePaneel();
     }
 }

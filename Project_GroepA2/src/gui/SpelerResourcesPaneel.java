@@ -60,7 +60,18 @@ public class SpelerResourcesPaneel extends VBox
         this.dc = dc;
         this.spelApplicatiePaneel = spelApplicatiePaneel;
         
-
+        maakResourcePaneel();
+    }
+    
+    public void updateResourcePaneel()
+    {
+        this.getChildren().clear();
+        maakResourcePaneel();
+    }
+    
+    public void maakResourcePaneel()
+    {
+        
         for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
         {
             switch (dc.getSpelerLijst().get(i).getKleur()) {
@@ -81,7 +92,9 @@ public class SpelerResourcesPaneel extends VBox
             lbl_spelerNaam = new Label(String.format("%s: ", dc.getSpelerLijst().get(i).getNaam()));
             hbox = new HBox(8);
             hbox.getChildren().add(lbl_spelerNaam);
-            hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
+            if (dc.getSpelerBeurt() == dc.getSpelerLijst().get(i).getSpelerNummer()) {
+                hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
+            }
             this.getChildren().add(hbox);
             hbox.setPadding(new Insets(10,10,10,10));
             
@@ -116,8 +129,9 @@ public class SpelerResourcesPaneel extends VBox
                     lbl_akkerbouw, lbl_akkerbouwAantal
             );
             this.getChildren().addAll(hbox);
-            
-            hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
+            if (dc.getSpelerBeurt() == dc.getSpelerLijst().get(i).getSpelerNummer()) {
+                hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
+            }
             hbox.setPadding(new Insets(10,10,10,10));
             
             
@@ -148,54 +162,18 @@ public class SpelerResourcesPaneel extends VBox
             
             this.getChildren().addAll(hbox);// hbox toevoegen bij vbox
             hbox.setPadding(new Insets(10,10,40,10));
-            hbox.setStyle(String.format("-fx-background-color: %s;", spelerKleur));
+            if (dc.getSpelerBeurt() == dc.getSpelerLijst().get(i).getSpelerNummer()) {
+                hbox.setStyle(String.format("-fx-background-color: %s;",spelerKleur));
+            }
             System.out.println(dc.getSpelerLijst().get(i).getNaam() + "/n" + dc.getSpelerLijst().get(i).getKleur());
         }
+        
         BackgroundSize bgs = new BackgroundSize( 1, 1, true, true, false, false);
 
         BackgroundImage bgImg = new BackgroundImage(new Image("/images/stoneWall.png"), 
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER, bgs);
         this.setBackground(new Background(bgImg));
-        //opmaak vbox___________________
     }
     
-    /*
-    
-
-    
-
-        for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
-        {
-            
-            
-            lbl_hout = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(0).getNaam()));       
-            lbl_hout_speler = new Label(String.format("%d",dc.getSpelerLijst().get(i).getResourceLijst().get(0).getAantal()));
-            lbl_leem = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(1).getNaam()));       
-            lbl_leem_speler = new Label(String.format("%d",dc.getSpelerLijst().get(i).getResourceLijst().get(1).getAantal()));
-            lbl_steen = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(2).getNaam()));       
-            lbl_steen_speler = new Label(String.format("%d",dc.getSpelerLijst().get(i).getResourceLijst().get(2).getAantal()));
-            lbl_goud = new Label(String.format("%s: ",dc.getSpelerLijst().get(i).getResourceLijst().get(3).getNaam()));       
-            lbl_goud_speler = new Label(String.format("%d",dc.getSpelerLijst().get(i).getResourceLijst().get(3).getAantal()));
-            
-            HBox hbox = new HBox(8);
-            
-            hbox.getChildren().addAll(
-                    lbl_hout,lbl_hout_speler, 
-                    lbl_leem, lbl_leem_speler, 
-                    lbl_steen, lbl_steen_speler,
-                    lbl_goud, lbl_goud_speler
-            );
-            hbox.setStyle(String.format("-fx-background-color: %s;",str_kleuren[i]));
-            this.getChildren().add(hbox);// hbox toevoegen bij vbox
-            
-        }
-        this.setPadding(new Insets(10,10,40,10));
-        
-    }
-
-}
-
-    */
-
 }
