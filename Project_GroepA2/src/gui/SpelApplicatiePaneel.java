@@ -5,8 +5,15 @@ import javafx.geometry.Insets;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
@@ -34,21 +41,27 @@ public class SpelApplicatiePaneel extends GridPane
         stage.show();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
         spelApplicatie = new MapSpel(dc, this);
-        
-        //zorgt ervoor da de resourcepaneel kan scrollen
-        scroll_resourcePaneel = new ScrollPane();
-        scroll_resourcePaneel.setHbarPolicy(ScrollBarPolicy.NEVER);
-        scroll_resourcePaneel.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-        scroll_resourcePaneel.setContent(resourcePaneel);
-        
         buildGui();
     }
 
     private void buildGui() 
     {
+        Pane resourcePane = new Pane();
+        scroll_resourcePaneel = new ScrollPane();
+        scroll_resourcePaneel.setHbarPolicy(ScrollBarPolicy.NEVER);
+        scroll_resourcePaneel.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        BackgroundSize bgs = new BackgroundSize( 1, 1, true, true, false, false);
+        BackgroundImage bgImg = new BackgroundImage(new Image("/images/stoneWall.png"), 
+            BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+            BackgroundPosition.CENTER, bgs);
+        resourcePane.setBackground(new Background(bgImg));
+        scroll_resourcePaneel.setContent(resourcePaneel);
+        resourcePane.getChildren().add(scroll_resourcePaneel);
+        resourcePane.setMinWidth(scroll_resourcePaneel.getWidth());
 //        this.add(menuBar, 0, 0);
         this.add(spelApplicatie, 0, 1);
-        this.add(scroll_resourcePaneel, 1, 1);
+        this.add(resourcePane, 1, 1);
+        
 //        this.add(hutkaartscherm, 0, 2);
 //        this.add(infoscherm, 1, 2)
         
