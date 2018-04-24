@@ -16,10 +16,7 @@
         </group>
         <group name="Programmeren">
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Spel.java</file>
-            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/cui/SpelApplicatie.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/domein/DomeinController.java</file>
-            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/SpelerResourcesPaneel.java</file>
-            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Speler.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/MapSpel.java</file>
         </group>
     </open-files>

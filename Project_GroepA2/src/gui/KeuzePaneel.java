@@ -32,30 +32,15 @@ public class KeuzePaneel extends VBox{
         vraagAantalSpelers();
     }
 
-    public void confirm(ActionEvent ae){
-        if (cbo_aantalSpelers.getValue().equals(cbo_aantalSpelers.getItems().get(0))) {
-            if (temp == 0) {
-                getChildren().removeAll(cbo_aantalSpelers, btn_confirm);
-                getChildren().addAll(cbo_aantalSpelers,lbl_foutMelding,btn_confirm);
-                temp += 1;
-            }
-            else
-            {
-                getChildren().removeAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm);
-                getChildren().addAll(cbo_aantalSpelers,lbl_foutMelding,btn_confirm);
-            }
-            
-        }
-        else
-        {
-            String temp = (String) cbo_aantalSpelers.getValue();
-            char keuze = temp.charAt(0);
-            String res = "" + keuze;
-            dc.doeAantalSpelersControle(res);
-            dc.vulLijsten();
-            getChildren().removeAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm);
-            vraagNamenSpelers();
-        }
+    public void confirm(ActionEvent ae)
+    {
+        String temp = (String) cbo_aantalSpelers.getValue();
+        char keuze = temp.charAt(0);
+        String res = "" + keuze;
+        dc.doeAantalSpelersControle(res);
+        dc.vulLijsten();
+        getChildren().removeAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm);
+        vraagNamenSpelers();
     }
     
     public void confirmNaam(ActionEvent ae)
