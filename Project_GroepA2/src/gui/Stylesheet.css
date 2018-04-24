@@ -67,3 +67,8 @@
 .combo-box .list-cell:hover {
     -fx-background-color: linear-gradient(#b27a20, #563706);
 }
+
+.my-scroll-pane {
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+}

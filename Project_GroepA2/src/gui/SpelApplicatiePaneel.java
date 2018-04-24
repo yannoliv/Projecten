@@ -49,6 +49,7 @@ public class SpelApplicatiePaneel extends GridPane
     {
         scroll_resourcePaneel.setHbarPolicy(ScrollBarPolicy.NEVER);
         scroll_resourcePaneel.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        scroll_resourcePaneel.setFitToWidth(true);
         BackgroundSize bgs = new BackgroundSize( 1, 1, true, true, false, false);
         BackgroundImage bgImg = new BackgroundImage(new Image("/images/stoneWall.png"), 
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
