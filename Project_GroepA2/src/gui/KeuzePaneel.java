@@ -91,9 +91,9 @@ public class KeuzePaneel extends VBox{
     public void vraagAantalSpelers()
     {
         stage.setTitle("Keuze van het aantal spelers");
-        ObservableList<String> options = FXCollections.observableArrayList("Aantal spelers", "2 spelers", "3 spelers", "4 spelers");
+        ObservableList<String> options = FXCollections.observableArrayList("2 spelers", "3 spelers", "4 spelers");
         cbo_aantalSpelers.setItems(options);
-        cbo_aantalSpelers.getSelectionModel().selectFirst();
+        cbo_aantalSpelers.setPromptText("Aantal spelers");
         lbl_foutMelding.setText("kies het aantal spelers!");
         btn_confirm.setText("Confirm");
         btn_confirm.setOnAction(this::confirm);
