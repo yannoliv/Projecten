@@ -76,18 +76,28 @@ public class MapSpel extends GridPane
     
     private void toonKeuzeStamledenSpeciaal(int plaatsNr)
     {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Stamleden plaatsen..");
-        alert.setHeaderText(null);
-        alert.setGraphic(null);
-        alert.setContentText(String.format("Wilt u hier %d %s plaatsen?", plaatsNr == 5 ? 2:1, plaatsNr == 5 ? "stamleden":"stamlid"));
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            if (plaatsNr == 5)
-            {stamledenAantal = "2";}
-            else
-            {stamledenAantal = "1";}
-            plaatsClicked(plaatsNr);
+        if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 1) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else
+        {
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Stamleden plaatsen..");
+            alert.setHeaderText(null);
+            alert.setGraphic(null);
+            alert.setContentText(String.format("Wilt u hier %d %s plaatsen?", plaatsNr == 7 ? 2:1, plaatsNr == 7 ? "stamleden":"stamlid"));
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                if (plaatsNr == 7)
+                {stamledenAantal = "2";}
+                else
+                {stamledenAantal = "1";}
+                plaatsClicked(plaatsNr);
+            }
         }
     }
      
@@ -124,50 +134,124 @@ public class MapSpel extends GridPane
     
     private void plaatsClicked(int plaatsNummer)
     {
-        
         try
         {
-            if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() < 1)
-            {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Er is een fout opgetreden");
-                alert.setHeaderText("Deze plek staat vol...");
-                alert.setContentText("Kies een andere plek");
-                alert.show();
-            }
-            else if (isPlaatsOpPlaats(plaatsNummer))
-            {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Er is een fout opgetreden");
-                alert.setHeaderText("Je hebt reeds geplaatst op het bos...");
-                alert.setContentText("Kies een andere plek");
-                alert.show();
-            }
-            else if (dc.getPlaatsenLijst().get(0).getAantalSpots() >= parseInt(stamledenAantal))
-            {
-                if(parseInt(stamledenAantal) <= dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(7).getAantal())
-                {  
-                    //als dit niet in orde is, wordt het onderste ook niet uitgevoerd
-                    dc.doePlaatsOpPlek(spelerAanBeurt, plaatsNummer + 2, parseInt(stamledenAantal));
-
-                    //dit eronder is enkel voor te testen
-                    //c.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(plaatsNummer).setAantal(dc.getGeroldGetal(parseInt(stamledenAantal)));
-
-                    this.updateButtons();
-                    volgendeBeurt();
-                }
-                else
-                {
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Er is een fout opgetreden");
-                    alert.setHeaderText("Je niet gegoeg stamleden beschikbaar");
-                    alert.setContentText("Kies een andere plek");
-                    alert.show();
-                }
+            switch (plaatsNummer) {
+                //bos
+                case 0:
+                //leemgroeve
+                case 1:
+                //steengroeve
+                case 2:
+                //goudmijn
+                case 3:
+                //jachtgebied
+                case 4:
+                    if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() < 1) {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Deze plek staat vol...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else if (isPlaatsOpPlaats(plaatsNummer))
+                    {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Je hebt reeds geplaatst op deze plek...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
+                    {
+                        if (dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(7).getAantal() >= parseInt(stamledenAantal)) {
+                            dc.doePlaatsOpPlek(spelerAanBeurt, plaatsNummer + 2, parseInt(stamledenAantal));
+                            this.updateButtons();
+                            volgendeBeurt();
+                        }
+                        else
+                        {
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setTitle("Er is een fout opgetreden");
+                            alert.setHeaderText("Je niet gegoeg stamleden beschikbaar");
+                            alert.setContentText("Kies een andere plek");
+                            alert.show();
+                        }
+                    }
+                    break;
+                case 5:
+                case 6:
+                    if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() == 0) {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Deze plek staat vol...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else if (isPlaatsOpPlaats(plaatsNummer))
+                    {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Je hebt reeds geplaatst op deze plek...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
+                    {
+                        if (dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(7).getAantal() >= parseInt(stamledenAantal)) {
+                            dc.doePlaatsOpPlek(spelerAanBeurt, plaatsNummer  == 5 ? plaatsNummer + 4:plaatsNummer + 2, parseInt(stamledenAantal));
+                            this.updateButtons();
+                            volgendeBeurt();
+                        }
+                        else
+                        {
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setTitle("Er is een fout opgetreden");
+                            alert.setHeaderText("Je niet gegoeg stamleden beschikbaar");
+                            alert.setContentText("Kies een andere plek");
+                            alert.show();
+                        }
+                    }
+                    break;
+                case 7:
+                    if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() == 0) {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Deze plek staat vol...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else if (isPlaatsOpPlaats(plaatsNummer))
+                    {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Je hebt reeds geplaatst op deze plek...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
+                    {
+                        if (dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(7).getAantal() >= parseInt(stamledenAantal)) {
+                            dc.doePlaatsOpPlek(spelerAanBeurt, plaatsNummer, parseInt(stamledenAantal));
+                            this.updateButtons();
+                            volgendeBeurt();
+                        }
+                        else
+                        {
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setTitle("Er is een fout opgetreden");
+                            alert.setHeaderText("Je niet gegoeg stamleden beschikbaar");
+                            alert.setContentText("Kies een andere plek");
+                            alert.show();
+                        }
+                    }
+                    break;
+                default:
+                    throw new AssertionError();
             }
         }catch(NumberFormatException e)
         {
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Er is een fout opgetreden");
             alert.setHeaderText("Fout");
             alert.setContentText("Vul een cijfer in aub");
@@ -209,7 +293,7 @@ public class MapSpel extends GridPane
                     return true;
                 }
                 break;
-            case 7:
+            case 5:
             if(dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpAkkerbouw())
             {
                 return true;
@@ -221,7 +305,7 @@ public class MapSpel extends GridPane
                 return true;
             }
                 break;
-            case 5:
+            case 7:
             if(dc.getSpelerLijst().get(spelerAanBeurt).isPlaatsOpHut())
             {
                 return true;
@@ -261,7 +345,7 @@ public class MapSpel extends GridPane
     
     private void hutClicked(ActionEvent ae)
     {
-        toonKeuzeStamledenSpeciaal(5);
+        toonKeuzeStamledenSpeciaal(7);
     }
     
     private void smithClicked(ActionEvent ae)
@@ -271,7 +355,7 @@ public class MapSpel extends GridPane
     
     private void akkerbouwClicked(ActionEvent ae)
     {
-        toonKeuzeStamledenSpeciaal(7);
+        toonKeuzeStamledenSpeciaal(5);
     }
     
     private void formRefresh()
@@ -381,6 +465,7 @@ public class MapSpel extends GridPane
     {
         //elke plaats weer vrijmaken
         dc.doeResetPlaatsenLijst();
+        this.updateButtons();
         for (int index = 0; index < dc.getSpelerLijst().size(); index++) {
             //geeft stamleden terug
             dc.getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(index).getGebruikteStamleden());
