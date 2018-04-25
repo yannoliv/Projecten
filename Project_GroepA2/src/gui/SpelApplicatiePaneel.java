@@ -28,7 +28,7 @@ public class SpelApplicatiePaneel extends GridPane
     //panelen
     private MapSpel spelApplicatie;
     private MenuBar menuBar = new MenuBar();
-
+    
     public SpelApplicatiePaneel(DomeinController dc, Stage stage)
     {
         this.dc = dc;
@@ -47,16 +47,18 @@ public class SpelApplicatiePaneel extends GridPane
 
     private void buildGui() 
     {
-        scroll_resourcePaneel.setHbarPolicy(ScrollBarPolicy.NEVER);
-        scroll_resourcePaneel.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-        scroll_resourcePaneel.setFitToWidth(true);
         BackgroundSize bgs = new BackgroundSize( 1, 1, true, true, false, false);
         BackgroundImage bgImg = new BackgroundImage(new Image("/images/stoneWall.png"), 
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
             BackgroundPosition.CENTER, bgs);
         resourcePaneel.setBackground(new Background(bgImg));
+        
+        scroll_resourcePaneel.setHbarPolicy(ScrollBarPolicy.NEVER);
+        scroll_resourcePaneel.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        scroll_resourcePaneel.setFitToWidth(true);
         scroll_resourcePaneel.setContent(resourcePaneel);
 //        this.add(menuBar, 0, 0);
+        scroll_resourcePaneel.applyCss();
         this.add(spelApplicatie, 0, 1);
         this.add(scroll_resourcePaneel, 1, 1);
         
