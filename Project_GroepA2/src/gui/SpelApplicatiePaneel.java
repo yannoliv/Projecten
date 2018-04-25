@@ -35,8 +35,8 @@ public class SpelApplicatiePaneel extends GridPane
         this.stage = stage;
         stage.setWidth(1280);
         stage.setHeight(720);
-        stage.setMinWidth(960);
-        stage.setMinHeight(640);
+        stage.setMinWidth(1280*0.5);
+        stage.setMinHeight(720*0.5);
         stage.show();
         
         scroll_resourcePaneel = new ScrollPane();

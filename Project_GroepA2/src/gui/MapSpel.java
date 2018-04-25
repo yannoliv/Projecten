@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -63,7 +64,7 @@ public class MapSpel extends GridPane
         btn_hut.setText(String.format("%d / 2", 2 - dc.getPlaatsenLijst().get(7).getAantalSpots()));
     }
     
-    private void toonKeuzeStamleden()
+    private void toonKeuzeStamleden(int plaatsNr)
     {
         TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
         inputAantalStamleden.setTitle("Kies het aantal stamleden");
@@ -72,41 +73,27 @@ public class MapSpel extends GridPane
         Optional<String> result = inputAantalStamleden.showAndWait();
         if (result.isPresent()) {
             stamledenAantal = result.get();
+            plaatsClicked(plaatsNr);
         }
     }
     
-    private void toonKeuzeStamledenSpeciaalVoor1(){
-        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
-        inputAantalStamleden.setTitle("Kies het aantal stamleden");
-        inputAantalStamleden.setHeaderText(null);
-        inputAantalStamleden.setContentText("(0 - 1)");
-        Optional<String> result = inputAantalStamleden.showAndWait();
-        if (result.isPresent()) {
-            stamledenAantal = result.get();
+    private void toonKeuzeStamledenSpeciaal(int plaatsNr)
+    {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Stamleden plaatsen..");
+        alert.setHeaderText("Wilt u hier plaatsen?");
+        alert.setGraphic(null);
+        alert.setContentText("Wilt u hier plaatsen?");;
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            if (plaatsNr == 5)
+            {stamledenAantal = "2";}
+            else
+            {stamledenAantal = "1";}
+            plaatsClicked(plaatsNr);
         }
     }
     
-     private void toonKeuzeStamledenSpeciaalVoor2(){
-        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
-        inputAantalStamleden.setTitle("Kies het aantal stamleden");
-        inputAantalStamleden.setHeaderText(null);
-        inputAantalStamleden.setContentText("(0 - 2)");
-        Optional<String> result = inputAantalStamleden.showAndWait();
-        if (result.isPresent()) {
-            stamledenAantal = result.get();
-        }
-    }
-    
-      private void toonKeuzeStamledenSpeciaalVoor40(){
-        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
-        inputAantalStamleden.setTitle("Kies het aantal stamleden");
-        inputAantalStamleden.setHeaderText(null);
-        inputAantalStamleden.setContentText(String.format("(0 - %d)", dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal()));
-        Optional<String> result = inputAantalStamleden.showAndWait();
-        if (result.isPresent()) {
-            stamledenAantal = result.get();
-        }
-    }
      
     private void volgendeBeurt()
     {
@@ -154,6 +141,13 @@ public class MapSpel extends GridPane
 
                     this.updateButtons();
                     volgendeBeurt();
+                }
+                else
+                {
+                    alert.setTitle("Er is een fout opgetreden");
+                    alert.setHeaderText("Je niet gegoeg stamleden beschikbaar");
+                    alert.setContentText("Kies een andere plek");
+                    alert.show();
                 }
             }
         }catch(NumberFormatException e)
@@ -225,56 +219,48 @@ public class MapSpel extends GridPane
     
     private void bosClicked(ActionEvent ae)
     {
-        toonKeuzeStamleden();
-        plaatsClicked(0);
+        toonKeuzeStamleden(0);
     }
     
     
     private void leemGroeveClicked(ActionEvent ae)
     {
-        toonKeuzeStamleden();
-        plaatsClicked(1);
+        toonKeuzeStamleden(1);
     }
     
     private void steenGroeveClicked(ActionEvent ae)
     {
-        toonKeuzeStamleden();
-        plaatsClicked(2);
+        toonKeuzeStamleden(2);
     }
     
     private void goudMijnClicked(ActionEvent ae)
     {
-         toonKeuzeStamleden();
-         plaatsClicked(3);
+         toonKeuzeStamleden(3);
     }
     
     private void jachtGebiedClicked(ActionEvent ae)
     {
-        toonKeuzeStamledenSpeciaalVoor40();
-        plaatsClicked(4);
+        toonKeuzeStamleden(4);
     }
     
     private void hutClicked(ActionEvent ae)
     {
-        this.toonKeuzeStamledenSpeciaalVoor2();
-        plaatsClicked(5);
+        toonKeuzeStamledenSpeciaal(5);
     }
     
     private void smithClicked(ActionEvent ae)
     {
-        this.toonKeuzeStamledenSpeciaalVoor1();
-        plaatsClicked(6);
+        toonKeuzeStamledenSpeciaal(6);
     }
     
     private void akkerbouwClicked(ActionEvent ae)
     {
-        this.toonKeuzeStamledenSpeciaalVoor1();
-        plaatsClicked(7);
+        toonKeuzeStamledenSpeciaal(7);
     }
     
     private void formRefresh()
     {
-        //hier moeten we de form refreshen
+        //hier moeten we de form refreshen voor de labels
         spelAppPaneel.formRefresh();
         
     }
