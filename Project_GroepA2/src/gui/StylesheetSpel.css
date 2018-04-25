@@ -13,3 +13,8 @@
     -fx-background-color: linear-gradient(#d6ae6f, #8e6729);
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
+.kaartPaneel{
+    -fx-background-image: url("/images/kaartPaneel.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;  
+}

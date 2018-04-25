@@ -28,6 +28,7 @@ public class SpelApplicatiePaneel extends GridPane
     //panelen
     private MapSpel spelApplicatie;
     private MenuBar menuBar = new MenuBar();
+    private KaartPaneel kaartPaneel;
     
     public SpelApplicatiePaneel(DomeinController dc, Stage stage)
     {
