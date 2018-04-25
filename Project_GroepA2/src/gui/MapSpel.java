@@ -367,6 +367,7 @@ public class MapSpel extends GridPane
     
      public void voorgrondButtons()
     {
+        dc.setSpelerBeurt(0);
         //de coordinaten zijn (aa) ipv (0,0), dus (1,3) is button (bd)
         //buttons
         btn_bos = new Button(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(0).getAantalSpots()));

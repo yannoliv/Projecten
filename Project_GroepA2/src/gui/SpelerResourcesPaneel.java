@@ -94,6 +94,9 @@ public class SpelerResourcesPaneel extends VBox
             lbl_punten = new Label(":");
             lbl_punten.setGraphic(new ImageView(new Image("/images/points.gif", 20, 20, false, true)));
             lbl_puntenAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(8).getAantal()));
+            if (dc.getSpelerBeurt() == dc.getSpelerLijst().get(i).getSpelerNummer()) {
+                hbox.setStyle(String.format("-fx-background-color: %s", spelerKleur));
+            }
             hbox.getChildren().addAll(lbl_spelerNaam, lbl_punten, lbl_puntenAantal);
             hbox.setPadding(new Insets(0,0,10,0));
             this.getChildren().add(hbox);
@@ -114,6 +117,9 @@ public class SpelerResourcesPaneel extends VBox
             lbl_goud = new Label(":");
             lbl_goud.setGraphic(new ImageView(new Image("/images/Goud.png", 20, 20, false, true)));
             lbl_goudAantal = new Label(String.format("%d",dc.getSpelerLijst().get(i).getResourceLijst().get(3).getAantal()));
+            if (dc.getSpelerBeurt() == dc.getSpelerLijst().get(i).getSpelerNummer()) {
+                hbox.setStyle(String.format("-fx-background-color: %s", spelerKleur));
+            }
             hbox.getChildren().addAll(lbl_hout, lbl_houtAantal, lbl_leem, lbl_leemAantal,lbl_steen, lbl_steenAantal, lbl_goud, lbl_goudAantal);
             hbox.setPadding(new Insets(0,0,20,0));
             this.getChildren().add(hbox);
@@ -134,6 +140,9 @@ public class SpelerResourcesPaneel extends VBox
             lbl_stamleden = new Label(":");
             lbl_stamleden.setGraphic(new ImageView(new Image("/images/stamlid.png", 13, 20, false, true)));
             lbl_stamledenAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(7).getAantal()));
+            if (dc.getSpelerBeurt() == dc.getSpelerLijst().get(i).getSpelerNummer()) {
+                hbox.setStyle(String.format("-fx-background-color: %s", spelerKleur));
+            }
             hbox.getChildren().addAll(lbl_akkerbouw, lbl_akkerbouwAantal, lbl_gereedschap, lbl_gereedschapAantal, lbl_voedsel, lbl_voedselAantal, lbl_stamleden, lbl_stamledenAantal);
             hbox.setPadding(new Insets(0,0,20,0));
             this.getChildren().add(hbox);
