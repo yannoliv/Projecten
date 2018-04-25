@@ -81,6 +81,7 @@ public class SpelApplicatiePaneel extends GridPane
         getRowConstraints().addAll(row0,row1,row2);
         
         setGridLinesVisible(true); 
+        
     }
     
     public void formRefresh()

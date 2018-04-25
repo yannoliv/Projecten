@@ -60,8 +60,10 @@ public class KeuzePaneel extends VBox{
                 
                 Stage spelStage = new Stage();
                 SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
-                Scene scene = new Scene(spelAppPaneel);
-                spelStage.setScene(scene);
+                Scene scenery = new Scene(spelAppPaneel);
+                String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
+                scenery.getStylesheets().add(cssURL);
+                spelStage.setScene(scenery);
                 
             }
         }
