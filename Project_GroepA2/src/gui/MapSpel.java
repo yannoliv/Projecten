@@ -78,9 +78,9 @@ public class MapSpel extends GridPane
     {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Stamleden plaatsen..");
-        alert.setHeaderText("Wilt u hier plaatsen?");
+        alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.setContentText("Wilt u hier plaatsen?");;
+        alert.setContentText(String.format("Wilt u hier %d %s plaatsen?", plaatsNr == 5 ? 2:1, plaatsNr == 5 ? "stamleden":"stamlid"));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             if (plaatsNr == 5)
