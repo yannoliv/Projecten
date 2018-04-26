@@ -43,6 +43,7 @@ public class SpelApplicatiePaneel extends GridPane
         scroll_resourcePaneel = new ScrollPane();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
         spelApplicatie = new MapSpel(dc, this);
+        kaartPaneel = new KaartPaneel(this, dc);
         buildGui();
     }
 
@@ -53,6 +54,15 @@ public class SpelApplicatiePaneel extends GridPane
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
             BackgroundPosition.CENTER, bgs);
         resourcePaneel.setBackground(new Background(bgImg));
+
+        
+        //help die shit wilt legit ni sizen xD btx bgs bandos godsword confirmed?
+        
+        BackgroundImage bgImg2 = new BackgroundImage(new Image("/images/kaartPaneel.png"),
+        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+                BackgroundPosition.CENTER, bgs);
+        kaartPaneel.setBackground(new Background(bgImg2));
+        kaartPaneel.setMinSize(100, 200);
         
         scroll_resourcePaneel.setHbarPolicy(ScrollBarPolicy.NEVER);
         scroll_resourcePaneel.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -63,7 +73,7 @@ public class SpelApplicatiePaneel extends GridPane
         this.add(spelApplicatie, 0, 1);
         this.add(scroll_resourcePaneel, 1, 1);
         
-//        this.add(hutkaartscherm, 0, 2);
+        this.add(kaartPaneel, 0, 2);
 //        this.add(infoscherm, 1, 2)
         
        
