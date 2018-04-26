@@ -50,21 +50,17 @@ public class SpelApplicatiePaneel extends GridPane
     private void buildGui() 
     {
         BackgroundSize bgs = new BackgroundSize( 1, 1, true, true, false, false);
-        BackgroundImage bgImg = new BackgroundImage(new Image("/images/stoneWall.png"), 
+        BackgroundImage bgImg = new BackgroundImage(new Image("/images/kaartPaneel_V.png"), 
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
             BackgroundPosition.CENTER, bgs);
         resourcePaneel.setBackground(new Background(bgImg));
-
-        
-        //help die shit wilt legit ni sizen xD btx bgs bandos godsword confirmed?
-        
         
         scroll_resourcePaneel.setHbarPolicy(ScrollBarPolicy.NEVER);
         scroll_resourcePaneel.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         scroll_resourcePaneel.setFitToWidth(true);
         scroll_resourcePaneel.setContent(resourcePaneel);
 //        this.add(menuBar, 0, 0);
-        scroll_resourcePaneel.applyCss();
+        //scroll_resourcePaneel.applyCss();
         this.add(mapSpel, 0, 1);
         this.add(scroll_resourcePaneel, 1, 1);
         

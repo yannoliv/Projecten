@@ -21,7 +21,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         this.dc = dc;
         this.spelApplicatiePaneel = spelApplicatiePaneel;
         BackgroundSize achtergrondLengteBreedte = new BackgroundSize( 1, 1, true, true, false, false);
-        BackgroundImage bgImg = new BackgroundImage(new Image("/images/kaartPaneel.png"),
+        BackgroundImage bgImg = new BackgroundImage(new Image("/images/kaartPaneel_H.png"),
         BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.CENTER, achtergrondLengteBreedte);
         this.setBackground(new Background(bgImg));
