@@ -103,20 +103,23 @@ public class MapSpel extends GridPane
      
     private void volgendeBeurt()
     {
-        int isVolgendeRonde = 0;
+        int eindeSpelers = 0;
         for (int i = 0; i < dc.getSpelerLijst().size(); i++)         
         {
-            if(dc.getSpelerLijst().get(i).getResourceLijst().get(7).getAantal() < 1)
+            if(dc.getSpelerLijst().get(i).getResourceLijst().get(7).getAantal() == 0)
             {
-                isVolgendeRonde++;
+                eindeSpelers++;
             }
         }
-        if(isVolgendeRonde < dc.getSpelerLijst().size())
+        if(eindeSpelers < dc.getSpelerLijst().size())
         {
             if (spelerAanBeurt + 1 < dc.getSpelerLijst().size())
             {
-                spelerAanBeurt += 1;
-                dc.setSpelerBeurt(spelerAanBeurt);
+                if (0 > dc.getSpelerLijst().get(dc.getSpelerBeurt() + 1).getResourceLijst().get(7).getAantal()) 
+                {
+                    spelerAanBeurt += 1;
+                    dc.setSpelerBeurt(spelerAanBeurt);
+                }
             }
             else
             {
