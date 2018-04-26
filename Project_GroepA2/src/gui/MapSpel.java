@@ -113,20 +113,30 @@ public class MapSpel extends GridPane
         }
         if(eindeSpelers < dc.getSpelerLijst().size())
         {
-            if (spelerAanBeurt + 1 < dc.getSpelerLijst().size())
+            boolean b = false;
+            do 
             {
-                if (0 > dc.getSpelerLijst().get(dc.getSpelerBeurt() + 1).getResourceLijst().get(7).getAantal()) 
+                //gwn volgende speler dees
+                if (spelerAanBeurt + 1 < dc.getSpelerLijst().size())
                 {
                     spelerAanBeurt += 1;
                     dc.setSpelerBeurt(spelerAanBeurt);
+                    if(dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(7).getAantal() == 0)
+                    {
+                        b = true;
+                    }
+                    else
+                    {
+                        b = false;
+                    }
                 }
-            }
-            else
-            {
-                spelerAanBeurt = 0;
-                dc.setSpelerBeurt(spelerAanBeurt);
-            }
-            formRefresh();
+                else
+                {
+                    spelerAanBeurt = 0;
+                    dc.setSpelerBeurt(spelerAanBeurt);
+                }
+                formRefresh();
+            }while(b);
         }
         else
         {
