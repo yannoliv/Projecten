@@ -5,7 +5,9 @@ import static java.lang.Integer.parseInt;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -14,10 +16,11 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class KaartPaneel extends VBox{
+public class KaartPaneel extends HBox{
       private DomeinController dc;
       private SpelApplicatiePaneel spelApplicatiePaneel;
       private String stamledenAantal;
@@ -38,31 +41,53 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         this.setBackground(new Background(bgImg));
        // maakKaartPaneel();
        
+        ColumnConstraints col0 = new ColumnConstraints(23.33);
+        ColumnConstraints col1 = new ColumnConstraints(23.33);
+        ColumnConstraints col2 = new ColumnConstraints(23.33);
+        VBox hutImage = new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png"))));
+        this.getColumnConstraints.addAll(col0,col1,col2);
+//       ImageView img_hout;
+//       ImageView img_leem;
+//       ImageView img_steen;
+//       ImageView img_goud;
+//       box1 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/stamlid.png")))), new VBox(new ImageView(), new ImageView(), new ImageView()), new VBox(new Label(), new Label(), new Label()));
+//       box2 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/stamlid.png")))), new VBox(new ImageView(), new ImageView(), new ImageView()), new VBox(new Label(), new Label(), new Label()));
+//       box3 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/stamlid.png")))), new VBox(new ImageView(), new ImageView(), new ImageView()), new VBox(new Label(), new Label(), new Label()));
+//       box1.setOnMouseClicked(this::kaart1Click);
+//       box2.setOnMouseClicked(this::kaart2Click);
+//       box3.setOnMouseClicked(this::kaart3Click);
+//       box1.setStyle("-fx-background-image: url('/images/hutFrame.png');");
+//       box2.setStyle("-fx-background-image: url('/images/hutFrame.png');");
+//       box3.setStyle("-fx-background-image: url('/images/hutFrame.png');");
+//       this.getChildren().addAll(box1,box2,box3);
        
-       //main hbox breedte nog instellen
-       HBox box1 = new HBox(
-               new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/points.gif")))), 
-               new VBox());
-       box1.setOnMouseClicked(this::kaart1Click);
-       box1.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-       HBox box2 = new HBox(
-               new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/points.gif")))), 
-               new VBox());
-       box2.setOnMouseClicked(this::kaart2Click);
-       box2.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-       HBox box3 = new HBox(
-               new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/points.gif")))), 
-               new VBox());
-       box3.setOnMouseClicked(this::kaart3Click);
-       box3.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-       HBox hbox = new HBox(
-                   box1, 
-                   new HBox(
-                   box2, 
-                   new HBox(
-                   box3)));
-       this.getChildren().add(hbox);
-       hbox.minWidth(1000);
+       
+       //       //main hbox breedte nog instellen
+//       HBox box1 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/points.gif")))), 
+//               new VBox());
+//       box1.setOnMouseClicked(this::kaart1Click);
+//       box1.setStyle("-fx-background-image: url('/images/hutFrame.png');");
+//       HBox box2 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/points.gif")))), 
+//               new VBox());
+//       box2.setOnMouseClicked(this::kaart2Click);
+//       box2.setStyle("-fx-background-image: url('/images/hutFrame.png');");
+//       HBox box3 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/points.gif")))), 
+//               new VBox());
+//       box3.setOnMouseClicked(this::kaart3Click);
+//       box3.setStyle("-fx-background-image: url('/images/hutFrame.png');");
+//       HBox hbox = new HBox(
+//                   box1, 
+//                   new HBox(
+//                   box2, 
+//                   new HBox(
+//                   box3)));
+//       this.getChildren().add(hbox);
+//       hbox.minWidth(1000);
+    }
+
+    private void getHutResources()
+    {
+        
     }
        
     private boolean controleerVolzet(int kaartNr)
