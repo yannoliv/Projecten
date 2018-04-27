@@ -20,7 +20,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class KaartPaneel extends HBox{
+public class KaartPaneel extends VBox{
       private DomeinController dc;
       private SpelApplicatiePaneel spelApplicatiePaneel;
       private String stamledenAantal;
@@ -28,7 +28,9 @@ public class KaartPaneel extends HBox{
       private boolean aantalSpotsHK1 = false;
       private boolean aantalSpotsHK2 = false;
       private boolean aantalSpotsHK3 = false;
-
+      private ImageView hutImage = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+      
+      
 public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController dc, MapSpel mapSpel)
     {
         this.dc = dc;
@@ -40,12 +42,16 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                 BackgroundPosition.CENTER, achtergrondLengteBreedte);
         this.setBackground(new Background(bgImg));
        // maakKaartPaneel();
-       
-        ColumnConstraints col0 = new ColumnConstraints(23.33);
-        ColumnConstraints col1 = new ColumnConstraints(23.33);
-        ColumnConstraints col2 = new ColumnConstraints(23.33);
-        VBox hutImage = new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png"))));
-        this.getColumnConstraints.addAll(col0,col1,col2);
+        this.setSpacing(-5);
+        HBox kaart1 = new HBox(5);
+        HBox kaart2 = new HBox(5);
+        HBox kaart3 = new HBox(5);
+        
+        kaart1.getChildren().addAll(hutImage);
+        kaart2.getChildren().addAll(hutImage);
+        kaart3.getChildren().addAll(hutImage);
+        
+        this.getChildren().addAll(kaart1, kaart2, kaart3);
 //       ImageView img_hout;
 //       ImageView img_leem;
 //       ImageView img_steen;
