@@ -38,7 +38,6 @@ public class KeuzePaneel extends VBox{
         char keuze = temp.charAt(0);
         String res = "" + keuze;
         dc.doeAantalSpelersControle(res);
-        dc.vulLijsten();
         getChildren().removeAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm);
         vraagNamenSpelers();
     }
@@ -58,6 +57,7 @@ public class KeuzePaneel extends VBox{
                 this.getChildren().clear();
                 stage.hide();
                 
+                dc.vulLijsten();
                 Stage spelStage = new Stage();
                 SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
                 Scene scenery = new Scene(spelAppPaneel);

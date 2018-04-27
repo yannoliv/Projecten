@@ -23,8 +23,6 @@ public class MapSpel extends GridPane
 {
     private DomeinController dc;
     private SpelApplicatiePaneel spelAppPaneel;
-    private int buttonNr;
-    private int plaatsAantalStamleden;
     private String stamledenAantal;
     private boolean a = false;
     private boolean OK = true;
@@ -49,7 +47,7 @@ public class MapSpel extends GridPane
         buildMap();
     }
     
-    private void updateButtons()
+    public void updateButtons()
     {
         btn_bos.setText(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(0).getAantalSpots()));
         btn_leemGroeve.setText(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(1).getAantalSpots()));
@@ -101,7 +99,7 @@ public class MapSpel extends GridPane
         }
     }
      
-    private void volgendeBeurt()
+    public void volgendeBeurt()
     {
         int eindeSpelers = 0;
         for (int i = 0; i < dc.getSpelerLijst().size(); i++)         
@@ -113,7 +111,7 @@ public class MapSpel extends GridPane
         }
         if(eindeSpelers < dc.getSpelerLijst().size())
         {
-            boolean b = false;
+            boolean b = false; 
             do 
             {
                 //gwn volgende speler dees
@@ -145,7 +143,7 @@ public class MapSpel extends GridPane
         }
     }
     
-    private void plaatsClicked(int plaatsNummer)
+    public void plaatsClicked(int plaatsNummer)
     {
         try
         {
@@ -192,7 +190,9 @@ public class MapSpel extends GridPane
                         }
                     }
                     break;
+                //akkerbouw
                 case 5:
+                //smith
                 case 6:
                     if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() == 0) {
                         Alert alert = new Alert(AlertType.WARNING);
@@ -226,6 +226,7 @@ public class MapSpel extends GridPane
                         }
                     }
                     break;
+                //hut
                 case 7:
                     if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() == 0) {
                         Alert alert = new Alert(AlertType.WARNING);
@@ -259,6 +260,7 @@ public class MapSpel extends GridPane
                         }
                     }
                     break;
+                
                 default:
                     throw new AssertionError();
             }

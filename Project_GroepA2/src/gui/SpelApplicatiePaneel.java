@@ -43,7 +43,7 @@ public class SpelApplicatiePaneel extends GridPane
         scroll_resourcePaneel = new ScrollPane();
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
         mapSpel = new MapSpel(dc, this);
-        kaartPaneel = new KaartPaneel(this, dc);
+        kaartPaneel = new KaartPaneel(this, dc, mapSpel);
         buildGui();
     }
 
@@ -63,7 +63,6 @@ public class SpelApplicatiePaneel extends GridPane
         //scroll_resourcePaneel.applyCss();
         this.add(mapSpel, 0, 1);
         this.add(scroll_resourcePaneel, 1, 1);
-        
         this.add(kaartPaneel, 0, 2);
 //        this.add(infoscherm, 1, 2)
         
