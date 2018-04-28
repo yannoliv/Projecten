@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
@@ -475,7 +476,6 @@ public class MapSpel extends GridPane
    
    
    //lange code vanuit cui
-   //WE MOETEN DIT OMZETTEN NAAR GUI
    
     public void eindeRonde()
     {
@@ -617,7 +617,7 @@ public class MapSpel extends GridPane
             dc.getSpelerLijst().get(index).setGebruikteStamleden(0);
             if (dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0) {
                 dc.getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(0);
-                voedselStraf(index, 0);
+                voedselStraf(index);
             }
         }
         dc.doeResetSpelerZet();
@@ -625,66 +625,90 @@ public class MapSpel extends GridPane
     
     
     //moeten we gui van maken
-    public void voedselStraf(int spelerNr, int check)
+    public void voedselStraf(int spelerNr)
     {
-        if (check == 0) {
-            System.out.printf("U heeft geen voedsel om uw dorp te voeden.%n");
-        }
-        if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() <= 0
-            && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() <= 0
-            && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() <= 0 
-            && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 0) {
-            System.out.printf("U krijgt 10 strafpunten omdat uw dorp honger moet leiden...");
-            dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).getAantal() - 10);
-        }
-        else
-        {
-            System.out.printf("Kies een resource om uw dorp te voeden (type naam van de resource):%n");
-            for (int i = 0; i < 4; i++) {
-                System.out.printf("%s: %d | ", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(i).getNaam(), dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(i).getAantal());
-            }
-            System.out.printf("%n");
-            //test antwoord
-            String antwoord = "hout";
-            switch (antwoord)
-            {
-                case "hout":
-                    if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() <= 0) {
-                        System.out.printf("U heeft geen hout om af te geven...%n");
-                        voedselStraf(spelerNr, 1);
-                    }
-                    else
-                    {
-                        dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(0);
-                    }
-                    break;
-                case "leem":
-                     if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() <= 0) {
-                        System.out.printf("U heeft geen leem om af te geven...%n");
-                        voedselStraf(spelerNr, 1);
-                    }
-                    break;
-                case "steen":
-                     if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() <= 0) {
-                        System.out.printf("U heeft geen steen om af te geven...%n");
-                        voedselStraf(spelerNr, 1);
-                    }
-                    break;
-                case "goud":
-                     if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 0) {
-                        System.out.printf("U heeft geen goud om af te geven...%n");
-                        voedselStraf(spelerNr, 1);
-                    }
-                    break;
-                default:
-                    System.out.printf("Gelieve een resource te kiezen...%n");
-                    voedselStraf(spelerNr, 1);
-                    break;
-            }
-        }
+        
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Je niet gegoeg voedsel beschikbaar");
+            alert.setContentText("Je zal met grondstoffen moeten betalen!");
+
+            ButtonType buttonTypeOne = new ButtonType("Hout");
+            ButtonType buttonTypeTwo = new ButtonType("Leem");
+            ButtonType buttonTypeThree = new ButtonType("Steen");
+            ButtonType buttonTypeFour = new ButtonType("Goud");
+            ButtonType buttonTypeFive = new ButtonType("Punten");
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeFour, buttonTypeFive);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeOne){
+                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() <= 0) {
+                    //System.out.printf("U heeft geen hout om af te geven...%n");
+                    Alert alertHout = new Alert(AlertType.WARNING);
+                    alertHout.setTitle("Er is een fout opgetreden");
+                    alertHout.setHeaderText("Opgelet!");
+                    alertHout.setContentText("U heeft geen hout om mee te betalen...");
+                    alertHout.show();
+                    voedselStraf(spelerNr);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(0);
+                }
+            } else if (result.get() == buttonTypeTwo) {
+                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() <= 0) {
+                    Alert alertLeem = new Alert(AlertType.WARNING);
+                    alertLeem.setTitle("Er is een fout opgetreden");
+                    alertLeem.setHeaderText("Opgelet!");
+                    alertLeem.setContentText("U heeft geen leem om mee te betalen...");
+                    alertLeem.show();
+                    voedselStraf(spelerNr);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(0);
+                }
+            } else if (result.get() == buttonTypeThree) {
+                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() <= 0) {
+                    Alert alertSteen = new Alert(AlertType.WARNING);
+                    alertSteen.setTitle("Er is een fout opgetreden");
+                    alertSteen.setHeaderText("Opgelet!");
+                    alertSteen.setContentText("U heeft geen steen om mee te betalen...");
+                    alertSteen.show();
+                    voedselStraf(spelerNr);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(0);
+                }
+            } else if (result.get() == buttonTypeFour) {
+                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 0) {
+                    Alert alertGoud = new Alert(AlertType.WARNING);
+                    alertGoud.setTitle("Er is een fout opgetreden");
+                    alertGoud.setHeaderText("Opgelet!");
+                    alertGoud.setContentText("U heeft geen goud om mee te betalen...");
+                    alertGoud.show();
+                    voedselStraf(spelerNr);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(0);
+                }
+            } else {
+                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 10) {
+                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(10);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).getAantal() - 10);
+                }
+            } 
+            alert.show();
     }
+
     
-        public boolean gereedschapBoodschap(int spelerNr)
+    public boolean gereedschapBoodschap(int spelerNr)
     {
         boolean a = false;
         System.out.printf("%n%s u heeft %d gereedschap.%n wilt u dit gebruiken (ja/nee):", dc.getSpelerLijst().get(spelerNr).getNaam(), dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(5).getAantal());

@@ -47,6 +47,16 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         HBox kaart2 = new HBox(5);
         HBox kaart3 = new HBox(5);
         
+        VBox hutfoto = new VBox (5);
+        
+        VBox resources1 = new VBox (5);
+        VBox resources2 = new VBox (5);
+        VBox resources3 = new VBox (5);
+        
+        kaart1.getChildren().addAll(hutfoto,resources1 );
+        kaart2.getChildren().addAll(hutfoto,resources2 );
+        kaart3.getChildren().addAll(hutfoto,resources3 );
+        
         kaart1.getChildren().addAll(hutImage);
         kaart2.getChildren().addAll(hutImage);
         kaart3.getChildren().addAll(hutImage);
