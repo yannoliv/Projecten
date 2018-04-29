@@ -141,7 +141,6 @@ public class MapSpel extends GridPane
         else
         {
             eindeRonde();
-            volgendeBeurt();
             formRefresh();
         }
     }
@@ -613,20 +612,20 @@ public class MapSpel extends GridPane
                     dc.getHuttenLijst().remove(2);
                 }
             }
+            int a = 0;
+            formRefresh();
+            if (dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0 && a == 0) {
+                a++;
+                voedselStraf(index, Math.abs(dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal()));
+            }
             //geeft stamleden terug
             dc.getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(index).getGebruikteStamleden());
              //zet gebruikte stamleden terug op 0
             dc.getSpelerLijst().get(index).setGebruikteStamleden(0);
-            volgendeBeurt();
-            formRefresh();
-            boolean a = true;
-            if (dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0 && a) {
-                a = false;
-                voedselStraf(index, Math.abs(dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal()));
-            }
             dc.doeResetSpelerZet(index);
             formRefresh();
         }
+        volgendeBeurt();
     }
     
     
@@ -637,7 +636,7 @@ public class MapSpel extends GridPane
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Voedsel straf");
         
-        if (dc.doeResourcesControleSpeler(spelerNr))
+        if (dc.doeResourcesControleSpeler(spelerNr, tekortVoedsel))
         {
             dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).getAantal() - 10);
             alert.setHeaderText(null);
@@ -649,58 +648,52 @@ public class MapSpel extends GridPane
         }
         else
         {
-            alert.setHeaderText(String.format("%s omdat u geen voedsel heeft, moet u materialen verkopen!", dc.getSpelerLijst().get(spelerNr).getNaam()));
+            alert.setHeaderText(String.format("%s kies een materiaal om uw voedsel mee te kopen!", dc.getSpelerLijst().get(spelerNr).getNaam()));
             
-            ButtonType btn_hout = new ButtonType(String.format("Hout: %d", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal()), ButtonData.APPLY);
-            ButtonType btn_leem = new ButtonType(String.format("Leem: %d", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal()), ButtonData.APPLY);
-            ButtonType btn_steen = new ButtonType(String.format("Steen: %d", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal()), ButtonData.APPLY);
-            ButtonType btn_goud = new ButtonType(String.format("Goud: %d", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal()), ButtonData.APPLY);
-            
+            ButtonType btn_hout = new ButtonType("Hout", ButtonData.OK_DONE);
+            ButtonType btn_leem = new ButtonType("Leem", ButtonData.OK_DONE);
+            ButtonType btn_steen = new ButtonType("Steen", ButtonData.OK_DONE);
+            ButtonType btn_goud = new ButtonType("Goud", ButtonData.OK_DONE);
             alert.getButtonTypes().setAll(btn_hout, btn_leem, btn_steen, btn_goud);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == btn_hout) 
-            {
-                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() >= tekortVoedsel) {
-                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() - tekortVoedsel);
-                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
-                }
-                else
-                {
-                    result = alert.showAndWait();
-                }
+            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() < tekortVoedsel) {
+                alert.getButtonTypes().remove(btn_hout);
             }
-            if (result.get() == btn_leem) 
+            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() < tekortVoedsel) {
+                alert.getButtonTypes().remove(btn_leem);
+            }
+            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() < tekortVoedsel) {
+                alert.getButtonTypes().remove(btn_steen);
+            }
+            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() < tekortVoedsel) {
+                alert.getButtonTypes().remove(btn_goud);
+            }
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == btn_hout && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() >= tekortVoedsel) 
             {
-                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() >= tekortVoedsel) {
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() - tekortVoedsel);
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
+                
+            }
+            if (result.get() == btn_leem && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() >= tekortVoedsel) 
+            {
+                
                 dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() - tekortVoedsel);
                 dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
-                }
-                else
-                {
-                    result = alert.showAndWait();
-                }
+                
             }
-            if (result.get() == btn_steen) 
+            if (result.get() == btn_steen && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() >= tekortVoedsel) 
             {
-                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() >= tekortVoedsel) {
                 dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() - tekortVoedsel);
                 dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
-                }
-                else
-                {
-                    result = alert.showAndWait();
-                }
+                
             }
-            if (result.get() == btn_goud) 
+            if (result.get() == btn_goud && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() >= tekortVoedsel) 
             {
-                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() >= tekortVoedsel) {
                 dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() - tekortVoedsel);
-                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
-                }
-                else
-                {
-                    result = alert.showAndWait();
-                }
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel); 
+            }
+            if (!result.isPresent()) {
+                result = alert.showAndWait();
             }
         }
     }
@@ -764,13 +757,13 @@ public class MapSpel extends GridPane
     {
         int geroldGetal = dc.getGeroldGetal(aantalStamleden);
         
-//        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d delen door %d geeft you %d %s.%n",
-//                dc.getSpelerLijst().get(spelerNr).getNaam(),
-//                dc.getPlaatsenLijst().get(plaatsNr).getNaam(),
-//                geroldGetal,
-//                dc.getPlaatsenLijst().get(plaatsNr).getDeler(),
-//                ((int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler())),
-//                dc.getPlaatsenLijst().get(plaatsNr).getTypeResource().getNaam());  
+        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d delen door %d geeft you %d %s.%n",
+                dc.getSpelerLijst().get(spelerNr).getNaam(),
+                dc.getPlaatsenLijst().get(plaatsNr).getNaam(),
+                geroldGetal,
+                dc.getPlaatsenLijst().get(plaatsNr).getDeler(),
+                ((int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler())),
+                dc.getPlaatsenLijst().get(plaatsNr).getTypeResource().getNaam());  
         return geroldGetal;
     }
 }

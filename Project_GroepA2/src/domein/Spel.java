@@ -289,13 +289,13 @@ public class Spel
         return a;
     }
     
-    public boolean checkResourcesStraf(int spelerNr)
+    public boolean checkResourcesStraf(int spelerNr, int tekortVoedsel)
     {
         boolean a = false;
-        if (getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() <= 0 &&
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() <= 0 &&
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() <= 0 &&
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 0) {
+        if (getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() <= tekortVoedsel &&
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() <= tekortVoedsel &&
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() <= tekortVoedsel &&
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= tekortVoedsel) {
             a = true;
         }
         return a;

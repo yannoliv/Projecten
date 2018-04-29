@@ -105,8 +105,8 @@ public class DomeinController
           spel.setSpelerBeurt(spelerBeurt);
       }
       
-      public boolean doeResourcesControleSpeler(int spelerNr)
+      public boolean doeResourcesControleSpeler(int spelerNr, int tekortVoedsel)
       {
-          return spel.checkResourcesStraf(spelerNr);
+          return spel.checkResourcesStraf(spelerNr, tekortVoedsel);
       }
 }
