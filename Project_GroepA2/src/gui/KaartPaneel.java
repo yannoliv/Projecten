@@ -1,12 +1,7 @@
 package gui;
 
 import domein.DomeinController;
-import static java.lang.Integer.parseInt;
-import java.util.Optional;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,11 +11,10 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class KaartPaneel extends VBox{
+public class KaartPaneel extends HBox{
       private DomeinController dc;
       private SpelApplicatiePaneel spelApplicatiePaneel;
       private String stamledenAantal;
@@ -28,7 +22,6 @@ public class KaartPaneel extends VBox{
       private boolean aantalSpotsHK1 = false;
       private boolean aantalSpotsHK2 = false;
       private boolean aantalSpotsHK3 = false;
-      private ImageView hutImage = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
       
       
 public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController dc, MapSpel mapSpel)
@@ -41,27 +34,51 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.CENTER, achtergrondLengteBreedte);
         this.setBackground(new Background(bgImg));
-       // maakKaartPaneel();
-        this.setSpacing(-5);
+        
+        //individuele kaarten
         HBox kaart1 = new HBox(5);
         HBox kaart2 = new HBox(5);
         HBox kaart3 = new HBox(5);
         
-        VBox hutfoto = new VBox (5);
+        //De afbeelding
+        ImageView hutImage;
+      
+        //vbox voor de 3 resources
+        VBox vResources = new VBox(5);
         
-        VBox resources1 = new VBox (5);
-        VBox resources2 = new VBox (5);
-        VBox resources3 = new VBox (5);
+        //HUT 1
+        Label resource1 = new Label (dc.getHuttenLijst().get(0).getResource1() + ": " + dc.getHuttenLijst().get(0).getAantalResource1());
+        Label resource2 = new Label (dc.getHuttenLijst().get(0).getResource2() + ": " + dc.getHuttenLijst().get(0).getAantalResource2());
+        Label resource3 = new Label (dc.getHuttenLijst().get(0).getResource3() + ": " + dc.getHuttenLijst().get(0).getAantalResource3());
+        vResources.getChildren().addAll(resource1,resource2,resource3);
+        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+        kaart1.getChildren().addAll(hutImage, vResources);
         
-        kaart1.getChildren().addAll(hutfoto,resources1 );
-        kaart2.getChildren().addAll(hutfoto,resources2 );
-        kaart3.getChildren().addAll(hutfoto,resources3 );
+        //HUT 2
+        resource1 = new Label (dc.getHuttenLijst().get(1).getResource1() + ": " + dc.getHuttenLijst().get(1).getAantalResource1());
+        resource2 = new Label (dc.getHuttenLijst().get(1).getResource2() + ": " + dc.getHuttenLijst().get(1).getAantalResource2());
+        resource3 = new Label (dc.getHuttenLijst().get(1).getResource3() + ": " + dc.getHuttenLijst().get(1).getAantalResource3());
+        vResources = new VBox(5);
+        vResources.getChildren().addAll(resource1,resource2,resource3);
+        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+        kaart2.getChildren().addAll(hutImage, vResources);
         
-        kaart1.getChildren().addAll(hutImage);
-        kaart2.getChildren().addAll(hutImage);
-        kaart3.getChildren().addAll(hutImage);
+        //HUT 3
+        resource1 = new Label (dc.getHuttenLijst().get(2).getResource1() + ": " + dc.getHuttenLijst().get(2).getAantalResource1());
+        resource2 = new Label (dc.getHuttenLijst().get(2).getResource2() + ": " + dc.getHuttenLijst().get(2).getAantalResource2());
+        resource3 = new Label (dc.getHuttenLijst().get(2).getResource3() + ": " + dc.getHuttenLijst().get(2).getAantalResource3());
+        vResources = new VBox(5);
+        vResources.getChildren().addAll(resource1,resource2,resource3);
+        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+        kaart3.getChildren().addAll(hutImage, vResources);
         
         this.getChildren().addAll(kaart1, kaart2, kaart3);
+        
+        kaart1.setOnMouseClicked(this::kaart1Click);
+        kaart2.setOnMouseClicked(this::kaart2Click);
+        kaart3.setOnMouseClicked(this::kaart3Click);
+        //dit werkt nog niet
+        kaart1.setStyle("-fx-background-image: url('/images/hutFrame.png');");
 //       ImageView img_hout;
 //       ImageView img_leem;
 //       ImageView img_steen;
@@ -77,28 +94,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
 //       box3.setStyle("-fx-background-image: url('/images/hutFrame.png');");
 //       this.getChildren().addAll(box1,box2,box3);
        
-       
-       //       //main hbox breedte nog instellen
-//       HBox box1 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/points.gif")))), 
-//               new VBox());
-//       box1.setOnMouseClicked(this::kaart1Click);
-//       box1.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-//       HBox box2 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/points.gif")))), 
-//               new VBox());
-//       box2.setOnMouseClicked(this::kaart2Click);
-//       box2.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-//       HBox box3 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/points.gif")))), 
-//               new VBox());
-//       box3.setOnMouseClicked(this::kaart3Click);
-//       box3.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-//       HBox hbox = new HBox(
-//                   box1, 
-//                   new HBox(
-//                   box2, 
-//                   new HBox(
-//                   box3)));
-//       this.getChildren().add(hbox);
-//       hbox.minWidth(1000);
+
     }
 
     private void getHutResources()
