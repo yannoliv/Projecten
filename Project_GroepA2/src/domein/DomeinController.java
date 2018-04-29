@@ -50,9 +50,9 @@ public class DomeinController
     spel.trekResourcesAf(spelerNr, hutNummer);
     }
         
-        public void doeResetSpelerZet()
+        public void doeResetSpelerZet(int spelerNr)
         {
-            spel.resetSpelerZet();
+            spel.resetSpelerZet(spelerNr);
         }
         
         public boolean getResourcesChecked(int spelerNr, int hutNummer)
@@ -103,5 +103,10 @@ public class DomeinController
       public void setSpelerBeurt(int spelerBeurt)
       {
           spel.setSpelerBeurt(spelerBeurt);
+      }
+      
+      public boolean doeResourcesControleSpeler(int spelerNr)
+      {
+          return spel.checkResourcesStraf(spelerNr);
       }
 }

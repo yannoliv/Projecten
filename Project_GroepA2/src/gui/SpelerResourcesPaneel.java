@@ -135,7 +135,7 @@ public class SpelerResourcesPaneel extends VBox
             
             lbl_voedsel = new Label(":"); 
             lbl_voedsel.setGraphic(new ImageView(new Image("/images/Food.png", 20, 20, false, true)));
-            lbl_voedselAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(6).getAantal())); 
+            lbl_voedselAantal = new Label(String.format("%s ",dc.getSpelerLijst().get(i).getResourceLijst().get(6).getAantal() < 0 ? "0":dc.getSpelerLijst().get(i).getResourceLijst().get(6).getAantal())); 
             
             lbl_stamleden = new Label(":");
             lbl_stamleden.setGraphic(new ImageView(new Image("/images/stamlid.png", 13, 20, false, true)));

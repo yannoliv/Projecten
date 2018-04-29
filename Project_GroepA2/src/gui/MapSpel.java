@@ -123,6 +123,7 @@ public class MapSpel extends GridPane
                     if(dc.getSpelerLijst().get(spelerAanBeurt).getResourceLijst().get(7).getAantal() == 0)
                     {
                         b = true;
+                        formRefresh();
                     }
                     else
                     {
@@ -140,6 +141,7 @@ public class MapSpel extends GridPane
         else
         {
             eindeRonde();
+            volgendeBeurt();
             formRefresh();
         }
     }
@@ -483,8 +485,7 @@ public class MapSpel extends GridPane
         dc.doeResetPlaatsenLijst();
         this.updateButtons();
         for (int index = 0; index < dc.getSpelerLijst().size(); index++) {
-            //geeft stamleden terug
-            dc.getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(index).getGebruikteStamleden());
+            
             //voedsel aftrekken per speler met akkerbouw ingerekend
             int voedselVermindering = dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(index).getGebruikteStamleden();
             voedselVermindering += dc.getSpelerLijst().get(index).getResourceLijst().get(4).getAantal();
@@ -612,99 +613,96 @@ public class MapSpel extends GridPane
                     dc.getHuttenLijst().remove(2);
                 }
             }
-            
-           //zet gebruikte stamleden terug op 0
+            //geeft stamleden terug
+            dc.getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(index).getGebruikteStamleden());
+             //zet gebruikte stamleden terug op 0
             dc.getSpelerLijst().get(index).setGebruikteStamleden(0);
-            if (dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0) {
-                dc.getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(0);
-                voedselStraf(index);
+            volgendeBeurt();
+            formRefresh();
+            boolean a = true;
+            if (dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0 && a) {
+                a = false;
+                voedselStraf(index, Math.abs(dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal()));
             }
+            dc.doeResetSpelerZet(index);
+            formRefresh();
         }
-        dc.doeResetSpelerZet();
     }
     
     
+    
     //moeten we gui van maken
-    public void voedselStraf(int spelerNr)
+    public void voedselStraf(int spelerNr, int tekortVoedsel)
     {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Voedsel straf");
         
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Je niet gegoeg voedsel beschikbaar");
-            alert.setContentText("Je zal met grondstoffen moeten betalen!");
-
-            ButtonType buttonTypeOne = new ButtonType("Hout");
-            ButtonType buttonTypeTwo = new ButtonType("Leem");
-            ButtonType buttonTypeThree = new ButtonType("Steen");
-            ButtonType buttonTypeFour = new ButtonType("Goud");
-            ButtonType buttonTypeFive = new ButtonType("Punten");
-
-            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeFour, buttonTypeFive);
-
+        if (dc.doeResourcesControleSpeler(spelerNr))
+        {
+            dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).getAantal() - 10);
+            alert.setHeaderText(null);
+            alert.setContentText(String.format("%s omdat u noch voedsel noch materialen heeft werden er 10 punten afgetrokken!", dc.getSpelerLijst().get(spelerNr).getNaam()));
+            ButtonType btn_verder = new ButtonType("verder", ButtonData.CANCEL_CLOSE);
+            alert.getDialogPane().lookupButton(btn_verder).setDisable(true);
+            alert.getButtonTypes().setAll(btn_verder);
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == buttonTypeOne){
-                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() <= 0) {
-                    //System.out.printf("U heeft geen hout om af te geven...%n");
-                    Alert alertHout = new Alert(AlertType.WARNING);
-                    alertHout.setTitle("Er is een fout opgetreden");
-                    alertHout.setHeaderText("Opgelet!");
-                    alertHout.setContentText("U heeft geen hout om mee te betalen...");
-                    alertHout.show();
-                    voedselStraf(spelerNr);
+        }
+        else
+        {
+            alert.setHeaderText(String.format("%s omdat u geen voedsel heeft, moet u materialen verkopen!", dc.getSpelerLijst().get(spelerNr).getNaam()));
+            
+            ButtonType btn_hout = new ButtonType(String.format("Hout: %d", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal()), ButtonData.APPLY);
+            ButtonType btn_leem = new ButtonType(String.format("Leem: %d", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal()), ButtonData.APPLY);
+            ButtonType btn_steen = new ButtonType(String.format("Steen: %d", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal()), ButtonData.APPLY);
+            ButtonType btn_goud = new ButtonType(String.format("Goud: %d", dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal()), ButtonData.APPLY);
+            
+            alert.getButtonTypes().setAll(btn_hout, btn_leem, btn_steen, btn_goud);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == btn_hout) 
+            {
+                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() >= tekortVoedsel) {
+                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() - tekortVoedsel);
+                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
                 }
                 else
                 {
-                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(0);
+                    result = alert.showAndWait();
                 }
-            } else if (result.get() == buttonTypeTwo) {
-                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() <= 0) {
-                    Alert alertLeem = new Alert(AlertType.WARNING);
-                    alertLeem.setTitle("Er is een fout opgetreden");
-                    alertLeem.setHeaderText("Opgelet!");
-                    alertLeem.setContentText("U heeft geen leem om mee te betalen...");
-                    alertLeem.show();
-                    voedselStraf(spelerNr);
+            }
+            if (result.get() == btn_leem) 
+            {
+                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() >= tekortVoedsel) {
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() - tekortVoedsel);
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
                 }
                 else
                 {
-                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(0);
+                    result = alert.showAndWait();
                 }
-            } else if (result.get() == buttonTypeThree) {
-                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() <= 0) {
-                    Alert alertSteen = new Alert(AlertType.WARNING);
-                    alertSteen.setTitle("Er is een fout opgetreden");
-                    alertSteen.setHeaderText("Opgelet!");
-                    alertSteen.setContentText("U heeft geen steen om mee te betalen...");
-                    alertSteen.show();
-                    voedselStraf(spelerNr);
+            }
+            if (result.get() == btn_steen) 
+            {
+                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() >= tekortVoedsel) {
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() - tekortVoedsel);
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
                 }
                 else
                 {
-                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(0);
+                    result = alert.showAndWait();
                 }
-            } else if (result.get() == buttonTypeFour) {
-                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 0) {
-                    Alert alertGoud = new Alert(AlertType.WARNING);
-                    alertGoud.setTitle("Er is een fout opgetreden");
-                    alertGoud.setHeaderText("Opgelet!");
-                    alertGoud.setContentText("U heeft geen goud om mee te betalen...");
-                    alertGoud.show();
-                    voedselStraf(spelerNr);
+            }
+            if (result.get() == btn_goud) 
+            {
+                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() >= tekortVoedsel) {
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() - tekortVoedsel);
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
                 }
                 else
                 {
-                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(0);
+                    result = alert.showAndWait();
                 }
-            } else {
-                if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 10) {
-                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(10);
-                }
-                else
-                {
-                    dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).getAantal() - 10);
-                }
-            } 
-            alert.show();
+            }
+        }
     }
 
     
@@ -766,13 +764,13 @@ public class MapSpel extends GridPane
     {
         int geroldGetal = dc.getGeroldGetal(aantalStamleden);
         
-        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d delen door %d geeft you %d %s.%n",
-                dc.getSpelerLijst().get(spelerNr).getNaam(),
-                dc.getPlaatsenLijst().get(plaatsNr).getNaam(),
-                geroldGetal,
-                dc.getPlaatsenLijst().get(plaatsNr).getDeler(),
-                ((int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler())),
-                dc.getPlaatsenLijst().get(plaatsNr).getTypeResource().getNaam());  
+//        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d delen door %d geeft you %d %s.%n",
+//                dc.getSpelerLijst().get(spelerNr).getNaam(),
+//                dc.getPlaatsenLijst().get(plaatsNr).getNaam(),
+//                geroldGetal,
+//                dc.getPlaatsenLijst().get(plaatsNr).getDeler(),
+//                ((int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler())),
+//                dc.getPlaatsenLijst().get(plaatsNr).getTypeResource().getNaam());  
         return geroldGetal;
     }
 }

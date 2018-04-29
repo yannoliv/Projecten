@@ -214,8 +214,8 @@ public class SpelApplicatie
                 dc.getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(0);
                 voedselStraf(index, 0);
             }
+            dc.doeResetSpelerZet(index);
         }
-        dc.doeResetSpelerZet();
     }
     
      public void bedieningsPaneel(int spelerNr)

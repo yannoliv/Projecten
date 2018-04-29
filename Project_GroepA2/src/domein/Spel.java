@@ -289,6 +289,18 @@ public class Spel
         return a;
     }
     
+    public boolean checkResourcesStraf(int spelerNr)
+    {
+        boolean a = false;
+        if (getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() <= 0 &&
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() <= 0 &&
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() <= 0 &&
+            getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() <= 0) {
+            a = true;
+        }
+        return a;
+    }
+    
      public int resourceNummerOphalen(int spelerNr, int hutNummer)
     {
         int getal;
@@ -406,25 +418,25 @@ public class Spel
         return resultaat;
     }
     
-    public void resetSpelerZet()
+    public void resetSpelerZet(int spelerNr)
     {
-        for (int index = 0; index < getAantalSpelers(); index++) {
-            getSpelerLijst().get(index).setPlaatsOpBos(false);
-            getSpelerLijst().get(index).setPlaatsOpLeemgroeve(false);
-            getSpelerLijst().get(index).setPlaatsOpSteengroeve(false);
-            getSpelerLijst().get(index).setPlaatsOpGoudmijn(false);
-            getSpelerLijst().get(index).setPlaatsOpAkkerbouw(false);
-            getSpelerLijst().get(index).setPlaatsOpSmith(false);
-            getSpelerLijst().get(index).setPlaatsOpHut(false);
-            
-            getSpelerLijst().get(index).setAantalBos(0);
-            getSpelerLijst().get(index).setAantalLeemgroeve(0);
-            getSpelerLijst().get(index).setAantalSteengroeve(0);
-            getSpelerLijst().get(index).setAantalGoudmijn(0);
-            getSpelerLijst().get(index).setAantalAkkerbouw(0);
-            getSpelerLijst().get(index).setAantalSmith(0);
-            getSpelerLijst().get(index).setAantalHut(0);
-        }
+        getSpelerLijst().get(spelerNr).setPlaatsOpBos(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpLeemgroeve(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpSteengroeve(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpGoudmijn(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpAkkerbouw(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpJachtgebied(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpSmith(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpHut(false);
+
+        getSpelerLijst().get(spelerNr).setAantalBos(0);
+        getSpelerLijst().get(spelerNr).setAantalLeemgroeve(0);
+        getSpelerLijst().get(spelerNr).setAantalSteengroeve(0);
+        getSpelerLijst().get(spelerNr).setAantalGoudmijn(0);
+        getSpelerLijst().get(spelerNr).setAantalJachtgebied(0);
+        getSpelerLijst().get(spelerNr).setAantalAkkerbouw(0);
+        getSpelerLijst().get(spelerNr).setAantalSmith(0);
+        getSpelerLijst().get(spelerNr).setAantalHut(0);
     }
     
     public void resetPlaatsenLijst()
