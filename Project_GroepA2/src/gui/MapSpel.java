@@ -766,5 +766,9 @@ public class MapSpel extends GridPane
                 dc.getPlaatsenLijst().get(plaatsNr).getTypeResource().getNaam());  
         return geroldGetal;
     }
+   /* public void eindeSpel(int spelerPunten)
+    {
+       
+    }*/
 }
 

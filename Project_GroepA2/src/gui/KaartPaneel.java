@@ -42,7 +42,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         
         //De afbeelding
         ImageView hutImage;
-      
+        
         //vbox voor de 3 resources
         VBox vResources = new VBox(5);
         
@@ -78,7 +78,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         kaart2.setOnMouseClicked(this::kaart2Click);
         kaart3.setOnMouseClicked(this::kaart3Click);
         //dit werkt nog niet
-        kaart1.setStyle("-fx-background-image: url('/images/hutFrame.png');");
+       //* kaart1.setStyle("-fx-background-image: url('/images/hutFrame.png');");
 //       ImageView img_hout;
 //       ImageView img_leem;
 //       ImageView img_steen;

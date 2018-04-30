@@ -23,7 +23,20 @@
         </group>
         <group name="Programmeren"/>
         <group>
-            <file>file:/C:/Users/Nicolas/Documents/GitHub/Projecten/Project_GroepA2/src/gui/KaartPaneel.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/gui/MainMenu.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Speler.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/domein/DomeinController.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/gui/SpelerResourcesPaneel.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/gui/SpelApplicatiePaneel.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/gui/KaartPaneel.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Spel.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/gui/MapSpel.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/main/StartUpGui.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Resource.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Plaats.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/main/StartUpCui.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/gui/KeuzePaneel.java</file>
+            <file>file:/C:/Users/Rayen/Documents/GitHub/Projecten/Project_GroepA2/src/gui/MenuBar.java</file>
         </group>
     </open-files>
 </project-private>
