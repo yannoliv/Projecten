@@ -15,14 +15,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class KaartPaneel extends HBox{
-      private DomeinController dc;
-      private SpelApplicatiePaneel spelApplicatiePaneel;
-      private String stamledenAantal;
-      private MapSpel mapSpel;
-      private boolean aantalSpotsHK1 = false;
-      private boolean aantalSpotsHK2 = false;
-      private boolean aantalSpotsHK3 = false;
-      
+    private DomeinController dc;
+    private SpelApplicatiePaneel spelApplicatiePaneel;
+    private String stamledenAantal;
+    private MapSpel mapSpel;
+    private boolean aantalSpotsHK1 = false;
+    private boolean aantalSpotsHK2 = false;
+    private boolean aantalSpotsHK3 = false;
+    //De afbeelding
+    private ImageView hutImage;
+    private ImageView hutImage_2;
+
+    //individuele kaarten
+    private HBox kaart1 = new HBox(5);
+    private HBox kaart2 = new HBox(5);
+    private HBox kaart3 = new HBox(5);
       
 public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController dc, MapSpel mapSpel)
     {
@@ -34,14 +41,6 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.CENTER, achtergrondLengteBreedte);
         this.setBackground(new Background(bgImg));
-        
-        //individuele kaarten
-        HBox kaart1 = new HBox(5);
-        HBox kaart2 = new HBox(5);
-        HBox kaart3 = new HBox(5);
-        
-        //De afbeelding
-        ImageView hutImage;
         
         //HUT 1
         Label resource1 = new Label ("" + dc.getHuttenLijst().get(0).getAantalResource1());
@@ -58,7 +57,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         VBox vResources = new VBox(5);
         vResources.setStyle("-fx-padding:20px 0 0 0");
         vResources.getChildren().addAll(resources1,resources2,resources3);
-        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));;
         kaart1.getChildren().addAll(hutImage, vResources);
         
         //HUT 2
@@ -94,7 +93,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         vResources = new VBox(5);
         vResources.setStyle("-fx-padding:20px 0 0 0");
         vResources.getChildren().addAll(resources1,resources2,resources3);
-        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));;
         kaart3.getChildren().addAll(hutImage, vResources);
         
         
@@ -180,6 +179,8 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                 else
                 {
                     dc.doePlaatsOpPlek(dc.getSpelerBeurt(), plaatsNr, 1);
+                    hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
+                    kaart1.getChildren().set(0, hutImage_2);
                     mapSpel.updateButtons();
                     mapSpel.volgendeBeurt();
                 }
@@ -203,6 +204,8 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                 else
                 {
                     dc.doePlaatsOpPlek(dc.getSpelerBeurt(), plaatsNr, 1);
+                    hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
+                    kaart2.getChildren().set(0, hutImage_2);
                     mapSpel.updateButtons();
                     mapSpel.volgendeBeurt();
                 }
@@ -226,6 +229,8 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                 else
                 {
                     dc.doePlaatsOpPlek(dc.getSpelerBeurt(), plaatsNr, 1);
+                    hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
+                    kaart3.getChildren().set(0, hutImage_2);
                     mapSpel.updateButtons();
                     mapSpel.volgendeBeurt();
                 }
