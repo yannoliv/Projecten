@@ -43,65 +43,95 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
         //De afbeelding
         ImageView hutImage;
         
-        //vbox voor de 3 resources
-        VBox vResources = new VBox(5);
-        
         //HUT 1
-        Label resource1 = new Label (dc.getHuttenLijst().get(0).getResource1() + ": " + dc.getHuttenLijst().get(0).getAantalResource1());
-        Label resource2 = new Label (dc.getHuttenLijst().get(0).getResource2() + ": " + dc.getHuttenLijst().get(0).getAantalResource2());
-        Label resource3 = new Label (dc.getHuttenLijst().get(0).getResource3() + ": " + dc.getHuttenLijst().get(0).getAantalResource3());
-        vResources.getChildren().addAll(resource1,resource2,resource3);
+        Label resource1 = new Label ("" + dc.getHuttenLijst().get(0).getAantalResource1());
+        Label resource2 = new Label ("" + dc.getHuttenLijst().get(0).getAantalResource2());
+        Label resource3 = new Label ("" + dc.getHuttenLijst().get(0).getAantalResource3());
+        
+        HBox resources1 = new HBox ();
+        resources1.getChildren().addAll(setIcon(dc.getHuttenLijst().get(0).getResource1()), resource1);
+        HBox resources2 = new HBox ();
+        resources2.getChildren().addAll(setIcon(dc.getHuttenLijst().get(0).getResource2()), resource2);
+        HBox resources3 = new HBox ();
+        resources3.getChildren().addAll(setIcon(dc.getHuttenLijst().get(0).getResource3()), resource3);
+        
+        VBox vResources = new VBox(5);
+        vResources.setStyle("-fx-padding:20px 0 0 0");
+        vResources.getChildren().addAll(resources1,resources2,resources3);
         hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
         kaart1.getChildren().addAll(hutImage, vResources);
         
         //HUT 2
-        resource1 = new Label (dc.getHuttenLijst().get(1).getResource1() + ": " + dc.getHuttenLijst().get(1).getAantalResource1());
-        resource2 = new Label (dc.getHuttenLijst().get(1).getResource2() + ": " + dc.getHuttenLijst().get(1).getAantalResource2());
-        resource3 = new Label (dc.getHuttenLijst().get(1).getResource3() + ": " + dc.getHuttenLijst().get(1).getAantalResource3());
+        resource1 = new Label ("" + dc.getHuttenLijst().get(1).getAantalResource1());
+        resource2 = new Label ("" + dc.getHuttenLijst().get(1).getAantalResource2());
+        resource3 = new Label ("" + dc.getHuttenLijst().get(1).getAantalResource3());
+        
+        resources1 = new HBox ();
+        resources1.getChildren().addAll(setIcon(dc.getHuttenLijst().get(1).getResource1()), resource1);
+        resources2 = new HBox ();
+        resources2.getChildren().addAll(setIcon(dc.getHuttenLijst().get(1).getResource2()), resource2);
+        resources3 = new HBox ();
+        resources3.getChildren().addAll(setIcon(dc.getHuttenLijst().get(1).getResource3()), resource3);
+        
         vResources = new VBox(5);
-        vResources.getChildren().addAll(resource1,resource2,resource3);
+        vResources.setStyle("-fx-padding:20px 0 0 0");
+        vResources.getChildren().addAll(resources1,resources2,resources3);
         hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
         kaart2.getChildren().addAll(hutImage, vResources);
         
         //HUT 3
-        resource1 = new Label (dc.getHuttenLijst().get(2).getResource1() + ": " + dc.getHuttenLijst().get(2).getAantalResource1());
-        resource2 = new Label (dc.getHuttenLijst().get(2).getResource2() + ": " + dc.getHuttenLijst().get(2).getAantalResource2());
-        resource3 = new Label (dc.getHuttenLijst().get(2).getResource3() + ": " + dc.getHuttenLijst().get(2).getAantalResource3());
+        resource1 = new Label ("" + dc.getHuttenLijst().get(2).getAantalResource1());
+        resource2 = new Label ("" + dc.getHuttenLijst().get(2).getAantalResource2());
+        resource3 = new Label ("" + dc.getHuttenLijst().get(2).getAantalResource3());
+        
+        resources1 = new HBox ();
+        resources1.getChildren().addAll(setIcon(dc.getHuttenLijst().get(2).getResource1()), resource1);
+        resources2 = new HBox ();
+        resources2.getChildren().addAll(setIcon(dc.getHuttenLijst().get(2).getResource2()), resource2);
+        resources3 = new HBox ();
+        resources3.getChildren().addAll(setIcon(dc.getHuttenLijst().get(2).getResource3()), resource3);
+        
         vResources = new VBox(5);
-        vResources.getChildren().addAll(resource1,resource2,resource3);
+        vResources.setStyle("-fx-padding:20px 0 0 0");
+        vResources.getChildren().addAll(resources1,resources2,resources3);
         hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
         kaart3.getChildren().addAll(hutImage, vResources);
         
+        
+        //kaarten toevoegen
         this.getChildren().addAll(kaart1, kaart2, kaart3);
         
         kaart1.setOnMouseClicked(this::kaart1Click);
         kaart2.setOnMouseClicked(this::kaart2Click);
         kaart3.setOnMouseClicked(this::kaart3Click);
-        //dit werkt nog niet
-       //* kaart1.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-//       ImageView img_hout;
-//       ImageView img_leem;
-//       ImageView img_steen;
-//       ImageView img_goud;
-//       box1 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/stamlid.png")))), new VBox(new ImageView(), new ImageView(), new ImageView()), new VBox(new Label(), new Label(), new Label()));
-//       box2 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/stamlid.png")))), new VBox(new ImageView(), new ImageView(), new ImageView()), new VBox(new Label(), new Label(), new Label()));
-//       box3 = new HBox(new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/stamlid.png")))), new VBox(new ImageView(), new ImageView(), new ImageView()), new VBox(new Label(), new Label(), new Label()));
-//       box1.setOnMouseClicked(this::kaart1Click);
-//       box2.setOnMouseClicked(this::kaart2Click);
-//       box3.setOnMouseClicked(this::kaart3Click);
-//       box1.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-//       box2.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-//       box3.setStyle("-fx-background-image: url('/images/hutFrame.png');");
-//       this.getChildren().addAll(box1,box2,box3);
-       
+
 
     }
 
-    private void getHutResources()
+    private Label setIcon(String getResource)
     {
-        
+        Label label = new Label("test");
+        switch(getResource)
+        {
+            case "hout":
+            label = new Label(":");
+            label.setGraphic(new ImageView(new Image("/images/Hout.png", 20, 20, false, true)));
+            break;
+            case "leem":
+            label = new Label(":");
+            label.setGraphic(new ImageView(new Image("/images/Leem.png", 20, 20, false, true)));
+            break;
+            case "steen":
+            label = new Label(":");
+            label.setGraphic(new ImageView(new Image("/images/Steen.png", 20, 20, false, true)));
+            break;
+            case "goud":
+            label = new Label(":");
+            label.setGraphic(new ImageView(new Image("/images/Goud.png", 20, 20, false, true)));
+            break;
+        }
+        return label;
     }
-       
     private boolean controleerVolzet(int kaartNr)
     {
         for (int i = 0; i < dc.getSpelerLijst().size(); i++) {
@@ -204,6 +234,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                 throw new AssertionError();
         }
     }
+    
 
     private void kaart1Click(MouseEvent ae)
     {
