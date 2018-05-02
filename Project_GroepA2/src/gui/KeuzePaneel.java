@@ -21,6 +21,7 @@ public class KeuzePaneel extends VBox{
     private Label lbl_foutMelding = new Label();
     private int temp = 0;
     private Button btn_confirm = new Button();
+    private Button btn_back = new Button();
     
     private int spelerNr = 0;
     private Label lbl_naamSpeler = new Label();
@@ -32,7 +33,7 @@ public class KeuzePaneel extends VBox{
         vraagAantalSpelers();
     }
 
-    public void confirm(ActionEvent ae)
+    private void confirm(ActionEvent ae)
     {
         String temp = (String) cbo_aantalSpelers.getValue();
         char keuze = temp.charAt(0);
@@ -42,10 +43,10 @@ public class KeuzePaneel extends VBox{
         vraagNamenSpelers();
     }
     
-    public void confirmNaam(ActionEvent ae)
+    private void confirmNaam(ActionEvent ae)
     {
-        if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText()) || txt_naamSpeler.getText() == null) {
-            getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding,btn_confirm);
+        if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText()) || txt_naamSpeler.getText().isEmpty()) {
+            getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding,btn_confirm, btn_back);
             spelerNr += 1;
             if (spelerNr < dc.getSpelerLijst().size())
             {
@@ -70,14 +71,14 @@ public class KeuzePaneel extends VBox{
         else
         {
             txt_naamSpeler.clear();
-            getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, btn_confirm);
-            getChildren().addAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding, btn_confirm);
+            getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, btn_confirm, btn_back);
+            getChildren().addAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding, btn_confirm, btn_back);
         }
     }
     
-    public void vraagAantalSpelers()
+    private void vraagAantalSpelers()
     {
-        stage.setTitle("Keuze van het aantal spelers");
+        stage.setTitle("Aantal spelers");
         ObservableList<String> options = FXCollections.observableArrayList("2 spelers", "3 spelers", "4 spelers");
         cbo_aantalSpelers.setItems(options);
         cbo_aantalSpelers.setPromptText("Aantal spelers");
@@ -94,20 +95,43 @@ public class KeuzePaneel extends VBox{
     }
     
     
-    public void vraagNamenSpelers()
+    private void vraagNamenSpelers()
     {
         stage.setTitle("Naamgeving van de spelers");
         lbl_naamSpeler.setText("Naam speler " + String.format("%d", spelerNr + 1));
         lbl_foutMelding.setText("ongeldige naam");
         btn_confirm.setText("Confirm");
         btn_confirm.setOnAction(this::confirmNaam);
+        btn_back.setText("Terug");
         lbl_naamSpeler.setAlignment(Pos.TOP_CENTER);
         this.setAlignment(Pos.CENTER);
         VBox.setMargin(txt_naamSpeler, new Insets(100,0,25,0));
+        VBox.setMargin(btn_confirm, new Insets(0,0,25,0));
         txt_naamSpeler.setMaxWidth(250);
         btn_confirm.setMinWidth(250);
         txt_naamSpeler.setMinHeight(50);
         btn_confirm.setMinHeight(50);
-        getChildren().addAll(lbl_naamSpeler, txt_naamSpeler, btn_confirm);
+        btn_back.setMinWidth(250);
+        btn_back.setMinHeight(50);
+        btn_back.setOnAction(this::back);
+        this.getChildren().addAll(lbl_naamSpeler, txt_naamSpeler, btn_confirm, btn_back);
+    }
+    
+    private void back(ActionEvent ae)
+    {
+        if (spelerNr < 1) {
+            this.getChildren().clear();
+            dc.doeResetLijsten();
+            spelerNr = 0;
+            vraagAantalSpelers();
+        }
+        else
+        {
+            this.getChildren().clear();
+            spelerNr -= 1;
+            vraagNamenSpelers();
+        }
+        
+       
     }
 }

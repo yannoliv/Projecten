@@ -109,4 +109,9 @@ public class DomeinController
       {
           return spel.checkResourcesStraf(spelerNr, tekortVoedsel);
       }
+      
+      public void doeResetLijsten()
+      {
+          spel.resetLijsten();
+      }
 }

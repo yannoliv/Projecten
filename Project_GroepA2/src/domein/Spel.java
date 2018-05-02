@@ -69,6 +69,13 @@ public class Spel
         return a;
     }
     
+    public void resetLijsten()
+    {
+        if (getSpelerLijst().size() > 0) {
+            getSpelerLijst().clear();
+        }        
+    }
+    
     public List<Speler> vulSpelerLijst(int aantal)
     {
        spelerLijst = new ArrayList<>();
@@ -480,4 +487,6 @@ public class Spel
     {
         this.spelerBeurt = spelerBeurt;
     }
+    
+   
 }
