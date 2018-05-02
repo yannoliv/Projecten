@@ -20,7 +20,18 @@ public class MainMenu extends VBox {
     {
         this.dc = dc;
         this.stage = stage;
-        
+        maakMainMenu();       
+    }
+    
+    private void startSpel(ActionEvent ae)
+    {
+        getChildren().removeAll(btn_start, btn_scorebord);
+        KeuzePaneel st = new KeuzePaneel(dc, stage, this);
+        getChildren().add(st);
+    }
+    
+    public void maakMainMenu()
+    {
         btn_start = new Button("Start");
         btn_scorebord = new Button("Scorebord");
         btn_start.setMinWidth(250);
@@ -30,18 +41,10 @@ public class MainMenu extends VBox {
         this.setAlignment(Pos.CENTER);
         VBox.setMargin(btn_start, new Insets(100,0,25,0));
         getChildren().addAll(btn_start, btn_scorebord);
+        btn_start.setOnAction(this::startSpel);
         stage.setTitle("Main menu");
         stage.setWidth(1280);
         stage.setHeight(720);
         stage.show();
-        
-        btn_start.setOnAction(this::startSpel);
-    }
-    
-    private void startSpel(ActionEvent ae)
-    {
-        getChildren().removeAll(btn_start, btn_scorebord);
-        KeuzePaneel st = new KeuzePaneel(dc, stage);
-        getChildren().add(st);
     }
 }

@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 public class KeuzePaneel extends VBox{
     private DomeinController dc;
     private Stage stage;
+    private MainMenu mainMenu;
+    
     private ComboBox cbo_aantalSpelers = new ComboBox();
     private Label lbl_foutMelding = new Label();
     private int temp = 0;
@@ -27,9 +29,10 @@ public class KeuzePaneel extends VBox{
     private Label lbl_naamSpeler = new Label();
     private TextField txt_naamSpeler = new TextField();
     
-    public KeuzePaneel(DomeinController dc, Stage stage) {
+    public KeuzePaneel(DomeinController dc, Stage stage, MainMenu mainMenu) {
         this.dc = dc;
         this.stage = stage;
+        this.mainMenu = mainMenu;
         vraagAantalSpelers();
     }
 
@@ -39,7 +42,7 @@ public class KeuzePaneel extends VBox{
         char keuze = temp.charAt(0);
         String res = "" + keuze;
         dc.doeAantalSpelersControle(res);
-        getChildren().removeAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm);
+        getChildren().removeAll(cbo_aantalSpelers, lbl_foutMelding,btn_confirm, btn_back);
         vraagNamenSpelers();
     }
     
@@ -85,13 +88,18 @@ public class KeuzePaneel extends VBox{
         lbl_foutMelding.setText("kies het aantal spelers!");
         btn_confirm.setText("Confirm");
         btn_confirm.setOnAction(this::confirm);
+        btn_back.setText("Main Menu");
+        btn_back.setOnAction(this::mainMenu);
         this.setAlignment(Pos.CENTER);
         VBox.setMargin(cbo_aantalSpelers, new Insets(100,0,25,0));
+        VBox.setMargin(btn_confirm, new Insets(0,0,25,0));
         cbo_aantalSpelers.setMinWidth(250);
         btn_confirm.setMinWidth(250);
         cbo_aantalSpelers.setMinHeight(50);
         btn_confirm.setMinHeight(50);
-        getChildren().addAll(cbo_aantalSpelers, btn_confirm);
+        btn_back.setMinWidth(250);
+        btn_back.setMinHeight(50);
+        getChildren().addAll(cbo_aantalSpelers, btn_confirm, btn_back);
     }
     
     
@@ -131,7 +139,11 @@ public class KeuzePaneel extends VBox{
             spelerNr -= 1;
             vraagNamenSpelers();
         }
-        
-       
+    }
+    
+    private void mainMenu(ActionEvent ae)
+    {
+        this.getChildren().clear();
+        mainMenu.maakMainMenu();
     }
 }
