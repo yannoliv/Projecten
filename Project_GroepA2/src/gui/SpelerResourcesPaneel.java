@@ -17,7 +17,7 @@ public class SpelerResourcesPaneel extends VBox
 
     private Label lbl_spelerNaam;
      private String[] str_kleuren = {
-         "rgba(255,205,205,0.5)","rgba(205,255,205,0.5)", "rgba(205,205,255,0.5)", "rgba(255,255,205,0.5)"};
+         "rgba(255,150,150,0.5)","rgba(205,255,205,0.5)", "rgba(205,205,255,0.5)", "rgba(255,255,205,0.5)"};
     private String spelerKleur;
      
     private Label lbl_hout;
@@ -83,7 +83,7 @@ public class SpelerResourcesPaneel extends VBox
                 hbox.setStyle(String.format("-fx-background-color: %s", spelerKleur));
             }
             hbox.getChildren().addAll(lbl_spelerNaam, lbl_punten, lbl_puntenAantal);
-            hbox.setPadding(new Insets(0,0,10,0));
+            hbox.setPadding(new Insets(0,0,10,55));
             this.getChildren().add(hbox);
             
             hbox = new HBox(10);
@@ -106,7 +106,7 @@ public class SpelerResourcesPaneel extends VBox
                 hbox.setStyle(String.format("-fx-background-color: %s", spelerKleur));
             }
             hbox.getChildren().addAll(lbl_hout, lbl_houtAantal, lbl_leem, lbl_leemAantal,lbl_steen, lbl_steenAantal, lbl_goud, lbl_goudAantal);
-            hbox.setPadding(new Insets(0,0,20,0));
+            hbox.setPadding(new Insets(0,0,20,55));
             this.getChildren().add(hbox);
             
             hbox = new HBox(10);
@@ -129,7 +129,7 @@ public class SpelerResourcesPaneel extends VBox
                 hbox.setStyle(String.format("-fx-background-color: %s", spelerKleur));
             }
             hbox.getChildren().addAll(lbl_akkerbouw, lbl_akkerbouwAantal, lbl_gereedschap, lbl_gereedschapAantal, lbl_voedsel, lbl_voedselAantal, lbl_stamleden, lbl_stamledenAantal);
-            hbox.setPadding(new Insets(0,0,20,0));
+            hbox.setPadding(new Insets(0,0,20,55));
             this.getChildren().add(hbox);
         } 
     }
