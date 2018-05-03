@@ -1,3 +1,10 @@
+.root{
+    -fx-background-image: url("/images/grass.png");
+}
+.scroll-pane{
+    -fx-background: url("/images/grass.png");
+}
+
 .label {
     -fx-font-size: 18px;
     -fx-font-weight: bold;

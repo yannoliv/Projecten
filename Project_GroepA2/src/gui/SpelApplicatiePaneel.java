@@ -34,6 +34,7 @@ public class SpelApplicatiePaneel extends GridPane
     {
         this.dc = dc;
         this.stage = stage;
+        
         stage.setWidth(1280);
         stage.setHeight(720);
         stage.setMinWidth(1280*0.5);
