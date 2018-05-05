@@ -28,7 +28,7 @@ public class GereedschapPaneel extends HBox {
     {
         if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(5).getAantal() <= 2) {
            for (int i = 0; i < dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(5).getAantal(); i++) {
-               box = new VBox(new ImageView(new Image(getClass().getResourceAsStream("/images/pickaxe_1.png"))), new Label(String.format("Wilt u gereedschap gebruiken voor het %s?", resource)));
+               box = new VBox();
                box.setOnMouseClicked(this::verhoogGereedschap);
             } 
         }
