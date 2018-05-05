@@ -459,10 +459,9 @@ public class MapSpel extends GridPane
    private void gebruikGereedschap(int spelerNr, int resourceNr)
    {
        spelAppPaneel.getRow0().setPercentHeight(15);
-       spelAppPaneel.add(this, 0, 0);
        switch (resourceNr) {
             case 0:
-                new GereedschapPaneel(dc, resourceNr);
+                spelAppPaneel.add(new GereedschapPaneel(dc, spelerNr, "hout"), 0, 0);                
                break;
             case 1:
                break;
@@ -575,7 +574,6 @@ public class MapSpel extends GridPane
             dc.doeResetSpelerZet(index);
             formRefresh();
         }
-        volgendeBeurt();
     }
     
     
