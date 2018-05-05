@@ -168,7 +168,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                     alert.setContentText("Kies een andere plek");
                     alert.show();
                 }
-                else if(dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() < 1)
+                else if(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() < 1)
                 {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Er is een fout opgetreden");
@@ -178,7 +178,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                 }
                 else
                 {
-                    dc.doePlaatsOpPlek(dc.getSpelerBeurt(), plaatsNr, 1);
+                    dc.doePlaatsOpPlek(dc.getHuidigeSpeler(), plaatsNr, 1);
                     hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
                     kaart1.getChildren().set(0, hutImage_2);
                     mapSpel.updateButtons();
@@ -193,7 +193,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                     alert.setContentText("Kies een andere plek");
                     alert.show();
                 }
-                else if(dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() < 1)
+                else if(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() < 1)
                 {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Er is een fout opgetreden");
@@ -203,7 +203,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                 }
                 else
                 {
-                    dc.doePlaatsOpPlek(dc.getSpelerBeurt(), plaatsNr, 1);
+                    dc.doePlaatsOpPlek(dc.getHuidigeSpeler(), plaatsNr, 1);
                     hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
                     kaart2.getChildren().set(0, hutImage_2);
                     mapSpel.updateButtons();
@@ -218,7 +218,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                     alert.setContentText("Kies een andere plek");
                     alert.show();
                 }
-                else if(dc.getSpelerLijst().get(dc.getSpelerBeurt()).getResourceLijst().get(7).getAantal() < 1)
+                else if(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() < 1)
                 {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Er is een fout opgetreden");
@@ -228,7 +228,7 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
                 }
                 else
                 {
-                    dc.doePlaatsOpPlek(dc.getSpelerBeurt(), plaatsNr, 1);
+                    dc.doePlaatsOpPlek(dc.getHuidigeSpeler(), plaatsNr, 1);
                     hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
                     kaart3.getChildren().set(0, hutImage_2);
                     mapSpel.updateButtons();

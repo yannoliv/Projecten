@@ -95,12 +95,12 @@ public class DomeinController
         return spel.getPlaatsenLijst();
       }
       
-      public int getSpelerBeurt()
+      public int getHuidigeSpeler()
       {
           return spel.getSpelerBeurt();
       }
       
-      public void setSpelerBeurt(int spelerBeurt)
+      public void setHuidigeSpeler(int spelerBeurt)
       {
           spel.setSpelerBeurt(spelerBeurt);
       }
