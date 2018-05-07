@@ -90,7 +90,7 @@ public class SpelApplicatiePaneel extends GridPane
         row2.setPercentHeight(20);
         getRowConstraints().addAll(row0,row1,row2);
         
-        setGridLinesVisible(true); 
+        //setGridLinesVisible(true); 
         
     }
     
