@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -541,6 +542,8 @@ public class MapSpel extends GridPane
                     //hut verwijderen
                     dc.getHuttenLijst().remove(0);
                 }                
+                //de lamp uit doen
+                spelAppPaneel.doeLichtUit(1);
             }
             if (dc.getSpelerLijst().get(index).isPlaatsOpHutkaart2() == true){
                 if (dc.getResourcesChecked(index, 1)) 
@@ -551,6 +554,7 @@ public class MapSpel extends GridPane
                     dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst().get(1).getPunten());
                     dc.getHuttenLijst().remove(1);
                 }
+                spelAppPaneel.doeLichtUit(2);
             }
             if (dc.getSpelerLijst().get(index).isPlaatsOpHutkaart3() == true){
                 if (dc.getResourcesChecked(index,2)) {
@@ -560,6 +564,7 @@ public class MapSpel extends GridPane
                     dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst().get(2).getPunten());
                     dc.getHuttenLijst().remove(2);
                 }
+                spelAppPaneel.doeLichtUit(3);
             }
             int a = 0;
             formRefresh();

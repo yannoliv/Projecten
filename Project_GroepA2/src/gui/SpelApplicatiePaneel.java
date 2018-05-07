@@ -102,5 +102,10 @@ public class SpelApplicatiePaneel extends GridPane
     public RowConstraints getRow0() {
         return row0;
     }
+    
+    public void doeLichtUit(int index)
+    {
+        kaartPaneel.doeLichtUit(index);
+    }
 }
 

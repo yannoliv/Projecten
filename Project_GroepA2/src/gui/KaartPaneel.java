@@ -255,6 +255,24 @@ public KaartPaneel(SpelApplicatiePaneel spelApplicatiePaneel, DomeinController d
     {
         controlePlaats(13);
     }
+    
+    public void doeLichtUit(int kaart)
+    {
+        switch (kaart)
+        {
+            case 1:hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+                    kaart1.getChildren().set(0, hutImage_2);
+                break;
+            case 2:
+                hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+                    kaart2.getChildren().set(0, hutImage_2);
+                break;
+            case 3:
+                hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+                    kaart3.getChildren().set(0, hutImage_2);
+                break;
+        }
+    }
 }
 
       

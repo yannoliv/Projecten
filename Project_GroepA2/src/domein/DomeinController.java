@@ -8,6 +8,7 @@ public class DomeinController
 
     private Spel spel;
     
+    
     public DomeinController()
     {
         spel = new Spel();
@@ -114,4 +115,6 @@ public class DomeinController
       {
           spel.resetLijsten();
       }
+      
+      
 }
