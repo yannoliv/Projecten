@@ -349,6 +349,7 @@ public class MapSpel extends GridPane
     
     private void bosClicked(ActionEvent ae)
     {
+            int plaatsNr = 0;
         //als het de einde van de ronde is
         //true => de speler kan zoveel klikken als hij wil
         //false => toont hij keuzestamleden en daarna volgende speler
@@ -360,21 +361,21 @@ public class MapSpel extends GridPane
             if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpBos() == true)
             {
                 //het gerold getal, om te zien hoeveel resources hij krijgt
-                int geroldGetal = toonGeroldGetal(0, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos(), dc.getHuidigeSpeler());
+                int geroldGetal = toonGeroldGetal(plaatsNr, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos(), dc.getHuidigeSpeler());
                 
                 //als de speler gereedschap heeft
                 //true => de speler zou moeten gereedschap kunnen gebruiken
                 //false => hij krijgt gwn zijn resources
                 if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
                 {
-                    gebruikGereedschap(dc.getHuidigeSpeler(), 0);
+                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
                 }
                 else
                 {
-                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(0).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(0).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(0).getDeler()));
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(0).setAantalSpots(dc.getPlaatsenLijst().get(0).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
                 //gebruikte stamleden verminderen
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
                 //stamleden terug zetten
@@ -389,87 +390,372 @@ public class MapSpel extends GridPane
             else
             {
                 //alert
-                Alert alert = new Alert(AlertType.WARNING);
+                Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Er is een fout opgetreden");
                 alert.setHeaderText("Fout");
-                alert.setContentText("Je hebt niet op bos geplaatst..");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
                 alert.show();
             }
         }
         else
         {
-            toonKeuzeStamleden(0);
+            toonKeuzeStamleden(plaatsNr);
         }
     }
     
     
     private void leemGroeveClicked(ActionEvent ae)
     {
+        
+            int plaatsNr = 1;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
         if(isEindeRonde)
         {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
             if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpLeemgroeve() == true)
             {
-                int geroldGetal = toonGeroldGetal(0, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve(), dc.getHuidigeSpeler());
+                //het gerold getal, om te zien hoeveel resources hij krijgt
+                int geroldGetal = toonGeroldGetal(plaatsNr, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve(), dc.getHuidigeSpeler());
                 
+                //als de speler gereedschap heeft
+                //true => de speler zou moeten gereedschap kunnen gebruiken
+                //false => hij krijgt gwn zijn resources
                 if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
                 {
-                    gebruikGereedschap(dc.getHuidigeSpeler(), 1);
+                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
                 }
                 else
                 {
-                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(1).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(1).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(1).getDeler()));
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
-                dc.getPlaatsenLijst().get(1).setAantalSpots(dc.getPlaatsenLijst().get(1).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
+                //getaantalbos terug op 0 zetten
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
+                //gebruikte stamleden verminderen
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
+                //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
+                //setplaatsop bos false voor de speler
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpLeemgroeve(false);
+                
                 formRefresh();
                 updateButtons();
                 volgendeBeurt();
             }
             else
             {
-                Alert alert = new Alert(AlertType.WARNING);
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Er is een fout opgetreden");
                 alert.setHeaderText("Fout");
-                alert.setContentText("Je hebt niet op de leemgroeve geplaatst..");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
                 alert.show();
             }
         }
         else
         {
-            toonKeuzeStamleden(1);
+            toonKeuzeStamleden(plaatsNr);
         }
     }
     
     private void steenGroeveClicked(ActionEvent ae)
     {
-        toonKeuzeStamleden(2);
+             int plaatsNr = 2;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpSteengroeve() == true)
+            {
+                //het gerold getal, om te zien hoeveel resources hij krijgt
+                int geroldGetal = toonGeroldGetal(plaatsNr, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve(), dc.getHuidigeSpeler());
+                
+                //als de speler gereedschap heeft
+                //true => de speler zou moeten gereedschap kunnen gebruiken
+                //false => hij krijgt gwn zijn resources
+                if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
+                {
+                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
+                }
+                //getaantalbos terug op 0 zetten
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
+                //gebruikte stamleden verminderen
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpSteengroeve(false);
+                
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            toonKeuzeStamleden(plaatsNr);
+        }
     }
     
     private void goudMijnClicked(ActionEvent ae)
     {
-         toonKeuzeStamleden(3);
+               int plaatsNr = 3;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpGoudmijn() == true)
+            {
+                //het gerold getal, om te zien hoeveel resources hij krijgt
+                int geroldGetal = toonGeroldGetal(plaatsNr, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn(), dc.getHuidigeSpeler());
+                
+                //als de speler gereedschap heeft
+                //true => de speler zou moeten gereedschap kunnen gebruiken
+                //false => hij krijgt gwn zijn resources
+                if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
+                {
+                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
+                }
+                //getaantalbos terug op 0 zetten
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
+                //gebruikte stamleden verminderen
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpGoudmijn(false);
+                
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            toonKeuzeStamleden(plaatsNr);
+        }
     }
     
     private void jachtGebiedClicked(ActionEvent ae)
     {
-        toonKeuzeStamleden(4);
+              int plaatsNr = 4;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpJachtgebied()== true)
+            {
+                //het gerold getal, om te zien hoeveel resources hij krijgt
+                int geroldGetal = toonGeroldGetal(plaatsNr, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied(), dc.getHuidigeSpeler());
+                
+                //als de speler gereedschap heeft
+                //true => de speler zou moeten gereedschap kunnen gebruiken
+                //false => hij krijgt gwn zijn resources
+                if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
+                {
+                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
+                }
+                //getaantalbos terug op 0 zetten
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
+                //gebruikte stamleden verminderen
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpJachtgebied(false);
+                
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            toonKeuzeStamleden(plaatsNr);
+        }
     }
     
     private void hutClicked(ActionEvent ae)
     {
-        toonKeuzeStamledenSpeciaal(7);
+             int plaatsNr = 7;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHut()== true)
+            {
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + 1);
+                //getaantalbos terug op 0 zetten
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut());
+                //gebruikte stamleden verminderen
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut()));
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpHut(false);
+                
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            this.toonKeuzeStamledenSpeciaal(plaatsNr);
+        }
     }
     
     private void smithClicked(ActionEvent ae)
     {
-        toonKeuzeStamledenSpeciaal(6);
+              int plaatsNr = 6;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpSmith()== true)
+            {
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() + 1);
+                //getaantalbos terug op 0 zetten
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
+                //gebruikte stamleden verminderen
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpSmith(false);
+                
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            this.toonKeuzeStamledenSpeciaal(plaatsNr);
+        }
     }
     
     private void akkerbouwClicked(ActionEvent ae)
     {
-        toonKeuzeStamledenSpeciaal(5);
+              int plaatsNr = 5;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpAkkerbouw()== true)
+            {
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal() + 1);
+                //getaantalbos terug op 0 zetten
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
+                //gebruikte stamleden verminderen
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpAkkerbouw(false);
+                
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            this.toonKeuzeStamledenSpeciaal(plaatsNr);
+        }
     }
     
     private void formRefresh()
