@@ -100,31 +100,55 @@ public class MapSpel extends GridPane
      
     public void volgendeBeurt()
     {
-        int gedaan = 0;
-        
         //voor elke speler
-        for (int i = 0; i < dc.getSpelerLijst().size(); i++) {
-            //als speler i zijn stamleden 0 zijn dan gedaan ++
-            if (dc.getSpelerLijst().get(i).getResourceLijst().get(7).getAantal() <= 0) {
-                gedaan++;
-            }
-        }
-        
-        //als gedaan = aantal spelers, einde ronde
-        if (gedaan >= dc.getSpelerLijst().size()) 
+        if (isEindeRonde == false)
         {
-            for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
-            {
-                //tot de speler i geen gebruikte stamleden meer heeft
-                while(dc.getSpelerLijst().get(i).getGebruikteStamleden() > 0)
-                {
-                    //BELANGRIJK, HOOFDFOUT STA HIER
-                    //hier moet iets staan zodat elke speler kan klikken tot hij geen gebruitke stalmeden meer heeft
+            int gedaan = 0;
+            for (int i = 0; i < dc.getSpelerLijst().size(); i++) {
+                //als speler i zijn stamleden 0 zijn dan gedaan ++
+                if (dc.getSpelerLijst().get(i).getResourceLijst().get(7).getAantal() <= 0) {
+                    gedaan++;
                 }
             }
-            eindeRonde();
+            
+            //als gedaan = aantal spelers, einde ronde
+            if (gedaan >= dc.getSpelerLijst().size()) 
+            {
+                isEindeRonde = true;
+            }
+            
+            //volgende speler
+            volgendeSpeler();
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() <= 0 && isEindeRonde == false) {
+               volgendeBeurt();
+            }
         }
-        //dit is gewoon volgende speler
+        else
+        {
+            int gedaan = 0;
+            for (int i = 0; i < dc.getSpelerLijst().size(); i++) {
+                //als speler i zijn stamleden 0 zijn dan gedaan ++
+                if (dc.getSpelerLijst().get(i).getGebruikteStamleden() <= 0) {
+                    gedaan++;
+                }
+            }
+            if (gedaan >= dc.getSpelerLijst().size()) 
+            {
+                isEindeRonde = false;
+            }
+            if(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() <= 0)
+            {
+                volgendeSpeler();
+            }
+        }
+        
+        
+        formRefresh();
+        
+    }
+    
+    public void volgendeSpeler()
+    {
         if (dc.getHuidigeSpeler() + 1 >= dc.getSpelerLijst().size()) {
             dc.setHuidigeSpeler(0);
         }
@@ -132,13 +156,6 @@ public class MapSpel extends GridPane
         {
             dc.setHuidigeSpeler(dc.getHuidigeSpeler() + 1);
         }
-        //als de volgende speler zijn stamleden 0 zijn, dan wordt hij geskipt
-        if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() <= 0) {
-           volgendeBeurt();
-        }
-        
-        formRefresh();
-        
     }
     
     public void plaatsClicked(int plaatsNummer)
@@ -356,7 +373,18 @@ public class MapSpel extends GridPane
                 {
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(0).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(0).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(0).getDeler()));
                 }
+                //getaantalbos terug op 0 zetten
+                dc.getPlaatsenLijst().get(0).setAantalSpots(dc.getPlaatsenLijst().get(0).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
+                //gebruikte stamleden verminderen
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpBos(false);
+                
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
             }
             else
             {
@@ -377,7 +405,41 @@ public class MapSpel extends GridPane
     
     private void leemGroeveClicked(ActionEvent ae)
     {
-        toonKeuzeStamleden(1);
+        if(isEindeRonde)
+        {
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpLeemgroeve() == true)
+            {
+                int geroldGetal = toonGeroldGetal(0, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve(), dc.getHuidigeSpeler());
+                
+                if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
+                {
+                    gebruikGereedschap(dc.getHuidigeSpeler(), 1);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(1).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(1).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(1).getDeler()));
+                }
+                dc.getPlaatsenLijst().get(1).setAantalSpots(dc.getPlaatsenLijst().get(1).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpLeemgroeve(false);
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op de leemgroeve geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            toonKeuzeStamleden(1);
+        }
     }
     
     private void steenGroeveClicked(ActionEvent ae)
@@ -613,25 +675,15 @@ public class MapSpel extends GridPane
     
     public void eindeRonde()
     {
-        isEindeRonde = true;
-        /*
-        //voor elke speler
-        
-        
         isEindeRonde = false;
         
-        formRefresh();
-        if(isEindeRonde == false)
+        for (int index = 0; index < dc.getSpelerLijst().size(); index++) 
         {
-            for (int index = 0; index < dc.getSpelerLijst().size(); index++) 
-            {
-                //voedsel aftrekken per speler met akkerbouw ingerekend
-                int voedselVermindering = dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(index).getGebruikteStamleden();
-                voedselVermindering += dc.getSpelerLijst().get(index).getResourceLijst().get(4).getAantal();
-                dc.getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(voedselVermindering);
-            }
+            //voedsel aftrekken per speler met akkerbouw ingerekend
+            int voedselVermindering = dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(index).getGebruikteStamleden();
+            voedselVermindering += dc.getSpelerLijst().get(index).getResourceLijst().get(4).getAantal();
+            dc.getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(voedselVermindering);
         }
-        */
     }
 }
 /*

@@ -5,7 +5,7 @@
             <url>src/gui/MapSpel.java</url>
             <bookmark id="1">
                 <name/>
-                <line>127</line>
+                <line>145</line>
                 <key/>
             </bookmark>
         </file>
@@ -33,9 +33,12 @@
         <group name="Programmeren">
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/KaartPaneel.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/SpelApplicatiePaneel.java</file>
-            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/main/StartUpGui.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Spel.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Plaats.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/domein/DomeinController.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/SpelerResourcesPaneel.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/KeuzePaneel.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Speler.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/MapSpel.java</file>
         </group>
     </open-files>
