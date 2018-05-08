@@ -11,7 +11,6 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -26,8 +25,7 @@ public class MapSpel extends GridPane
     private DomeinController dc;
     private SpelApplicatiePaneel spelAppPaneel;
     private String stamledenAantal;
-    private boolean a = false;
-    private boolean OK = true;
+    private boolean isEindeRonde = false;
     
     //buttons aanmaken
     Button btn_leemGroeve;
@@ -104,15 +102,29 @@ public class MapSpel extends GridPane
     {
         int gedaan = 0;
         
+        //voor elke speler
         for (int i = 0; i < dc.getSpelerLijst().size(); i++) {
+            //als speler i zijn stamleden 0 zijn dan gedaan ++
             if (dc.getSpelerLijst().get(i).getResourceLijst().get(7).getAantal() <= 0) {
                 gedaan++;
             }
         }
         
-        if (gedaan >= dc.getSpelerLijst().size()) {
+        //als gedaan = aantal spelers, einde ronde
+        if (gedaan >= dc.getSpelerLijst().size()) 
+        {
+            for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
+            {
+                //tot de speler i geen gebruikte stamleden meer heeft
+                while(dc.getSpelerLijst().get(i).getGebruikteStamleden() > 0)
+                {
+                    //BELANGRIJK, HOOFDFOUT STA HIER
+                    //hier moet iets staan zodat elke speler kan klikken tot hij geen gebruitke stalmeden meer heeft
+                }
+            }
             eindeRonde();
         }
+        //dit is gewoon volgende speler
         if (dc.getHuidigeSpeler() + 1 >= dc.getSpelerLijst().size()) {
             dc.setHuidigeSpeler(0);
         }
@@ -120,6 +132,7 @@ public class MapSpel extends GridPane
         {
             dc.setHuidigeSpeler(dc.getHuidigeSpeler() + 1);
         }
+        //als de volgende speler zijn stamleden 0 zijn, dan wordt hij geskipt
         if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() <= 0) {
            volgendeBeurt();
         }
@@ -319,7 +332,46 @@ public class MapSpel extends GridPane
     
     private void bosClicked(ActionEvent ae)
     {
-        toonKeuzeStamleden(0);
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpBos() == true)
+            {
+                //het gerold getal, om te zien hoeveel resources hij krijgt
+                int geroldGetal = toonGeroldGetal(0, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos(), dc.getHuidigeSpeler());
+                
+                //als de speler gereedschap heeft
+                //true => de speler zou moeten gereedschap kunnen gebruiken
+                //false => hij krijgt gwn zijn resources
+                if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
+                {
+                    gebruikGereedschap(dc.getHuidigeSpeler(), 0);
+                }
+                else
+                {
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(0).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(0).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(0).getDeler()));
+                }
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op bos geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            toonKeuzeStamleden(0);
+        }
     }
     
     
@@ -473,6 +525,116 @@ public class MapSpel extends GridPane
        }
    }
    
+    
+    //moeten we gui van maken
+    public void voedselStraf(int spelerNr, int tekortVoedsel)
+    {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Voedsel straf");
+        
+        if (dc.doeResourcesControleSpeler(spelerNr, tekortVoedsel))
+        {
+            dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).getAantal() - 10);
+            alert.setHeaderText(null);
+            alert.setContentText(String.format("%s omdat u noch voedsel noch materialen heeft werden er 10 punten afgetrokken!", dc.getSpelerLijst().get(spelerNr).getNaam()));
+            ButtonType btn_verder = new ButtonType("verder", ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(btn_verder);
+            alert.getDialogPane().lookupButton(btn_verder).setDisable(true);
+            Optional<ButtonType> result = alert.showAndWait();
+        }
+        else
+        {
+            alert.setHeaderText(String.format("%s kies een materiaal om uw voedsel mee te kopen!", dc.getSpelerLijst().get(spelerNr).getNaam()));
+            
+            ButtonType btn_hout = new ButtonType("Hout", ButtonData.OK_DONE);
+            ButtonType btn_leem = new ButtonType("Leem", ButtonData.OK_DONE);
+            ButtonType btn_steen = new ButtonType("Steen", ButtonData.OK_DONE);
+            ButtonType btn_goud = new ButtonType("Goud", ButtonData.OK_DONE);
+            alert.getButtonTypes().setAll(btn_hout, btn_leem, btn_steen, btn_goud);
+            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() < tekortVoedsel) {
+                alert.getButtonTypes().remove(btn_hout);
+            }
+            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() < tekortVoedsel) {
+                alert.getButtonTypes().remove(btn_leem);
+            }
+            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() < tekortVoedsel) {
+                alert.getButtonTypes().remove(btn_steen);
+            }
+            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() < tekortVoedsel) {
+                alert.getButtonTypes().remove(btn_goud);
+            }
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == btn_hout && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() >= tekortVoedsel) 
+            {
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() - tekortVoedsel);
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
+                
+            }
+            if (result.get() == btn_leem && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() >= tekortVoedsel) 
+            {
+                
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() - tekortVoedsel);
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
+                
+            }
+            if (result.get() == btn_steen && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() >= tekortVoedsel) 
+            {
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() - tekortVoedsel);
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
+                
+            }
+            if (result.get() == btn_goud && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() >= tekortVoedsel) 
+            {
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() - tekortVoedsel);
+                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel); 
+            }
+            if (!result.isPresent()) {
+                result = alert.showAndWait();
+            }
+        }
+    }
+
+   
+    //toon gerold getal plaats resource
+    public int toonGeroldGetal(int plaatsNr, int aantalStamleden, int spelerNr)
+    {
+        int geroldGetal = dc.getGeroldGetal(aantalStamleden);
+        
+        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d delen door %d geeft you %d %s.%n",
+                dc.getSpelerLijst().get(spelerNr).getNaam(),
+                dc.getPlaatsenLijst().get(plaatsNr).getNaam(),
+                geroldGetal,
+                dc.getPlaatsenLijst().get(plaatsNr).getDeler(),
+                ((int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler())),
+                dc.getPlaatsenLijst().get(plaatsNr).getTypeResource().getNaam());  
+        return geroldGetal;
+    }
+
+    
+    public void eindeRonde()
+    {
+        isEindeRonde = true;
+        /*
+        //voor elke speler
+        
+        
+        isEindeRonde = false;
+        
+        formRefresh();
+        if(isEindeRonde == false)
+        {
+            for (int index = 0; index < dc.getSpelerLijst().size(); index++) 
+            {
+                //voedsel aftrekken per speler met akkerbouw ingerekend
+                int voedselVermindering = dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(index).getGebruikteStamleden();
+                voedselVermindering += dc.getSpelerLijst().get(index).getResourceLijst().get(4).getAantal();
+                dc.getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(voedselVermindering);
+            }
+        }
+        */
+    }
+}
+/*
     public void eindeRonde()
     {
         //elke plaats weer vrijmaken
@@ -580,95 +742,5 @@ public class MapSpel extends GridPane
             formRefresh();
         }
     }
-    
-    
-    
-    //moeten we gui van maken
-    public void voedselStraf(int spelerNr, int tekortVoedsel)
-    {
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Voedsel straf");
-        
-        if (dc.doeResourcesControleSpeler(spelerNr, tekortVoedsel))
-        {
-            dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(8).getAantal() - 10);
-            alert.setHeaderText(null);
-            alert.setContentText(String.format("%s omdat u noch voedsel noch materialen heeft werden er 10 punten afgetrokken!", dc.getSpelerLijst().get(spelerNr).getNaam()));
-            ButtonType btn_verder = new ButtonType("verder", ButtonData.CANCEL_CLOSE);
-            alert.getButtonTypes().setAll(btn_verder);
-            alert.getDialogPane().lookupButton(btn_verder).setDisable(true);
-            Optional<ButtonType> result = alert.showAndWait();
-        }
-        else
-        {
-            alert.setHeaderText(String.format("%s kies een materiaal om uw voedsel mee te kopen!", dc.getSpelerLijst().get(spelerNr).getNaam()));
-            
-            ButtonType btn_hout = new ButtonType("Hout", ButtonData.OK_DONE);
-            ButtonType btn_leem = new ButtonType("Leem", ButtonData.OK_DONE);
-            ButtonType btn_steen = new ButtonType("Steen", ButtonData.OK_DONE);
-            ButtonType btn_goud = new ButtonType("Goud", ButtonData.OK_DONE);
-            alert.getButtonTypes().setAll(btn_hout, btn_leem, btn_steen, btn_goud);
-            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() < tekortVoedsel) {
-                alert.getButtonTypes().remove(btn_hout);
-            }
-            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() < tekortVoedsel) {
-                alert.getButtonTypes().remove(btn_leem);
-            }
-            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() < tekortVoedsel) {
-                alert.getButtonTypes().remove(btn_steen);
-            }
-            if (dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() < tekortVoedsel) {
-                alert.getButtonTypes().remove(btn_goud);
-            }
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == btn_hout && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() >= tekortVoedsel) 
-            {
-                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(0).getAantal() - tekortVoedsel);
-                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
-                
-            }
-            if (result.get() == btn_leem && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() >= tekortVoedsel) 
-            {
-                
-                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(1).getAantal() - tekortVoedsel);
-                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
-                
-            }
-            if (result.get() == btn_steen && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() >= tekortVoedsel) 
-            {
-                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(2).getAantal() - tekortVoedsel);
-                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel);
-                
-            }
-            if (result.get() == btn_goud && dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() >= tekortVoedsel) 
-            {
-                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).setAantal(dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(3).getAantal() - tekortVoedsel);
-                dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(6).setAantal(tekortVoedsel); 
-            }
-            if (!result.isPresent()) {
-                result = alert.showAndWait();
-            }
-        }
-    }
-
-   
-    //toon gerold getal plaats resource
-    public int toonGeroldGetal(int plaatsNr, int aantalStamleden, int spelerNr)
-    {
-        int geroldGetal = dc.getGeroldGetal(aantalStamleden);
-        
-        System.out.printf("%n%s:%nDe gerolde dobbelstenen op de plaats %s kwamen op het totaal getal %d delen door %d geeft you %d %s.%n",
-                dc.getSpelerLijst().get(spelerNr).getNaam(),
-                dc.getPlaatsenLijst().get(plaatsNr).getNaam(),
-                geroldGetal,
-                dc.getPlaatsenLijst().get(plaatsNr).getDeler(),
-                ((int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler())),
-                dc.getPlaatsenLijst().get(plaatsNr).getTypeResource().getNaam());  
-        return geroldGetal;
-    }
-   /* public void eindeSpel(int spelerPunten)
-    {
-       
-    }*/
-}
+*/
 
