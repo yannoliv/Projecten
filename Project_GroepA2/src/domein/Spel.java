@@ -94,7 +94,7 @@ public class Spel
         resourceLijst.add(new Resource("steen",         0));
         resourceLijst.add(new Resource("goud",          0));
         resourceLijst.add(new Resource("akkerbouw",     0));
-        resourceLijst.add(new Resource("gereedschap",   0));
+        resourceLijst.add(new Resource("gereedschap",   1));
         resourceLijst.add(new Resource("voedsel",       12));
         resourceLijst.add(new Resource("stamleden",     5));
         resourceLijst.add(new Resource("punten",        0));

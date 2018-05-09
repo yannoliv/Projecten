@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" java-vm-args="-Djava.security.policy=applet.policy "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Project_GroepA2_1.jar" size="5753024" download="eager" />
+    <jar href="Project_GroepA2_1.jar" size="5752227" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="null" >
     <param name="requiredFXVersion" value="8.0+"/>

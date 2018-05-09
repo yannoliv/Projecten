@@ -362,27 +362,36 @@ public class MapSpel extends GridPane
             {
                 //het gerold getal, om te zien hoeveel resources hij krijgt
                 int geroldGetal = toonGeroldGetal(plaatsNr, dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos(), dc.getHuidigeSpeler());
-                
                 //als de speler gereedschap heeft
                 //true => de speler zou moeten gereedschap kunnen gebruiken
                 //false => hij krijgt gwn zijn resources
                 if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
                 {
-                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor((geroldGetal + gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr)) / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
                 else
                 {
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos();
+                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 7 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(7);
+                }
+                else
+                {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
+                }
                 //gebruikte stamleden verminderen
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
                 //setplaatsop bos false voor de speler
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpBos(false);
-                
+                System.out.println(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots());
                 formRefresh();
                 updateButtons();
                 volgendeBeurt();
@@ -426,14 +435,24 @@ public class MapSpel extends GridPane
                 //false => hij krijgt gwn zijn resources
                 if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
                 {
-                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
+                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor((geroldGetal + gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr))/ dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
                 else
                 {
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve();
+                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 7 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(7);
+                }
+                else
+                {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
+                }
                 //gebruikte stamleden verminderen
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
                 //stamleden terug zetten
@@ -482,15 +501,24 @@ public class MapSpel extends GridPane
                 //false => hij krijgt gwn zijn resources
                 if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
                 {
-                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
+                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor((geroldGetal + gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr))/ dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
                 else
                 {
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve();
+                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
-                //gebruikte stamleden verminderen
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 7 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(7);
+                }
+                else
+                {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
+                }
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
@@ -538,15 +566,24 @@ public class MapSpel extends GridPane
                 //false => hij krijgt gwn zijn resources
                 if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
                 {
-                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
+                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor((geroldGetal + gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr)) / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
                 else
                 {
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn();
+                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
-                //gebruikte stamleden verminderen
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 7 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(7);
+                }
+                else
+                {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
+                }
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
@@ -594,15 +631,24 @@ public class MapSpel extends GridPane
                 //false => hij krijgt gwn zijn resources
                 if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() > 0) 
                 {
-                    gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr);
+                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(plaatsNr).getAantal() + (int) Math.floor((geroldGetal + gebruikGereedschap(dc.getHuidigeSpeler(), plaatsNr)) / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
                 else
                 {
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied();
+                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
-                //gebruikte stamleden verminderen
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 40 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(40);
+                }
+                else
+                {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
+                }
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
@@ -642,10 +688,19 @@ public class MapSpel extends GridPane
             //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
             if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHut()== true)
             {
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut();
+                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + 1);
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut());
-                //gebruikte stamleden verminderen
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 2 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(2);
+                }
+                else
+                {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut());
+                }
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut()));
@@ -685,10 +740,19 @@ public class MapSpel extends GridPane
             //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
             if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpSmith()== true)
             {
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith();
+                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() + 1);
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
-                //gebruikte stamleden verminderen
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 1 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(1);
+                }
+                else
+                {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
+                }
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
@@ -728,10 +792,19 @@ public class MapSpel extends GridPane
             //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
             if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpAkkerbouw()== true)
             {
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw();
+                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal() + 1);
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
-                //gebruikte stamleden verminderen
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 1 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(1);
+                }
+                else
+                {
+                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
+                }
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
@@ -857,20 +930,108 @@ public class MapSpel extends GridPane
         voorgrondButtons();
    }
    
-   private void gebruikGereedschap(int spelerNr, int resourceNr)
+   private int gebruikGereedschap(int spelerNr, int resourceNr)
    {
-       spelAppPaneel.getRow0().setPercentHeight(15);
+       int temp = 0;
+       int aantalGereedschap = dc.getSpelerLijst().get(spelerNr).getResourceLijst().get(5).getAantal();
+       TextInputDialog tid_gereedschap = new TextInputDialog(String.format("(0-%d)", aantalGereedschap));
+       tid_gereedschap.setTitle("Gebruik gereedschap");
+       tid_gereedschap.setHeaderText(null);
+       Optional<String> result;
        switch (resourceNr) {
             case 0:
-                spelAppPaneel.add(new GereedschapPaneel(dc, spelerNr, "hout"), 0, 0);                
+               tid_gereedschap.setContentText("Hoeveel gereedschap wilt u gebruiken?");
+               result = tid_gereedschap.showAndWait();
+                if (result.isPresent()) {
+                    try
+                    {
+                        temp = Integer.parseInt(result.get());
+                        if (temp > aantalGereedschap || temp < 0) {
+                            gebruikGereedschap(spelerNr, resourceNr);
+                        }
+                        else
+                        {
+                            return temp;
+                        }
+                    }catch(NumberFormatException e)
+                    {
+                        gebruikGereedschap(spelerNr, resourceNr);
+                    }
+                }
                break;
             case 1:
+                tid_gereedschap.setContentText("Hoeveel gereedschap wilt u gebruiken?");
+               result = tid_gereedschap.showAndWait();
+                if (result.isPresent()) {
+                    try
+                    {
+                        temp = Integer.parseInt(result.get());
+                        if (temp > aantalGereedschap || temp < 0) {
+                            gebruikGereedschap(spelerNr, resourceNr);
+                        }
+                        else
+                        {
+                            return temp;
+                        }
+                    }catch(NumberFormatException e)
+                    {
+                        gebruikGereedschap(spelerNr, resourceNr);
+                    }
+                }
                break;
             case 2:
+                tid_gereedschap.setContentText("Hoeveel gereedschap wilt u gebruiken?");
+               result = tid_gereedschap.showAndWait();
+                if (result.isPresent()) {
+                    try
+                    {
+                        temp = Integer.parseInt(result.get());
+                        if (temp > aantalGereedschap || temp < 0) {
+                            gebruikGereedschap(spelerNr, resourceNr);
+                        }
+                        else
+                        {
+                            return temp;
+                        }
+                    }catch(NumberFormatException e)
+                    {
+                        gebruikGereedschap(spelerNr, resourceNr);
+                    }
+                }
                break;
             case 3:
+                 tid_gereedschap.setContentText("Hoeveel gereedschap wilt u gebruiken?");
+               result = tid_gereedschap.showAndWait();
+                if (result.isPresent()) {
+                    try
+                    {
+                        temp = Integer.parseInt(result.get());
+                        if (temp > aantalGereedschap || temp < 0) {
+                            gebruikGereedschap(spelerNr, resourceNr);
+                        }
+                        else
+                        {
+                            return temp;
+                        }
+                    }catch(NumberFormatException e)
+                    {
+                        gebruikGereedschap(spelerNr, resourceNr);
+                    }
+                }
                break;
        }
+       return temp;
+       /*
+       TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
+        inputAantalStamleden.setTitle("Kies het aantal stamleden");
+        inputAantalStamleden.setHeaderText(null);
+        inputAantalStamleden.setContentText(String.format("(0 - %d)",dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() <= 7 ? dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal(): 7));
+        Optional<String> result = inputAantalStamleden.showAndWait();
+        if (result.isPresent()) {
+            stamledenAantal = result.get();
+            plaatsClicked(plaatsNr);
+        }
+       */
    }
    
     
@@ -962,14 +1123,6 @@ public class MapSpel extends GridPane
     public void eindeRonde()
     {
         isEindeRonde = false;
-        
-        for (int index = 0; index < dc.getSpelerLijst().size(); index++) 
-        {
-            //voedsel aftrekken per speler met akkerbouw ingerekend
-            int voedselVermindering = dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(index).getGebruikteStamleden();
-            voedselVermindering += dc.getSpelerLijst().get(index).getResourceLijst().get(4).getAantal();
-            dc.getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(voedselVermindering);
-        }
     }
 }
 /*

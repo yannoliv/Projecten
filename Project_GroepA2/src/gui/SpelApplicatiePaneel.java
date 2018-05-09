@@ -29,7 +29,6 @@ public class SpelApplicatiePaneel extends GridPane
     private MapSpel mapSpel;
     private MenuBar menuBar = new MenuBar();
     private KaartPaneel kaartPaneel;
-    private GereedschapPaneel gereedschapPaneel;
     
     
     private RowConstraints row0 = new RowConstraints();
