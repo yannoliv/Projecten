@@ -33,7 +33,15 @@ public class MainMenu extends VBox {
     }
     private void scorebord(ActionEvent ae)
     {
+       
+        getChildren().removeAll(btn_start, btn_scorebord);
+      
+        ScoreBord sb = new ScoreBord(dc, stage, this);
+        getChildren().add(sb);
         
+        
+        
+        /*this.getChildren().clear();
         stage.hide();
         Stage scoreBord = new Stage();
         ScoreBord sb = new ScoreBord(dc, scoreBord, this);
@@ -43,9 +51,8 @@ public class MainMenu extends VBox {
         scene.getStylesheets().add(cssURL);
         scoreBord.setMinWidth(300);
         scoreBord.setMinHeight(300);
-        getChildren().add(sb);
-       
-
+        scoreBord.setScene(scene);
+*/
     }
     
     public void maakMainMenu()
