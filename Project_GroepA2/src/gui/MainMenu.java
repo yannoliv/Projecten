@@ -5,10 +5,10 @@ import domein.DomeinController;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import mapper.SpelerMapper;
 
 public class MainMenu extends VBox {
     
@@ -16,12 +16,14 @@ public class MainMenu extends VBox {
     private Stage stage;
     private Button btn_start;
     private Button btn_scorebord;
+    private SpelerMapper spelerMapper;
    
     
     public MainMenu(DomeinController dc, Stage stage)
     {
         this.dc = dc;
         this.stage = stage;
+        this.spelerMapper = new SpelerMapper();
         maakMainMenu();       
     }
     
@@ -33,26 +35,17 @@ public class MainMenu extends VBox {
     }
     private void scorebord(ActionEvent ae)
     {
+        for (int i = 0; i < 10; i ++) 
+        {
+            System.out.printf("%d  %s     %d%n", spelerMapper.geefHighScores(dc).get(i).getSpelerNummer() + 1, spelerMapper.geefHighScores(dc).get(i).getNaam(), spelerMapper.geefHighScores(dc).get(i).getTotaalScore());
+        }
        
         getChildren().removeAll(btn_start, btn_scorebord);
       
         ScoreBord sb = new ScoreBord(dc, stage, this);
         getChildren().add(sb);
         
-        
-        
-        /*this.getChildren().clear();
-        stage.hide();
-        Stage scoreBord = new Stage();
-        ScoreBord sb = new ScoreBord(dc, scoreBord, this);
-        Scene scene = new Scene(sb);
-        scoreBord.setScene(scene);
-        String cssURL = this.getClass().getResource("/gui/Stylesheet.css").toExternalForm();
-        scene.getStylesheets().add(cssURL);
-        scoreBord.setMinWidth(300);
-        scoreBord.setMinHeight(300);
-        scoreBord.setScene(scene);
-*/
+
     }
     
     public void maakMainMenu()
@@ -73,4 +66,6 @@ public class MainMenu extends VBox {
         stage.setHeight(720);
         stage.show();
     }
+    
+    
 }

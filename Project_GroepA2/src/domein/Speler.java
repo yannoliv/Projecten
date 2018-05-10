@@ -31,11 +31,17 @@ public class Speler
     private boolean plaatsOpHutkaart1 = false;
     private boolean plaatsOpHutkaart2 = false;
     private boolean plaatsOpHutkaart3 = false;
+    private int totaalScore = 0;
+    private int highscoreNr = 0;
     
     //constructor
     public Speler(int spelerNummer){
-        setSpelerNummer(spelerNummer);    
-        setKleur(kleurLijst[spelerNummer]);
+        setSpelerNummer(spelerNummer); 
+        //deze if dient voor scorebord
+        if (spelerNummer < 4)
+        {
+            setKleur(kleurLijst[spelerNummer]);
+        }
         setGebruikteStamleden(gebruikteStamleden);
     }
     
@@ -253,4 +259,21 @@ public class Speler
         this.aantalHut = aantalHut;
     }
 
+    public int getTotaalScore() {
+        return totaalScore;
+    }
+
+    public void setTotaalScore(int totaalScore) {
+        this.totaalScore = totaalScore;
+    }
+
+    public int getHighscoreNr() {
+        return highscoreNr;
+    }
+
+    public void setHighscoreNr(int highscoreNr) {
+        this.highscoreNr = highscoreNr;
+    }
+    
+    
 }
