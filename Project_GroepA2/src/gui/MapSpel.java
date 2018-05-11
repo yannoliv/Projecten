@@ -191,7 +191,7 @@ public class MapSpel extends GridPane
                     else if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
                     {
                         if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() >= parseInt(stamledenAantal)) {
-                            dc.doePlaatsOpPlek(dc.getHuidigeSpeler(), plaatsNummer + 2, parseInt(stamledenAantal));
+                            dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer + 2, parseInt(stamledenAantal));
                             this.updateButtons();
                             volgendeBeurt();
                         }
@@ -227,7 +227,7 @@ public class MapSpel extends GridPane
                     else if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
                     {
                         if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() >= parseInt(stamledenAantal)) {
-                            dc.doePlaatsOpPlek(dc.getHuidigeSpeler(), plaatsNummer  == 5 ? plaatsNummer + 4:plaatsNummer + 2, parseInt(stamledenAantal));
+                            dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer  == 5 ? plaatsNummer + 4:plaatsNummer + 2, parseInt(stamledenAantal));
                             this.updateButtons();
                             volgendeBeurt();
                         }
@@ -261,7 +261,7 @@ public class MapSpel extends GridPane
                     else if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
                     {
                         if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() >= parseInt(stamledenAantal)) {
-                            dc.doePlaatsOpPlek(dc.getHuidigeSpeler(), plaatsNummer, parseInt(stamledenAantal));
+                            dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer, parseInt(stamledenAantal));
                             this.updateButtons();
                             volgendeBeurt();
                         }
@@ -377,14 +377,8 @@ public class MapSpel extends GridPane
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos();
                 voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
-                //getaantalbos terug op 0 zetten
-                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 7 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(7);
-                }
-                else
-                {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
-                }
+                
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
                 //gebruikte stamleden verminderen
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
                 //stamleden terug zetten
@@ -445,14 +439,8 @@ public class MapSpel extends GridPane
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve();
                 voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
-                //getaantalbos terug op 0 zetten
-                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 7 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(7);
-                }
-                else
-                {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
-                }
+                
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
                 //gebruikte stamleden verminderen
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
                 //stamleden terug zetten
@@ -512,13 +500,7 @@ public class MapSpel extends GridPane
                 voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
-                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 7 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(7);
-                }
-                else
-                {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
-                }
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
@@ -577,13 +559,7 @@ public class MapSpel extends GridPane
                 voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
-                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 7 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(7);
-                }
-                else
-                {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
-                }
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
@@ -638,17 +614,11 @@ public class MapSpel extends GridPane
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(plaatsNr).getDeler()));
                 }
                 //voedsel aftrekken
-                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied();
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied();
                 voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
-                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 40 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(40);
-                }
-                else
-                {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
-                }
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
@@ -694,13 +664,7 @@ public class MapSpel extends GridPane
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + 1);
                 //getaantalbos terug op 0 zetten
-                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 2 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(2);
-                }
-                else
-                {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut());
-                }
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut());
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut()));
@@ -746,13 +710,7 @@ public class MapSpel extends GridPane
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() + 1);
                 //getaantalbos terug op 0 zetten
-                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 1 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(1);
-                }
-                else
-                {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
-                }
+               dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith());
@@ -798,13 +756,7 @@ public class MapSpel extends GridPane
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal() + 1);
                 //getaantalbos terug op 0 zetten
-                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() > 1 || dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 0) {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(1);
-                }
-                else
-                {
-                    dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
-                }
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw());

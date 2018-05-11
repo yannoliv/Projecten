@@ -66,6 +66,11 @@ public class DomeinController
             spel.plaatsOpPlek(spelerNr, keuzeNr, aantalStamleden);
         }
         
+        public void doePlaatsOpPlekGUI(int spelerNr, int keuzeNr, int aantalStamleden)
+        {
+            spel.plaatsOpPlekGUI(spelerNr, keuzeNr, aantalStamleden);
+        }
+        
         public String getBedieningsPaneel(int spelerNr)
         {
             return spel.bedieningsPaneel(spelerNr);

@@ -16,14 +16,14 @@ public class MainMenu extends VBox {
     private Stage stage;
     private Button btn_start;
     private Button btn_scorebord;
-    private SpelerMapper spelerMapper;
+//    private SpelerMapper spelerMapper;
    
     
     public MainMenu(DomeinController dc, Stage stage)
     {
         this.dc = dc;
         this.stage = stage;
-        this.spelerMapper = new SpelerMapper();
+//        this.spelerMapper = new SpelerMapper();
         maakMainMenu();       
     }
     
@@ -35,15 +35,15 @@ public class MainMenu extends VBox {
     }
     private void scorebord(ActionEvent ae)
     {
-        for (int i = 0; i < 10; i ++) 
-        {
-            System.out.printf("%d  %s     %d%n", spelerMapper.geefHighScores(dc).get(i).getSpelerNummer() + 1, spelerMapper.geefHighScores(dc).get(i).getNaam(), spelerMapper.geefHighScores(dc).get(i).getTotaalScore());
-        }
-       
-        getChildren().removeAll(btn_start, btn_scorebord);
-      
-        ScoreBord sb = new ScoreBord(dc, stage, this);
-        getChildren().add(sb);
+//        for (int i = 0; i < 10; i ++) 
+//        {
+//            System.out.printf("%d  %s     %d%n", spelerMapper.geefHighScores(dc).get(i).getSpelerNummer() + 1, spelerMapper.geefHighScores(dc).get(i).getNaam(), spelerMapper.geefHighScores(dc).get(i).getTotaalScore());
+//        }
+//       
+//        getChildren().removeAll(btn_start, btn_scorebord);
+//      
+//        ScoreBord sb = new ScoreBord(dc, stage, this);
+//        getChildren().add(sb);
         
 
     }
