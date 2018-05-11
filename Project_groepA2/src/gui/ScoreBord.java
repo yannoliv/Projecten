@@ -1,71 +1,38 @@
 package gui;
 
 import domein.DomeinController;
-import java.awt.Color;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import mapper.SpelerMapper;
 
 
-public class ScoreBord extends HBox
+public class ScoreBord extends VBox
 {
     private DomeinController dc;
     private Stage stage;
     private MainMenu mainMenu;
-    private Button btn_confirm = new Button();
+    private Label lbl_label;
+    private SpelerMapper spelerMapper;
     
-    public ScoreBord(DomeinController dc, Stage stage, MainMenu mainMenu) {
+    public ScoreBord(DomeinController dc, Stage stage, MainMenu mainMenu) 
+    {
         this.dc = dc;
         this.stage = stage;
         this.mainMenu = mainMenu;
-        btn_confirm.setText("Confirm");
-        Button btn = new Button("hey");
-        getChildren().addAll(btn_confirm,btn);
-        VBox vertBox = new VBox();
-        vertBox.setPrefSize(400, 400);
-        vertBox.setAlignment(Pos.CENTER);
-
-        // horizontal box for the players
-        HBox PlayerName = new HBox();
-        PlayerName.setAlignment(Pos.CENTER);
-        PlayerName.setPadding(new Insets(25, 25, 25, 25));
-
-        // horizontal box for the scores
-        HBox Score = new HBox();
-        Score.setAlignment(Pos.CENTER);
-
-        // horizontal box to show a goal
-        HBox Goal = new HBox();
-        Goal.setAlignment(Pos.CENTER);
-
-        // player1 name
-        Label team1 = new Label("Player 1");
-      
-        team1.setAlignment(Pos.TOP_LEFT);
-        team1.setPadding(new Insets(25, 25, 25, 25));
-
-        // player2 name
-        Label team2 = new Label("Player 2");
-       
-        team2.setAlignment(Pos.TOP_RIGHT);
-        team2.setPadding(new Insets(25, 25, 25, 25));
-
-        // player1 score
-        Label text1 = new Label();
-        text1.setAlignment(Pos.CENTER_LEFT);
-       // text1.setText(Integer.toString());
-        text1.setPadding(new Insets(25, 30, 50, 25));
-
-        // player2 score
-        Label text2 = new Label();
-        text2.setAlignment(Pos.CENTER_RIGHT);
-        //text2.setText(Integer.toString());
-        text2.setPadding(new Insets(25, 30, 50, 25));
-      
+        this.spelerMapper = new SpelerMapper();
+        
+        lbl_label = new Label("HighScores");
+        lbl_label.setStyle("-fx-font-size:4em; -fx-padding:15px;");
+        this.getChildren().add(lbl_label);
+        
+        for (int i = 0; i < 10; i++) {
+            lbl_label = new Label(String.format("%-5d  %-10s   %30d", spelerMapper.geefHighScores(dc).get(i).getSpelerNummer() + 1, spelerMapper.geefHighScores(dc).get(i).getNaam(), spelerMapper.geefHighScores(dc).get(i).getTotaalScore()));
+            lbl_label.setStyle("-fx-padding: 10px;-fx-font-size:2em;");
+            this.getChildren().add(lbl_label);
+        }
+        this.setStyle("-fx-fill:rgb(255,255,255);-fx-alignment: center;-fx-background-color:rgba(255,255,255,0.7);");
+        
 }
     
 }

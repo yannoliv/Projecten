@@ -35,15 +35,11 @@ public class MainMenu extends VBox {
     }
     private void scorebord(ActionEvent ae)
     {
-//        for (int i = 0; i < 10; i ++) 
-//        {
-//            System.out.printf("%d  %s     %d%n", spelerMapper.geefHighScores(dc).get(i).getSpelerNummer() + 1, spelerMapper.geefHighScores(dc).get(i).getNaam(), spelerMapper.geefHighScores(dc).get(i).getTotaalScore());
-//        }
-//       
-//        getChildren().removeAll(btn_start, btn_scorebord);
-//      
-//        ScoreBord sb = new ScoreBord(dc, stage, this);
-//        getChildren().add(sb);
+       
+        getChildren().removeAll(btn_start, btn_scorebord);
+      
+        ScoreBord sb = new ScoreBord(dc, stage, this);
+        getChildren().add(sb);
         
 
     }
