@@ -618,7 +618,7 @@ public class MapSpel extends GridPane
                 voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
-                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
+                dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
                 //stamleden terug zetten
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
@@ -952,6 +952,26 @@ public class MapSpel extends GridPane
                 }
                break;
             case 3:
+                 tid_gereedschap.setContentText("Hoeveel gereedschap wilt u gebruiken?");
+               result = tid_gereedschap.showAndWait();
+                if (result.isPresent()) {
+                    try
+                    {
+                        temp = Integer.parseInt(result.get());
+                        if (temp > aantalGereedschap || temp < 0) {
+                            gebruikGereedschap(spelerNr, resourceNr);
+                        }
+                        else
+                        {
+                            return temp;
+                        }
+                    }catch(NumberFormatException e)
+                    {
+                        gebruikGereedschap(spelerNr, resourceNr);
+                    }
+                }
+               break;
+            case 4:
                  tid_gereedschap.setContentText("Hoeveel gereedschap wilt u gebruiken?");
                result = tid_gereedschap.showAndWait();
                 if (result.isPresent()) {
