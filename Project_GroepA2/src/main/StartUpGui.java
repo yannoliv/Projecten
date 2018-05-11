@@ -1,5 +1,6 @@
 package main;
 
+import Persistentie.SpelerMapper;
 import domein.DomeinController;
 import gui.*;
 import javafx.application.Application;
@@ -18,6 +19,13 @@ public class StartUpGui extends Application {
         primaryStage.setMinWidth(300);
         primaryStage.setMinHeight(300);
     }
+    
+    @Override
+    public void stop(){
+    System.out.println("Stage is closing");
+    SpelerMapper spelerMapper = new SpelerMapper();
+    spelerMapper.slaSpelOp(dc);
+}
 public static void main(String[] args)
     {
         launch(args);
