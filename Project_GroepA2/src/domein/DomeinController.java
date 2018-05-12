@@ -28,7 +28,10 @@ public class DomeinController
     {
         spel.geefSpelersResources();
         spel.vulPlaatsLijst();
-        spel.vulHuttenLijst();
+        spel.vulHuttenLijst1();
+        spel.vulHuttenLijst2();
+        spel.vulHuttenLijst3();
+        spel.vulHuttenLijst4();
     }
 
     public void doeSpelerFix(int ronde)
@@ -46,9 +49,14 @@ public class DomeinController
         spel.resetPlaatsenLijst();
     }
 
-    public void doeTrekResourcesAf(int spelerNr, int hutNummer)
+    public void doeTrekResourcesAf(int spelerNr, int lijstNr)
    {
-    spel.trekResourcesAf(spelerNr, hutNummer);
+    spel.trekResourcesAf(spelerNr, lijstNr);
+    }
+    
+    public void doeVerwijderKaart(int lijstNr)
+    {
+        spel.verwijderKaart(lijstNr);
     }
         
         public void doeResetSpelerZet(int spelerNr)
@@ -56,9 +64,9 @@ public class DomeinController
             spel.resetSpelerZet(spelerNr);
         }
         
-        public boolean getResourcesChecked(int spelerNr, int hutNummer)
+        public boolean getResourcesChecked(int spelerNr, int lijstNr)
         {
-            return spel.checkResources(spelerNr, hutNummer);
+            return spel.checkResources(spelerNr, lijstNr);
         }
         
         public void doePlaatsOpPlek(int spelerNr, int keuzeNr, int aantalStamleden)
@@ -86,11 +94,25 @@ public class DomeinController
            return spel.toonSpelers();
        }
         
-      public List<Plaats> getHuttenLijst()
+      public List<Plaats> getHuttenLijst1()
       {
-        return spel.getHuttenLijst();
+        return spel.getHuttenLijst1();
       }
-       
+      
+      public List<Plaats> getHuttenLijst2()
+      {
+        return spel.getHuttenLijst2();
+      }
+      
+      public List<Plaats> getHuttenLijst3()
+      {
+        return spel.getHuttenLijst3();
+      }
+      
+      public List<Plaats> getHuttenLijst4()
+      {
+        return spel.getHuttenLijst4();
+      }
       public List<Speler> getSpelerLijst()
       {
         return spel.getSpelerLijst();

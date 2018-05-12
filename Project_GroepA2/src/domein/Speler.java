@@ -29,8 +29,13 @@ public class Speler
     private boolean plaatsOpHut = false;
     private int aantalHut = 0;
     private boolean plaatsOpHutkaart1 = false;
+    private int aantalHutkaart1 = 0;
     private boolean plaatsOpHutkaart2 = false;
+    private int aantalHutkaart2 = 0;
     private boolean plaatsOpHutkaart3 = false;
+    private int aantalHutkaart3 = 0;
+    private boolean plaatsOpHutkaart4 = false;
+    private int aantalHutkaart4 = 0;
     private int totaalScore = 0;
     private int highscoreNr = 0;
     
@@ -194,6 +199,14 @@ public class Speler
     public void setPlaatsOpHutkaart3(boolean plaatsOpHutkaart3) {
         this.plaatsOpHutkaart3 = plaatsOpHutkaart3;
     }
+    
+    public boolean isPlaatsOpHutkaart4() {
+        return plaatsOpHutkaart4;
+    }
+
+    public void setPlaatsOpHutkaart4(boolean plaatsOpHutkaart4) {
+        this.plaatsOpHutkaart4 = plaatsOpHutkaart4;
+    }
 
     public int getAantalBos() {
         return aantalBos;
@@ -273,6 +286,38 @@ public class Speler
 
     public void setHighscoreNr(int highscoreNr) {
         this.highscoreNr = highscoreNr;
+    }
+
+    public int getAantalHutkaart1() {
+        return aantalHutkaart1;
+    }
+
+    public void setAantalHutkaart1(int aantalHutkaart1) {
+        this.aantalHutkaart1 = aantalHutkaart1;
+    }
+
+    public int getAantalHutkaart2() {
+        return aantalHutkaart2;
+    }
+
+    public void setAantalHutkaart2(int aantalHutkaart2) {
+        this.aantalHutkaart2 = aantalHutkaart2;
+    }
+
+    public int getAantalHutkaart3() {
+        return aantalHutkaart3;
+    }
+
+    public void setAantalHutkaart3(int aantalHutkaart3) {
+        this.aantalHutkaart3 = aantalHutkaart3;
+    }
+
+    public int getAantalHutkaart4() {
+        return aantalHutkaart4;
+    }
+
+    public void setAantalHutkaart4(int aantalHutkaart4) {
+        this.aantalHutkaart4 = aantalHutkaart4;
     }
     
     

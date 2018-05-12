@@ -103,7 +103,7 @@ public class KeuzePaneel extends VBox{
         }
         else
         {
-            if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText())) {
+            if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText().trim())) {
                 getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding,btn_confirm, btn_back);
                 spelerNr += 1;
                 if (spelerNr < dc.getSpelerLijst().size())
@@ -137,34 +137,42 @@ public class KeuzePaneel extends VBox{
     
     private void confirmNaam(ActionEvent ae)
     {
-        if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText()) || "".equals(txt_naamSpeler.getText())) {
-            getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding,btn_confirm, btn_back);
-            spelerNr += 1;
-            if (spelerNr < dc.getSpelerLijst().size())
-            {
-                txt_naamSpeler.clear();
-                vraagNamenSpelers();
-            }
-            else
-            {
-                this.getChildren().clear();
-                stage.hide();
-                
-                dc.vulLijsten();
-                Stage spelStage = new Stage();
-                SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
-                Scene scenery = new Scene(spelAppPaneel);
-                String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
-                scenery.getStylesheets().add(cssURL);
-                spelStage.setScene(scenery);
-                
-            }
-        }
-        else
-        {
+        if (txt_naamSpeler.getText() == null || txt_naamSpeler.getText().trim().isEmpty()) {
             txt_naamSpeler.clear();
             getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, btn_confirm, btn_back);
             getChildren().addAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding, btn_confirm, btn_back);
+        }
+        else
+        {
+            if (dc.doeNaamControle(spelerNr, txt_naamSpeler.getText().trim())) {
+                getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding,btn_confirm, btn_back);
+                spelerNr += 1;
+                if (spelerNr < dc.getSpelerLijst().size())
+                {
+                    txt_naamSpeler.clear();
+                    vraagNamenSpelers();
+                }
+                else
+                {
+                    this.getChildren().clear();
+                    stage.hide();
+
+                    dc.vulLijsten();
+                    Stage spelStage = new Stage();
+                    SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
+                    Scene scenery = new Scene(spelAppPaneel);
+                    String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
+                    scenery.getStylesheets().add(cssURL);
+                    spelStage.setScene(scenery);
+
+                }
+            }
+            else
+            {
+                txt_naamSpeler.clear();
+                getChildren().removeAll(lbl_naamSpeler, txt_naamSpeler, btn_confirm, btn_back);
+                getChildren().addAll(lbl_naamSpeler, txt_naamSpeler, lbl_foutMelding, btn_confirm, btn_back);
+            }
         }
     }
     

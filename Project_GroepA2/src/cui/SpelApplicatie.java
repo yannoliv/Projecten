@@ -179,35 +179,43 @@ public class SpelApplicatie
                 dc.getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(index).getAantalHut());
             }
             if (dc.getSpelerLijst().get(index).isPlaatsOpHutkaart1() == true){
-                if (dc.getResourcesChecked(index,0)) {
+                if (dc.getResourcesChecked(index,1)) {
                     //resources aftrekken
-                    dc.doeTrekResourcesAf(index, 0);
+                    dc.doeTrekResourcesAf(index,1);
                     //speler.setPunten(punten);
-                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst().get(0).getPunten());
+                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst1().get(0).getPunten());
                     //hut verwijderen
-                    dc.getHuttenLijst().remove(0);
+                    dc.getHuttenLijst1().remove(0);
                 }                
             }
             if (dc.getSpelerLijst().get(index).isPlaatsOpHutkaart2() == true){
-                if (dc.getResourcesChecked(index, 1)) 
+                if (dc.getResourcesChecked(index,2)) 
                 {
                      //resources aftrekken
-                    dc.doeTrekResourcesAf(index, 1);
+                    dc.doeTrekResourcesAf(index,2);
                     //speler.setPunten(punten);
-                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst().get(1).getPunten());
-                    dc.getHuttenLijst().remove(1);
+                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst2().get(0).getPunten());
+                    dc.getHuttenLijst2().remove(0);
                 }
             }
             if (dc.getSpelerLijst().get(index).isPlaatsOpHutkaart3() == true){
-                if (dc.getResourcesChecked(index,2)) {
+                if (dc.getResourcesChecked(index,3)) {
                     //resources aftrekken
-                    dc.doeTrekResourcesAf(index, 2);
+                    dc.doeTrekResourcesAf(index,3);
                     //speler.setPunten(punten);
-                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst().get(2).getPunten());
-                    dc.getHuttenLijst().remove(2);
+                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst3().get(0).getPunten());
+                    dc.getHuttenLijst3().remove(0);
                 }
             }
-            
+            if (dc.getSpelerLijst().get(index).isPlaatsOpHutkaart4() == true){
+                if (dc.getResourcesChecked(index,4)) {
+                    //resources aftrekken
+                    dc.doeTrekResourcesAf(index,4);
+                    //speler.setPunten(punten);
+                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst4().get(0).getPunten());
+                    dc.getHuttenLijst4().remove(0);
+                }
+            }
            //zet gebruikte stamleden terug op 0
             dc.getSpelerLijst().get(index).setGebruikteStamleden(0);
             if (dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0) {
@@ -459,6 +467,26 @@ public class SpelApplicatie
                         else
                         {
                             System.out.printf("Hut 3 is bezet.");
+                            resultaat = null;
+                            temp = 0;
+                            bedieningsPaneel(spelerNr);
+                        }
+                    break;
+                    case 14:
+                        for (int i = 0; i < dc.getSpelerLijst().size(); i++) 
+                        {
+                            if (dc.getSpelerLijst().get(i).isPlaatsOpHutkaart4())
+                            {
+                                isOpGezet = true;
+                            }
+                        }
+                        if (isOpGezet == false)// 
+                        {
+                            dc.doePlaatsOpPlek(spelerNr, temp, bevestiging(spelerNr, temp));
+                        }
+                        else
+                        {
+                            System.out.printf("Hut 4 is bezet.");
                             resultaat = null;
                             temp = 0;
                             bedieningsPaneel(spelerNr);

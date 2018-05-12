@@ -66,15 +66,36 @@ public class SpelerMapper
     {
         try (Connection conn = DriverManager.getConnection(MapperConfig.JDBC_URL)) {
             PreparedStatement queryNieuweGebruiker = conn.prepareStatement("INSERT INTO Stenen_Tijdperk (hut1, hut2, hut3) VALUES (?,?,?)");
-        //3 hutten, namen en aantal
-        for (int i = 0; i < 3; i++) {
-        queryNieuweGebruiker.setString(0, dc.getHuttenLijst().get(i).getResource1());
-        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst().get(i).getAantalResource1());
-        queryNieuweGebruiker.setString(0, dc.getHuttenLijst().get(i).getResource2());
-        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst().get(i).getAantalResource2());
-        queryNieuweGebruiker.setString(0, dc.getHuttenLijst().get(i).getResource3());
-        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst().get(i).getAantalResource3());
-        }
+        //4 hutten, namen en aantal
+        //dek 1 kaart 1
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst1().get(0).getResource1());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst1().get(0).getAantalResource1());
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst1().get(0).getResource2());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst1().get(0).getAantalResource2());
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst1().get(0).getResource3());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst1().get(0).getAantalResource3());
+        //dek 2 kaart 2
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst2().get(0).getResource1());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst2().get(0).getAantalResource1());
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst2().get(0).getResource2());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst2().get(0).getAantalResource2());
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst2().get(0).getResource3());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst2().get(0).getAantalResource3());
+        //dek 3 kaart 3
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst3().get(0).getResource1());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst3().get(0).getAantalResource1());
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst3().get(0).getResource2());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst3().get(0).getAantalResource2());
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst3().get(0).getResource3());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst3().get(0).getAantalResource3());
+        //dek 4 kaart 4
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst4().get(0).getResource1());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst4().get(0).getAantalResource1());
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst4().get(0).getResource2());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst4().get(0).getAantalResource2());
+        queryNieuweGebruiker.setString(0, dc.getHuttenLijst4().get(0).getResource3());
+        queryNieuweGebruiker.setInt(0, dc.getHuttenLijst4().get(0).getAantalResource3());
+        
         queryNieuweGebruiker.executeUpdate();
         return true;
         } catch (SQLException ex) {

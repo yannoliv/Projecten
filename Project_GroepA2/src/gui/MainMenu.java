@@ -34,14 +34,14 @@ public class MainMenu extends VBox {
     
     private void startSpel(ActionEvent ae)
     {
-        getChildren().removeAll(btn_loadGame, btn_start, btn_scorebord, btn_demo);
+        getChildren().removeAll( btn_start, btn_loadGame,btn_scorebord, btn_demo);
         KeuzePaneel st = new KeuzePaneel(dc, stage, this);
         getChildren().add(st);
     }
     
     private void scorebord(ActionEvent ae)
     {
-        getChildren().removeAll(btn_loadGame, btn_start, btn_scorebord, btn_demo);
+        getChildren().removeAll( btn_start,btn_loadGame, btn_scorebord, btn_demo);
         ScoreBord sb = new ScoreBord(dc, stage, this);
         getChildren().add(sb);
     }
@@ -68,7 +68,7 @@ public class MainMenu extends VBox {
         this.setAlignment(Pos.CENTER);
         VBox.setMargin(btn_start, new Insets(20,0,20,0));
         VBox.setMargin(btn_scorebord, new Insets(20,0,20,0));
-        getChildren().addAll(btn_loadGame,btn_start, btn_scorebord, btn_demo);
+        getChildren().addAll(btn_start,btn_loadGame, btn_scorebord, btn_demo);
         btn_loadGame.setOnAction(this::loadGame);
         btn_start.setOnAction(this::startSpel);
         btn_scorebord.setOnAction(this::scorebord);

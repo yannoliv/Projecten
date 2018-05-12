@@ -31,7 +31,7 @@ public class Plaats
        setAantalSpots(aantalSpots);
    }
    
-   public Plaats(int hutNummer,int punten, String resourceNaam1, int aantalResource1, String resourceNaam2, int aantalResource2, String resourceNaam3, int aantalResource3)
+   public Plaats(int hutNummer,int punten, String resourceNaam1, int aantalResource1, String resourceNaam2, int aantalResource2, String resourceNaam3, int aantalResource3, int aantalSpots)
    {
        setHutNummer(hutNummer);
        setPunten(punten);
@@ -41,6 +41,7 @@ public class Plaats
        setAantalResource1(aantalResource1);
        setAantalResource2(aantalResource2);
        setAantalResource3(aantalResource3);
+       setAantalSpots(aantalSpots);
    }
    
     public String getNaam() {

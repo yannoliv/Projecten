@@ -106,5 +106,15 @@ public class SpelApplicatiePaneel extends GridPane
     {
         kaartPaneel.doeLichtUit(index);
     }
+    
+    public void doeLichtAan(int index)
+    {
+        kaartPaneel.doeLichtAan(index);
+    }
+    
+    public void refreshKaartPaneel()
+    {
+        kaartPaneel.refreshKaartPaneel();
+    }
 }
 

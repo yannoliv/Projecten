@@ -65,35 +65,146 @@ public class MapSpel extends GridPane
         inputAantalStamleden.setHeaderText(null);
         inputAantalStamleden.setContentText(String.format("(0 - %d)",dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() <= 7 ? dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal(): 7));
         Optional<String> result = inputAantalStamleden.showAndWait();
-        if (result.isPresent()) {
+        try
+        {
+             if (result.isPresent() && parseInt(result.get()) > 0) {
             stamledenAantal = result.get();
             plaatsClicked(plaatsNr);
+            }
+            else
+            {
+                result = inputAantalStamleden.showAndWait();
+            }
+        }catch(NumberFormatException e)
+        {
+            result = inputAantalStamleden.showAndWait();
         }
     }
     
     private void toonKeuzeStamledenSpeciaal(int plaatsNr)
     {
-        if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 1) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Er is een fout opgetreden");
-            alert.setHeaderText("Deze plek staat vol...");
-            alert.setContentText("Kies een andere plek");
-            alert.show();
+        if (plaatsNr < 10)
+        {
+            if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 1) {
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Er is een fout opgetreden");
+                    alert.setHeaderText("Deze plek staat vol...");
+                    alert.setContentText("Kies een andere plek");
+                    alert.show();
+            }
+            else
+            {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Stamleden plaatsen..");
+                alert.setHeaderText(null);
+                alert.setGraphic(null);
+                alert.setContentText(String.format("Wilt u hier %d %s plaatsen?", plaatsNr == 7 ? 2:1, plaatsNr == 7 ? "stamleden":"stamlid"));
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    if (plaatsNr == 7)
+                    {stamledenAantal = "2";}
+                    else
+                    {stamledenAantal = "1";}
+                    plaatsClicked(plaatsNr);
+                }
+
+            }
         }
         else
         {
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Stamleden plaatsen..");
-            alert.setHeaderText(null);
-            alert.setGraphic(null);
-            alert.setContentText(String.format("Wilt u hier %d %s plaatsen?", plaatsNr == 7 ? 2:1, plaatsNr == 7 ? "stamleden":"stamlid"));
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                if (plaatsNr == 7)
-                {stamledenAantal = "2";}
-                else
-                {stamledenAantal = "1";}
-                plaatsClicked(plaatsNr);
+            switch (plaatsNr) {
+                case 11:
+                    if (dc.getHuttenLijst1().get(0).getAantalSpots() < 1) {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Deze plek staat vol...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else
+                    {
+                        Alert alert = new Alert(AlertType.CONFIRMATION);
+                        alert.setTitle("Stamleden plaatsen..");
+                        alert.setHeaderText(null);
+                        alert.setGraphic(null);
+                        alert.setContentText("Wilt u hier 1 stamlid plaatsen?");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK){
+                            stamledenAantal = "1";
+                            plaatsClicked(plaatsNr);
+                            spelAppPaneel.doeLichtAan(plaatsNr - 10);
+                        }
+                    }
+                    break;
+                case 12:
+                    if (dc.getHuttenLijst2().get(0).getAantalSpots() < 1) {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Deze plek staat vol...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else
+                    {
+                        Alert alert = new Alert(AlertType.CONFIRMATION);
+                        alert.setTitle("Stamleden plaatsen..");
+                        alert.setHeaderText(null);
+                        alert.setGraphic(null);
+                        alert.setContentText("Wilt u hier 1 stamlid plaatsen?");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK){
+                            stamledenAantal = "1";
+                            plaatsClicked(plaatsNr);
+                            spelAppPaneel.doeLichtAan(plaatsNr - 10);
+                        }
+                    }
+                    break;
+                case 13:
+                    if (dc.getHuttenLijst3().get(0).getAantalSpots() < 1) {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Deze plek staat vol...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else
+                    {
+                        Alert alert = new Alert(AlertType.CONFIRMATION);
+                        alert.setTitle("Stamleden plaatsen..");
+                        alert.setHeaderText(null);
+                        alert.setGraphic(null);
+                        alert.setContentText("Wilt u hier 1 stamlid plaatsen?");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK){
+                            stamledenAantal = "1";
+                            plaatsClicked(plaatsNr);
+                            spelAppPaneel.doeLichtAan(plaatsNr - 10);
+                        }
+                    }
+                    break;
+                case 14:
+                    if (dc.getHuttenLijst4().get(0).getAantalSpots() < 1) {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Er is een fout opgetreden");
+                        alert.setHeaderText("Deze plek staat vol...");
+                        alert.setContentText("Kies een andere plek");
+                        alert.show();
+                    }
+                    else
+                    {
+                        Alert alert = new Alert(AlertType.CONFIRMATION);
+                        alert.setTitle("Stamleden plaatsen..");
+                        alert.setHeaderText(null);
+                        alert.setGraphic(null);
+                        alert.setContentText("Wilt u hier 1 stamlid plaatsen?");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK){
+                            stamledenAantal = "1";
+                            plaatsClicked(plaatsNr);
+                            spelAppPaneel.doeLichtAan(plaatsNr - 10);
+                        }
+                    }
+                    break;
             }
         }
     }
@@ -173,111 +284,44 @@ public class MapSpel extends GridPane
                 case 3:
                 //jachtgebied
                 case 4:
-                    if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() < 1) {
-                        Alert alert = new Alert(AlertType.WARNING);
-                        alert.setTitle("Er is een fout opgetreden");
-                        alert.setHeaderText("Deze plek staat vol...");
-                        alert.setContentText("Kies een andere plek");
-                        alert.show();
-                    }
-                    else if (isPlaatsOpPlaats(plaatsNummer))
+                    if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
                     {
-                        Alert alert = new Alert(AlertType.WARNING);
-                        alert.setTitle("Er is een fout opgetreden");
-                        alert.setHeaderText("Je hebt reeds geplaatst op deze plek...");
-                        alert.setContentText("Kies een andere plek");
-                        alert.show();
-                    }
-                    else if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
-                    {
-                        if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() >= parseInt(stamledenAantal)) {
-                            dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer + 2, parseInt(stamledenAantal));
-                            this.updateButtons();
-                            volgendeBeurt();
-                        }
-                        else
-                        {
-                            Alert alert = new Alert(AlertType.WARNING);
-                            alert.setTitle("Er is een fout opgetreden");
-                            alert.setHeaderText("Je niet genoeg stamleden beschikbaar");
-                            alert.setContentText("Kies een andere plek");
-                            alert.show();
-                        }
+                        dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer + 2, parseInt(stamledenAantal));
+                        this.updateButtons();
+                        volgendeBeurt();
+                        
                     }
                     break;
                 //akkerbouw
                 case 5:
                 //smith
                 case 6:
-                    if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() == 0) {
-                        Alert alert = new Alert(AlertType.WARNING);
-                        alert.setTitle("Er is een fout opgetreden");
-                        alert.setHeaderText("Deze plek staat vol...");
-                        alert.setContentText("Kies een andere plek");
-                        alert.show();
-                    }
-                    else if (isPlaatsOpPlaats(plaatsNummer))
+                    if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
                     {
-                        Alert alert = new Alert(AlertType.WARNING);
-                        alert.setTitle("Er is een fout opgetreden");
-                        alert.setHeaderText("Je hebt reeds geplaatst op deze plek...");
-                        alert.setContentText("Kies een andere plek");
-                        alert.show();
-                    }
-                    else if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
-                    {
-                        if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() >= parseInt(stamledenAantal)) {
-                            dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer  == 5 ? plaatsNummer + 4:plaatsNummer + 2, parseInt(stamledenAantal));
-                            this.updateButtons();
-                            volgendeBeurt();
-                        }
-                        else
-                        {
-                            Alert alert = new Alert(AlertType.WARNING);
-                            alert.setTitle("Er is een fout opgetreden");
-                            alert.setHeaderText("Je niet genoeg stamleden beschikbaar");
-                            alert.setContentText("Kies een andere plek");
-                            alert.show();
-                        }
+                        dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer  == 5 ? plaatsNummer + 4:plaatsNummer + 2, parseInt(stamledenAantal));
+                        this.updateButtons();
+                        volgendeBeurt();
+                        
                     }
                     break;
                 //hut
                 case 7:
-                    if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() == 0) {
-                        Alert alert = new Alert(AlertType.WARNING);
-                        alert.setTitle("Er is een fout opgetreden");
-                        alert.setHeaderText("Deze plek staat vol...");
-                        alert.setContentText("Kies een andere plek");
-                        alert.show();
-                    }
-                    else if (isPlaatsOpPlaats(plaatsNummer))
+                   if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
                     {
-                        Alert alert = new Alert(AlertType.WARNING);
-                        alert.setTitle("Er is een fout opgetreden");
-                        alert.setHeaderText("Je hebt reeds geplaatst op deze plek...");
-                        alert.setContentText("Kies een andere plek");
-                        alert.show();
-                    }
-                    else if (dc.getPlaatsenLijst().get(plaatsNummer).getAantalSpots() >= parseInt(stamledenAantal))
-                    {
-                        if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() >= parseInt(stamledenAantal)) {
-                            dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer, parseInt(stamledenAantal));
-                            this.updateButtons();
-                            volgendeBeurt();
-                        }
-                        else
-                        {
-                            Alert alert = new Alert(AlertType.WARNING);
-                            alert.setTitle("Er is een fout opgetreden");
-                            alert.setHeaderText("Je niet genoeg stamleden beschikbaar");
-                            alert.setContentText("Kies een andere plek");
-                            alert.show();
-                        }
+                        dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer, parseInt(stamledenAantal));
+                        this.updateButtons();
+                        volgendeBeurt();
                     }
                     break;
-                
-                default:
-                    throw new AssertionError();
+                //hutkaart 1
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                    dc.doePlaatsOpPlekGUI(dc.getHuidigeSpeler(), plaatsNummer, parseInt(stamledenAantal));
+                    this.updateButtons();
+                    volgendeBeurt();
+                    break;
             }
         }catch(NumberFormatException e)
         {
@@ -341,6 +385,27 @@ public class MapSpel extends GridPane
                 return true;
             }
                 break;
+            case 11:
+            if(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHutkaart1())
+            {
+                return true;
+            }
+            case 12:
+            if(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHutkaart2())
+            {
+                return true;
+            }
+            case 13:
+            if(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHutkaart3())
+            {
+                return true;
+            }
+            case 14:
+            if(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHutkaart4())
+            {
+                return true;
+            }
+                break;
             default: 
                 return false;
         }
@@ -375,7 +440,7 @@ public class MapSpel extends GridPane
                 }
                 //voedsel aftrekken
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos();
-                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 
                 dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalBos());
@@ -437,7 +502,7 @@ public class MapSpel extends GridPane
                 }
                 //voedsel aftrekken
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve();
-                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 
                 dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalLeemgroeve());
@@ -497,7 +562,7 @@ public class MapSpel extends GridPane
                 }
                 //voedsel aftrekken
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve();
-                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
                 dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSteengroeve());
@@ -556,7 +621,7 @@ public class MapSpel extends GridPane
                 }
                 //voedsel aftrekken
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn();
-                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
                 dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalGoudmijn());
@@ -615,7 +680,7 @@ public class MapSpel extends GridPane
                 }
                 //voedsel aftrekken
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied();
-                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 //getaantalbos terug op 0 zetten
                 dc.getPlaatsenLijst().get(plaatsNr).setAantalSpots(dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalJachtgebied());
@@ -660,7 +725,7 @@ public class MapSpel extends GridPane
             {
                 //voedsel aftrekken
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHut();
-                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + 1);
                 //getaantalbos terug op 0 zetten
@@ -706,7 +771,7 @@ public class MapSpel extends GridPane
             {
                 //voedsel aftrekken
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalSmith();
-                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(5).getAantal() + 1);
                 //getaantalbos terug op 0 zetten
@@ -752,7 +817,7 @@ public class MapSpel extends GridPane
             {
                 //voedsel aftrekken
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalAkkerbouw();
-                voedselVermindering += dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal();
+                
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(4).getAantal() + 1);
                 //getaantalbos terug op 0 zetten
@@ -783,11 +848,232 @@ public class MapSpel extends GridPane
         }
     }
     
+    public void hutKaart1Clicked()
+    {
+              int plaatsNr = 11;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHutkaart1()== true)
+            {
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart1();
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
+                
+                if (dc.getResourcesChecked(dc.getHuidigeSpeler(), plaatsNr - 10) == true) {
+                    dc.doeTrekResourcesAf(dc.getHuidigeSpeler(), plaatsNr - 10);
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst1().get(0).getPunten());
+                    dc.doeVerwijderKaart(plaatsNr - 10);
+                    spelAppPaneel.doeLichtUit(plaatsNr-10);
+                }
+                else
+                {
+                    dc.getHuttenLijst1().get(0).setAantalSpots(1);
+                    spelAppPaneel.doeLichtUit(plaatsNr - 10);
+                }
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart1());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart1());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpHutkaart1(false);
+                
+                spelAppPaneel.refreshKaartPaneel();
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            this.toonKeuzeStamledenSpeciaal(plaatsNr);
+        }
+    }
+    
+    public void hutKaart2Clicked()
+    {
+              int plaatsNr = 12;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHutkaart2()== true)
+            {
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart2();
+
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
+                
+                if (dc.getResourcesChecked(dc.getHuidigeSpeler(), plaatsNr - 10) == true) {
+                    dc.doeTrekResourcesAf(dc.getHuidigeSpeler(), plaatsNr - 10);
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst2().get(0).getPunten());
+                    dc.doeVerwijderKaart(plaatsNr - 10);
+                    spelAppPaneel.doeLichtUit(plaatsNr-10);
+                }
+                else
+                {
+                    dc.getHuttenLijst2().get(0).setAantalSpots(1);
+                    spelAppPaneel.doeLichtUit(plaatsNr - 10);
+                }
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart2());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart2());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpHutkaart2(false);
+                
+                spelAppPaneel.refreshKaartPaneel();
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            this.toonKeuzeStamledenSpeciaal(plaatsNr);
+        }
+    }
+    
+    public void hutKaart3Clicked()
+    {
+              int plaatsNr = 13;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHutkaart3()== true)
+            {
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart3();
+                
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
+                
+                if (dc.getResourcesChecked(dc.getHuidigeSpeler(), plaatsNr - 10) == true) {
+                    dc.doeTrekResourcesAf(dc.getHuidigeSpeler(), plaatsNr - 10);
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst3().get(0).getPunten());
+                    dc.doeVerwijderKaart(plaatsNr - 10);
+                    spelAppPaneel.doeLichtUit(plaatsNr-10);
+                }
+                else
+                {
+                    dc.getHuttenLijst3().get(0).setAantalSpots(1);
+                    spelAppPaneel.doeLichtUit(plaatsNr - 10);
+                }dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart3());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart3());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpHutkaart3(false);
+                
+                spelAppPaneel.refreshKaartPaneel();
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            this.toonKeuzeStamledenSpeciaal(plaatsNr);
+        }
+    }
+    
+    public void hutKaart4Clicked()
+    {
+              int plaatsNr = 14;
+        //als het de einde van de ronde is
+        //true => de speler kan zoveel klikken als hij wil
+        //false => toont hij keuzestamleden en daarna volgende speler
+        if(isEindeRonde)
+        {
+            //als de speler op het bos heeft geplaatst
+            //true => de speler krijgt resources
+            //false => er verschijnt een alert, maar hij kan wel nog klikken op een andere plaats uiteraard
+            if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).isPlaatsOpHutkaart4()== true)
+            {
+                //voedsel aftrekken
+                int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart4();
+                
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
+                
+                if (dc.getResourcesChecked(dc.getHuidigeSpeler(), plaatsNr - 10) == true) {
+                    dc.doeTrekResourcesAf(dc.getHuidigeSpeler(), plaatsNr - 10);
+                    dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst4().get(0).getPunten());
+                    dc.doeVerwijderKaart(plaatsNr - 10);
+                    spelAppPaneel.doeLichtUit(plaatsNr-10);
+                }
+                else
+                {
+                    dc.getHuttenLijst4().get(0).setAantalSpots(1);
+                    spelAppPaneel.doeLichtUit(plaatsNr - 10);
+                }
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setGebruikteStamleden(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart4());
+                //stamleden terug zetten
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart4());
+                //setplaatsop bos false voor de speler
+                dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpHutkaart4(false);
+                
+                spelAppPaneel.refreshKaartPaneel();
+                formRefresh();
+                updateButtons();
+                volgendeBeurt();
+            }
+            else
+            {
+                //alert
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Er is een fout opgetreden");
+                alert.setHeaderText("Fout");
+                alert.setContentText("Je hebt niet op deze plek geplaatst..");
+                alert.show();
+            }
+        }
+        else
+        {
+            this.toonKeuzeStamledenSpeciaal(plaatsNr);
+        }
+    }
+    
     private void formRefresh()
     {
         //hier moeten we de form refreshen voor de labels
         spelAppPaneel.formRefresh();
-        
     }
     
      public void voorgrondButtons()
@@ -1095,6 +1381,10 @@ public class MapSpel extends GridPane
     public void eindeRonde()
     {
         isEindeRonde = false;
+        for (int i = 0; i < dc.getSpelerLijst().size(); i++) {
+            dc.getSpelerLijst().get(i).getResourceLijst().get(6).setAantal(dc.getSpelerLijst().get(i).getResourceLijst().get(6).getAantal() + dc.getSpelerLijst().get(i).getResourceLijst().get(4).getAantal());
+            
+        }
     }
 }
 /*

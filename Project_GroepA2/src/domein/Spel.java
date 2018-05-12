@@ -11,7 +11,10 @@ public class Spel
     private List<Speler> spelerLijst;
     private List<Resource> resourceLijst;
     private List<Plaats> plaatsLijst;
-    private List<Plaats> huttenLijst;
+    private List<Plaats> huttenLijst1;
+    private List<Plaats> huttenLijst2;
+    private List<Plaats> huttenLijst3;
+    private List<Plaats> huttenLijst4;
     private int spelerBeurt;
     SecureRandom random = new SecureRandom();
     
@@ -116,11 +119,11 @@ public class Spel
         return plaatsLijst;
     }
     
-    public List<Plaats> vulHuttenLijst()
+    public List<Plaats> vulHuttenLijst1()
     {
-        huttenLijst = new ArrayList<>();
+        huttenLijst1 = new ArrayList<>();
            
-        for (int i = 0; i < 28; i++) 
+        for (int i = 0; i < 7; i++) 
         {
             //resources bepalen
             String Rnaam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
@@ -136,7 +139,7 @@ public class Spel
                 Rnaam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
             }
                                       //hut nummer
-           huttenLijst.add(new Plaats(  i,
+           huttenLijst1.add(new Plaats(  i,
                                         //punten hut    (van 12 tot 18)
                                         random.nextInt(6) + 12,
                                         //resource naam 1 hut
@@ -150,11 +153,136 @@ public class Spel
                                         //resource naam 3 hut
                                         Rnaam3,
                                         //resource hoeveelheid hut
-                                        random.nextInt(4) + 1));
+                                        random.nextInt(4) + 1,
+                                        //aantalSpots
+                                        1));
         }
-        return huttenLijst;
+        return huttenLijst1;
     }
     
+        public List<Plaats> vulHuttenLijst2()
+    {
+        huttenLijst2 = new ArrayList<>();
+           
+        for (int i = 0; i < 7; i++) 
+        {
+            //resources bepalen
+            String Rnaam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String Rnaam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String Rnaam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            //nieuwe resource bepalen voor naam2 als naam1 = naam2
+            while (Rnaam1.equals(Rnaam2)) {
+                Rnaam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
+            //nieuwe resource bepalen voor naam3 als naam1 = naam3 of als naam2 = naam3
+            while (Rnaam1.equals(Rnaam3) || Rnaam2.equals(Rnaam3))
+            {
+                Rnaam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
+                                      //hut nummer
+           huttenLijst2.add(new Plaats(  i,
+                                        //punten hut    (van 12 tot 18)
+                                        random.nextInt(6) + 12,
+                                        //resource naam 1 hut
+                                        Rnaam1,
+                                        //resource hoeveelheid 1 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 2 hut
+                                        Rnaam2,
+                                        //resource hoeveelheid 2 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 3 hut
+                                        Rnaam3,
+                                        //resource hoeveelheid hut
+                                        random.nextInt(4) + 1,
+                                        //aantalSpots
+                                        1));
+        }
+        return huttenLijst2;
+    }
+        
+        public List<Plaats> vulHuttenLijst3()
+    {
+        huttenLijst3 = new ArrayList<>();
+           
+        for (int i = 0; i < 7; i++) 
+        {
+            //resources bepalen
+            String Rnaam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String Rnaam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String Rnaam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            //nieuwe resource bepalen voor naam2 als naam1 = naam2
+            while (Rnaam1.equals(Rnaam2)) {
+                Rnaam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
+            //nieuwe resource bepalen voor naam3 als naam1 = naam3 of als naam2 = naam3
+            while (Rnaam1.equals(Rnaam3) || Rnaam2.equals(Rnaam3))
+            {
+                Rnaam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
+                                      //hut nummer
+           huttenLijst3.add(new Plaats(  i,
+                                        //punten hut    (van 12 tot 18)
+                                        random.nextInt(6) + 12,
+                                        //resource naam 1 hut
+                                        Rnaam1,
+                                        //resource hoeveelheid 1 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 2 hut
+                                        Rnaam2,
+                                        //resource hoeveelheid 2 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 3 hut
+                                        Rnaam3,
+                                        //resource hoeveelheid hut
+                                        random.nextInt(4) + 1,
+                                        //aantalSpots
+                                        1));
+        }
+        return huttenLijst3;
+    }
+    
+        public List<Plaats> vulHuttenLijst4()
+    {
+        huttenLijst4 = new ArrayList<>();
+           
+        for (int i = 0; i < 7; i++) 
+        {
+            //resources bepalen
+            String Rnaam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String Rnaam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            String Rnaam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            //nieuwe resource bepalen voor naam2 als naam1 = naam2
+            while (Rnaam1.equals(Rnaam2)) {
+                Rnaam2 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
+            //nieuwe resource bepalen voor naam3 als naam1 = naam3 of als naam2 = naam3
+            while (Rnaam1.equals(Rnaam3) || Rnaam2.equals(Rnaam3))
+            {
+                Rnaam3 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
+            }
+                                      //hut nummer
+           huttenLijst4.add(new Plaats(  i,
+                                        //punten hut    (van 12 tot 18)
+                                        random.nextInt(6) + 12,
+                                        //resource naam 1 hut
+                                        Rnaam1,
+                                        //resource hoeveelheid 1 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 2 hut
+                                        Rnaam2,
+                                        //resource hoeveelheid 2 hut
+                                        random.nextInt(4) + 1,
+                                        //resource naam 3 hut
+                                        Rnaam3,
+                                        //resource hoeveelheid hut
+                                        random.nextInt(4) + 1,
+                                        //aantalSpots
+                                        1));
+        }
+        return huttenLijst4;
+    }
+   
     public void geefSpelersResources()
     {
         for (int i = 0; i < getAantalSpelers(); i++) {
@@ -199,46 +327,34 @@ public class Spel
         bedieningsPaneel += String.format("%18d", getPlaatsenLijst().get(7).getAantalSpots());
         bedieningsPaneel += String.format("%14d", getPlaatsenLijst().get(6).getAantalSpots());
         bedieningsPaneel += String.format("%17d%n", getPlaatsenLijst().get(5).getAantalSpots());
-        if (getHuttenLijst().size() >= 3) 
+        if (getHuttenLijst1().size() > 1)
         {
             bedieningsPaneel += String.format("• hut kaarten: %n");
-            bedieningsPaneel += String.format("• 11: hut %d geeft %d punten. ", getHuttenLijst().get(hutNummer).getHutNummer() + 1, getHuttenLijst().get(hutNummer).getPunten());
-            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst().get(hutNummer).getResource1(), getHuttenLijst().get(hutNummer).getAantalResource1());
-            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst().get(hutNummer).getResource2(), getHuttenLijst().get(hutNummer).getAantalResource2());
-            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst().get(hutNummer).getResource3(), getHuttenLijst().get(hutNummer).getAantalResource3());
-                
-            bedieningsPaneel += String.format("• 12: hut %d geeft %d punten. ", getHuttenLijst().get(hutNummer + 1).getHutNummer() + 1, getHuttenLijst().get(hutNummer + 1).getPunten());
-            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst().get(hutNummer + 1).getResource1(), getHuttenLijst().get(hutNummer + 1).getAantalResource1());
-            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst().get(hutNummer + 1).getResource2(), getHuttenLijst().get(hutNummer + 1).getAantalResource2());
-            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst().get(hutNummer + 1).getResource3(), getHuttenLijst().get(hutNummer + 1).getAantalResource3());
-            
-            bedieningsPaneel += String.format("• 13: hut %d geeft %d punten. ", getHuttenLijst().get(hutNummer + 2).getHutNummer() + 1, getHuttenLijst().get(hutNummer + 2).getPunten());
-            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst().get(hutNummer + 2).getResource1(), getHuttenLijst().get(hutNummer + 2).getAantalResource1());
-            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst().get(hutNummer + 2).getResource2(), getHuttenLijst().get(hutNummer + 2).getAantalResource2());
-            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst().get(hutNummer + 2).getResource3(), getHuttenLijst().get(hutNummer + 2).getAantalResource3());
+            bedieningsPaneel += String.format("• 11: hut %d geeft %d punten. ", getHuttenLijst1().get(hutNummer).getHutNummer() + 1, getHuttenLijst1().get(hutNummer).getPunten());
+            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst1().get(hutNummer).getResource1(), getHuttenLijst1().get(hutNummer).getAantalResource1());
+            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst1().get(hutNummer).getResource2(), getHuttenLijst1().get(hutNummer).getAantalResource2());
+            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst1().get(hutNummer).getResource3(), getHuttenLijst1().get(hutNummer).getAantalResource3());
         }
-        else if (getHuttenLijst().size() >= 2)
+        if (getHuttenLijst2().size() > 1)
+        {        
+            bedieningsPaneel += String.format("• 12: hut %d geeft %d punten. ", getHuttenLijst2().get(hutNummer + 1).getHutNummer() + 1, getHuttenLijst2().get(hutNummer + 1).getPunten());
+            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst2().get(hutNummer + 1).getResource1(), getHuttenLijst2().get(hutNummer + 1).getAantalResource1());
+            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst2().get(hutNummer + 1).getResource2(), getHuttenLijst2().get(hutNummer + 1).getAantalResource2());
+            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst2().get(hutNummer + 1).getResource3(), getHuttenLijst2().get(hutNummer + 1).getAantalResource3());
+        } 
+        if (getHuttenLijst3().size() > 1)
         {
-            bedieningsPaneel += String.format("• hut kaarten: %n");
-            bedieningsPaneel += String.format("• 12: hut %d geeft %d punten. ", getHuttenLijst().get(hutNummer).getHutNummer() + 1, getHuttenLijst().get(hutNummer).getPunten());
-            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst().get(hutNummer).getResource1(), getHuttenLijst().get(hutNummer).getAantalResource1());
-            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst().get(hutNummer).getResource2(), getHuttenLijst().get(hutNummer).getAantalResource2());
-            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst().get(hutNummer).getResource3(), getHuttenLijst().get(hutNummer).getAantalResource3());
-                
-            bedieningsPaneel += String.format("• 13: hut %d geeft %d punten. ", getHuttenLijst().get(hutNummer + 1).getHutNummer() + 1, getHuttenLijst().get(hutNummer + 1).getPunten());
-            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst().get(hutNummer + 1).getResource1(), getHuttenLijst().get(hutNummer + 1).getAantalResource1());
-            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst().get(hutNummer + 1).getResource2(), getHuttenLijst().get(hutNummer + 1).getAantalResource2());
-            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst().get(hutNummer + 1).getResource3(), getHuttenLijst().get(hutNummer + 1).getAantalResource3());
-            
-        }
-        else if (1 < getHuttenLijst().size())
+            bedieningsPaneel += String.format("• 13: hut %d geeft %d punten. ", getHuttenLijst3().get(hutNummer + 2).getHutNummer() + 1, getHuttenLijst3().get(hutNummer + 2).getPunten());
+            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst3().get(hutNummer + 2).getResource1(), getHuttenLijst3().get(hutNummer + 2).getAantalResource1());
+            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst3().get(hutNummer + 2).getResource2(), getHuttenLijst3().get(hutNummer + 2).getAantalResource2());
+            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst3().get(hutNummer + 2).getResource3(), getHuttenLijst3().get(hutNummer + 2).getAantalResource3());
+        }  
+        if (getHuttenLijst4().size() > 1)
         {
-            bedieningsPaneel += String.format("• hut kaarten: %n");
-            bedieningsPaneel += String.format("• 13: hut %d geeft %d punten. ", getHuttenLijst().get(hutNummer).getHutNummer() + 1, getHuttenLijst().get(hutNummer).getPunten());
-            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst().get(hutNummer).getResource1(), getHuttenLijst().get(hutNummer).getAantalResource1());
-            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst().get(hutNummer).getResource2(), getHuttenLijst().get(hutNummer).getAantalResource2());
-            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst().get(hutNummer).getResource3(), getHuttenLijst().get(hutNummer).getAantalResource3());
-              
+            bedieningsPaneel += String.format("• 14: hut %d geeft %d punten. ", getHuttenLijst4().get(hutNummer + 2).getHutNummer() + 1, getHuttenLijst4().get(hutNummer + 2).getPunten());
+            bedieningsPaneel += String.format("benodigde materialen: %s = %d | ", getHuttenLijst4().get(hutNummer + 2).getResource1(), getHuttenLijst4().get(hutNummer + 2).getAantalResource1());
+            bedieningsPaneel += String.format("%s = %d | ", getHuttenLijst4().get(hutNummer + 2).getResource2(), getHuttenLijst4().get(hutNummer + 2).getAantalResource2());
+            bedieningsPaneel += String.format("%s = %d%n", getHuttenLijst4().get(hutNummer + 2).getResource3(), getHuttenLijst4().get(hutNummer + 2).getAantalResource3());
         }
         hutNummer++;
         return bedieningsPaneel;
@@ -254,6 +370,24 @@ public class Spel
        }
    }
     
+    public void verwijderKaart(int lijstNr)
+    {
+        switch (lijstNr) {
+            case 1:
+                this.getHuttenLijst1().remove(0);
+                break;
+            case 2:
+                this.getHuttenLijst2().remove(0);
+                break;
+            case 3:
+                this.getHuttenLijst3().remove(0);
+                break;
+            case 4:
+                this.getHuttenLijst4().remove(0);
+                break;
+        }
+    }
+    
      public String eindeRondeBericht()
     {
         String output = "";
@@ -266,33 +400,106 @@ public class Spel
         return output;
     }
     
-    public void trekResourcesAf(int spelerNr, int hutNummer)
+    public void trekResourcesAf(int spelerNr, int hutLijst)
     {
-        int resourceNr1 = resourceNummerOphalen(spelerNr, 0);
-        int resourceNr2 = resourceNummerOphalen(spelerNr, 1);
-        int resourceNr3 = resourceNummerOphalen(spelerNr, 2);
-        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource1())
-        {
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() - getHuttenLijst().get(hutNummer).getAantalResource1());
+        int resourceNr1 = resourceNummerOphalen(spelerNr, hutLijst);
+        int resourceNr2 = resourceNummerOphalen(spelerNr, hutLijst);
+        int resourceNr3 = resourceNummerOphalen(spelerNr, hutLijst);
+        switch (hutLijst) {
+            case 1:
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() >= getHuttenLijst1().get(0).getAantalResource1())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() - getHuttenLijst1().get(0).getAantalResource1());
+                }
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() >= getHuttenLijst1().get(0).getAantalResource2())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() - getHuttenLijst1().get(0).getAantalResource2());
+                }
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() >= getHuttenLijst1().get(0).getAantalResource3())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() - getHuttenLijst1().get(0).getAantalResource3());
+                }
+                break;
+            case 2:
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() >= getHuttenLijst2().get(0).getAantalResource1())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() - getHuttenLijst2().get(0).getAantalResource1());
+                }
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() >= getHuttenLijst2().get(0).getAantalResource2())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() - getHuttenLijst2().get(0).getAantalResource2());
+                }
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() >= getHuttenLijst2().get(0).getAantalResource3())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() - getHuttenLijst2().get(0).getAantalResource3());
+                }
+                break;
+            case 3:
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() >= getHuttenLijst3().get(0).getAantalResource1())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() - getHuttenLijst3().get(0).getAantalResource1());
+                }
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() >= getHuttenLijst3().get(0).getAantalResource2())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() - getHuttenLijst3().get(0).getAantalResource2());
+                }
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() >= getHuttenLijst3().get(0).getAantalResource3())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() - getHuttenLijst3().get(0).getAantalResource3());
+                }
+                break;
+            case 4:
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() >= getHuttenLijst4().get(0).getAantalResource1())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr1).getAantal() - getHuttenLijst4().get(0).getAantalResource1());
+                }
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() >= getHuttenLijst4().get(0).getAantalResource2())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() - getHuttenLijst4().get(0).getAantalResource2());
+                }
+                if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() >= getHuttenLijst4().get(0).getAantalResource3())
+                {
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() - getHuttenLijst4().get(0).getAantalResource3());
+                }
+                break;
         }
-        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource2())
-        {
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr2).getAantal() - getHuttenLijst().get(hutNummer).getAantalResource2());
-        }
-        if(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource3())
-        {
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNr3).getAantal() - getHuttenLijst().get(hutNummer).getAantalResource3());
-        }
+        
     }
     
-    public boolean checkResources(int spelerNr, int hutNummer)
+    public boolean checkResources(int spelerNr, int hutLijst)
     {
         boolean a = false;
-        if (getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutNummer)).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource1() &&
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutNummer)).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource2() &&
-            getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutNummer)).getAantal() >= getHuttenLijst().get(hutNummer).getAantalResource3()) {
-            a = true;
+        switch (hutLijst) {
+            case 1:
+                if (getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst1().get(0).getAantalResource1() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst1().get(0).getAantalResource2() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst1().get(0).getAantalResource3()) {
+                    a = true;
+                }
+                break;
+            case 2:
+                if (getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst2().get(0).getAantalResource1() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst2().get(0).getAantalResource2() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst2().get(0).getAantalResource3()) {
+                    a = true;
+                }
+                break;
+            case 3:
+                if (getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst3().get(0).getAantalResource1() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst3().get(0).getAantalResource2() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst3().get(0).getAantalResource3()) {
+                    a = true;
+                }
+                break;
+            case 4:
+                if (getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst4().get(0).getAantalResource1() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst4().get(0).getAantalResource2() &&
+                    getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummerOphalen(spelerNr,hutLijst)).getAantal() >= getHuttenLijst4().get(0).getAantalResource3()) {
+                    a = true;
+                }
+                break;
         }
+        
         return a;
     }
     
@@ -308,14 +515,34 @@ public class Spel
         return a;
     }
     
-     public int resourceNummerOphalen(int spelerNr, int hutNummer)
+     public int resourceNummerOphalen(int spelerNr, int lijstNr)
     {
         int getal;
         for (int resourceNummer = 0; resourceNummer < 4; resourceNummer++) {
             String resourceNamen = getSpelerLijst().get(spelerNr).getResourceLijst().get(resourceNummer).getNaam();
-            if (getHuttenLijst().get(hutNummer).getResource1().toLowerCase().equals(resourceNamen)) {
-                return resourceNummer;
+            switch (lijstNr) {
+                case 1:
+                    if (getHuttenLijst1().get(0).getResource1().toLowerCase().equals(resourceNamen)) {
+                        return resourceNummer;
+                    }
+                    break;
+                case 2:
+                    if (getHuttenLijst2().get(0).getResource1().toLowerCase().equals(resourceNamen)) {
+                        return resourceNummer;
+                    }
+                    break;
+                case 3:
+                    if (getHuttenLijst3().get(0).getResource1().toLowerCase().equals(resourceNamen)) {
+                        return resourceNummer;
+                    }
+                    break;
+                case 4:
+                    if (getHuttenLijst4().get(0).getResource1().toLowerCase().equals(resourceNamen)) {
+                        return resourceNummer;
+                    }
+                    break;
             }
+            
         }
         return getal = 0;
     }
@@ -398,19 +625,34 @@ public class Spel
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
                 getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart1(true);
+                getSpelerLijst().get(spelerNr).setAantalHutkaart1(getSpelerLijst().get(spelerNr).getAantalHutkaart1()+ aantalStamleden);
+                getHuttenLijst1().get(0).setAantalSpots(0);
                 break;
             case 12:
                 //hut kaart 2
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
                 getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart2(true);
+                getSpelerLijst().get(spelerNr).setAantalHutkaart2(getSpelerLijst().get(spelerNr).getAantalHutkaart1()+ aantalStamleden);
+                getHuttenLijst2().get(0).setAantalSpots(0);
                 break;
             case 13:
                 //hut kaart 3
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
                 getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart3(true);
+                getSpelerLijst().get(spelerNr).setAantalHutkaart3(getSpelerLijst().get(spelerNr).getAantalHutkaart1()+ aantalStamleden);
+                getHuttenLijst3().get(0).setAantalSpots(0);
                 break;
+            case 14:
+                //hut kaart 4
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart4(true);
+                getSpelerLijst().get(spelerNr).setAantalHutkaart4(getSpelerLijst().get(spelerNr).getAantalHutkaart1()+ aantalStamleden);
+                getHuttenLijst4().get(0).setAantalSpots(0);
+                break;    
+            
         }
     }
     
@@ -491,18 +733,32 @@ public class Spel
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
                 getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart1(true);
+                getSpelerLijst().get(spelerNr).setAantalHutkaart1(aantalStamleden);
+                getHuttenLijst1().get(0).setAantalSpots(0);
                 break;
             case 12:
                 //hut kaart 2
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
                 getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart2(true);
+                getSpelerLijst().get(spelerNr).setAantalHutkaart2(aantalStamleden);
+                getHuttenLijst2().get(0).setAantalSpots(0);
                 break;
             case 13:
                 //hut kaart 3
                 getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
                 getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
                 getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart3(true);
+                getSpelerLijst().get(spelerNr).setAantalHutkaart3(aantalStamleden);
+                getHuttenLijst3().get(0).setAantalSpots(0);
+                break;
+            case 14:
+                //hut kaart 4
+                getSpelerLijst().get(spelerNr).setGebruikteStamleden(getSpelerLijst().get(spelerNr).getGebruikteStamleden() + aantalStamleden);
+                getSpelerLijst().get(spelerNr).getResourceLijst().get(7).setAantal(getSpelerLijst().get(spelerNr).getResourceLijst().get(7).getAantal() - aantalStamleden);
+                getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart4(true);
+                getSpelerLijst().get(spelerNr).setAantalHutkaart4(aantalStamleden);
+                getHuttenLijst4().get(0).setAantalSpots(0);
                 break;
         }
     }
@@ -528,6 +784,10 @@ public class Spel
         getSpelerLijst().get(spelerNr).setPlaatsOpJachtgebied(false);
         getSpelerLijst().get(spelerNr).setPlaatsOpSmith(false);
         getSpelerLijst().get(spelerNr).setPlaatsOpHut(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart1(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart2(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart3(false);
+        getSpelerLijst().get(spelerNr).setPlaatsOpHutkaart4(false);
 
         getSpelerLijst().get(spelerNr).setAantalBos(0);
         getSpelerLijst().get(spelerNr).setAantalLeemgroeve(0);
@@ -559,8 +819,17 @@ public class Spel
     public List<Plaats> getPlaatsenLijst(){
         return plaatsLijst;
     }
-    public List<Plaats> getHuttenLijst(){
-        return huttenLijst;
+    public List<Plaats> getHuttenLijst1(){
+        return huttenLijst1;
+    }
+     public List<Plaats> getHuttenLijst2(){
+        return huttenLijst2;
+    }
+      public List<Plaats> getHuttenLijst3(){
+        return huttenLijst3;
+    }
+       public List<Plaats> getHuttenLijst4(){
+        return huttenLijst4;
     }
     public void setSpelersResourceLijst(){
         for (int index = 0; index < getAantalSpelers(); index++) {
