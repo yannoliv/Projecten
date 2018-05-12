@@ -5,6 +5,7 @@ import domein.DomeinController;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -29,7 +30,16 @@ public class MainMenu extends VBox {
     
     private void loadGame(ActionEvent ae)
     {
-        
+        dc.getSpelerMapper().setSpelersFromDataBank(dc);
+        System.out.println("count1: " + dc.getSpelerLijst().size());
+        this.getChildren().clear();
+        stage.hide();
+        Stage spelStage = new Stage();
+        SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
+        Scene scenery = new Scene(spelAppPaneel);
+        String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
+        scenery.getStylesheets().add(cssURL);
+        spelStage.setScene(scenery);
     }
     
     private void startSpel(ActionEvent ae)

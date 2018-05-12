@@ -1,5 +1,6 @@
 package domein;
 
+import Persistentie.SpelerMapper;
 import java.util.List;
 
 
@@ -7,11 +8,13 @@ public class DomeinController
 {
 
     private Spel spel;
+    private SpelerMapper spelerMapper;
     
     
     public DomeinController()
     {
         spel = new Spel();
+        spelerMapper = new SpelerMapper();
     }
     
     public boolean doeAantalSpelersControle(String aantal)
@@ -58,90 +61,103 @@ public class DomeinController
     {
         spel.verwijderKaart(lijstNr);
     }
-        
-        public void doeResetSpelerZet(int spelerNr)
-        {
-            spel.resetSpelerZet(spelerNr);
-        }
-        
-        public boolean getResourcesChecked(int spelerNr, int lijstNr)
-        {
-            return spel.checkResources(spelerNr, lijstNr);
-        }
-        
-        public void doePlaatsOpPlek(int spelerNr, int keuzeNr, int aantalStamleden)
-        {
-            spel.plaatsOpPlek(spelerNr, keuzeNr, aantalStamleden);
-        }
-        
-        public void doePlaatsOpPlekGUI(int spelerNr, int keuzeNr, int aantalStamleden)
-        {
-            spel.plaatsOpPlekGUI(spelerNr, keuzeNr, aantalStamleden);
-        }
-        
-        public String getBedieningsPaneel(int spelerNr)
-        {
-            return spel.bedieningsPaneel(spelerNr);
-        }
-        
-        public int getGeroldGetal(int aantalStamleden)
-        {
-            return spel.dobbelStenen(aantalStamleden);
-        }
-         
-       public String getToonSpelers()
-       {
-           return spel.toonSpelers();
-       }
-        
-      public List<Plaats> getHuttenLijst1()
-      {
-        return spel.getHuttenLijst1();
-      }
-      
-      public List<Plaats> getHuttenLijst2()
-      {
-        return spel.getHuttenLijst2();
-      }
-      
-      public List<Plaats> getHuttenLijst3()
-      {
-        return spel.getHuttenLijst3();
-      }
-      
-      public List<Plaats> getHuttenLijst4()
-      {
-        return spel.getHuttenLijst4();
-      }
-      public List<Speler> getSpelerLijst()
-      {
-        return spel.getSpelerLijst();
-      }
-      
-      public List<Plaats> getPlaatsenLijst()
-      {
-        return spel.getPlaatsenLijst();
-      }
-      
-      public int getHuidigeSpeler()
-      {
-          return spel.getSpelerBeurt();
-      }
-      
-      public void setHuidigeSpeler(int spelerBeurt)
-      {
-          spel.setSpelerBeurt(spelerBeurt);
-      }
-      
-      public boolean doeResourcesControleSpeler(int spelerNr, int tekortVoedsel)
-      {
-          return spel.checkResourcesStraf(spelerNr, tekortVoedsel);
-      }
-      
-      public void doeResetLijsten()
-      {
-          spel.resetLijsten();
-      }
-      
+
+    public void doeResetSpelerZet(int spelerNr)
+    {
+        spel.resetSpelerZet(spelerNr);
+    }
+
+    public boolean getResourcesChecked(int spelerNr, int lijstNr)
+    {
+        return spel.checkResources(spelerNr, lijstNr);
+    }
+
+    public void doePlaatsOpPlek(int spelerNr, int keuzeNr, int aantalStamleden)
+    {
+        spel.plaatsOpPlek(spelerNr, keuzeNr, aantalStamleden);
+    }
+
+    public void doePlaatsOpPlekGUI(int spelerNr, int keuzeNr, int aantalStamleden)
+    {
+        spel.plaatsOpPlekGUI(spelerNr, keuzeNr, aantalStamleden);
+    }
+
+    public String getBedieningsPaneel(int spelerNr)
+    {
+        return spel.bedieningsPaneel(spelerNr);
+    }
+
+    public int getGeroldGetal(int aantalStamleden)
+    {
+        return spel.dobbelStenen(aantalStamleden);
+    }
+
+   public String getToonSpelers()
+   {
+       return spel.toonSpelers();
+   }
+
+  public List<Plaats> getHuttenLijst1()
+  {
+    return spel.getHuttenLijst1();
+  }
+
+  public List<Plaats> getHuttenLijst2()
+  {
+    return spel.getHuttenLijst2();
+  }
+
+  public List<Plaats> getHuttenLijst3()
+  {
+    return spel.getHuttenLijst3();
+  }
+
+  public List<Plaats> getHuttenLijst4()
+  {
+    return spel.getHuttenLijst4();
+  }
+  public List<Speler> getSpelerLijst()
+  {
+    return spel.getSpelerLijst();
+  }
+
+  public List<Plaats> getPlaatsenLijst()
+  {
+    return spel.getPlaatsenLijst();
+  }
+
+  public int getHuidigeSpeler()
+  {
+      return spel.getSpelerBeurt();
+  }
+
+  public void setHuidigeSpeler(int spelerBeurt)
+  {
+      spel.setSpelerBeurt(spelerBeurt);
+  }
+
+  public boolean doeResourcesControleSpeler(int spelerNr, int tekortVoedsel)
+  {
+      return spel.checkResourcesStraf(spelerNr, tekortVoedsel);
+  }
+
+  public void doeResetLijsten()
+  {
+      spel.resetLijsten();
+  }
+  public SpelerMapper getSpelerMapper()
+{
+    return this.spelerMapper;
+}
+
+  public void setSpelerLijst(List<Speler> spelerLijst)
+  {
+      spel.setSpelerLijst(spelerLijst);
+  }
+
+  public void setAantalSpelers(int aantalSpelers)
+  {
+      spel.setAantalSpelers(aantalSpelers);
+  }
       
 }

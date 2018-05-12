@@ -850,5 +850,11 @@ public class Spel
         this.spelerBeurt = spelerBeurt;
     }
     
+    public void setSpelerLijst(List<Speler> spelerLijst)
+    {
+        this.spelerLijst = spelerLijst;
+    }
+    
+    
    
 }
