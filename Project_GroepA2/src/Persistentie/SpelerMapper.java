@@ -16,7 +16,6 @@ public class SpelerMapper
 {
     public void slaSpelOp(DomeinController dc)
     {
-                System.out.println("count1: " + dc.getSpelerLijst().size());
         voegSpelersToe(dc);
         voegHuttenToe(dc);
     }
@@ -24,9 +23,11 @@ public class SpelerMapper
     public boolean voegSpelersToe(DomeinController dc)
     {
         try (Connection conn = DriverManager.getConnection(MapperConfig.JDBC_URL)) {
-            PreparedStatement resetSpelers = conn.prepareStatement("DELETE FROM SpelerLijst WHERE spelerID > -1;");
+            PreparedStatement resetSpelers = conn.prepareStatement("DELETE FROM SpelerLijst");
             resetSpelers.executeUpdate();
-                            System.out.println("count2: " + dc.getSpelerLijst().size());
+            resetSpelers = conn.prepareStatement("ALTER TABLE SpelerLijst AUTO_INCREMENT = 0");
+            resetSpelers.executeUpdate();
+            
             for (int i = 0; i <  dc.getSpelerLijst().size();i++) {
             PreparedStatement queryNieuweGebruiker = conn.prepareStatement("INSERT INTO SpelerLijst (spelerNaam, rHout, pHout, rLeem, pLeem, rSteen, pSteen, rGoud, pGoud, rVoedsel, pVoedsel, rAkkerbouw, pAkkerbouw, rGereedschap, pSmith, rStamleden, pHut, gebruikteStamleden, rPunten, hut1, hut2, hut3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             queryNieuweGebruiker.setString(1, dc.getSpelerLijst().get(i).getNaam());
@@ -51,9 +52,8 @@ public class SpelerMapper
             queryNieuweGebruiker.setInt(20, dc.getSpelerLijst().get(i).isPlaatsOpHutkaart1()?1:0);
             queryNieuweGebruiker.setInt(21, dc.getSpelerLijst().get(i).isPlaatsOpHutkaart2()?1:0);
             queryNieuweGebruiker.setInt(22, dc.getSpelerLijst().get(i).isPlaatsOpHutkaart3()?1:0);
-                System.out.println("nieuwe gebruiker voegspelerstoe");
+                
             queryNieuweGebruiker.executeUpdate();
-                    System.out.println("count3: " + dc.getSpelerLijst().size());
             }
             
             return true;
@@ -69,6 +69,8 @@ public class SpelerMapper
     {
         try (Connection conn = DriverManager.getConnection(MapperConfig.JDBC_URL)) {
             PreparedStatement query = conn.prepareStatement("DELETE FROM HuttenLijst");
+            query.executeUpdate();
+            query = conn.prepareStatement("ALTER TABLE HuttenLijst AUTO_INCREMENT = 0");
             query.executeUpdate();
             
             for (int i = 0; i < dc.getHuttenLijst1().size(); i++) {
@@ -88,42 +90,42 @@ public class SpelerMapper
             for (int i = 0; i < dc.getHuttenLijst2().size(); i++) {
             query = conn.prepareStatement("INSERT INTO HuttenLijst (hutLijstNr,rNaam1, rAantal1, rNaam2, rAantal2, rNaam3, rAantal3, punten, aantalSpots) VALUES (?,?,?,?,?,?,?,?,?)");
             query.setInt(1, 1);
-            query.setString(2, dc.getHuttenLijst1().get(i).getResource1());
-            query.setInt(3, dc.getHuttenLijst1().get(i).getAantalResource1());
-            query.setString(4, dc.getHuttenLijst1().get(i).getResource2());
-            query.setInt(5, dc.getHuttenLijst1().get(i).getAantalResource2());
-            query.setString(6, dc.getHuttenLijst1().get(i).getResource3());
-            query.setInt(7, dc.getHuttenLijst1().get(i).getAantalResource3());
-            query.setInt(8, dc.getHuttenLijst1().get(i).getPunten());
-            query.setInt(9, dc.getHuttenLijst1().get(i).getAantalSpots());
+            query.setString(2, dc.getHuttenLijst2().get(i).getResource1());
+            query.setInt(3, dc.getHuttenLijst2().get(i).getAantalResource1());
+            query.setString(4, dc.getHuttenLijst2().get(i).getResource2());
+            query.setInt(5, dc.getHuttenLijst2().get(i).getAantalResource2());
+            query.setString(6, dc.getHuttenLijst2().get(i).getResource3());
+            query.setInt(7, dc.getHuttenLijst2().get(i).getAantalResource3());
+            query.setInt(8, dc.getHuttenLijst2().get(i).getPunten());
+            query.setInt(9, dc.getHuttenLijst2().get(i).getAantalSpots());
             query.executeUpdate();
             }
             
             for (int i = 0; i < dc.getHuttenLijst3().size(); i++) {
             query = conn.prepareStatement("INSERT INTO HuttenLijst (hutLijstNr,rNaam1, rAantal1, rNaam2, rAantal2, rNaam3, rAantal3, punten, aantalSpots) VALUES (?,?,?,?,?,?,?,?,?)");
             query.setInt(1, 2);
-            query.setString(2, dc.getHuttenLijst1().get(i).getResource1());
-            query.setInt(3, dc.getHuttenLijst1().get(i).getAantalResource1());
-            query.setString(4, dc.getHuttenLijst1().get(i).getResource2());
-            query.setInt(5, dc.getHuttenLijst1().get(i).getAantalResource2());
-            query.setString(6, dc.getHuttenLijst1().get(i).getResource3());
-            query.setInt(7, dc.getHuttenLijst1().get(i).getAantalResource3());
-            query.setInt(8, dc.getHuttenLijst1().get(i).getPunten());
-            query.setInt(9, dc.getHuttenLijst1().get(i).getAantalSpots());
+            query.setString(2, dc.getHuttenLijst3().get(i).getResource1());
+            query.setInt(3, dc.getHuttenLijst3().get(i).getAantalResource1());
+            query.setString(4, dc.getHuttenLijst3().get(i).getResource2());
+            query.setInt(5, dc.getHuttenLijst3().get(i).getAantalResource2());
+            query.setString(6, dc.getHuttenLijst3().get(i).getResource3());
+            query.setInt(7, dc.getHuttenLijst3().get(i).getAantalResource3());
+            query.setInt(8, dc.getHuttenLijst3().get(i).getPunten());
+            query.setInt(9, dc.getHuttenLijst3().get(i).getAantalSpots());
             query.executeUpdate();
             }
             
             for (int i = 0; i < dc.getHuttenLijst4().size(); i++) {
             query = conn.prepareStatement("INSERT INTO HuttenLijst (hutLijstNr,rNaam1, rAantal1, rNaam2, rAantal2, rNaam3, rAantal3, punten, aantalSpots) VALUES (?,?,?,?,?,?,?,?,?)");
             query.setInt(1, 3);
-            query.setString(2, dc.getHuttenLijst1().get(i).getResource1());
-            query.setInt(3, dc.getHuttenLijst1().get(i).getAantalResource1());
-            query.setString(4, dc.getHuttenLijst1().get(i).getResource2());
-            query.setInt(5, dc.getHuttenLijst1().get(i).getAantalResource2());
-            query.setString(6, dc.getHuttenLijst1().get(i).getResource3());
-            query.setInt(7, dc.getHuttenLijst1().get(i).getAantalResource3());
-            query.setInt(8, dc.getHuttenLijst1().get(i).getPunten());
-            query.setInt(9, dc.getHuttenLijst1().get(i).getAantalSpots());
+            query.setString(2, dc.getHuttenLijst3().get(i).getResource1());
+            query.setInt(3, dc.getHuttenLijst4().get(i).getAantalResource1());
+            query.setString(4, dc.getHuttenLijst4().get(i).getResource2());
+            query.setInt(5, dc.getHuttenLijst4().get(i).getAantalResource2());
+            query.setString(6, dc.getHuttenLijst4().get(i).getResource3());
+            query.setInt(7, dc.getHuttenLijst4().get(i).getAantalResource3());
+            query.setInt(8, dc.getHuttenLijst4().get(i).getPunten());
+            query.setInt(9, dc.getHuttenLijst4().get(i).getAantalSpots());
             query.executeUpdate();
             }
         
@@ -170,27 +172,185 @@ public class SpelerMapper
         List<Speler> spelerLijst= new ArrayList<>();
         dc.setSpelerLijst(spelerLijst);
         try (Connection conn = DriverManager.getConnection(MapperConfig.JDBC_URL)) {
+            
+            //hutlijst count uitvoeren
+            PreparedStatement queryHutten = conn.prepareStatement("SELECT COUNT(*) AS count FROM HuttenLijst GROUP BY hutLijstNr;");
+            int[] hutLijstSize = new int[4];
+            hutLijstSize = countHutLijsten(queryHutten);
+            dc.vuldbLijsten(hutLijstSize);
+            
+            
+            //connectie om de hutten af te halen
+            queryHutten = conn.prepareStatement("SELECT * FROM HuttenLijst");
+            setHutten(dc, queryHutten, hutLijstSize);
+            
+            
             //eerste connectie is om te zien hoeveel spelers er zijn
             PreparedStatement queryAlleGebruikers = conn.prepareStatement("select count(*) as count from SpelerLijst;");
-            try (ResultSet rs = queryAlleGebruikers.executeQuery()) {
-                rs.next();
-                int count = rs.getInt("count");
-                dc.setAantalSpelers(count);
-                for (int i = 0; i < count; i++) {
-                    Speler speler = new Speler(i);
-                    dc.getSpelerLijst().add(speler);
-                    System.out.println("speler toevegen adhv count; " + count);
+            int count = countSpelers(dc, queryAlleGebruikers);
+            
+            //dit moet voor nulpointer te voorkomen
+            Speler speler;
+            for (int i = 0; i < count; i++) {
+                dc.getSpelerLijst().add(speler = new Speler(i));
+            }
+            dc.geefSpelersResources();
+            //connectie om alle spelers van de databank te halen.
+            queryAlleGebruikers = conn.prepareStatement("SELECT * FROM SpelerLijst");
+            setSpelers(dc, queryAlleGebruikers);
+            
+            
+            
+        } catch (SQLException ex) {
+            for (Throwable t : ex) {
+                t.printStackTrace();
+            }
+        }
+    }
+    
+    public int countSpelers(DomeinController dc, PreparedStatement queryAlleGebruikers)
+    {
+        int count = 0;
+        try (ResultSet rs = queryAlleGebruikers.executeQuery()) {
+            rs.next();
+            count = rs.getInt("count");
+            dc.setAantalSpelers(count);
+            for (int i = 0; i < count; i++) {
+                Speler speler = new Speler(i);
+                dc.getSpelerLijst().add(speler);
+            }
+        } catch (SQLException ex) {
+            for (Throwable t : ex) {
+                t.printStackTrace();
+            }
+        }
+        return count;
+    }
+    
+    public int[] countHutLijsten(PreparedStatement queryHutten)
+    {
+        int[] hutLijstSize = new int[4];
+        try (ResultSet rs = queryHutten.executeQuery()) {
+            rs.next();
+            hutLijstSize[0] = rs.getInt("count");
+            rs.next();
+            hutLijstSize[1] = rs.getInt("count");
+            rs.next();
+            hutLijstSize[2] = rs.getInt("count");
+            rs.next();
+            hutLijstSize[3] = rs.getInt("count");
+        } catch (SQLException ex) {
+            for (Throwable t : ex) {
+                t.printStackTrace();
+            }
+        }
+        return hutLijstSize;
+    }
+    
+    public void setHutten(DomeinController dc, PreparedStatement queryHutten, int[] hutLijstSize)
+    {
+        try (ResultSet rs = queryHutten.executeQuery()) {
+                while(rs.next()){
+                    int hutLijstNr = rs.getInt("hutLijstNr");
+                    switch (hutLijstNr)
+                    {
+                        case 0:
+                            for (int i = 0; i < hutLijstSize[0]; i++) {
+                                String rNaam1 = rs.getString("rNaam1");
+                                int rAantal1 = rs.getInt("rAantal1");
+                                String rNaam2 = rs.getString("rNaam2");
+                                int rAantal2 = rs.getInt("rAantal2");
+                                String rNaam3 = rs.getString("rNaam3");
+                                int rAantal3 = rs.getInt("rAantal3");
+                                int punten = rs.getInt("punten");
+                                int aantalSpots = rs.getInt("aantalSpots");
+                                
+                                dc.getHuttenLijst1().get(i).setResource1(rNaam1);
+                                dc.getHuttenLijst1().get(i).setAantalResource1(rAantal1);
+                                dc.getHuttenLijst1().get(i).setResource2(rNaam2);
+                                dc.getHuttenLijst1().get(i).setAantalResource1(rAantal2);
+                                dc.getHuttenLijst1().get(i).setResource3(rNaam3);
+                                dc.getHuttenLijst1().get(i).setAantalResource1(rAantal3);
+                                dc.getHuttenLijst1().get(i).setPunten(punten);
+                                dc.getHuttenLijst1().get(i).setAantalSpots(aantalSpots);
+                            }
+                            break;
+                        case 1:
+                            for (int i = 0; i < hutLijstSize[1]; i++) {
+                                String rNaam1 = rs.getString("rNaam1");
+                                int rAantal1 = rs.getInt("rAantal1");
+                                String rNaam2 = rs.getString("rNaam2");
+                                int rAantal2 = rs.getInt("rAantal2");
+                                String rNaam3 = rs.getString("rNaam3");
+                                int rAantal3 = rs.getInt("rAantal3");
+                                int punten = rs.getInt("punten");
+                                int aantalSpots = rs.getInt("aantalSpots");
+                                
+                                dc.getHuttenLijst2().get(i).setResource1(rNaam1);
+                                dc.getHuttenLijst2().get(i).setAantalResource1(rAantal1);
+                                dc.getHuttenLijst2().get(i).setResource2(rNaam2);
+                                dc.getHuttenLijst2().get(i).setAantalResource1(rAantal2);
+                                dc.getHuttenLijst2().get(i).setResource3(rNaam3);
+                                dc.getHuttenLijst2().get(i).setAantalResource1(rAantal3);
+                                dc.getHuttenLijst2().get(i).setPunten(punten);
+                                dc.getHuttenLijst2().get(i).setAantalSpots(aantalSpots);
+                            }
+                            break;
+                        case 2:
+                            for (int i = 0; i < hutLijstSize[2]; i++) {
+                                String rNaam1 = rs.getString("rNaam1");
+                                int rAantal1 = rs.getInt("rAantal1");
+                                String rNaam2 = rs.getString("rNaam2");
+                                int rAantal2 = rs.getInt("rAantal2");
+                                String rNaam3 = rs.getString("rNaam3");
+                                int rAantal3 = rs.getInt("rAantal3");
+                                int punten = rs.getInt("punten");
+                                int aantalSpots = rs.getInt("aantalSpots");
+                                
+                                dc.getHuttenLijst3().get(i).setResource1(rNaam1);
+                                dc.getHuttenLijst3().get(i).setAantalResource1(rAantal1);
+                                dc.getHuttenLijst3().get(i).setResource2(rNaam2);
+                                dc.getHuttenLijst3().get(i).setAantalResource1(rAantal2);
+                                dc.getHuttenLijst3().get(i).setResource3(rNaam3);
+                                dc.getHuttenLijst3().get(i).setAantalResource1(rAantal3);
+                                dc.getHuttenLijst3().get(i).setPunten(punten);
+                                dc.getHuttenLijst3().get(i).setAantalSpots(aantalSpots);
+                            }
+                            break;
+                        case 3: 
+                            for (int i = 0; i < hutLijstSize[3]; i++) {
+                                String rNaam1 = rs.getString("rNaam1");
+                                int rAantal1 = rs.getInt("rAantal1");
+                                String rNaam2 = rs.getString("rNaam2");
+                                int rAantal2 = rs.getInt("rAantal2");
+                                String rNaam3 = rs.getString("rNaam3");
+                                int rAantal3 = rs.getInt("rAantal3");
+                                int punten = rs.getInt("punten");
+                                int aantalSpots = rs.getInt("aantalSpots");
+                                
+                                dc.getHuttenLijst4().get(i).setResource1(rNaam1);
+                                dc.getHuttenLijst4().get(i).setAantalResource1(rAantal1);
+                                dc.getHuttenLijst4().get(i).setResource2(rNaam2);
+                                dc.getHuttenLijst4().get(i).setAantalResource1(rAantal2);
+                                dc.getHuttenLijst4().get(i).setResource3(rNaam3);
+                                dc.getHuttenLijst4().get(i).setAantalResource1(rAantal3);
+                                dc.getHuttenLijst4().get(i).setPunten(punten);
+                                dc.getHuttenLijst4().get(i).setAantalSpots(aantalSpots);
+                            break;
+                        }
+                    }
                 }
             } catch (SQLException ex) {
                 for (Throwable t : ex) {
                     t.printStackTrace();
                 }
             }
-            //tweede connectie is om ALLES van de databank te halen.
-            queryAlleGebruikers = conn.prepareStatement("SELECT * FROM SpelerLijst");
-            try (ResultSet rs = queryAlleGebruikers.executeQuery()) {
+    }
+    
+    public void setSpelers(DomeinController dc, PreparedStatement queryAlleGebruikers)
+    {
+        try (ResultSet rs = queryAlleGebruikers.executeQuery()) {
                 int teller = -1;
-                dc.vulLijsten();
                 while (rs.next()) {
                     teller++;                    
                     String naam = rs.getString("spelerNaam");
@@ -215,6 +375,7 @@ public class SpelerMapper
                     int hut1 = rs.getInt("hut1");
                     int hut2 = rs.getInt("hut2");
                     int hut3 = rs.getInt("hut3");
+                    int hut4 = rs.getInt("hut4");
                     
                     dc.getSpelerLijst().get(teller).setNaam(naam);
                     dc.getSpelerLijst().get(teller).getResourceLijst().get(0).setAantal(rHout);
@@ -237,31 +398,29 @@ public class SpelerMapper
                     dc.getSpelerLijst().get(teller).setAantalHut(pHut);
                     if(hut1 == 1){
                         dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart1(true);
+                        dc.getHuttenLijst1().get(0).setAantalSpots(0);
                     }else {
                         dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart1(false);}
                     if(hut2 == 1){
                         dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart2(true);
+                        dc.getHuttenLijst2().get(0).setAantalSpots(0);
                     }else {
                         dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart2(false);}
                     if(hut3 == 1){
                         dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart3(true);
+                        dc.getHuttenLijst3().get(0).setAantalSpots(0);
                     }else {
-                        dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart3(false);}      
+                        dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart3(false);} 
+                    if(hut4 == 1){
+                        dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart3(true);
+                        dc.getHuttenLijst4().get(0).setAantalSpots(0);
+                    }else {
+                        dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart4(false);} 
                 }
-            }
-        } catch (SQLException ex) {
-            for (Throwable t : ex) {
-                t.printStackTrace();
+            } catch (SQLException ex) {
+        for (Throwable t : ex) {
+            t.printStackTrace();
             }
         }
     }
-    
-    public void reset(DomeinController dc)
-    {
-        for (int i = 0; i < dc.getSpelerLijst().size(); i++) {
-           dc.getSpelerLijst().remove(i); 
-        }
-    }
-
-
 }

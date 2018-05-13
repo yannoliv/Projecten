@@ -31,10 +31,26 @@ public class DomeinController
     {
         spel.geefSpelersResources();
         spel.vulPlaatsLijst();
-        spel.vulHuttenLijst1();
-        spel.vulHuttenLijst2();
-        spel.vulHuttenLijst3();
-        spel.vulHuttenLijst4();
+        spel.vulHuttenLijst1(7);
+        spel.vulHuttenLijst2(7);
+        spel.vulHuttenLijst3(7);
+        spel.vulHuttenLijst4(7);
+    }
+    
+    
+    public void vuldbLijsten(int[] lijst)
+    {
+        
+        spel.vulResourceLijst();
+        spel.vulPlaatsLijst();
+        spel.vulHuttenLijst1(lijst[0]);
+        spel.vulHuttenLijst2(lijst[1]);
+        spel.vulHuttenLijst3(lijst[2]);
+        spel.vulHuttenLijst4(lijst[3]);
+    }
+    public void geefSpelersResources()
+    {
+        spel.geefSpelersResources();
     }
 
     public void doeSpelerFix(int ronde)

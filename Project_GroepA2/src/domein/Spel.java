@@ -119,11 +119,11 @@ public class Spel
         return plaatsLijst;
     }
     
-    public List<Plaats> vulHuttenLijst1()
+    public List<Plaats> vulHuttenLijst1( int aantal)
     {
         huttenLijst1 = new ArrayList<>();
            
-        for (int i = 0; i < 7; i++) 
+        for (int i = 0; i < aantal; i++) 
         {
             //resources bepalen
             String Rnaam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
@@ -160,11 +160,11 @@ public class Spel
         return huttenLijst1;
     }
     
-        public List<Plaats> vulHuttenLijst2()
+        public List<Plaats> vulHuttenLijst2(int aantal)
     {
         huttenLijst2 = new ArrayList<>();
            
-        for (int i = 0; i < 7; i++) 
+        for (int i = 0; i < aantal; i++) 
         {
             //resources bepalen
             String Rnaam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
@@ -201,11 +201,11 @@ public class Spel
         return huttenLijst2;
     }
         
-        public List<Plaats> vulHuttenLijst3()
+        public List<Plaats> vulHuttenLijst3(int aantal)
     {
         huttenLijst3 = new ArrayList<>();
            
-        for (int i = 0; i < 7; i++) 
+        for (int i = 0; i < aantal; i++) 
         {
             //resources bepalen
             String Rnaam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
@@ -242,11 +242,11 @@ public class Spel
         return huttenLijst3;
     }
     
-        public List<Plaats> vulHuttenLijst4()
+        public List<Plaats> vulHuttenLijst4(int aantal)
     {
         huttenLijst4 = new ArrayList<>();
            
-        for (int i = 0; i < 7; i++) 
+        for (int i = 0; i < aantal; i++) 
         {
             //resources bepalen
             String Rnaam1 = getPlaatsenLijst().get(random.nextInt(4)).getTypeResource().getNaam();
