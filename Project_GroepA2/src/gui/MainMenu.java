@@ -45,7 +45,7 @@ public class MainMenu extends VBox {
     private void startSpel(ActionEvent ae)
     {
         getChildren().removeAll( btn_start, btn_loadGame,btn_scorebord, btn_demo);
-        KeuzePaneel st = new KeuzePaneel(dc, stage, this);
+        KeuzePaneel st = new KeuzePaneel(dc, stage, this, false);
         getChildren().add(st);
     }
     
@@ -58,7 +58,9 @@ public class MainMenu extends VBox {
     
     private void demo(ActionEvent ae)
     {
-        
+        getChildren().removeAll( btn_start, btn_loadGame,btn_scorebord, btn_demo);
+        KeuzePaneel st = new KeuzePaneel(dc, stage, this, true);
+        getChildren().add(st);
     }
     
     public void maakMainMenu()

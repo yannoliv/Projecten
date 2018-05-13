@@ -20,6 +20,7 @@ public class KeuzePaneel extends VBox{
     private DomeinController dc;
     private Stage stage;
     private MainMenu mainMenu;
+    private boolean demo;
     
     private ComboBox cbo_aantalSpelers = new ComboBox();
     private Label lbl_foutMelding = new Label();
@@ -31,10 +32,11 @@ public class KeuzePaneel extends VBox{
     private Label lbl_naamSpeler = new Label();
     private TextField txt_naamSpeler = new TextField();
     
-    public KeuzePaneel(DomeinController dc, Stage stage, MainMenu mainMenu) {
+    public KeuzePaneel(DomeinController dc, Stage stage, MainMenu mainMenu, boolean demo) {
         this.dc = dc;
         this.stage = stage;
         this.mainMenu = mainMenu;
+        this.demo = demo;
         vraagAantalSpelers();
     }
     
@@ -115,15 +117,25 @@ public class KeuzePaneel extends VBox{
                 {
                     this.getChildren().clear();
                     stage.hide();
-
-                    dc.vulLijsten();
-                    Stage spelStage = new Stage();
-                    SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
-                    Scene scenery = new Scene(spelAppPaneel);
-                    String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
-                    scenery.getStylesheets().add(cssURL);
-                    spelStage.setScene(scenery);
-
+                    if (demo == false) {
+                        dc.vulLijsten(false);
+                        Stage spelStage = new Stage();
+                        SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
+                        Scene scenery = new Scene(spelAppPaneel);
+                        String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
+                        scenery.getStylesheets().add(cssURL);
+                        spelStage.setScene(scenery);
+                    }
+                    else
+                    {
+                        dc.vulLijsten(true);
+                        Stage spelStage = new Stage();
+                        SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
+                        Scene scenery = new Scene(spelAppPaneel);
+                        String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
+                        scenery.getStylesheets().add(cssURL);
+                        spelStage.setScene(scenery);
+                    }
                 }
             }
             else
@@ -157,7 +169,7 @@ public class KeuzePaneel extends VBox{
                     this.getChildren().clear();
                     stage.hide();
 
-                    dc.vulLijsten();
+                    dc.vulLijsten(false);
                     Stage spelStage = new Stage();
                     SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
                     Scene scenery = new Scene(spelAppPaneel);

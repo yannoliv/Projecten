@@ -119,7 +119,7 @@ public class Spel
         return plaatsLijst;
     }
     
-    public List<Plaats> vulHuttenLijst1( int aantal)
+    public List<Plaats> vulHuttenLijst1(int aantal)
     {
         huttenLijst1 = new ArrayList<>();
            
@@ -856,5 +856,28 @@ public class Spel
     }
     
     
+    //demo gedeelte
+    public void geefSpelersResourcesDemo()
+    {
+        for (int i = 0; i < getAantalSpelers(); i++) {
+            spelerLijst.get(i).setResourceLijst(vulResourceLijstDemo());
+        }
+        
+    }
    
+    public List<Resource> vulResourceLijstDemo()
+    {
+        resourceLijst = new ArrayList<>();
+        //                              naam        aantal
+        resourceLijst.add(new Resource("hout",          20));
+        resourceLijst.add(new Resource("leem",          20));
+        resourceLijst.add(new Resource("steen",         20));
+        resourceLijst.add(new Resource("goud",          20));
+        resourceLijst.add(new Resource("akkerbouw",     0));
+        resourceLijst.add(new Resource("gereedschap",   0));
+        resourceLijst.add(new Resource("voedsel",       12));
+        resourceLijst.add(new Resource("stamleden",     8));
+        resourceLijst.add(new Resource("punten",        0));
+        return resourceLijst;
+    }
 }

@@ -30,14 +30,26 @@ public class DomeinController
         return spel.naamControle(spelerNr, keuze);
     }
 
-    public void vulLijsten()
+    public void vulLijsten(boolean demo)
     {
-        spel.geefSpelersResources();
-        spel.vulPlaatsLijst();
-        spel.vulHuttenLijst1(7);
-        spel.vulHuttenLijst2(7);
-        spel.vulHuttenLijst3(7);
-        spel.vulHuttenLijst4(7);
+        if (demo == false) {
+            spel.geefSpelersResources();
+            spel.vulPlaatsLijst();
+            spel.vulHuttenLijst1(7);
+            spel.vulHuttenLijst2(7);
+            spel.vulHuttenLijst3(7);
+            spel.vulHuttenLijst4(7);
+        }
+        else
+        {
+            spel.geefSpelersResourcesDemo();
+            spel.vulPlaatsLijst();
+            spel.vulHuttenLijst1(2);
+            spel.vulHuttenLijst2(2);
+            spel.vulHuttenLijst3(2);
+            spel.vulHuttenLijst4(1);
+        }
+        
     }
     
     public void vuldbLijsten(int[] lijst)

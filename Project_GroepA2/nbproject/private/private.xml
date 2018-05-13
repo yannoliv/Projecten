@@ -29,15 +29,11 @@
         <group name="Oefeningen les">
             <file>file:/C:/Users/nicol/Documents/GitHub/Projecten/Project_GroepA2/src/cui/SpelApplicatie.java</file>
         </group>
-        <group>
-            <file>file:/C:/Users/Nicolas/Documents/GitHub/Projecten/Project_GroepA2/src/gui/MapSpel.java</file>
-            <file>file:/C:/Users/Nicolas/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Spel.java</file>
-            <file>file:/C:/Users/Nicolas/Documents/GitHub/Projecten/Project_GroepA2/src/domein/DomeinController.java</file>
-        </group>
         <group name="Programmeren">
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/KaartPaneel.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/main/StartUpGui.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/Persistentie/SpelerMapper.java</file>
         </group>
+        <group/>
     </open-files>
 </project-private>

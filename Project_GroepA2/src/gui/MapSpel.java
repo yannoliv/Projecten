@@ -2,6 +2,8 @@ package gui;
 
 import domein.DomeinController;
 import static java.lang.Integer.parseInt;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -60,61 +62,115 @@ public class MapSpel extends GridPane
     
     private void toonKeuzeStamleden(int plaatsNr)
     {
-        TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
-        inputAantalStamleden.setTitle("Kies het aantal stamleden");
-        inputAantalStamleden.setHeaderText(null);
-        inputAantalStamleden.setContentText(String.format("(0 - %d)",dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() <= 7 ? dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal(): 7));
-        Optional<String> result = inputAantalStamleden.showAndWait();
-        try
+        if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 1) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Er is een fout opgetreden");
+            alert.setHeaderText("Deze plek staat vol...");
+            alert.setContentText("Kies een andere plek");
+            alert.show();
+        }
+        else
         {
-             if (result.isPresent() && parseInt(result.get()) > 0) {
-            stamledenAantal = result.get();
-            plaatsClicked(plaatsNr);
+            TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
+            inputAantalStamleden.setTitle("Kies het aantal stamleden");
+            inputAantalStamleden.setHeaderText(null);
+            inputAantalStamleden.setContentText(String.format("(0 - %d)",dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() <= 7 ? dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal(): 7));
+            Optional<String> result = inputAantalStamleden.showAndWait();
+            if (result.isPresent() && parseInt(result.get()) > 0) {
+              stamledenAantal = result.get();
+              plaatsClicked(plaatsNr);
             }
             else
             {
                 result = inputAantalStamleden.showAndWait();
             }
-        }catch(NumberFormatException e)
-        {
-            result = inputAantalStamleden.showAndWait();
         }
     }
-    
+    /*
+    if (dc.getHuttenLijst4().size() < 1) {
+                        switch (dc.getSpelerLijst().size()) {
+                            case 2:
+                                Alert alert = new Alert(AlertType.INFORMATION);
+                                alert.setTitle("Het spel is gedaan");
+                                alert.setHeaderText("Easy peasy lemon squeezy!");
+                                if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(dc.getHuidigeSpeler() + 1 > dc.getSpelerLijst().size() ? 0:dc.getHuidigeSpeler() + 1).getResourceLijst().get(8).getAantal()) {
+                                    alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getNaam(), dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal()));
+                                }
+                                else
+                                {
+                                    alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(dc.getHuidigeSpeler() + 1 > dc.getSpelerLijst().size() ? 0:dc.getHuidigeSpeler() + 1).getNaam(), dc.getSpelerLijst().get(dc.getHuidigeSpeler() + 1 > dc.getSpelerLijst().size() ? 0:dc.getHuidigeSpeler() + 1).getResourceLijst().get(8).getAantal()));
+                                }
+                                alert.show();
+                                break;
+                        }
+                     }   
+    */
     private void toonKeuzeStamledenSpeciaal(int plaatsNr)
     {
-        if (plaatsNr < 10)
-        {
-            if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 1) {
+        switch (plaatsNr) {
+            case 5:
+            case 6:
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 1) {
                     Alert alert = new Alert(AlertType.WARNING);
                     alert.setTitle("Er is een fout opgetreden");
                     alert.setHeaderText("Deze plek staat vol...");
                     alert.setContentText("Kies een andere plek");
                     alert.show();
-            }
-            else
-            {
+                }
+                else
+                {
                 Alert alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Stamleden plaatsen..");
                 alert.setHeaderText(null);
                 alert.setGraphic(null);
-                alert.setContentText(String.format("Wilt u hier %d %s plaatsen?", plaatsNr == 7 ? 2:1, plaatsNr == 7 ? "stamleden":"stamlid"));
+                alert.setContentText("Wilt u hier 1 stamlid plaatsen?");
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK){
-                    if (plaatsNr == 7)
-                    {stamledenAantal = "2";}
-                    else
-                    {stamledenAantal = "1";}
-                    plaatsClicked(plaatsNr);
+                    if (result.get() == ButtonType.OK){
+                        stamledenAantal = "1";
+                        plaatsClicked(plaatsNr);
+                        spelAppPaneel.doeLichtAan(plaatsNr-10);
+                    }
                 }
-
-            }
-        }
-        else
-        {
-            switch (plaatsNr) {
-                case 11:
-                    if (dc.getHuttenLijst1().get(0).getAantalSpots() < 1) {
+                break;
+            case 7:
+                if (dc.getPlaatsenLijst().get(plaatsNr).getAantalSpots() < 1) {
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Er is een fout opgetreden");
+                    alert.setHeaderText("Deze plek staat vol...");
+                    alert.setContentText("Kies een andere plek");
+                    alert.show();
+                }
+                else if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() < 2)
+                {
+                     Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Er is een fout opgetreden");
+                    alert.setHeaderText("Je moet minstens 2 stamleden hebben");
+                    alert.setContentText("Kies een andere plek");
+                    alert.show();
+                }
+                else if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getGebruikteStamleden() >= 10){
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Er is een fout opgetreden");
+                    alert.setHeaderText("U kan maximum 10 stamleden hebben");
+                    alert.setContentText("Kies een andere plek");
+                    alert.show();
+                }
+                else
+                {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Stamleden plaatsen..");
+                alert.setHeaderText(null);
+                alert.setGraphic(null);
+                alert.setContentText("Wilt u hier 2 stamleden plaatsen?");
+                Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK){
+                        stamledenAantal = "2";
+                        plaatsClicked(plaatsNr);
+                    }
+                }
+                break;
+            case 11:
+                if (dc.getHuttenLijst1().get(0).getAantalSpots() < 1) {
                         Alert alert = new Alert(AlertType.WARNING);
                         alert.setTitle("Er is een fout opgetreden");
                         alert.setHeaderText("Deze plek staat vol...");
@@ -135,9 +191,9 @@ public class MapSpel extends GridPane
                             spelAppPaneel.doeLichtAan(plaatsNr - 10);
                         }
                     }
-                    break;
-                case 12:
-                    if (dc.getHuttenLijst2().get(0).getAantalSpots() < 1) {
+                break;
+            case 12:
+                if (dc.getHuttenLijst2().get(0).getAantalSpots() < 1) {
                         Alert alert = new Alert(AlertType.WARNING);
                         alert.setTitle("Er is een fout opgetreden");
                         alert.setHeaderText("Deze plek staat vol...");
@@ -158,9 +214,9 @@ public class MapSpel extends GridPane
                             spelAppPaneel.doeLichtAan(plaatsNr - 10);
                         }
                     }
-                    break;
-                case 13:
-                    if (dc.getHuttenLijst3().get(0).getAantalSpots() < 1) {
+                break;
+            case 13:
+                if (dc.getHuttenLijst3().get(0).getAantalSpots() < 1) {
                         Alert alert = new Alert(AlertType.WARNING);
                         alert.setTitle("Er is een fout opgetreden");
                         alert.setHeaderText("Deze plek staat vol...");
@@ -181,9 +237,9 @@ public class MapSpel extends GridPane
                             spelAppPaneel.doeLichtAan(plaatsNr - 10);
                         }
                     }
-                    break;
-                case 14:
-                    if (dc.getHuttenLijst4().get(0).getAantalSpots() < 1) {
+                break;
+            case 14:
+                if (dc.getHuttenLijst4().get(0).getAantalSpots() < 1) {
                         Alert alert = new Alert(AlertType.WARNING);
                         alert.setTitle("Er is een fout opgetreden");
                         alert.setHeaderText("Deze plek staat vol...");
@@ -204,8 +260,7 @@ public class MapSpel extends GridPane
                             spelAppPaneel.doeLichtAan(plaatsNr - 10);
                         }
                     }
-                    break;
-            }
+                break;
         }
     }
      
@@ -233,6 +288,7 @@ public class MapSpel extends GridPane
             if (dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() <= 0 && isEindeRonde == false) {
                volgendeBeurt();
             }
+            
         }
         else
         {
@@ -252,10 +308,66 @@ public class MapSpel extends GridPane
                 volgendeSpeler();
             }
         }
-        
-        
+        if (dc.getHuttenLijst1().size() < 1 || dc.getHuttenLijst2().size() < 1 || dc.getHuttenLijst3().size() < 1 || dc.getHuttenLijst4().size() < 1) 
+        {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Het spel is gedaan");
+            alert.setHeaderText("Easy peasy lemon squeezy!");
+            switch (dc.getSpelerLijst().size()) {
+                case 2:
+                    if (dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal()) {
+                        alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(0).getNaam(), dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal()));
+                        spelAppPaneel.getChildren().clear();
+                    }
+                    else
+                    {
+                        alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(1).getNaam(), dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal()));
+                    }
+                    alert.show();
+                    break;
+                case 3:
+                    if (dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal() &&
+                        dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(2).getResourceLijst().get(8).getAantal()) {
+                        alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(0).getNaam(), dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal()));
+                    }
+                    else if(dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() &&
+                            dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(2).getResourceLijst().get(8).getAantal())
+                    {
+                        alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(1).getNaam(), dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal()));
+                    }
+                    else
+                    {
+                         alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(2).getNaam(), dc.getSpelerLijst().get(2).getResourceLijst().get(8).getAantal()));
+                    }
+                    alert.show();
+                    break;
+                case 4:
+                    if (dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal() &&
+                        dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(2).getResourceLijst().get(8).getAantal() &&
+                        dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(3).getResourceLijst().get(8).getAantal()) {
+                        alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(0).getNaam(), dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal()));
+                    }
+                    else if(dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() &&
+                            dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(2).getResourceLijst().get(8).getAantal() &&
+                            dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(3).getResourceLijst().get(8).getAantal())
+                    {
+                        alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(1).getNaam(), dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal()));
+                    }
+                    else if(dc.getSpelerLijst().get(2).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() &&
+                            dc.getSpelerLijst().get(2).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal() &&
+                            dc.getSpelerLijst().get(2).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(3).getResourceLijst().get(8).getAantal())
+                    {
+                         alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(2).getNaam(), dc.getSpelerLijst().get(2).getResourceLijst().get(8).getAantal()));
+                    }
+                    else
+                    {
+                        alert.setContentText(String.format("%s heeft het spel gewonnen met %d punten", dc.getSpelerLijst().get(3).getNaam(), dc.getSpelerLijst().get(3).getResourceLijst().get(8).getAantal()));
+                    }
+                    alert.show();
+                    break;
+            }
+        }   
         formRefresh();
-        
     }
     
     public void volgendeSpeler()
@@ -267,6 +379,7 @@ public class MapSpel extends GridPane
         {
             dc.setHuidigeSpeler(dc.getHuidigeSpeler() + 1);
         }
+        
     }
     
     public void plaatsClicked(int plaatsNummer)
@@ -851,6 +964,7 @@ public class MapSpel extends GridPane
     public void hutKaart1Clicked()
     {
               int plaatsNr = 11;
+              System.out.println(dc.getHuttenLijst1().get(0).getPunten());
         //als het de einde van de ronde is
         //true => de speler kan zoveel klikken als hij wil
         //false => toont hij keuzestamleden en daarna volgende speler
@@ -868,6 +982,7 @@ public class MapSpel extends GridPane
                 if (dc.getResourcesChecked(dc.getHuidigeSpeler(), plaatsNr - 10) == true) {
                     dc.doeTrekResourcesAf(dc.getHuidigeSpeler(), plaatsNr - 10);
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst1().get(0).getPunten());
+                    
                     dc.doeVerwijderKaart(plaatsNr - 10);
                     spelAppPaneel.doeLichtUit(plaatsNr-10);
                 }
@@ -906,6 +1021,7 @@ public class MapSpel extends GridPane
     public void hutKaart2Clicked()
     {
               int plaatsNr = 12;
+              System.out.println(dc.getHuttenLijst2().get(0).getPunten());
         //als het de einde van de ronde is
         //true => de speler kan zoveel klikken als hij wil
         //false => toont hij keuzestamleden en daarna volgende speler
@@ -924,6 +1040,7 @@ public class MapSpel extends GridPane
                 if (dc.getResourcesChecked(dc.getHuidigeSpeler(), plaatsNr - 10) == true) {
                     dc.doeTrekResourcesAf(dc.getHuidigeSpeler(), plaatsNr - 10);
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst2().get(0).getPunten());
+                    
                     dc.doeVerwijderKaart(plaatsNr - 10);
                     spelAppPaneel.doeLichtUit(plaatsNr-10);
                 }
@@ -937,6 +1054,7 @@ public class MapSpel extends GridPane
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart2());
                 //setplaatsop bos false voor de speler
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpHutkaart2(false);
+                
                 
                 spelAppPaneel.refreshKaartPaneel();
                 formRefresh();
@@ -962,6 +1080,7 @@ public class MapSpel extends GridPane
     public void hutKaart3Clicked()
     {
               int plaatsNr = 13;
+              System.out.println(dc.getHuttenLijst3().get(0).getPunten());
         //als het de einde van de ronde is
         //true => de speler kan zoveel klikken als hij wil
         //false => toont hij keuzestamleden en daarna volgende speler
@@ -980,6 +1099,7 @@ public class MapSpel extends GridPane
                 if (dc.getResourcesChecked(dc.getHuidigeSpeler(), plaatsNr - 10) == true) {
                     dc.doeTrekResourcesAf(dc.getHuidigeSpeler(), plaatsNr - 10);
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst3().get(0).getPunten());
+                    
                     dc.doeVerwijderKaart(plaatsNr - 10);
                     spelAppPaneel.doeLichtUit(plaatsNr-10);
                 }
@@ -992,6 +1112,7 @@ public class MapSpel extends GridPane
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart3());
                 //setplaatsop bos false voor de speler
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).setPlaatsOpHutkaart3(false);
+                
                 
                 spelAppPaneel.refreshKaartPaneel();
                 formRefresh();
@@ -1017,6 +1138,7 @@ public class MapSpel extends GridPane
     public void hutKaart4Clicked()
     {
               int plaatsNr = 14;
+              System.out.println(dc.getHuttenLijst4().get(0).getPunten());
         //als het de einde van de ronde is
         //true => de speler kan zoveel klikken als hij wil
         //false => toont hij keuzestamleden en daarna volgende speler
@@ -1029,12 +1151,12 @@ public class MapSpel extends GridPane
             {
                 //voedsel aftrekken
                 int voedselVermindering = dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getAantalHutkaart4();
-                
                 dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(6).setAantal(voedselVermindering);
                 
                 if (dc.getResourcesChecked(dc.getHuidigeSpeler(), plaatsNr - 10) == true) {
                     dc.doeTrekResourcesAf(dc.getHuidigeSpeler(), plaatsNr - 10);
                     dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst4().get(0).getPunten());
+                    
                     dc.doeVerwijderKaart(plaatsNr - 10);
                     spelAppPaneel.doeLichtUit(plaatsNr-10);
                 }
@@ -1279,17 +1401,6 @@ public class MapSpel extends GridPane
                break;
        }
        return temp;
-       /*
-       TextInputDialog inputAantalStamleden = new TextInputDialog("u heeft "+ dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() + String.format(" %s",dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() > 1 ? "stamleden":"stamlid"));
-        inputAantalStamleden.setTitle("Kies het aantal stamleden");
-        inputAantalStamleden.setHeaderText(null);
-        inputAantalStamleden.setContentText(String.format("(0 - %d)",dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal() <= 7 ? dc.getSpelerLijst().get(dc.getHuidigeSpeler()).getResourceLijst().get(7).getAantal(): 7));
-        Optional<String> result = inputAantalStamleden.showAndWait();
-        if (result.isPresent()) {
-            stamledenAantal = result.get();
-            plaatsClicked(plaatsNr);
-        }
-       */
    }
    
     
@@ -1383,117 +1494,7 @@ public class MapSpel extends GridPane
         isEindeRonde = false;
         for (int i = 0; i < dc.getSpelerLijst().size(); i++) {
             dc.getSpelerLijst().get(i).getResourceLijst().get(6).setAantal(dc.getSpelerLijst().get(i).getResourceLijst().get(6).getAantal() + dc.getSpelerLijst().get(i).getResourceLijst().get(4).getAantal());
-            
         }
+        
     }
 }
-/*
-    public void eindeRonde()
-    {
-        //elke plaats weer vrijmaken
-        dc.doeResetPlaatsenLijst();
-        this.updateButtons();
-        for (int index = 0; index < dc.getSpelerLijst().size(); index++) {
-            //voedsel aftrekken per speler met akkerbouw ingerekend
-            int voedselVermindering = dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() - dc.getSpelerLijst().get(index).getGebruikteStamleden();
-            voedselVermindering += dc.getSpelerLijst().get(index).getResourceLijst().get(4).getAantal();
-            dc.getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(voedselVermindering);
-            
-            //elke speler zijn resource die hij tijdens de ronde gegrind heeft geven
-            //op het bos
-            if (dc.getSpelerLijst().get(index).isPlaatsOpBos() == true){
-                int geroldGetal;
-                geroldGetal = toonGeroldGetal(0, dc.getSpelerLijst().get(index).getAantalBos(), index);
-                if (dc.getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() > 0) {
-                    gebruikGereedschap(index, 0);
-                }
-                else
-                {
-                    dc.getSpelerLijst().get(index).getResourceLijst().get(0).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(0).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(0).getDeler()));
-                }
-            }
-            //op de leemgroeve
-            if (dc.getSpelerLijst().get(index).isPlaatsOpLeemgroeve()== true) {
-                int geroldGetal;
-                geroldGetal = toonGeroldGetal(1, dc.getSpelerLijst().get(index).getAantalLeemgroeve(), index);
-                dc.getSpelerLijst().get(index).getResourceLijst().get(1).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(1).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(1).getDeler()));
-                
-            }
-            //op de steengroeve
-            if (dc.getSpelerLijst().get(index).isPlaatsOpSteengroeve()== true) {
-                int geroldGetal;
-                geroldGetal = toonGeroldGetal(2, dc.getSpelerLijst().get(index).getAantalSteengroeve(), index);
-                dc.getSpelerLijst().get(index).getResourceLijst().get(2).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(2).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(2).getDeler()));
-                
-            }
-            //op de goudmijn
-            if (dc.getSpelerLijst().get(index).isPlaatsOpGoudmijn()== true) {
-                int geroldGetal;
-                geroldGetal = toonGeroldGetal(3, dc.getSpelerLijst().get(index).getAantalGoudmijn(), index);
-                dc.getSpelerLijst().get(index).getResourceLijst().get(3).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(3).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(3).getDeler()));
-                
-            }
-            if (dc.getSpelerLijst().get(index).isPlaatsOpJachtgebied() == true) {
-                int geroldGetal;
-                geroldGetal = toonGeroldGetal(4, dc.getSpelerLijst().get(index).getAantalJachtgebied(), index);
-                dc.getSpelerLijst().get(index).getResourceLijst().get(6).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() + (int) Math.floor(geroldGetal / dc.getPlaatsenLijst().get(4).getDeler()));
-                
-            }
-            if (dc.getSpelerLijst().get(index).isPlaatsOpAkkerbouw()== true) {
-                dc.getSpelerLijst().get(index).getResourceLijst().get(4).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(4).getAantal() + dc.getSpelerLijst().get(index).getAantalAkkerbouw());
-            }
-            if (dc.getSpelerLijst().get(index).isPlaatsOpSmith()== true) {
-                dc.getSpelerLijst().get(index).getResourceLijst().get(5).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(5).getAantal() + dc.getSpelerLijst().get(index).getAantalSmith());
-            }
-            if (dc.getSpelerLijst().get(index).isPlaatsOpHut()== true) {
-                dc.getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(index).getAantalHut() - 1);
-            }
-            if (dc.getSpelerLijst().get(index).isPlaatsOpHutkaart1() == true){
-                if (dc.getResourcesChecked(index,0)) {
-                    //resources aftrekken
-                    dc.doeTrekResourcesAf(index, 0);
-                    //speler.setPunten(punten);
-                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst().get(0).getPunten());
-                    //hut verwijderen
-                    dc.getHuttenLijst().remove(0);
-                }                
-                //de lamp uit doen
-                spelAppPaneel.doeLichtUit(1);
-            }
-            if (dc.getSpelerLijst().get(index).isPlaatsOpHutkaart2() == true){
-                if (dc.getResourcesChecked(index, 1)) 
-                {
-                     //resources aftrekken
-                    dc.doeTrekResourcesAf(index, 1);
-                    //speler.setPunten(punten);
-                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst().get(1).getPunten());
-                    dc.getHuttenLijst().remove(1);
-                }
-                spelAppPaneel.doeLichtUit(2);
-            }
-            if (dc.getSpelerLijst().get(index).isPlaatsOpHutkaart3() == true){
-                if (dc.getResourcesChecked(index,2)) {
-                    //resources aftrekken
-                    dc.doeTrekResourcesAf(index, 2);
-                    //speler.setPunten(punten);
-                    dc.getSpelerLijst().get(index).getResourceLijst().get(8).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(8).getAantal() + dc.getHuttenLijst().get(2).getPunten());
-                    dc.getHuttenLijst().remove(2);
-                }
-                spelAppPaneel.doeLichtUit(3);
-            }
-            int a = 0;
-            formRefresh();
-            if (dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal() <= 0 && a == 0) {
-                a++;
-                voedselStraf(index, Math.abs(dc.getSpelerLijst().get(index).getResourceLijst().get(6).getAantal()));
-            }
-            //geeft stamleden terug
-            dc.getSpelerLijst().get(index).getResourceLijst().get(7).setAantal(dc.getSpelerLijst().get(index).getResourceLijst().get(7).getAantal() + dc.getSpelerLijst().get(index).getGebruikteStamleden());
-             //zet gebruikte stamleden terug op 0
-            dc.getSpelerLijst().get(index).setGebruikteStamleden(0);
-            dc.doeResetSpelerZet(index);
-            formRefresh();
-        }
-    }
-*/
-

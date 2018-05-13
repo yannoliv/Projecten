@@ -101,7 +101,7 @@ public class KaartPaneel extends HBox{
         hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
         hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
         
-        if(dc.getHuttenLijst2().get(1).getAantalSpots() == 1){
+        if(dc.getHuttenLijst2().get(0).getAantalSpots() == 1){
         kaart2.getChildren().addAll(hutImage, vResources);
         }else{
             kaart2.getChildren().addAll(hutImage_2, vResources);
@@ -126,7 +126,7 @@ public class KaartPaneel extends HBox{
         hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
         hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
         
-        if(dc.getHuttenLijst3().get(2).getAantalSpots() == 1){
+        if(dc.getHuttenLijst3().get(0).getAantalSpots() == 1){
         kaart3.getChildren().addAll(hutImage, vResources);
         }else{
             kaart3.getChildren().addAll(hutImage_2, vResources);
@@ -152,7 +152,7 @@ public class KaartPaneel extends HBox{
         hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
         hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
         
-        if(dc.getHuttenLijst4().get(3).getAantalSpots() == 1){
+        if(dc.getHuttenLijst4().get(0).getAantalSpots() == 1){
         kaart4.getChildren().addAll(hutImage, vResources);
         }else{
             kaart4.getChildren().addAll(hutImage_2, vResources);
