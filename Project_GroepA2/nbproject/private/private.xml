@@ -5,7 +5,7 @@
             <url>src/Persistentie/SpelerMapper.java</url>
             <bookmark id="2">
                 <name/>
-                <line>204</line>
+                <line>0</line>
                 <key/>
             </bookmark>
         </file>
@@ -29,11 +29,13 @@
         <group name="Oefeningen les">
             <file>file:/C:/Users/nicol/Documents/GitHub/Projecten/Project_GroepA2/src/cui/SpelApplicatie.java</file>
         </group>
+        <group/>
         <group name="Programmeren">
-            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/KaartPaneel.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/SpelApplicatiePaneel.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/main/StartUpGui.java</file>
             <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/Persistentie/SpelerMapper.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/domein/Speler.java</file>
+            <file>file:/Users/yannickolivier/Documents/GitHub/Projecten/Project_GroepA2/src/gui/MapSpel.java</file>
         </group>
-        <group/>
     </open-files>
 </project-private>

@@ -313,6 +313,7 @@ public class MapSpel extends GridPane
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Het spel is gedaan");
             alert.setHeaderText("Easy peasy lemon squeezy!");
+            dc.getSpelerMapper().insertHighScores(dc);
             switch (dc.getSpelerLijst().size()) {
                 case 2:
                     if (dc.getSpelerLijst().get(0).getResourceLijst().get(8).getAantal() > dc.getSpelerLijst().get(1).getResourceLijst().get(8).getAantal()) {

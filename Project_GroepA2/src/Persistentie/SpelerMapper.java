@@ -18,6 +18,7 @@ public class SpelerMapper
     {
         voegSpelersToe(dc);
         voegHuttenToe(dc);
+        insertHighScores(dc);
     }
     
     public boolean voegSpelersToe(DomeinController dc)
@@ -145,6 +146,24 @@ public class SpelerMapper
         }
     }
 
+    public void insertHighScores(DomeinController dc)
+    {
+        try (Connection conn = DriverManager.getConnection(MapperConfig.JDBC_URL)) {
+            PreparedStatement query = conn.prepareStatement("insert into HighScores(spelerNaam, spelerPunten) VALUES(?,?);");
+            
+            for (int i = 0; i < dc.getSpelerLijst().size(); i++) {
+                query.setString(1, dc.getSpelerLijst().get(i).getNaam());
+                query.setInt(2,dc.getSpelerLijst().get(i).getResourceLijst().get(8).getAantal());
+            }
+            
+            query.execute();
+        } catch (SQLException ex) {
+            for (Throwable t : ex) {
+                t.printStackTrace();
+            }
+        }
+            
+    }
 
     //methode geefHighscores
     //toont de 5 beste spelers met de meeste punten
