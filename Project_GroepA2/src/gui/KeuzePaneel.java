@@ -168,14 +168,25 @@ public class KeuzePaneel extends VBox{
                 {
                     this.getChildren().clear();
                     stage.hide();
-
-                    dc.vulLijsten(false);
-                    Stage spelStage = new Stage();
-                    SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
-                    Scene scenery = new Scene(spelAppPaneel);
-                    String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
-                    scenery.getStylesheets().add(cssURL);
-                    spelStage.setScene(scenery);
+                    if (demo == false) {
+                        dc.vulLijsten(false);
+                        Stage spelStage = new Stage();
+                        SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
+                        Scene scenery = new Scene(spelAppPaneel);
+                        String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
+                        scenery.getStylesheets().add(cssURL);
+                        spelStage.setScene(scenery);
+                    }
+                    else
+                    {
+                        dc.vulLijsten(true);
+                        Stage spelStage = new Stage();
+                        SpelApplicatiePaneel spelAppPaneel = new SpelApplicatiePaneel(dc, spelStage);
+                        Scene scenery = new Scene(spelAppPaneel);
+                        String cssURL = this.getClass().getResource("/gui/StylesheetSpel.css").toExternalForm();
+                        scenery.getStylesheets().add(cssURL);
+                        spelStage.setScene(scenery);
+                    }
 
                 }
             }
