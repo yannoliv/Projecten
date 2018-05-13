@@ -30,7 +30,7 @@ public class MainMenu extends VBox {
     
     private void loadGame(ActionEvent ae)
     {
-        dc.getSpelerMapper().setSpelersFromDataBank(dc);
+        dc.getSpelerMapper().setSpelFromDataBank(dc);
         System.out.println("count1: " + dc.getSpelerLijst().size());
         this.getChildren().clear();
         stage.hide();

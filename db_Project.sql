@@ -68,7 +68,7 @@ CREATE TABLE `HuttenLijst` (
 
 LOCK TABLES `HuttenLijst` WRITE;
 /*!40000 ALTER TABLE `HuttenLijst` DISABLE KEYS */;
-INSERT INTO `HuttenLijst` VALUES (1,0,'goud',3,'leem',4,'hout',4,17,0),(2,0,'steen',3,'goud',1,'hout',2,16,1),(3,0,'leem',2,'goud',3,'hout',2,12,1),(4,0,'steen',1,'hout',3,'leem',3,16,1),(5,0,'leem',4,'steen',3,'goud',3,17,1),(6,0,'goud',1,'steen',2,'hout',2,13,1),(7,0,'steen',2,'goud',3,'leem',3,13,1),(8,1,'steen',4,'leem',1,'goud',4,16,1),(9,1,'steen',1,'hout',1,'goud',2,15,1),(10,1,'goud',4,'leem',3,'hout',4,17,1),(11,1,'goud',4,'steen',4,'hout',1,17,1),(12,1,'goud',3,'hout',2,'leem',4,15,1),(13,1,'leem',3,'hout',3,'steen',1,15,1),(14,1,'goud',4,'leem',1,'hout',3,15,1),(15,2,'hout',2,'steen',1,'goud',3,16,1),(16,2,'leem',2,'steen',1,'hout',3,17,1),(17,2,'hout',1,'leem',4,'steen',3,12,1),(18,2,'leem',3,'goud',4,'hout',2,13,1),(19,2,'hout',1,'goud',4,'leem',2,12,1),(20,2,'hout',4,'goud',2,'leem',2,15,1),(21,2,'leem',2,'steen',2,'goud',3,14,1),(22,3,'hout',2,'hout',1,'leem',4,17,1),(23,3,'leem',1,'leem',1,'steen',3,16,1),(24,3,'hout',4,'hout',3,'leem',1,15,1),(25,3,'leem',3,'steen',2,'hout',4,12,1),(26,3,'hout',4,'hout',1,'goud',3,14,1),(27,3,'hout',4,'goud',3,'steen',2,14,1),(28,3,'leem',4,'leem',3,'steen',1,16,1);
+INSERT INTO `HuttenLijst` VALUES (1,0,'hout',3,'steen',2,'goud',2,15,1),(2,0,'hout',3,'steen',1,'goud',1,12,1),(3,0,'hout',1,'leem',2,'goud',4,14,1),(4,0,'steen',3,'hout',2,'leem',3,14,1),(5,0,'steen',1,'goud',1,'leem',3,15,1),(6,0,'goud',1,'hout',3,'steen',1,12,1),(7,0,'hout',1,'steen',4,'leem',4,12,1),(8,1,'steen',2,'leem',1,'hout',2,14,0),(9,1,'steen',1,'hout',2,'goud',3,15,1),(10,1,'leem',2,'steen',4,'hout',4,17,1),(11,1,'leem',2,'hout',4,'goud',3,15,1),(12,1,'goud',1,'hout',1,'leem',1,14,1),(13,1,'goud',3,'steen',2,'leem',3,12,1),(14,1,'hout',1,'goud',2,'steen',3,15,1),(15,2,'goud',1,'hout',1,'leem',2,14,1),(16,2,'steen',2,'hout',3,'leem',2,12,1),(17,2,'goud',1,'hout',2,'leem',4,12,1),(18,2,'steen',2,'hout',3,'leem',2,15,1),(19,2,'leem',2,'hout',3,'steen',1,13,1),(20,2,'goud',2,'hout',4,'steen',4,16,1),(21,2,'goud',3,'steen',4,'leem',2,14,1),(22,3,'goud',4,'hout',3,'steen',4,16,1),(23,3,'steen',4,'steen',1,'leem',3,17,1),(24,3,'goud',2,'leem',2,'steen',2,14,1),(25,3,'steen',1,'leem',3,'steen',3,15,1),(26,3,'leem',3,'steen',2,'hout',2,13,1),(27,3,'goud',1,'hout',1,'goud',1,12,1),(28,3,'goud',3,'hout',2,'leem',2,14,1);
 /*!40000 ALTER TABLE `HuttenLijst` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,10 +104,11 @@ CREATE TABLE `SpelerLijst` (
   `hut2` int(1) unsigned zerofill DEFAULT '0',
   `hut3` int(1) unsigned zerofill DEFAULT '0',
   `hut4` int(1) unsigned zerofill DEFAULT NULL,
+  `isAanBeurt` int(11) DEFAULT '0',
   PRIMARY KEY (`spelerID`),
   UNIQUE KEY `spelerId_UNIQUE` (`spelerID`),
   UNIQUE KEY `idx_highScores_spelerId` (`spelerID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +117,6 @@ CREATE TABLE `SpelerLijst` (
 
 LOCK TABLES `SpelerLijst` WRITE;
 /*!40000 ALTER TABLE `SpelerLijst` DISABLE KEYS */;
-INSERT INTO `SpelerLijst` VALUES (1,'a',0,0,0,0,0,0,0,0,12,0,0,0,0,0,4,0,1,0,1,0,0,NULL),(2,'b',0,0,0,0,0,0,0,0,12,0,0,0,0,0,5,0,0,0,0,0,0,NULL),(3,'c',0,0,0,0,0,0,0,0,12,0,0,0,0,0,5,0,0,0,0,0,0,NULL);
 /*!40000 ALTER TABLE `SpelerLijst` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -129,4 +129,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-13 11:09:44
+-- Dump completed on 2018-05-13 14:50:29

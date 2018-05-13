@@ -1,6 +1,8 @@
 package domein;
 
 import Persistentie.SpelerMapper;
+import gui.KaartPaneel;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,6 +11,7 @@ public class DomeinController
 
     private Spel spel;
     private SpelerMapper spelerMapper;
+    private KaartPaneel kaartPaneel;
     
     
     public DomeinController()
@@ -37,16 +40,19 @@ public class DomeinController
         spel.vulHuttenLijst4(7);
     }
     
-    
     public void vuldbLijsten(int[] lijst)
     {
-        
         spel.vulResourceLijst();
         spel.vulPlaatsLijst();
         spel.vulHuttenLijst1(lijst[0]);
         spel.vulHuttenLijst2(lijst[1]);
         spel.vulHuttenLijst3(lijst[2]);
         spel.vulHuttenLijst4(lijst[3]);
+    }
+    
+    public void vulSpelerLijst(int aantal)
+    {
+        spel.vulSpelerLijst(aantal);
     }
     public void geefSpelersResources()
     {
@@ -174,6 +180,21 @@ public class DomeinController
   public void setAantalSpelers(int aantalSpelers)
   {
       spel.setAantalSpelers(aantalSpelers);
+  }
+  
+  public void setKaartPaneel(KaartPaneel kaartpaneel)
+  {
+      this.kaartPaneel = kaartpaneel;
+  }
+  
+  public KaartPaneel getKaartpaneel()
+  {
+      return this.kaartPaneel;
+  }
+  
+  public void doeLichtAan(int kaart)
+  {
+      getKaartpaneel().doeLichtUit(kaart);
   }
       
 }

@@ -51,6 +51,7 @@ public class SpelApplicatiePaneel extends GridPane
         resourcePaneel = new SpelerResourcesPaneel(this, dc);
         mapSpel = new MapSpel(dc, this);
         kaartPaneel = new KaartPaneel(this, dc, mapSpel);
+        dc.setKaartPaneel(kaartPaneel);
         buildGui();
         System.out.println(dc.getSpelerLijst().get(0).getKleur());
     }

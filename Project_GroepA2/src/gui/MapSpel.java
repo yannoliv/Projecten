@@ -414,7 +414,7 @@ public class MapSpel extends GridPane
     
     private void bosClicked(ActionEvent ae)
     {
-            int plaatsNr = 0;
+        int plaatsNr = 0;
         //als het de einde van de ronde is
         //true => de speler kan zoveel klikken als hij wil
         //false => toont hij keuzestamleden en daarna volgende speler
@@ -1078,7 +1078,7 @@ public class MapSpel extends GridPane
     
      public void voorgrondButtons()
     {
-        dc.setHuidigeSpeler(0);
+        //dc.setHuidigeSpeler(0);
         //de coordinaten zijn (aa) ipv (0,0), dus (1,3) is button (bd)
         //buttons
         btn_bos = new Button(String.format("%d / 7", 7 - dc.getPlaatsenLijst().get(0).getAantalSpots()));

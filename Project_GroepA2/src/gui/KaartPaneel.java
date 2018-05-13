@@ -71,8 +71,16 @@ public class KaartPaneel extends HBox{
         VBox vResources = new VBox(5);
         vResources.setStyle("-fx-padding:20px 0 0 0");
         vResources.getChildren().addAll(resources1,resources2,resources3);
-        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));;
+        
+        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+        hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
+        
+        if(dc.getHuttenLijst1().get(0).getAantalSpots() == 1){
         kaart1.getChildren().addAll(hutImage, vResources);
+        }else{
+            kaart1.getChildren().addAll(hutImage_2, vResources);
+        }
+        
         
         //HUT 2
         resource1 = new Label ("" + dc.getHuttenLijst2().get(0).getAantalResource1());
@@ -89,8 +97,16 @@ public class KaartPaneel extends HBox{
         vResources = new VBox(5);
         vResources.setStyle("-fx-padding:20px 0 0 0");
         vResources.getChildren().addAll(resources1,resources2,resources3);
+        
         hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+        hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
+        
+        if(dc.getHuttenLijst2().get(1).getAantalSpots() == 1){
         kaart2.getChildren().addAll(hutImage, vResources);
+        }else{
+            kaart2.getChildren().addAll(hutImage_2, vResources);
+        }
+        
         
         //HUT 3
         resource1 = new Label ("" + dc.getHuttenLijst3().get(0).getAantalResource1());
@@ -107,8 +123,15 @@ public class KaartPaneel extends HBox{
         vResources = new VBox(5);
         vResources.setStyle("-fx-padding:20px 0 0 0");
         vResources.getChildren().addAll(resources1,resources2,resources3);
-        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));;
+        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+        hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
+        
+        if(dc.getHuttenLijst3().get(2).getAantalSpots() == 1){
         kaart3.getChildren().addAll(hutImage, vResources);
+        }else{
+            kaart3.getChildren().addAll(hutImage_2, vResources);
+        }
+        
         
         //HUT 4
         resource1 = new Label ("" + dc.getHuttenLijst4().get(0).getAantalResource1());
@@ -125,8 +148,16 @@ public class KaartPaneel extends HBox{
         vResources = new VBox(5);
         vResources.setStyle("-fx-padding:20px 0 0 0");
         vResources.getChildren().addAll(resources1,resources2,resources3);
-        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));;
+        
+        hutImage  = new ImageView(new Image(getClass().getResourceAsStream("/images/huts kopie.png")));
+        hutImage_2  = new ImageView(new Image(getClass().getResourceAsStream("/images/hut kopie 2.png")));
+        
+        if(dc.getHuttenLijst4().get(3).getAantalSpots() == 1){
         kaart4.getChildren().addAll(hutImage, vResources);
+        }else{
+            kaart4.getChildren().addAll(hutImage_2, vResources);
+        }
+        
         
         //kaarten toevoegen
         this.getChildren().addAll(kaart1, kaart2, kaart3, kaart4);

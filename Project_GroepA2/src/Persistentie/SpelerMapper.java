@@ -29,10 +29,11 @@ public class SpelerMapper
             resetSpelers.executeUpdate();
             
             for (int i = 0; i <  dc.getSpelerLijst().size();i++) {
-            PreparedStatement queryNieuweGebruiker = conn.prepareStatement("INSERT INTO SpelerLijst (spelerNaam, rHout, pHout, rLeem, pLeem, rSteen, pSteen, rGoud, pGoud, rVoedsel, pVoedsel, rAkkerbouw, pAkkerbouw, rGereedschap, pSmith, rStamleden, pHut, gebruikteStamleden, rPunten, hut1, hut2, hut3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement queryNieuweGebruiker = conn.prepareStatement("INSERT INTO SpelerLijst (spelerNaam, rHout, pHout, rLeem, pLeem, rSteen, pSteen, rGoud, pGoud, rVoedsel, pVoedsel, rAkkerbouw, pAkkerbouw, rGereedschap, pSmith, rStamleden, pHut, gebruikteStamleden, rPunten, hut1, hut2, hut3, hut4, isAanBeurt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             queryNieuweGebruiker.setString(1, dc.getSpelerLijst().get(i).getNaam());
             queryNieuweGebruiker.setInt(2, dc.getSpelerLijst().get(i).getResourceLijst().get(0).getAantal());
-            queryNieuweGebruiker.setInt(3, dc.getSpelerLijst().get(i).getAantalBos());
+            queryNieuweGebruiker.setInt(3, dc.getSpelerLijst().get(i).getAantalBos());    
+            //dc.getPlaatsenLijst().get(0).setAantalSpots(dc.getPlaatsenLijst().get(0).getAantalSpots() - dc.getSpelerLijst().get(i).getAantalBos());
             queryNieuweGebruiker.setInt(4, dc.getSpelerLijst().get(i).getResourceLijst().get(1).getAantal());
             queryNieuweGebruiker.setInt(5, dc.getSpelerLijst().get(i).getAantalLeemgroeve());
             queryNieuweGebruiker.setInt(6, dc.getSpelerLijst().get(i).getResourceLijst().get(2).getAantal());
@@ -52,6 +53,12 @@ public class SpelerMapper
             queryNieuweGebruiker.setInt(20, dc.getSpelerLijst().get(i).isPlaatsOpHutkaart1()?1:0);
             queryNieuweGebruiker.setInt(21, dc.getSpelerLijst().get(i).isPlaatsOpHutkaart2()?1:0);
             queryNieuweGebruiker.setInt(22, dc.getSpelerLijst().get(i).isPlaatsOpHutkaart3()?1:0);
+            queryNieuweGebruiker.setInt(23, dc.getSpelerLijst().get(i).isPlaatsOpHutkaart4()?1:0);
+            int spelerAanBeurt = dc.getHuidigeSpeler();
+            if (i == spelerAanBeurt){
+            queryNieuweGebruiker.setInt(24, 1);
+            }
+            else{queryNieuweGebruiker.setInt(24, 0);}
                 
             queryNieuweGebruiker.executeUpdate();
             }
@@ -167,16 +174,20 @@ public class SpelerMapper
         return spelerLijst;
     }
     
-    public void setSpelersFromDataBank(DomeinController dc)
+    public void setSpelFromDataBank(DomeinController dc)
     {
+        //eerst lijsten maken voor nullpointers te voorkomen
         List<Speler> spelerLijst= new ArrayList<>();
         dc.setSpelerLijst(spelerLijst);
+        
         try (Connection conn = DriverManager.getConnection(MapperConfig.JDBC_URL)) {
             
             //hutlijst count uitvoeren
             PreparedStatement queryHutten = conn.prepareStatement("SELECT COUNT(*) AS count FROM HuttenLijst GROUP BY hutLijstNr;");
             int[] hutLijstSize = new int[4];
             hutLijstSize = countHutLijsten(queryHutten);
+            
+            //lijsten vullen
             dc.vuldbLijsten(hutLijstSize);
             
             
@@ -190,15 +201,13 @@ public class SpelerMapper
             int count = countSpelers(dc, queryAlleGebruikers);
             
             //dit moet voor nulpointer te voorkomen
-            Speler speler;
-            for (int i = 0; i < count; i++) {
-                dc.getSpelerLijst().add(speler = new Speler(i));
-            }
+            dc.vulSpelerLijst(count);
             dc.geefSpelersResources();
-            //connectie om alle spelers van de databank te halen.
-            queryAlleGebruikers = conn.prepareStatement("SELECT * FROM SpelerLijst");
-            setSpelers(dc, queryAlleGebruikers);
             
+            
+            //connectie om alle spelers van de databank te halen.
+            queryAlleGebruikers = conn.prepareStatement("select * from SpelerLijst;");
+            setSpelers(dc, queryAlleGebruikers);
             
             
         } catch (SQLException ex) {
@@ -376,6 +385,8 @@ public class SpelerMapper
                     int hut2 = rs.getInt("hut2");
                     int hut3 = rs.getInt("hut3");
                     int hut4 = rs.getInt("hut4");
+                    int isAanBeurt = rs.getInt("isAanBeurt");
+                    
                     
                     dc.getSpelerLijst().get(teller).setNaam(naam);
                     dc.getSpelerLijst().get(teller).getResourceLijst().get(0).setAantal(rHout);
@@ -415,7 +426,48 @@ public class SpelerMapper
                         dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart3(true);
                         dc.getHuttenLijst4().get(0).setAantalSpots(0);
                     }else {
-                        dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart4(false);} 
+                        dc.getSpelerLijst().get(teller).setPlaatsOpHutkaart4(false);}
+                    
+                    
+                    //de speler aan beurt toestellen
+                    if (isAanBeurt == 1){
+                    dc.setHuidigeSpeler(teller);
+                    }
+                    
+                    //de plaatsen goed zetten
+                    dc.getPlaatsenLijst().get(0).setAantalSpots(dc.getPlaatsenLijst().get(0).getAantalSpots() - dc.getSpelerLijst().get(teller).getAantalBos());
+                    if (dc.getSpelerLijst().get(teller).getAantalBos() > 0) {
+                        dc.getSpelerLijst().get(teller).setPlaatsOpBos(true);
+                    }
+                    dc.getPlaatsenLijst().get(1).setAantalSpots(dc.getPlaatsenLijst().get(1).getAantalSpots() - dc.getSpelerLijst().get(teller).getAantalLeemgroeve());
+                    if (dc.getSpelerLijst().get(teller).getAantalLeemgroeve()> 0) {
+                        dc.getSpelerLijst().get(teller).setPlaatsOpLeemgroeve(true);
+                    }
+                    dc.getPlaatsenLijst().get(2).setAantalSpots(dc.getPlaatsenLijst().get(2).getAantalSpots() - dc.getSpelerLijst().get(teller).getAantalSteengroeve());
+                    if (dc.getSpelerLijst().get(teller).getAantalSteengroeve()> 0) {
+                        dc.getSpelerLijst().get(teller).setPlaatsOpSteengroeve(true);
+                    }
+                    dc.getPlaatsenLijst().get(3).setAantalSpots(dc.getPlaatsenLijst().get(3).getAantalSpots() - dc.getSpelerLijst().get(teller).getAantalGoudmijn());
+                    if (dc.getSpelerLijst().get(teller).getAantalGoudmijn() > 0) {
+                        dc.getSpelerLijst().get(teller).setPlaatsOpGoudmijn(true);
+                    }
+                    dc.getPlaatsenLijst().get(4).setAantalSpots(dc.getPlaatsenLijst().get(4).getAantalSpots() - dc.getSpelerLijst().get(teller).getAantalJachtgebied());
+                    if (dc.getSpelerLijst().get(teller).getAantalJachtgebied()> 0) {
+                        dc.getSpelerLijst().get(teller).setPlaatsOpJachtgebied(true);
+                    }
+                    dc.getPlaatsenLijst().get(5).setAantalSpots(dc.getPlaatsenLijst().get(5).getAantalSpots() - dc.getSpelerLijst().get(teller).getAantalAkkerbouw());
+                    if (dc.getSpelerLijst().get(teller).getAantalAkkerbouw() > 0) {
+                        dc.getSpelerLijst().get(teller).setPlaatsOpAkkerbouw(true);
+                    }
+                    dc.getPlaatsenLijst().get(6).setAantalSpots(dc.getPlaatsenLijst().get(6).getAantalSpots() - dc.getSpelerLijst().get(teller).getAantalSmith());
+                    if (dc.getSpelerLijst().get(teller).getAantalSmith()> 0) {
+                        dc.getSpelerLijst().get(teller).setPlaatsOpSmith(true);
+                    }
+                    dc.getPlaatsenLijst().get(7).setAantalSpots(dc.getPlaatsenLijst().get(7).getAantalSpots() - dc.getSpelerLijst().get(teller).getAantalHut());
+                    if (dc.getSpelerLijst().get(teller).getAantalHut()> 0) {
+                        dc.getSpelerLijst().get(teller).setPlaatsOpHut(true);
+                    }
+                    
                 }
             } catch (SQLException ex) {
         for (Throwable t : ex) {
