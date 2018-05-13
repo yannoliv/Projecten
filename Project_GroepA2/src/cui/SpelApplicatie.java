@@ -40,7 +40,7 @@ public class SpelApplicatie
             }
         }
         
-        dc.vulLijsten();
+        dc.vulLijsten(false);
         System.out.printf("%n%n" + dc.getToonSpelers());
         boolean eindeSpel = true;
         while(eindeSpel)
